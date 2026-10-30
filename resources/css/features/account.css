@@ -1,0 +1,899 @@
+.main-container:has(.wn-account-page),
+.main-container:has(.wn-auth-page) {
+    max-width: 100%;
+    background:
+        radial-gradient(ellipse at 10% 12%, rgba(201, 150, 77, 0.12), transparent 28rem),
+        radial-gradient(ellipse at 92% 78%, rgba(122, 74, 46, 0.08), transparent 27rem),
+        #faf8f3;
+}
+
+.wn-account-page,
+.wn-auth-page {
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 32px 24px 56px;
+    color: #2c211b;
+}
+
+.wn-account-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 240px;
+    overflow: hidden;
+    padding: clamp(28px, 5vw, 56px);
+    color: #fffaf1;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 34px;
+    background:
+        radial-gradient(ellipse at 78% 12%, rgba(218, 164, 83, 0.35), transparent 24rem),
+        linear-gradient(118deg, #21120c 5%, #43271b 58%, #6b432a 100%);
+    box-shadow: 0 28px 70px rgba(48, 29, 19, 0.18);
+}
+
+.wn-account-hero::before,
+.wn-account-hero::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+    border: 1px solid rgba(255, 243, 220, 0.12);
+    border-radius: 50%;
+}
+
+.wn-account-hero::before {
+    width: 340px;
+    height: 340px;
+    right: 8%;
+    top: -210px;
+}
+
+.wn-account-hero::after {
+    width: 240px;
+    height: 240px;
+    right: -42px;
+    bottom: -180px;
+}
+
+.wn-account-identity,
+.wn-account-welcome,
+.wn-account-stats {
+    position: relative;
+    z-index: 1;
+}
+
+.wn-account-welcome {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    align-self: stretch;
+}
+
+.wn-account-identity {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.wn-account-avatar {
+    display: grid;
+    flex: 0 0 76px;
+    width: 76px;
+    height: 76px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.46);
+    border-radius: 26px;
+    color: #382315;
+    background: linear-gradient(145deg, #f8e6c6, #dcb779);
+    box-shadow: 0 12px 30px rgba(15, 9, 6, 0.18), inset 0 1px rgba(255, 255, 255, 0.75);
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.wn-account-eyebrow,
+.wn-auth-eyebrow {
+    margin: 0 0 9px;
+    color: #d6ad70;
+    font-size: 0.69rem;
+    font-weight: 800;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+}
+
+.wn-account-title {
+    margin: 0;
+    color: #fffaf1;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.35rem);
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 1.05;
+}
+
+.wn-account-email {
+    margin: 11px 0 0;
+    color: rgba(255, 250, 241, 0.7);
+    font-size: 0.9rem;
+}
+
+.wn-account-hero-note {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+    color: rgba(255, 250, 241, 0.88);
+    font-size: 0.8rem;
+}
+
+.wn-account-note-icon {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.09);
+    color: #e5bd7f;
+    font-size: 1.05rem;
+}
+
+.wn-account-stats {
+    display: grid;
+    width: min(100%, 340px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.wn-account-stat {
+    display: grid;
+    min-height: 100px;
+    grid-template-columns: 32px 1fr;
+    align-content: center;
+    column-gap: 10px;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    background: rgba(255, 250, 241, 0.09);
+    backdrop-filter: blur(12px);
+}
+
+.wn-account-stat-icon {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    grid-row: span 2;
+    place-items: center;
+    border-radius: 11px;
+    background: rgba(255, 250, 241, 0.12);
+    color: #e7c894;
+    font-size: 1rem;
+}
+
+.wn-account-stat-value {
+    color: #fffaf1;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.wn-account-stat-label {
+    margin-top: 4px;
+    color: rgba(255, 250, 241, 0.68);
+    font-size: 0.67rem;
+    line-height: 1.3;
+}
+
+.wn-account-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 38px 2px 17px;
+}
+
+.wn-account-section-heading h2 {
+    margin: 0;
+    color: #2c211b;
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+}
+
+.wn-account-section-heading p {
+    margin: 5px 0 0;
+    color: #8c8177;
+    font-size: 0.8rem;
+}
+
+.wn-account-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.wn-account-shortcut {
+    position: relative;
+    display: flex;
+    min-height: 176px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px;
+    overflow: hidden;
+    border: 1px solid rgba(114, 81, 52, 0.1);
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 8px 26px rgba(50, 34, 24, 0.045);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.wn-account-shortcut:focus-visible {
+    outline: 3px solid rgba(187, 139, 82, 0.5);
+    outline-offset: 3px;
+}
+
+.wn-account-shortcut:hover {
+    transform: translateY(-4px);
+    border-color: rgba(173, 122, 58, 0.3);
+    box-shadow: 0 18px 34px rgba(50, 34, 24, 0.1);
+}
+
+.wn-account-shortcut-icon {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    margin-bottom: auto;
+    border-radius: 16px;
+    color: #75502f;
+    background: #f3eadc;
+    font-size: 1.35rem;
+}
+
+.wn-account-shortcut:nth-child(2) .wn-account-shortcut-icon {
+    color: #776044;
+    background: #efeee4;
+}
+
+.wn-account-shortcut:nth-child(3) .wn-account-shortcut-icon {
+    color: #54705f;
+    background: #e8efe7;
+}
+
+.wn-account-shortcut:nth-child(4) .wn-account-shortcut-icon {
+    color: #9c654e;
+    background: #f6e9e2;
+}
+
+.wn-account-shortcut-arrow {
+    position: absolute;
+    top: 21px;
+    right: 21px;
+    display: grid;
+    width: 31px;
+    height: 31px;
+    place-items: center;
+    border-radius: 10px;
+    background: #f8f5ef;
+    color: #8d755c;
+    font-size: 0.95rem;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.wn-account-shortcut:hover .wn-account-shortcut-arrow {
+    transform: translate(2px, -2px);
+    background: #f1e7d8;
+}
+
+.wn-account-shortcut strong {
+    display: block;
+    margin-top: 21px;
+    color: #33251c;
+    font-size: 0.96rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+}
+
+.wn-account-shortcut-description {
+    display: block;
+    margin-top: 6px;
+    color: #8a8076;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.wn-account-orders {
+    overflow: hidden;
+    border: 1px solid rgba(114, 81, 52, 0.1);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.86);
+    box-shadow: 0 12px 36px rgba(50, 34, 24, 0.055);
+}
+
+.wn-account-order {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 20px 23px;
+    border-top: 1px solid #f1eee9;
+    color: inherit;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.wn-account-order:first-child {
+    border-top: 0;
+}
+
+.wn-account-order:hover {
+    background: #fdfaf4;
+}
+
+.wn-account-order-shop {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 14px;
+}
+
+.wn-account-order-mark {
+    display: grid;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: 15px;
+    color: #795333;
+    background: #f4ecdf;
+    font-size: 1.1rem;
+}
+
+.wn-account-order-name {
+    display: block;
+    overflow: hidden;
+    color: #34271e;
+    font-size: 0.92rem;
+    font-weight: 750;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wn-account-order-meta {
+    display: block;
+    margin-top: 5px;
+    color: #958a7f;
+    font-size: 0.73rem;
+}
+
+.wn-account-order-total {
+    flex: 0 0 auto;
+    color: #6a452d;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-align: right;
+}
+
+.wn-account-order-status {
+    display: block;
+    margin-top: 5px;
+    color: #8b8075;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.wn-account-order-status.is-completed {
+    color: #477354;
+}
+
+.wn-account-order-status.is-cancelled {
+    color: #a45e50;
+}
+
+.wn-account-empty {
+    padding: 37px 24px;
+    color: #8c8177;
+    text-align: center;
+}
+
+.wn-account-empty i {
+    display: block;
+    margin-bottom: 10px;
+    color: #b38a58;
+    font-size: 2rem;
+}
+
+.wn-account-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.wn-account-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 20px;
+    border: 1px solid #eadbd2;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.58);
+    color: #875647;
+    font-size: 0.82rem;
+    font-weight: 700;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.wn-account-logout:hover {
+    border-color: #dfc3b5;
+    background: #fff;
+}
+
+.wn-auth-page {
+    display: grid;
+    min-height: min(820px, calc(100dvh - 44px));
+    grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
+    align-items: stretch;
+    gap: 22px;
+    padding-top: 28px;
+    padding-bottom: 48px;
+}
+
+.wn-auth-story {
+    position: relative;
+    display: flex;
+    min-height: 620px;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: clamp(30px, 5vw, 56px);
+    border-radius: 34px;
+    color: #fffaf1;
+    background:
+        radial-gradient(ellipse at 83% 18%, rgba(221, 175, 101, 0.42), transparent 23rem),
+        radial-gradient(ellipse at 15% 92%, rgba(143, 88, 52, 0.35), transparent 20rem),
+        linear-gradient(145deg, #1d100b, #412519 62%, #64402a);
+    box-shadow: 0 26px 62px rgba(48, 29, 19, 0.16);
+}
+
+.wn-auth-story::before,
+.wn-auth-story::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+    border: 1px solid rgba(255, 244, 224, 0.16);
+    border-radius: 50%;
+}
+
+.wn-auth-story::before {
+    width: 440px;
+    height: 440px;
+    right: -190px;
+    top: 27%;
+}
+
+.wn-auth-story::after {
+    width: 320px;
+    height: 320px;
+    right: -130px;
+    top: calc(27% + 60px);
+}
+
+.wn-auth-brand,
+.wn-auth-story-copy,
+.wn-auth-story-foot {
+    position: relative;
+    z-index: 1;
+}
+
+.wn-auth-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: #fffaf1;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    text-decoration: none;
+}
+
+.wn-auth-brand img {
+    width: 44px;
+    height: 44px;
+    padding: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.09);
+    object-fit: contain;
+}
+
+.wn-auth-story-copy {
+    max-width: 430px;
+    margin: auto 0;
+    padding: 60px 0;
+}
+
+.wn-auth-story-copy .wn-auth-eyebrow {
+    color: #dfbb83;
+}
+
+.wn-auth-story-title {
+    margin: 0;
+    color: #fffaf1;
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5.2vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.065em;
+    line-height: 0.99;
+}
+
+.wn-auth-story-title span {
+    color: #dfbb83;
+}
+
+.wn-auth-story-text {
+    max-width: 350px;
+    margin: 22px 0 0;
+    color: rgba(255, 250, 241, 0.74);
+    font-size: 0.96rem;
+    line-height: 1.8;
+}
+
+.wn-auth-story-foot {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: rgba(255, 250, 241, 0.65);
+    font-size: 0.77rem;
+}
+
+.wn-auth-story-foot i {
+    color: #dfbb83;
+    font-size: 1.15rem;
+}
+
+.wn-auth-card-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 3vw, 42px);
+}
+
+.wn-auth-card {
+    width: 100%;
+    max-width: 440px;
+}
+
+.wn-auth-card .wn-auth-eyebrow {
+    color: #9d713e;
+}
+
+.wn-auth-heading {
+    margin: 0;
+    color: #30231b;
+    font-family: var(--font-heading);
+    font-size: clamp(2.1rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.055em;
+    line-height: 1.08;
+}
+
+.wn-auth-description {
+    margin: 11px 0 0;
+    color: #877c72;
+    font-size: 0.88rem;
+    line-height: 1.7;
+}
+
+.wn-auth-form {
+    display: grid;
+    gap: 17px;
+    margin-top: 30px;
+}
+
+.wn-auth-field {
+    display: grid;
+    gap: 8px;
+    color: #55473c;
+    font-size: 0.79rem;
+    font-weight: 750;
+}
+
+.wn-auth-field input {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 15px;
+    border: 1px solid #e8e1d8;
+    border-radius: 15px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.84);
+    color: #30231b;
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.wn-auth-field input::placeholder {
+    color: #b1a69b;
+}
+
+.wn-auth-field input:focus {
+    border-color: #bb8b52;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(187, 139, 82, 0.13);
+}
+
+.wn-auth-password-hint {
+    color: #a3998f;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.wn-auth-remember {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #82776e;
+    font-size: 0.78rem;
+}
+
+.wn-auth-remember input {
+    width: 16px;
+    height: 16px;
+    accent-color: #6f4e37;
+}
+
+.wn-auth-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 13px 15px;
+    border: 1px solid #f1d7d2;
+    border-radius: 14px;
+    background: #fff4f1;
+    color: #9e5146;
+    font-size: 0.81rem;
+    line-height: 1.55;
+}
+
+.wn-auth-alert i {
+    padding-top: 1px;
+    font-size: 1rem;
+}
+
+.wn-auth-submit {
+    display: inline-flex;
+    min-height: 54px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+    border: 0;
+    border-radius: 16px;
+    background: linear-gradient(105deg, #28170f, #553521);
+    box-shadow: 0 10px 24px rgba(54, 32, 21, 0.18);
+    color: #fffaf1;
+    font-size: 0.87rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wn-auth-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(54, 32, 21, 0.23);
+}
+
+.wn-auth-submit:active {
+    transform: translateY(0);
+}
+
+.wn-auth-switch {
+    margin: 22px 0 0;
+    color: #81766d;
+    font-size: 0.81rem;
+    text-align: center;
+}
+
+.wn-auth-switch a,
+.wn-auth-owner-link a {
+    color: #80552f;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.wn-auth-switch a:hover,
+.wn-auth-owner-link a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.wn-auth-owner-link {
+    margin: 30px 0 0;
+    padding-top: 19px;
+    border-top: 1px solid #ece6de;
+    color: #a0958b;
+    font-size: 0.73rem;
+    text-align: center;
+}
+
+.wn-auth-page a:focus-visible,
+.wn-account-page a:focus-visible,
+.wn-auth-page button:focus-visible,
+.wn-account-page button:focus-visible {
+    outline: 3px solid rgba(187, 139, 82, 0.5);
+    outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+    .wn-account-page,
+    .wn-auth-page {
+        padding: 20px 16px 42px;
+    }
+
+    .wn-account-hero {
+        min-height: 0;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 22px;
+        padding: 28px 24px;
+        border-radius: 28px;
+    }
+
+    .wn-account-identity {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .wn-account-avatar {
+        flex-basis: 58px;
+        width: 58px;
+        height: 58px;
+        border-radius: 20px;
+        font-size: 1.6rem;
+    }
+
+    .wn-account-welcome {
+        width: 100%;
+    }
+
+    .wn-account-hero-note {
+        margin-top: 20px;
+    }
+
+    .wn-account-stats {
+        width: 100%;
+    }
+
+    .wn-account-stat {
+        min-height: 83px;
+        padding: 11px;
+        border-radius: 15px;
+    }
+
+    .wn-account-shortcuts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .wn-account-shortcut {
+        min-height: 158px;
+        padding: 17px;
+        border-radius: 21px;
+    }
+
+    .wn-account-shortcut-icon {
+        width: 43px;
+        height: 43px;
+        border-radius: 14px;
+    }
+
+    .wn-account-order {
+        padding: 16px;
+    }
+
+    .wn-auth-page {
+        display: block;
+        min-height: auto;
+        max-width: 540px;
+    }
+
+    .wn-auth-story {
+        min-height: 220px;
+        padding: 22px;
+        border-radius: 25px;
+    }
+
+    .wn-auth-brand img {
+        width: 38px;
+        height: 38px;
+    }
+
+    .wn-auth-story-copy {
+        padding: 32px 0 8px;
+    }
+
+    .wn-auth-story-title {
+        max-width: 440px;
+        font-size: clamp(2.1rem, 9vw, 3rem);
+    }
+
+    .wn-auth-story-text,
+    .wn-auth-story-foot {
+        display: none;
+    }
+
+    .wn-auth-card-wrap {
+        padding: 30px 6px 6px;
+    }
+}
+
+@media (max-width: 390px) {
+    .wn-account-page,
+    .wn-auth-page {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .wn-account-title {
+        font-size: 1.85rem;
+    }
+
+    .wn-account-hero {
+        padding: 23px 18px;
+    }
+
+    .wn-account-identity {
+        gap: 12px;
+    }
+
+    .wn-account-email {
+        overflow-wrap: anywhere;
+        font-size: 0.78rem;
+    }
+
+    .wn-account-stat-label {
+        font-size: 0.61rem;
+    }
+
+    .wn-account-shortcut {
+        padding: 14px;
+    }
+
+    .wn-account-shortcut-arrow {
+        top: 15px;
+        right: 15px;
+    }
+
+    .wn-account-order-name {
+        max-width: 150px;
+    }
+
+    .nav-label {
+        font-size: 8px !important;
+    }
+
+    .nav-item i {
+        font-size: 20px !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wn-account-shortcut,
+    .wn-account-order,
+    .wn-auth-submit,
+    .nav-item {
+        transition: none !important;
+    }
+}

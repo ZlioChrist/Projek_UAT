@@ -1,0 +1,2612 @@
+{
+  "exported_at": "2026-10-27T07:46:42.094Z",
+  "source": "public pages only",
+  "totals": {
+    "cafes": 70,
+    "roasteries": 6,
+    "information": 16,
+    "structured_cafe_products": 0,
+    "cafe_menu_images": 103,
+    "roastery_menu_images": 5,
+    "cafe_gallery_images": 235
+  },
+  "limitations": [
+    "Admin users and other private records are not included.",
+    "Menu photos are included; prices are exported only when the public page exposes structured product data."
+  ],
+  "fetch_errors": [],
+  "cafes": [
+    {
+      "type": "cafe",
+      "slug": "212-coffee-space",
+      "url": "https://wadahngopi.com/cafes/212-coffee-space",
+      "name": "212 COFFEE & SPACE",
+      "address": "Jl. Bung Tomo No.18c, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1469957761103-5594cd39769a?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Praesentium autem molestiae tempora pariatur similique beatae perspiciatis. Recusandae reiciendis error odit mollitia. Voluptate hic iure sed. Reprehenderit aliquid dignissimos omnis ducimus fugiat et.",
+      "paragraphs": [
+        "Praesentium autem molestiae tempora pariatur similique beatae perspiciatis. Recusandae reiciendis error odit mollitia. Voluptate hic iure sed. Reprehenderit aliquid dignissimos omnis ducimus fugiat et.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6232968648007"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "28-coffee-samarinda-arh",
+      "url": "https://wadahngopi.com/cafes/28-coffee-samarinda-arh",
+      "name": "28 Coffee Samarinda ARH",
+      "address": "Jl. Aris Rahman Hakim No.14, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Et unde rem aut iusto eveniet dolores. Error ut blanditiis qui eum. Voluptatum natus voluptatem accusamus quas omnis. Autem et et eos.",
+      "paragraphs": [
+        "Et unde rem aut iusto eveniet dolores. Error ut blanditiis qui eum. Voluptatum natus voluptatem accusamus quas omnis. Autem et et eos.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6235014880213"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "88-coffee",
+      "url": "https://wadahngopi.com/cafes/88-coffee",
+      "name": "88 Coffee",
+      "address": "Kawasan Citra Niaga, Jl. Aga Khan Award, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHQPA3VXEDZPJ29GPXS98T6S.jpg",
+      "facilities": [
+        "AC",
+        "Photobox",
+        "Playbox"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/wVGtEUnMbNTY6hyu6",
+      "social_links": [
+        "https://wa.me/6285191974320",
+        "https://www.instagram.com/88coffeesmd?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@88coffeesmd?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQPA3W0VY4TB1D04R86QYRN.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQPA3W3SBEM4MA3SD86AVVD.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQPA3W6V8905D11QJCE32YV.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQPA3W96N5CP526HP39TCG6.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQPA3WC88AARSJ37K7YBZ3Y.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQPA3VS5SG5N3FS34WW0M9M.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "althea-coffee-co",
+      "url": "https://wadahngopi.com/cafes/althea-coffee-co",
+      "name": "Althea Coffee & Co",
+      "address": "Jl. Perjuangan No.99, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Quasi molestias quisquam molestiae rerum. Soluta tempora commodi animi harum temporibus minus assumenda. Quis suscipit quia atque rerum vero quo. Illo et perferendis quia perspiciatis a vel quia beatae.",
+      "paragraphs": [
+        "Quasi molestias quisquam molestiae rerum. Soluta tempora commodi animi harum temporibus minus assumenda. Quis suscipit quia atque rerum vero quo. Illo et perferendis quia perspiciatis a vel quia beatae.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6224201139769"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "braga-samarinda",
+      "url": "https://wadahngopi.com/cafes/braga-samarinda",
+      "name": "Braga Samarinda",
+      "address": "Jl. A. Wahab Syahranie No.3 (Belakang Lotus Garden), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHZCTNN47G2SKQC3N7V10XJR.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Mushola"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/SStpdHkkFS4GBs899",
+      "social_links": [
+        "https://wa.me/6282343458915",
+        "https://www.instagram.com/braga.smr?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZCTNN89Q6CK2GGKDGFPHKW.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZCTNNB2229X8EMRS8VPJ2J.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZCTNNEZ9HV523194E499ZT.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZCTNNH6T4AS3RBWC9S71MR.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZCTNNJHSRYEJG5ZGZVAEPP.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KJ262052ZH10DSXA1K590RKA.png"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "bunga-kopi",
+      "url": "https://wadahngopi.com/cafes/bunga-kopi",
+      "name": "Bunga Kopi",
+      "address": "Jl. Wijaya Kusuma No. 5, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 01:30",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHQTK5Y55KSWQ32WFY6WB6DP.jpg",
+      "facilities": [
+        "Wifi",
+        "Indoor",
+        "Outdoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/ibFtCEMZHPHjdyBHA",
+      "social_links": [
+        "https://wa.me/6283812512293",
+        "https://www.instagram.com/bukopi_smd?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@bukopi_smd?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQTK5Y8SFRC0X8VYWAY02TH.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQTK5YAKMVJBZ5T6498QYZ7.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQTK5YDQ969G6WRNM3SPQ89.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQTK5YFN6NDNF036VBRJQ4H.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQTK5XNNA6AW0ENFASRX2JY.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQTK5XTWJTWWBZS587H3N43.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQTK5XXME0SFF2S9PD6ZTNG.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQTK5Y1B2FYRXXKNR39YFXE.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "coffee-co",
+      "url": "https://wadahngopi.com/cafes/coffee-co",
+      "name": "Coffee & Co",
+      "address": "Jl. Mulawarman No.171, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "In animi amet esse dicta aperiam ad. Aliquam nisi fugit qui soluta excepturi itaque. Id ea dolore nihil et adipisci natus in.",
+      "paragraphs": [
+        "In animi amet esse dicta aperiam ad. Aliquam nisi fugit qui soluta excepturi itaque. Id ea dolore nihil et adipisci natus in.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6258058566011"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "coffee-co-soul",
+      "url": "https://wadahngopi.com/cafes/coffee-co-soul",
+      "name": "Coffee & Co. - SOUL",
+      "address": "City Centrum Mall, 1st Floor, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Aut doloribus exercitationem sed ut. Incidunt eveniet voluptas velit voluptas. Doloribus quis voluptatem odio consequatur vitae. Sunt consequatur tenetur voluptatem fuga exercitationem neque.",
+      "paragraphs": [
+        "Aut doloribus exercitationem sed ut. Incidunt eveniet voluptas velit voluptas. Doloribus quis voluptatem odio consequatur vitae. Sunt consequatur tenetur voluptatem fuga exercitationem neque.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/62827372193"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "coffee-beat",
+      "url": "https://wadahngopi.com/cafes/coffee-beat",
+      "name": "Coffee Beat",
+      "address": "Jl. Juanda 2 (Persimpangan Jl. Wijaya Kusuma), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka 24 Jam",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGRYZT7CCWDDTZM35W6B97C8.jpg",
+      "facilities": [
+        "Wifi",
+        "Smart TV",
+        "Stopkontak"
+      ],
+      "description": "Coffee Beat adalah kedai kopi di Samarinda yang menggabungkan semangat ngopi dengan energi hiburan dan kebersamaan. Buka 24 jam, Coffee Beat menjadi tempat yang fleksibel—cocok untuk nongkrong santai, diskusi larut malam, hingga jadi spot nonton bareng dan live streaming event seru.",
+      "paragraphs": [
+        "Coffee Beat adalah kedai kopi di Samarinda yang menggabungkan semangat ngopi dengan energi hiburan dan kebersamaan. Buka 24 jam, Coffee Beat menjadi tempat yang fleksibel—cocok untuk nongkrong santai, diskusi larut malam, hingga jadi spot nonton bareng dan live streaming event seru.",
+        "Dengan konsep kasual dan ramah, Coffee Beat menghadirkan suasana yang hidup. Tak hanya menyajikan kopi dan minuman favorit, mereka juga aktif menghadirkan promo, kolaborasi brand, serta acara nonton bareng pertandingan besar yang bikin suasana makin ramai dan solid.",
+        "Coffee Beat hadir sebagai ruang kumpul tanpa batas waktu—tempat sahabat bertemu, cerita mengalir, dan momen seru tercipta kapan saja.",
+        "Coffee Beat — bukan cuma ngopi, tapi berbagi vibe dan beat dalam setiap momen."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/uh6E1VgRwivuRxJB7",
+      "social_links": [
+        "https://wa.me/6282250462008",
+        "https://www.instagram.com/coffeebeat.smr/"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS8D499Y99RMC0P6HHT4N7X.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS8D49C6929AMDRKSEPB099.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS8D49FQ7PWNJGA3N3DBXG5.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS8D49HFG62GB30GW7PBSB9.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS8D49MG98MVYKGBA1769TJ.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYJM0BY75ARK19WNA6VMRCE.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYJM0C1DCEA5B7K47T4726V.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYJM0C4YYGN4VTQC1C2QT65.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYJM0C7MCVQFQAFXHAPYJVN.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "double-dose",
+      "url": "https://wadahngopi.com/cafes/double-dose",
+      "name": "Double Dose",
+      "address": "Jl. Wijaya Kusuma VI, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KGZ39MCXR9YAAR3P3BG8DAXR.jpg",
+      "facilities": [
+        "Wifi",
+        "Outdoor",
+        "WC"
+      ],
+      "description": "DoubleDose.og adalah kedai kopi yang memaknai kopi lebih dari sekadar minuman—ia adalah bagian dari rutinitas, energi, dan gaya hidup. Dengan tagline yang terasa kuat, “Not just coffee, it’s a morning routine. Served from 8AM to late night.”, Double Dose hadir menemani dari pagi hingga malam.",
+      "paragraphs": [
+        "DoubleDose.og adalah kedai kopi yang memaknai kopi lebih dari sekadar minuman—ia adalah bagian dari rutinitas, energi, dan gaya hidup. Dengan tagline yang terasa kuat, “Not just coffee, it’s a morning routine. Served from 8AM to late night.”, Double Dose hadir menemani dari pagi hingga malam.",
+        "Double Dose cocok untuk morning starter sebelum beraktivitas maupun late night coffee session. terhubung dengan layanan pesan antar, memperluas jangkauan untuk penikmat kopi yang ingin menikmati tanpa harus keluar rumah."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/Xia2qZach5uBWbebA",
+      "social_links": [
+        "https://wa.me/6283127369936",
+        "https://www.instagram.com/doubledose.og?igsh=czg3MTBsMGIwY3hx"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ39MD3HDWG5WC616KRBZYN.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ39MD0ZGJJ5ZNY5STF6W21.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ39MD9YR1EZ8Q8D1BZSCY2.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ39MD6CTNE5AVZBC72682C.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ39MDB5STW2QD7M3YW8WDH.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGZ345MVDGT0Q9YR1F5Z2TW7.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGZ345MQEBMH1J1VYJZHKJ3H.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "frenco-coffee-eatery",
+      "url": "https://wadahngopi.com/cafes/frenco-coffee-eatery",
+      "name": "Fren.co Coffee & Eatery",
+      "address": "Jl. Siradj Salman No.6a, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Error ut a quasi maxime inventore debitis. Enim et excepturi omnis qui nulla itaque reiciendis. Est in aut impedit inventore sit adipisci perspiciatis.",
+      "paragraphs": [
+        "Error ut a quasi maxime inventore debitis. Enim et excepturi omnis qui nulla itaque reiciendis. Est in aut impedit inventore sit adipisci perspiciatis.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6260100742059"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "galuh-coffee",
+      "url": "https://wadahngopi.com/cafes/galuh-coffee",
+      "name": "Galuh Coffee",
+      "address": "Jl. Banggeris No.11, Kel. Karang Anyar, Kec. Sungai Kunjang, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KH5NXCKTS1DDSEG088Q2QBM8.jpg",
+      "facilities": [
+        "AC",
+        "Mushola",
+        "Smart TV"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/AoA67xErMszxJiY1A",
+      "social_links": [
+        "https://wa.me/6282350688892",
+        "https://www.instagram.com/galuh_coffee?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5NXCKX682DP37JQ8B5S850.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5NXCM06PPBCSAWNCF506FM.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5NXCM27MDVH8K32VRTCDZP.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5NXCM4D001RVKXN6D6RVC5.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5NXCM6GZ7VZSWXASSS2B0W.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH7VQJJ4NEAV6FNHM4BS371W.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQEWZXA5QZRWRGJDCNH3P2H.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "giras-kitchen-coffee",
+      "url": "https://wadahngopi.com/cafes/giras-kitchen-coffee",
+      "name": "Giras Kitchen & Coffee",
+      "address": "Jl. Siradj Salman No.1A, Kel. Sidodadi, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGYX2BMZFEV3NYECGP0GK72R.jpg",
+      "facilities": [
+        "Wifi",
+        "Mushola",
+        "AC"
+      ],
+      "description": "Giras adalah kitchen & coffee space di Samarinda yang bukan hanya fokus pada rasa, tapi juga pada komunitas dan pengalaman. Mengusung tagline *“Get Things Done, Stay For The Fun”*, Giras menghadirkan tempat yang nyaman untuk bekerja, meeting, hingga berkumpul santai bersama teman.",
+      "paragraphs": [
+        "Giras adalah kitchen & coffee space di Samarinda yang bukan hanya fokus pada rasa, tapi juga pada komunitas dan pengalaman. Mengusung tagline *“Get Things Done, Stay For The Fun”*, Giras menghadirkan tempat yang nyaman untuk bekerja, meeting, hingga berkumpul santai bersama teman.",
+        "Interiornya tampil hangat dan modern dengan sentuhan bata ekspos dan pencahayaan yang bersih, menciptakan suasana profesional namun tetap santai. Konsepnya terbuka untuk berbagai aktivitas—mulai dari nongkrong harian, sarapan, rice bowl dan snack, hingga event seperti baking class, flower arrangement workshop, dan gathering komunitas.",
+        "Giras bukan sekadar tempat ngopi. Ia adalah ruang produktif sekaligus ruang sosial—tempat ide dikerjakan, relasi dibangun, dan keseruan diciptakan dalam satu tempat yang hidup dan dinamis."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/B7KWK4KwSSDWe4kZ7",
+      "social_links": [
+        "https://wa.me/6282164546832",
+        "https://www.instagram.com/giras.smr/",
+        "https://www.tiktok.com/@giras.smr?_r=1&amp;_t=ZS-93fK4VmDDsH"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS9JCEPEY6KBG1CHBRVKERQ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYX2BN2K1CZ9R1PZTBP640M.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS9JCEK6C4X6NPC8Z8QK0W6.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS9JCES3EJ4NG3VN3QXAWP1.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS9JCEZ4Z0WKVA2CWE47V9H.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BKAFV0JNQ1KAXM8BA3C.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BKEXXZAFVT0YGYHND1F.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BKH8GMAAT548KF7WAVF.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BKNFD5XSEZ9E1GJ43WQ.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BKSTQYDCHYHNV53PG33.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BKZKC7QNCJGSZYMY2NW.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BM3NK54TT6QVVGR0P5J.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BM7JCPHCBRY8541Z4FA.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BMACEF2PHWXTHVBGYCB.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BMFM3VKCTGVXEFE9Z0C.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BMKTP4D1CJ0YFFG85P1.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BMP6QY4MWKT62PTVMEN.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYX2BMTV43AA5QKYFTFSH9M.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "gudang-kena",
+      "url": "https://wadahngopi.com/cafes/gudang-kena",
+      "name": "Gudang Kena",
+      "address": "Gg. Tridaya No.29, Kel. Air Putih, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHQRWSYXBMT7M63ZCCQX2ANX.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/yT7LbRZx7a7vCSHU8",
+      "social_links": [
+        "https://wa.me/6287778344868",
+        "https://www.instagram.com/kena_samarinda?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@gudangkena?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQRWSZ05R1Z8T3M1R4AG684.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQRWSZ490W3NVMGKRGCNM3F.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQRWSZ6YB97MD3MRHS4FJJM.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQRWSZ82JMCDXCRT31Y42KB.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQRWSZB4SZNDGZGGDJ2MFWT.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQRWSYQ9GT036RCETAF56SG.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "hexa-coffee-bar",
+      "url": "https://wadahngopi.com/cafes/hexa-coffee-bar",
+      "name": "Hexa Coffee Bar",
+      "address": "Jl. Anggur No. 51, Kel. Sidodadi, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KH314Z82ZK8Q46N3T2BXV8ZC.jpg",
+      "facilities": [
+        "Wifi",
+        "Outdoor",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/kr7pxU1D7qE7hrQj8",
+      "social_links": [
+        "https://wa.me/6282353088809",
+        "https://www.instagram.com/hexa.coffeebar?igsh=MW82dHFsMnVnNWJ5Ng==",
+        "https://www.tiktok.com/@hexa.coffeebar?_r=1&amp;_t=ZS-93mDXBj66zo"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH314Z84E1ENHXRRXJYJ8GCJ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH314Z87CHR1E8RM7VC0JWJE.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH314Z8AW5QB5TDZJWAQE8SE.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH314Z7ZPTHN669NFWZ4N5N5.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "hitam-manis-kedai-kopi",
+      "url": "https://wadahngopi.com/cafes/hitam-manis-kedai-kopi",
+      "name": "Hitam Manis Kedai Kopi",
+      "address": "Jl. Ir. H. Juanda No.25A, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 22:30",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHGWHSMDVC6GD1HWYM9WXQ1Q.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/kVcPnLhKxHrHiCEX8",
+      "social_links": [
+        "https://wa.me/6281258745240",
+        "https://www.instagram.com/hitammanissamarinda?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGWHSMF0R6D9TJSC3GDKNXJ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGWHSMJZKNK3QJEANM4G6AF.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGWHSMNXBG0DRQ66W6VEJKN.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGWHSMRK2P9Y59APVHH5Q2V.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGWHSMT0VSAJSWP9DBNTBZD.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHGWHSM4VQCCYF3PBJGHZBR6.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHGWHSM9D7EWZKY51M02P9R4.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "house-of-dondang",
+      "url": "https://wadahngopi.com/cafes/house-of-dondang",
+      "name": "House Of Dondang",
+      "address": "Jl. Juanda 1B No. 36A Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KH5N99GH7QZR9CHR0EYDJ0DJ.jpg",
+      "facilities": [
+        "Wifi",
+        "Barbershop",
+        "AC"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/e2eJmByAz1GVw1Dw5",
+      "social_links": [
+        "https://wa.me/6287877511714",
+        "https://www.instagram.com/houseofdondang?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5N99GK0ZX8N1TSZW2NAY02.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5N99GNWE4J7CKSP1QVN840.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5N99GQNBHVZMSP1JSTPBR6.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5N99GSMTZ05KH5FPEKXN8Z.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5N99GV71NFKBZCTJXW4HW7.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH5N99G9X3ND8ZBAYYKAF01Q.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH5N99GCVE9D6V2032EXGZJT.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQEZYM1J5DKJGC9KZ4YA77M.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "in-coffee",
+      "url": "https://wadahngopi.com/cafes/in-coffee",
+      "name": "IN Coffee",
+      "address": "Kawasan Citra Niaga, Jl. Niaga Utara, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHK1YDEJWWZZ9ZA3AXW6TCD6.jpg",
+      "facilities": [
+        "Semi Outdo...",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/sj3T6VVLqCGSmyhc9",
+      "social_links": [
+        "https://wa.me/6281255009682",
+        "https://www.instagram.com/incoffeesmr?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@incoffesmr?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHNA4CCSVYZKR8XFREN12DB1.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHNA4CCWX61R7KVNAT14WYHE.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHNA4CD0P27FXGN64J1BTBG9.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHNA4CCMZZ83ZB8CNEN7AFW2.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "jack-house-coffee-eatery",
+      "url": "https://wadahngopi.com/cafes/jack-house-coffee-eatery",
+      "name": "Jack House COFFEE & EATERY",
+      "address": "Jl. RE Martadinata No.06, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1445116572660-236099ec97a2?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Fugit aut in rerum aut molestias dolorem nemo velit. Doloremque velit aut voluptatem quibusdam dolores quis magnam maxime. Enim inventore sint ducimus quam hic mollitia nemo. Voluptatem cumque enim maxime reprehenderit.",
+      "paragraphs": [
+        "Fugit aut in rerum aut molestias dolorem nemo velit. Doloremque velit aut voluptatem quibusdam dolores quis magnam maxime. Enim inventore sint ducimus quam hic mollitia nemo. Voluptatem cumque enim maxime reprehenderit.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/62250337993"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "jakarta-loc-coffe-and-space",
+      "url": "https://wadahngopi.com/cafes/jakarta-loc-coffe-and-space",
+      "name": "Jakarta Loc. Coffe and Space",
+      "address": "Jl. Ar-Rasyidin 2, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1524350303359-29c67670732d?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Autem ut facere accusamus. Numquam a vitae voluptatibus numquam totam. Magni sit ab maiores dolore consequuntur. Eius ut sint laboriosam minus voluptas voluptatem natus.",
+      "paragraphs": [
+        "Autem ut facere accusamus. Numquam a vitae voluptatibus numquam totam. Magni sit ab maiores dolore consequuntur. Eius ut sint laboriosam minus voluptas voluptatem natus.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6256457164978"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kana-coffee",
+      "url": "https://wadahngopi.com/cafes/kana-coffee",
+      "name": "Kana Coffee",
+      "address": "Jl. Muso Salim No.53, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1551887139-12a8627f8059?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Suscipit neque temporibus aliquid omnis et. Qui expedita blanditiis et sint quae. Et suscipit accusantium voluptatem ut deleniti. Dicta omnis officia itaque quo rem debitis et molestiae.",
+      "paragraphs": [
+        "Suscipit neque temporibus aliquid omnis et. Qui expedita blanditiis et sint quae. Et suscipit accusantium voluptatem ut deleniti. Dicta omnis officia itaque quo rem debitis et molestiae.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/623760560583"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kedai-ak",
+      "url": "https://wadahngopi.com/cafes/kedai-ak",
+      "name": "Kedai AK",
+      "address": "Jl. KS Tubun Dalam No.38 b, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGPJ1R6SKJ44BACYEV5CTDFV.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/nEEKu2Gm5ufhYCMe8",
+      "social_links": [
+        "https://wa.me/62895704367830",
+        "https://www.instagram.com/_ak_coffee/"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGPJ1R6X7A6D8PCH4A8R65NZ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGPJ1R73CFC5K69HA37JWMN5.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH0AG59CR4FJP3HC41833E6B.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kelana-coffee",
+      "url": "https://wadahngopi.com/cafes/kelana-coffee",
+      "name": "Kelana Coffee",
+      "address": "Jl. Siradj Salman (Depan Pegadaian UPC Grand Mahakam), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 17:30",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHQV2BN7Y1655ENNVWX9HZPB.jpg",
+      "facilities": [
+        "Outdoor",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/ZTdgQwEyUnREve9H9",
+      "social_links": [
+        "https://wa.me/6281347559638",
+        "https://www.instagram.com/kelanacoffee.smr?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQV2BNA13F8TYDHN7DFFKR2.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQV2BNDRSZ05GQ6PR8DN0N0.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQV2BNG35YFGTAPFPGW6TKJ.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQV2BN2YXS9SSVA1RWVEGXM.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kong-djie-coffee-samarinda",
+      "url": "https://wadahngopi.com/cafes/kong-djie-coffee-samarinda",
+      "name": "Kong Djie Coffee Samarinda",
+      "address": "Jl. Niaga Utara, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1561047029-3000c6812c53?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Nisi ipsum sint ex illo ullam aspernatur ut. Earum aut debitis ex natus voluptatem iste. Voluptatum labore ipsam deleniti facilis. Aut rerum incidunt voluptatem fugiat.",
+      "paragraphs": [
+        "Nisi ipsum sint ex illo ullam aspernatur ut. Earum aut debitis ex natus voluptatem iste. Voluptatum labore ipsam deleniti facilis. Aut rerum incidunt voluptatem fugiat.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/626080109178"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kopa-kopi-samarinda",
+      "url": "https://wadahngopi.com/cafes/kopa-kopi-samarinda",
+      "name": "Kopa Kopi Samarinda",
+      "address": "Jl. Biola No.27, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHXCF1DVA3CF7WN4HG2BXYMX.jpg",
+      "facilities": [
+        "Wifi",
+        "Indoor",
+        "Outdoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/h5mPfoM3u25dFgXY6",
+      "social_links": [
+        "https://wa.me/6281253577773",
+        "https://www.instagram.com/kopakopismd?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCF1DX4FM00CQ2NJ0KH4TK.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCF1DZ1Y1G2HBA9GH0V72M.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCF1E27FN6RK4A0H92C6AK.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHXCF1DPYDE17G0T1AMFP28M.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kopi-komak",
+      "url": "https://wadahngopi.com/cafes/kopi-komak",
+      "name": "Kopi Komak",
+      "address": "Jl. Siradj Salman (Depan Toko Aribah Grosir), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:30",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHQSPAR2YDJFVC6DAZYJ2N4B.jpg",
+      "facilities": [
+        "Wifi",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/LqeMYNFLeagHBfep9",
+      "social_links": [
+        "https://wa.me/6281377765775",
+        "https://www.instagram.com/komak_co/?utm_source=ig_web_button_share_sheet"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQSPAR56YHV3YGXYKJ886SD.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQSPAR82S6ST1NDR4CB4K4C.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQSPARBB71QWGFPQJBH4GC2.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQSPAREAACCJSJ15JSHA13W.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQSPAQWM3PHAX52TQQ9NH2F.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kopi-maiko",
+      "url": "https://wadahngopi.com/cafes/kopi-maiko",
+      "name": "Kopi Maiko",
+      "address": "Jl. Kuranji No.1, Kel. Gn. Kelua, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KH7XXF9K4VKFBSQJA1312GYY.jpg",
+      "facilities": [
+        "Wifi",
+        "Outdoor",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/ELSsU2k5fd81v1wN9",
+      "social_links": [
+        "https://wa.me/6282262666566",
+        "https://www.instagram.com/kopimaiko?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@maikoishere?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7XXF9P262XEA0P40JWQ0QK.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7XXF9V07Q5MV8NAQWSRRW9.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7XXFA3NJ70T4JT81JYBM73.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7XXFA78NHRQVZ79EPRBGAH.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7XXFAD61M5MFDP8RD65F0N.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH7XXF9E8QW8HF73SP56TN15.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kopikumana",
+      "url": "https://wadahngopi.com/cafes/kopikumana",
+      "name": "Kopikumana",
+      "address": "Jl. Angklung No.06A, Kel. Dadi Mulya (Area Prevab Segiri), Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHX8EMEG5R870VZGNBZN1C58.jpg",
+      "facilities": [
+        "Wifi",
+        "Semi Outdo...",
+        "Mushola"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/QCYhVxoBdd9dMNbp8",
+      "social_links": [
+        "https://wa.me/6281347586603",
+        "https://www.instagram.com/kopikumana?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@kopikumanasamarinda?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX8EMEMWZSJDGEYDWSW0WC2.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX8EMERR1TM61HVGSB2T9Y6.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX8EMEWH2VE0WPPDKM1DE4Y.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX8EMF0PYBDKE97V8N08H1A.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX8EMF5QDW9VJX1H64MR0CH.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX8EMEBPSWQJN0DG1N5EH5V.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kopikumana-1",
+      "url": "https://wadahngopi.com/cafes/kopikumana-1",
+      "name": "KOPIKUMANA",
+      "address": "Jl. Angklung No.06A, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Atque facilis aliquam aut et voluptates aspernatur. Quaerat veritatis aut nemo fugit. Soluta quam molestiae repellendus officiis dicta. Possimus aspernatur inventore molestiae sint reprehenderit rerum porro.",
+      "paragraphs": [
+        "Atque facilis aliquam aut et voluptates aspernatur. Quaerat veritatis aut nemo fugit. Soluta quam molestiae repellendus officiis dicta. Possimus aspernatur inventore molestiae sint reprehenderit rerum porro.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6224639484021"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "kopiloa-indonesia",
+      "url": "https://wadahngopi.com/cafes/kopiloa-indonesia",
+      "name": "KopiLoa Indonesia",
+      "address": "Jl. Anggur No.12, Kel. Sidodadi, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KH30WTPPVK2SE1HY5W6197JG.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Rooftop"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/g3Fj55YAyHJX8Yys5",
+      "social_links": [
+        "https://wa.me/6285350295858",
+        "https://www.instagram.com/kopiloaindonesia?igsh=eXBqaHlkOTUyMno0",
+        "https://www.tiktok.com/@kopiloa_indonesia?_r=1&amp;_t=ZS-93mCiroTB5N"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH30WTPS3SCK51JXNM3GKWDR.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH30WTPWKQR2KYBWXPXBTQX2.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH30WTPZY9N0G2T5F0TSGCZ4.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH30WTQ2T03HZSZ39P8Y800F.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH30WTQ5TRCHZ8WB8H7X2EPY.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH30WTPJB2FF6JTQPVK9NVZ2.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "labricca-coffee",
+      "url": "https://wadahngopi.com/cafes/labricca-coffee",
+      "name": "Labricca Coffee",
+      "address": "Jl. Gerilya, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Voluptas voluptatum eum reiciendis harum et. Quod dolores ex voluptate. Velit et placeat quam voluptatem tempora illum et.",
+      "paragraphs": [
+        "Voluptas voluptatum eum reiciendis harum et. Quod dolores ex voluptate. Velit et placeat quam voluptatem tempora illum et.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6230929604674"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "laris-coffee",
+      "url": "https://wadahngopi.com/cafes/laris-coffee",
+      "name": "Laris Coffee",
+      "address": "Kawasan Citra Niaga, Jl. Aga Khan Award Blok G/16, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Buka Sampai 03:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHK1RQD95W65N1792HQ43QFB.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/ts45WrnceidJhiK2A",
+      "social_links": [
+        "https://www.instagram.com/laris.coffee?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN7BD8FE5HBQYAZVMCAAQJ8.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN7BD8J8863DKRJ4S06M035.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN7BD8M4C94JC1XTWA6DR5B.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN7BD8Q40CM8J2KHF0DQ75C.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN7BD8S4VEZJJV8CJJA4895.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN7BD8A94TG5X5PKPFS77C8.png",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN7BD8DD2GJZ4XPWP20F49S.png"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "lemutu-coffee",
+      "url": "https://wadahngopi.com/cafes/lemutu-coffee",
+      "name": "Lemutu Coffee",
+      "address": "Kawasan Citra Niaga (Depan Toko Aziz), Jl. Niaga Selatan, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Tutup Buka 17:30",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHK1PPV0VCCBXCCBP4VN8CBF.jpg",
+      "facilities": [
+        "Semi Outdo...",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6281356510875",
+        "https://www.instagram.com/lemutucoffeesmd?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN54R9YFNYMF7SRY1JERPJB.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN54RA11KN7T066FTBYCKP0.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN54RA37947RPP2C6JCN0QH.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN54RA6MZBAW21F7BZCVCQF.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN54RA95KTMW6H7XTBCPCP5.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN54R9V4G2VSFWAS0VJYWPX.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "made-in-coldbrew-1",
+      "url": "https://wadahngopi.com/cafes/made-in-coldbrew-1",
+      "name": "Made In Coldbrew",
+      "address": "Kawasan Citra Niaga, Jl. Aga Khan Award, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHK1HYDAJBM9282CMY877YFW.jpg",
+      "facilities": [
+        "AC",
+        "Indoor",
+        "Outdoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/1QpGvDzUVisf5QDv7",
+      "social_links": [
+        "https://wa.me/6282151380541",
+        "https://www.instagram.com/madeincoldbrew?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN4F8QKYDMYJE0E05K136KE.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN4F8QPXR47ACXSHSYSC3YQ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN4F8QRE6B40166SPN1RK9Q.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN4F8QTDA3R35MZZNFGAHYV.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN4F8QFEMXZ49MG5DHSYP6B.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "moveoncafe",
+      "url": "https://wadahngopi.com/cafes/moveoncafe",
+      "name": "MoveOnCafe",
+      "address": "Jl. Mawar No.S-15, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Iusto deserunt molestiae tempore explicabo perspiciatis voluptatem. Voluptatem amet aliquam nulla optio ullam. Nisi autem repudiandae repellat reiciendis facere sequi consequatur. Dolore maiores hic totam excepturi. Architecto dolore illo consequatur minus voluptas doloribus autem nihil.",
+      "paragraphs": [
+        "Iusto deserunt molestiae tempore explicabo perspiciatis voluptatem. Voluptatem amet aliquam nulla optio ullam. Nisi autem repudiandae repellat reiciendis facere sequi consequatur. Dolore maiores hic totam excepturi. Architecto dolore illo consequatur minus voluptas doloribus autem nihil.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/627327947821"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "my-coffee-samarinda",
+      "url": "https://wadahngopi.com/cafes/my-coffee-samarinda",
+      "name": "My Coffee Samarinda",
+      "address": "Jl. Biola No.29, Kel. Dadi Mulya (Sungai Pinang Luar), Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHZBQV7GHB8YEH7WN0QCXNW5.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "WFC"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/Mz2apSYenqYJ22SZA",
+      "social_links": [
+        "https://wa.me/6282241901144",
+        "https://www.instagram.com/mycoffeesamarinda?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZBQV7KNFYY31439KV9Y23W.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZBQV7PC0PJ4JKFZSZKSWA8.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZBQV7S6DJYRW0VD82ANR22.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZBQV7VQEPPREZRC1RHR219.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHZBQV7Y9V0VCQW3WNQB45WM.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KJ9QB7KCV2YPGFDW8A8JS2A5.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "ngopiboss",
+      "url": "https://wadahngopi.com/cafes/ngopiboss",
+      "name": "NgopiBoss",
+      "address": "Jl. Juanda 2 (Simpang Jl. Wijaya Kusuma), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka 24 Jam",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGZ0V27YF81T1JTPH2SKYJFP.jpg",
+      "facilities": [
+        "Wifi",
+        "Playstatio...",
+        "AC"
+      ],
+      "description": "Ngopi Boss Samarinda hadir sebagai kedai kopi dengan semangat sederhana tapi penuh makna: “Segelas Kopi, Seribu Relasi, Sejuta Inspirasi.” Mengusung konsep santai dan merakyat, Ngopi Boss menjadi tempat kumpul yang nyaman untuk semua kalangan.",
+      "paragraphs": [
+        "Ngopi Boss Samarinda hadir sebagai kedai kopi dengan semangat sederhana tapi penuh makna: “Segelas Kopi, Seribu Relasi, Sejuta Inspirasi.” Mengusung konsep santai dan merakyat, Ngopi Boss menjadi tempat kumpul yang nyaman untuk semua kalangan.",
+        "Tak hanya menyajikan kopi, Ngopi Boss juga menawarkan beragam camilan dan makanan ringan seperti aneka gorengan, chicken wings, hingga snack kekinian yang cocok jadi teman ngobrol. Porsinya pas, rasanya bersahabat, dan harganya ramah di kantong—membuat suasana nongkrong terasa ringan tanpa beban.",
+        "Tempat ini juga aktif menghadirkan promo menarik, menjadikannya spot yang hidup dan dinamis untuk berkumpul bersama teman, rekan kerja, atau komunitas.",
+        "Ngopi Boss Samarinda — tempat ngopi santai, bangun relasi, dan cari inspirasi, semua dimulai dari kopi."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/umyp9RVhKBPs16L17",
+      "social_links": [
+        "https://wa.me/6282340500300",
+        "https://www.instagram.com/ngopiboss.samarinda?igsh=YzVwdDVta2wwcDVu"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ0Z51V0NX01CWGS4C6NKV6.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ0Z51XWCY7FAB7KW35Y8B9.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ0Z51ZRB5TRMDATX3W67R0.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ0V28015E13TMTY4M11XYA.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ0Z521AQSX11CYP8AS9E79.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGZ0Z51PAXF31QJNZ88X6JV4.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "noctis-coffee",
+      "url": "https://wadahngopi.com/cafes/noctis-coffee",
+      "name": "Noctis Coffee",
+      "address": "Jl. KS Tubun Dalam, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KGRYQKAJQF0WXYKT5AC8E2PY.jpg",
+      "facilities": [
+        "Stopkontak",
+        "WC"
+      ],
+      "description": "Noctis Coffee adalah ruang ngopi yang terasa seperti masuk ke dunia urban art yang hidup. Setiap dindingnya dipenuhi mural penuh warna—coretan graffiti berlapis, tipografi tebal bergaya street art, hingga ilustrasi karakter yang ekspresif dan liar.",
+      "paragraphs": [
+        "Noctis Coffee adalah ruang ngopi yang terasa seperti masuk ke dunia urban art yang hidup. Setiap dindingnya dipenuhi mural penuh warna—coretan graffiti berlapis, tipografi tebal bergaya street art, hingga ilustrasi karakter yang ekspresif dan liar.",
+        "Nuansanya industrial, dan sedikit underground. Cat semprot bertabrakan dalam warna-warna neon, oranye, hijau, merah, dan biru elektrik yang menyala di bawah pencahayaan temaram. Tidak ada sudut yang benar-benar “kosong”—bahkan pilar, meja, hingga partisi ruangan ikut menjadi kanvas kreatif.",
+        "Televisi tabung klasik yang menyala dengan efek visual retro menambah kesan nostalgic 90-an, berpadu kontras dengan mural modern yang energik. Kursi dan meja berbentuk drum yang dicat graffiti memperkuat identitasnya sebagai ruang nongkrong yang bebas, ekspresif, dan tidak kaku.",
+        "Noctis Coffee bukan sekadar kedai kopi, tapi seperti galeri seni jalanan yang bisa kamu duduki, rasakan, dan hidupi. Tempat di mana kopi, seni, dan kultur urban bertemu dalam satu atmosfer yang berani, raw, dan penuh karakter."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/kWU6vgVw4BSqnHsp8",
+      "social_links": [
+        "https://wa.me/6281316110843",
+        "https://www.instagram.com/noctis.coffee?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@noctiscoffee?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS83Y570GGKTDN28NGX8PF0.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS83Y5B5CXBRZJPAAK5GX9K.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS83Y5EXCS1YJVRYMWNTFTE.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS83Y5JBTF24BKYGX5KGJX7.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS83Y5PPFSA2777M4QWZ5JB.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYHQ8YCDJB16A4ZFJ61S7NH.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "nomadic-coffee",
+      "url": "https://wadahngopi.com/cafes/nomadic-coffee",
+      "name": "Nomadic Coffee",
+      "address": "Kawasan Citra Niaga, Jl. Aga Khan Award No. 6, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Tutup Buka 17:30",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHK1WN628WX5CWRBB7T3A9H6.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/ZEdehyPoX4rjknkR9",
+      "social_links": [
+        "https://wa.me/6281350140875",
+        "https://www.instagram.com/nomadiccoffee.smr?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN9BHWE6AMGP63NEQ5PGN2T.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN9BHWGZP3MAPYST0F9BZ47.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN9BHWKV7XZT8YAW55Y703Y.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN9BHWPDBQ286C217GRKBTY.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN9BHWR77SHC1JCV7JFQ2X4.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN9BHWAZYZ4TPSVPTVEJ7PM.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "noona-house",
+      "url": "https://wadahngopi.com/cafes/noona-house",
+      "name": "Noona House",
+      "address": "Jl. Wijaya Kusuma 9A, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 01:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGYY33N49E96CF0B3ZEKA2T6.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/oyumWt3BUTxhbctQ6",
+      "social_links": [
+        "https://wa.me/628971864861",
+        "https://www.instagram.com/noonahouse.idn/",
+        "https://www.tiktok.com/@noonahouse.idn?_r=1&amp;_t=ZS-93fKPrV6XHF"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYY33N7DYG0VEH25F883B2D.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYY33NAGD86BQGKNQ9D81WC.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYY33NDCEAPAWCTZ99HGKBG.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYY33NFVEJ361V4FC60NGXP.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYY33NH165VE6BA62WAJPFD.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYY33N1CXDTWBA1K82Z2W4D.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYYBG9BWP0X23DXKCC3C6FW.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYYBG9DN6M0AY8T10157D7S.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "opini-kopi",
+      "url": "https://wadahngopi.com/cafes/opini-kopi",
+      "name": "Opini Kopi",
+      "address": "Jl. Delima, Kel. Sidodadi, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KH7X0BCD3BJSWFSYM0N4E3JR.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/EXmE8cLiVANSFT5GA",
+      "social_links": [
+        "https://wa.me/6282394477742",
+        "https://www.instagram.com/opinikopi.smr?igsh=ZTNqcnkyM3cxMG11"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7X0BCH2FMQNWFAH2H9S8PX.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7X0BCM3ZCQ5KDS89Q1F0XE.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7X0BCQVCP5PR2HEX75Q6N9.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7X0BCTSPFZKZWMDYKVJV3E.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7X0BCX402Y3FQVTEXYG3KA.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH7X0BC8G3RZZ70RZTNA4VTZ.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "part-coffee",
+      "url": "https://wadahngopi.com/cafes/part-coffee",
+      "name": "Part Coffee",
+      "address": "Jl. KH. Samanhudi, Gg. 3, Kel. Temindung Permai, Kec. Sungai Pinang, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KKDX4WJXVFQ0WMWWJZ6SWFCM.jpg",
+      "facilities": [
+        "Wifi",
+        "Live Music",
+        "Mushola"
+      ],
+      "description": "Menu akan tampil di sini setelah ditambahkan",
+      "paragraphs": [
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/xq3XsHpW8L91cBbK8",
+      "social_links": [
+        "https://wa.me/6285389070797",
+        "https://www.instagram.com/partcoffee.smr?igsh=MWdiNDNucGpzdGd2cg=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KKDX4WK2EJY223RRD4Q22Y9H.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KKDX4WK6M9WRM5XJN9HQ3ZQ0.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KKDX4WK87RW10ZNKNZY7G5EG.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KKDX4WKCW5SXQBRGNS61Z278.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KKDX4WKFB7RCH07W860P1NWJ.jpg"
+      ],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "penny-royal",
+      "url": "https://wadahngopi.com/cafes/penny-royal",
+      "name": "Penny Royal",
+      "address": "Jl. Wijaya Kusuma V No.49 (Belakang TK ITTIHAD), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KGYYYBC9X4GFEYRVER5JQHVB.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "Penny Royal lahir dari mimpi sederhana: memiliki ruang kopi sendiri yang tumbuh bersama cerita dan perjalanan. Nama Pennyroyal terinspirasi dari lagu milik Nirvana, sekaligus merujuk pada tanaman mint pennyroyal—simbol harapan agar usaha ini dapat tumbuh besar, segar, dan memberi energi bagi siapa pun yang datang.",
+      "paragraphs": [
+        "Penny Royal lahir dari mimpi sederhana: memiliki ruang kopi sendiri yang tumbuh bersama cerita dan perjalanan. Nama Pennyroyal terinspirasi dari lagu milik Nirvana, sekaligus merujuk pada tanaman mint pennyroyal—simbol harapan agar usaha ini dapat tumbuh besar, segar, dan memberi energi bagi siapa pun yang datang.",
+        "Konsepnya terasa personal dan reflektif. Dari awal pembangunan hingga menjadi ruang yang hidup, Pennyroyal membawa semangat “the beginning”—tentang proses, tentang keberanian memulai, dan tentang perjalanan yang dinikmati tahap demi tahap.",
+        "Bukan sekadar kedai kopi, Pennyroyal adalah ruang yang dibangun dari cerita. Tempat di mana setiap cangkir bukan hanya soal rasa, tetapi juga tentang mimpi, konsistensi, dan langkah kecil menuju sesuatu yang lebih besar."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/Z2GCRfF93iv4V3d38",
+      "social_links": [
+        "https://wa.me/6289689471279",
+        "https://www.instagram.com/pennyroyal.idn?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@pennyroyal.idn?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYYYBCC6NB3DJRGD7DE90DN.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYZ3TGFGN08MKBW5S76YZPP.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYYYBCFA70E7RQDCGBN75D7.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYZASNQ4BMPXYXJMVT19PSB.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYZDR14HB472039195RMPM7.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYYYBC66Z8MP39R074JE4BB.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "pluto-house-coffee",
+      "url": "https://wadahngopi.com/cafes/pluto-house-coffee",
+      "name": "Pluto House & Coffee",
+      "address": "Jl. Angklung, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHX7NMC01GJCXZY958NWT4A1.jpg",
+      "facilities": [
+        "Wifi",
+        "Photobox",
+        "Mushola"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/wkcbAr21E4SW8uNq5",
+      "social_links": [
+        "https://wa.me/6281347586603",
+        "https://www.instagram.com/pluto.houseandcoffee?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@plutohouseandcoffee?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX7NMC4C5YMXCCNWJDBTHTK.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX7NMC6D946ATVXVJ05479X.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX7NMC8YEGJ7D4QH9XJJRYR.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX7NMCB1C65K85XXD0ABXYD.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX7NMBEE61KT7M2WFW1KKQT.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX7NMBM3G98MEZ3FY688Z0Z.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX7NMBV7ERMWWF67V6DA2QB.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "pluto-house-and-coffee",
+      "url": "https://wadahngopi.com/cafes/pluto-house-and-coffee",
+      "name": "Pluto House And Coffee",
+      "address": "Jl. Angklung, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Saepe voluptate incidunt velit accusantium. Saepe harum facilis vel quas aspernatur totam. Blanditiis omnis doloribus et tenetur. Qui ut aut praesentium quis aut.",
+      "paragraphs": [
+        "Saepe voluptate incidunt velit accusantium. Saepe harum facilis vel quas aspernatur totam. Blanditiis omnis doloribus et tenetur. Qui ut aut praesentium quis aut.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/629842468754"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "pojok-juanda",
+      "url": "https://wadahngopi.com/cafes/pojok-juanda",
+      "name": "Pojok Juanda",
+      "address": "Jl. Juanda 4, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KH0EESRMNSJCZ1SY0SH96151.jpg",
+      "facilities": [
+        "Wifi",
+        "Outdoor",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/gw7GcbHXTJr33q496",
+      "social_links": [
+        "https://wa.me/6282153461150",
+        "https://www.instagram.com/pojok_juanda?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1MTTSA63FN1Q0MTHAFAYH.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1MTTW478SEY5K20BEF6XN.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1MTTZ9NJT8ACBVMV28VM3.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1MTV6ANQHXPPRH0PGJ7GW.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH0EESRQZN8M5AESWV8CBZFH.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHNBYB1XYVA8M5RE0GHGGWB1.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHNBYB20WQD5GX7TGSQAWJ0B.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHNBYB24ATGAAHJFPRPT30RS.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHNBYB280VGJ87Z70WJ13TBP.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "pot-o-koffie",
+      "url": "https://wadahngopi.com/cafes/pot-o-koffie",
+      "name": "Pot O Koffie",
+      "address": "Jl. Angklung No.4, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHX6X0TR358H9H21FBKB1E80.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/mFTWHNPqbhoKK2YK8",
+      "social_links": [
+        "https://wa.me/6289516247270",
+        "https://www.instagram.com/potokoffie.samarinda?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@potokoffie.samarinda?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX6X0TVN37F7RKQKJ0XVV53.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX6X0TYNMPPPQTXRE6YDDXD.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX6X0V123G89RSMV27X5EWT.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX6X0V4NAZH9CQ3RB5HYXHK.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHX6X0V7DSQR77JPD8K52R4G.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0S0HKMR3PJ7F546TMDF.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0SP5AFP3BSTWPW25JW8.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0SSJ5BFFRCTK64N5QJD.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0SVTHPNY4E9DW50TFDR.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0T21KEE956429Q6C4R1.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0T5R3C2Y6HS74P0GGPJ.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0T76F2V93CMQHBBQESH.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0TBMT1Z36BP7VDVTYR3.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0TDMJK2MJ9SYTPKFAG8.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0TGSKE47CSNK3GQQAV5.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0TJG3CS0T0B4576AJWT.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHX6X0TNRJHD8HYBXARA8MYF.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "pot-o-koffie-1",
+      "url": "https://wadahngopi.com/cafes/pot-o-koffie-1",
+      "name": "Pot O Koffie",
+      "address": "Jl. Angklung No.4, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Et ullam a et voluptates error voluptas. Odit voluptas similique id sunt non in hic. Sed sunt non maiores enim eaque sed enim non. Dignissimos totam incidunt voluptas et.",
+      "paragraphs": [
+        "Et ullam a et voluptates error voluptas. Odit voluptas similique id sunt non in hic. Sed sunt non maiores enim eaque sed enim non. Dignissimos totam incidunt voluptas et.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/62231944941"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "rapi-rapi-coffee",
+      "url": "https://wadahngopi.com/cafes/rapi-rapi-coffee",
+      "name": "Rapi Rapi Coffee",
+      "address": "Jl. Juanda 2 No.2, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGZ25NEM9MNDCENW82R8XPK9.jpg",
+      "facilities": [
+        "Wifi",
+        "Game Cente...",
+        "Mushola"
+      ],
+      "description": "Rapi Rapi Coffee adalah spot nongkrong kekinian di Samarinda yang menawarkan suasana santai dengan vibes yang hangat dan nyaman. Mengusung konsep tempat kumpul yang casual, Rapi Rapi jadi pilihan pas buat ngopi sore, nongkrong bareng teman, hingga menikmati me time dengan camilan favorit.",
+      "paragraphs": [
+        "Rapi Rapi Coffee adalah spot nongkrong kekinian di Samarinda yang menawarkan suasana santai dengan vibes yang hangat dan nyaman. Mengusung konsep tempat kumpul yang casual, Rapi Rapi jadi pilihan pas buat ngopi sore, nongkrong bareng teman, hingga menikmati me time dengan camilan favorit.",
+        "Berlokasi di kawasan Juanda (Masuk WK), tempat ini menghadirkan menu kekinian dengan harga yang ramah di kantong. Interiornya terasa cozy dengan nuansa hangat yang bikin betah berlama-lama. Cocok untuk obrolan ringan, diskusi santai, atau sekadar menikmati waktu tanpa terburu-buru.",
+        "Selain bisa dine-in, Rapi Rapi juga tersedia di layanan pesan antar, jadi tetap bisa menikmati menu andalannya dari rumah.",
+        "Rapi Rapi Cafe — tempat ngopi santai dengan rasa, suasana, dan momen yang sama-sama nikmat."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/ibPE4V1PBw1pQPPr5",
+      "social_links": [
+        "https://wa.me/6281349349892",
+        "https://www.instagram.com/_rapirapikopi?igsh=MW9zZXdqaW96Zm1teA=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ27D1QRV01217HEQ5JG5P3.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ25NEXTKKB7SWDEKTZW2D4.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ27D1VK3P4YDXKXZEKK33J.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ25NEV4YE0CYXHG25KKTCX.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ25NERK7K27SNNW4KS9BBG.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGZ234TK2XDK34QYK7WKSHSB.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGZ234TPAJBMQR6E8WPEK1MJ.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "rayas-caffe",
+      "url": "https://wadahngopi.com/cafes/rayas-caffe",
+      "name": "Raya's Caffe",
+      "address": "Jl. KS Tubun Dalam, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 05:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGRYERXHQ4RM832R4X56WSC2.jpg",
+      "facilities": [
+        "Wifi",
+        "Playstatio...",
+        "Smart TV"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/wjXbf6M5i5zGfFCYA",
+      "social_links": [
+        "https://wa.me/6282148772445",
+        "https://www.instagram.com/rayas_caffe_smd/",
+        "https://www.tiktok.com/@rayas.caffe?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS302NRRZQC1ZQDDK105B0R.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS302NW3H9HNB2VH2SEG63Z.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS302NZW1ATEK2H6XFQ4DRH.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS302P2GB39R86J0P2FNGV3.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS302P5HM2GE9W7KBQRMVAG.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYHDMZPAJRV0RDYH4B7KMP6.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "saqa-coffee-house-and-space",
+      "url": "https://wadahngopi.com/cafes/saqa-coffee-house-and-space",
+      "name": "Saqa Coffee House And Space",
+      "address": "Jl. Wijaya Kusuma 9A No.4, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Perspiciatis qui et nulla esse eos. Fuga iusto rem facilis et. Rem non est molestiae. Excepturi cumque quaerat commodi porro ut. Minus aliquid autem est voluptatibus.",
+      "paragraphs": [
+        "Perspiciatis qui et nulla esse eos. Fuga iusto rem facilis et. Rem non est molestiae. Excepturi cumque quaerat commodi porro ut. Minus aliquid autem est voluptatibus.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6260701071770"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "saqa-house-1",
+      "url": "https://wadahngopi.com/cafes/saqa-house-1",
+      "name": "Saqa House",
+      "address": "Jl. Wijaya Kusuma 9A No.4, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHX1WZAHZHRG4CDSBT9C131P.jpg",
+      "facilities": [
+        "Wifi",
+        "Mushola",
+        "Indoor"
+      ],
+      "description": "Saqa House menghadirkan pengalaman ngopi yang berbeda—bukan sekadar duduk dan menikmati kopi, tapi merasakan suasana yang membawa pulang kenangan. Mengusung konsep indoor room experience, setiap sudut ruangan dirancang dengan sentuhan retro dan klasik yang hangat dan penuh karakter.",
+      "paragraphs": [
+        "Saqa House menghadirkan pengalaman ngopi yang berbeda—bukan sekadar duduk dan menikmati kopi, tapi merasakan suasana yang membawa pulang kenangan. Mengusung konsep indoor room experience, setiap sudut ruangan dirancang dengan sentuhan retro dan klasik yang hangat dan penuh karakter.",
+        "Dari detail dekorasi, pilihan furnitur, hingga nuansa pencahayaan, semuanya menghadirkan atmosfer tempo dulu yang intim dan nyaman. Di sini, waktu terasa melambat, obrolan terasa lebih hangat, dan setiap tegukan kopi terasa lebih bermakna.",
+        "Saqa House bukan hanya tempat minum kopi. Ini adalah ruang untuk bernostalgia, berbagi cerita, dan menikmati momen dalam suasana klasik yang tak lekang oleh waktu."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/KP9TTh7nbKRcmvUx7",
+      "social_links": [
+        "https://wa.me/6282250412180",
+        "https://www.instagram.com/saqa.co/",
+        "https://www.tiktok.com/@saqa.co?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1ZPBYRXBEA13K0ZSHKAX1.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1ZPC00XQGRWQD673TE6AJ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1ZPC3ECR9AN823QQR6V0R.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1ZPC63FWVP5P9EEAN0Y5J.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGS1ZPC9TR70YB1GDC8PGNK6.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYGPGKCMGRXPR7CKNFAD3RM.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYGPGKGBEA66601D072W8PE.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "satukata-coffee-co",
+      "url": "https://wadahngopi.com/cafes/satukata-coffee-co",
+      "name": "satukata coffee co.",
+      "address": "Jl. Basuki Rahmat, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "A et quis sunt aut magni nostrum. Non qui molestias soluta praesentium et eos et. Voluptatum non et totam dolorum assumenda.",
+      "paragraphs": [
+        "A et quis sunt aut magni nostrum. Non qui molestias soluta praesentium et eos et. Voluptatum non et totam dolorum assumenda.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/622715663998"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "sebelas-coffee-tea",
+      "url": "https://wadahngopi.com/cafes/sebelas-coffee-tea",
+      "name": "Sebelas Coffee & Tea",
+      "address": "Jl. Rotan Semambu No.20 Rt.11, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KH5EJPWJ3H049MKJ4S6E8FEB.jpg",
+      "facilities": [
+        "Open Bar",
+        "Semi Outdo...",
+        "WC"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/qWDk5thLe2vHXmch7",
+      "social_links": [
+        "https://wa.me/6282351564411",
+        "https://www.instagram.com/sebelaskopi_?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5EJPWNENE7RDXBWSKYRE90.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5EJPWQ4ZMXXB1MDHBQ31TZ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5EJPWSR1AMYE8S46SCJMS6.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5EJPWW3GTZYDZ563HGF658.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5EJPWY7HDE0RRVRJMZPCYV.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH5EJPWEFPAQ9BVHAKW3PASP.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "sela-coffee-tea",
+      "url": "https://wadahngopi.com/cafes/sela-coffee-tea",
+      "name": "Sela Coffee & Tea",
+      "address": "Jl. Ir. H. Juanda, Kompleks Ruko Condoshop No. 2 (Kawasan Juanda), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 22:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGZ2HJVSNNEYH11M0T9RQNCE.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/od8PqgS7Az5m7gPN6",
+      "social_links": [
+        "https://wa.me/62811587882",
+        "https://www.instagram.com/sela.coffeeandtea?igsh=ZGpkZDRsbzRlemt6"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ2PB1F2FCT99GD9BAX7Y6H.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ2PB1JEKRNVM5NHZ5CP0WV.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ2PB1MG38H696SM1J8FTYA.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ2TNXYSSVCK9WQ18XR2E3P.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGZ2PB1S0FF57W3HCRHETX90.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGZ2HJVNJ0XR7WBV7HF0K13X.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "sevelcrowd-social-coffee",
+      "url": "https://wadahngopi.com/cafes/sevelcrowd-social-coffee",
+      "name": "SevelCrowd Social & Coffee",
+      "address": "Kawasan Citra Niaga, Jl. Niaga Selatan, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Buka Sampai 01:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHK1MAG57P2QRV0MDVYJ75TC.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Playbox"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/yeBHLVohMNVUykz6A",
+      "social_links": [
+        "https://wa.me/6283143479036",
+        "https://www.instagram.com/sevelcrowd?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@sevel.crowd?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN3TA8ND0V6NX6653CX5GGN.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN3TA8R6GX9N3E8QYX2QW3F.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN3TA8TN6YVF7TR8P7ATXNK.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN3TA8XZ0VZYZJXX8JYMMWV.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN3TA8ZB9GQ0WS9YT8771GQ.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN3TA8CPKCS3FGJ35CF1DZ5.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN3TA8HXZEHVX3P7TJGKQF7.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "siliwangi-coffee",
+      "url": "https://wadahngopi.com/cafes/siliwangi-coffee",
+      "name": "Siliwangi Coffee",
+      "address": "Jl. Wijaya Kusuma IV No.12, Kel. Air Putih, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHGV49Y12V82H6GXXY8FHS73.jpg",
+      "facilities": [
+        "Outdoor",
+        "WC",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/aTNhiEG9vDrytdts8",
+      "social_links": [
+        "https://wa.me/6282350688892",
+        "https://www.instagram.com/siliwangicoffee?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGV49Y3R3GYHG751KM1E6E7.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGVPE9R532GAS8QPWHEY8S4.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGVPE9VDJ5Z0971VG7RSQ9E.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGVPE9YPYTZJ9S83RPZ6Q01.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHGVPEA05EPYZ6HZAGA9MD18.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHGV49XREH8KMTFG8D00MQFR.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHGV49XXEYRBG86QQRSWHMBF.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "teras-roemah-samarinda",
+      "url": "https://wadahngopi.com/cafes/teras-roemah-samarinda",
+      "name": "Teras Roemah Samarinda",
+      "address": "Gg. Alam Indah, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1522012188892-24beb302783d?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Asperiores reprehenderit quos numquam tempore ut voluptate et. Molestias eum porro facere deserunt eius eveniet culpa. Itaque eaque a et.",
+      "paragraphs": [
+        "Asperiores reprehenderit quos numquam tempore ut voluptate et. Molestias eum porro facere deserunt eius eveniet culpa. Itaque eaque a et.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/62829467588"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "thehills-samarinda",
+      "url": "https://wadahngopi.com/cafes/thehills-samarinda",
+      "name": "TheHills Samarinda",
+      "address": "Jl. Ir. H. Juanda No. 8 (Area Puncak), Kel. Air Putih, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 02:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGPW35WJNCR7HFX57D2XR8GG.jpg",
+      "facilities": [
+        "Wifi",
+        "Stopkontak",
+        "Semi Outdo..."
+      ],
+      "description": "The Hills Samarinda adalah kedai kopi yang berdiri di atas bukit, menghadirkan suasana yang tenang dengan pemandangan kota dari ketinggian. Bukan hanya soal lokasi, posisi “di atas” ini menjadi simbol dari semangat dan filosofi yang kami pegang.",
+      "paragraphs": [
+        "The Hills Samarinda adalah kedai kopi yang berdiri di atas bukit, menghadirkan suasana yang tenang dengan pemandangan kota dari ketinggian. Bukan hanya soal lokasi, posisi “di atas” ini menjadi simbol dari semangat dan filosofi yang kami pegang.",
+        "Nama The Hills bermakna harapan dan doa — semoga kedai ini selalu berada di atas, terus berkembang, dan menjadi nomor satu di hati setiap pelanggan. Di setiap cangkir yang disajikan, ada komitmen untuk memberikan kualitas terbaik, pelayanan terbaik, dan pengalaman terbaik.",
+        "Datanglah, nikmati kopi dengan suasana yang berbeda, rasakan semangat untuk terus naik, terus tumbuh, dan terus menjadi lebih baik."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/xq3XsHpW8L91cBbK8",
+      "social_links": [
+        "https://wa.me/6282156372527",
+        "https://www.instagram.com/thehills.samarinda?igsh=d3Z3enUxaDdiOWFz"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGPW35WQ5GEXX9X78ESQ6ARA.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGPW35WXDPRHX3NH7JG4WJHT.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGRSFMH71RFBDAGMH2ZG4PB1.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGRSFMHBRB4HT3MTTQ2YQRK9.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGRSFMHFH72CT5QWMSKKPQ7Q.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHNBJC1BBR75PBFYP33A08R3.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGRT82ZV4G9KSG8Z8PMVN4SC.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGRTAMWD8JWWJN3K6W40AFXV.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGRTAMWHNMSHZ3FJNG88KJ0G.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGRTAMWMBW0Q1B9RE44YAAK1.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "titik-koma-antasari-samarinda",
+      "url": "https://wadahngopi.com/cafes/titik-koma-antasari-samarinda",
+      "name": "Titik Koma Antasari Samarinda",
+      "address": "Jl. P Antasari No.20 B, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1559925393-8be0ec41b504?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Ut aliquid fugit fuga. Inventore consectetur rem neque. Aliquid architecto odit rem voluptatem suscipit facere. Perspiciatis ex quidem cumque facilis velit aut assumenda.",
+      "paragraphs": [
+        "Ut aliquid fugit fuga. Inventore consectetur rem neque. Aliquid architecto odit rem voluptatem suscipit facere. Perspiciatis ex quidem cumque facilis velit aut assumenda.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/62214696894"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "toko-kopi-cerita",
+      "url": "https://wadahngopi.com/cafes/toko-kopi-cerita",
+      "name": "Toko Kopi Cerita",
+      "address": "Kawasan Citra Niaga, Jl. Aga Khan Award, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHK1TX6K88X1T1GJSD976EEW.jpg",
+      "facilities": [
+        "AC",
+        "Indoor",
+        "Outdoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/QLJjoLHRLqW7suxB6",
+      "social_links": [
+        "https://www.instagram.com/tokokopicerita?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN8NPE6HXB718E4W0FXRVMR.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN8NPE91XVNFZHP8FRJ8PDQ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN8NPED3MS8MWME1H7Y9XGJ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN8NPEGXDAGVQA5Z8SNS2DE.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHN8NPEKG902HRT8MWGT591W.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHN8NPE2QSEJ7CPGNQ9MK53R.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "tulodong-kopi",
+      "url": "https://wadahngopi.com/cafes/tulodong-kopi",
+      "name": "Tulodong Kopi",
+      "address": "Jl. Gitar No.32, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHXCXZRS90DMXVM60E2D4EV0.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "WFC"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/Vp4BqTd6xrEY1DCu9",
+      "social_links": [
+        "https://wa.me/6282191687727",
+        "https://www.instagram.com/tulodongkopi?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@tulodongkopi?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCXZRVMX2E6V7G7AT3E0Y4.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCXZRXTZ169SF3NP5T4VT2.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCXZRZ81CZXS4J2BGJZYCV.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCXZS2S4YE4FSCEQF9T52M.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHXCXZS4NKA0HWDBYTMR5G4X.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHXCXZRNWNH9DRAEGP977SHZ.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "unico-coffee",
+      "url": "https://wadahngopi.com/cafes/unico-coffee",
+      "name": "Unico Coffee",
+      "address": "Jl. Ir. H. Juanda No.80C, Sidodadi, Kec. Samarinda Ulu, Kota Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHJ91KMA9HA36P4S0P08NBGZ.jpg",
+      "facilities": [
+        "Wifi",
+        "Indoor",
+        "Outdoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/te8ViguG1ZH7TN1H8",
+      "social_links": [
+        "https://wa.me/6283110415260",
+        "https://www.instagram.com/unico.smr?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@unico.smr?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHJ91KMD3Z5WCGZ6GF574Q15.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHJ91KMGM1113PRF4A227XA0.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHJ91KMJ5MTE5VJZPAFEN324.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHJ91KMM56HYVTEPP49AYYYQ.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHJ91KMQ2BYZ8D1B4WBFXGY2.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHJ91KM0ANE77EZXX0WJ0434.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHJ91KM5ZH1D4VND25XKJE7Z.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHJ91KM855F8QV7GV589200G.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "vlorry-coffee",
+      "url": "https://wadahngopi.com/cafes/vlorry-coffee",
+      "name": "Vlorry Coffee",
+      "address": "Jl. Anggur No. 62, Kel. Sidodadi, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 01:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KH31K1XY0W9N14T2HP1H6HCF.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/xq3XsHpW8L91cBbK8",
+      "social_links": [
+        "https://wa.me/6285190469944",
+        "https://www.instagram.com/vlorry.coffee?igsh=ZXJjbG1nZW03eHFj",
+        "https://www.tiktok.com/@vlorry.coffe?_r=1&amp;_t=ZS-93nCrix1NU9"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH31S1V57KWFHPBR1MAG3VWF.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH31S1V7SKPE01WKF9TGN25X.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH31S1VJW74CW8B82EPRSCRB.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH31S1VNTEXVB1JRREJVVEBE.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH31S1VRM47JH7YBCM62JRDH.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH31K1XS9Q9DTV9D374T5YFJ.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "voorvo-food-drink",
+      "url": "https://wadahngopi.com/cafes/voorvo-food-drink",
+      "name": "Voorvo Food & Drink",
+      "address": "Jl. Durian, Kel. Gn. Kelua, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KH7YPAH39TXFEETPRQDKBZEX.jpg",
+      "facilities": [
+        "AC",
+        "Indoor",
+        "Outdoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/LUo8f4gAdtxwTGmq9",
+      "social_links": [
+        "https://wa.me/6285189546067",
+        "https://www.instagram.com/voorvo.foodrink?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7YPAH6YVKEGARN09TQW5Z8.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7YPAH9M957DX39PF6ZQYK2.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7YPAHCRYNE347TBVA3GKJ4.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7YPAHFENSVMXFBPH1SP8GG.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH7YPAHJ2A1ER7W2VZMXPHX7.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH7YPAGT1X0QRVN9FJQZNSHK.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KH7YPAGZE5HZ73ZANAY9DGB1.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "wakeup-social",
+      "url": "https://wadahngopi.com/cafes/wakeup-social",
+      "name": "WakeUp Social",
+      "address": "Jl. Ir. H. Juanda No.2, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka 24 Jam",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KGYK8WSR7439KTVESHFS9SPH.jpg",
+      "facilities": [
+        "Wifi",
+        "Indoor",
+        "Stopkontak"
+      ],
+      "description": "Wakeup Sosial bukan sekadar kedai kopi. Ia adalah ruang pertemuan, ruang cerita, dan ruang untuk kembali menyadari bahwa setiap hal besar selalu dimulai dari satu momen sederhana: saat saya dan kamu terbangun.",
+      "paragraphs": [
+        "Wakeup Sosial bukan sekadar kedai kopi. Ia adalah ruang pertemuan, ruang cerita, dan ruang untuk kembali menyadari bahwa setiap hal besar selalu dimulai dari satu momen sederhana: saat saya dan kamu terbangun.",
+        "Nama Wakeup Sosial lahir dari filosofi bahwa perubahan, percakapan, ide, bahkan mimpi—semuanya bermula dari kesadaran. Dari pagi yang dibuka dengan secangkir kopi. Dari obrolan kecil yang tumbuh menjadi gagasan besar. Dari pertemuan dua manusia yang sama-sama “bangun” dan siap memulai hari.",
+        "Di sini, kopi bukan hanya tentang rasa, tetapi tentang makna. Tentang energi yang menggerakkan, tentang koneksi yang tercipta, dan tentang semangat untuk terus melangkah.",
+        "Karena setiap hari adalah kesempatan baru.",
+        "Dan setiap kesempatan selalu dimulai dari kita yang terbangun."
+      ],
+      "google_maps_url": "https://maps.app.goo.gl/h37RBu9qYL67NdmV7",
+      "social_links": [
+        "https://wa.me/6282191574615",
+        "https://www.instagram.com/wakeup.social?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@wakeupsocial.smr?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KGQEGFXQZWVT985R4D6ZYXQ0.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGQEGFXRYB3DY047E1BHDDY1.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGRTVWZQGG71CG0G3Q97FB27.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGRTVWZS0VV4JSW04YV107MP.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KGYK8WSVMDN5Q60D45PA22Z2.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KGYK0TE2XX3EWGZKR5XTJTRJ.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "wedhang-suguhan",
+      "url": "https://wadahngopi.com/cafes/wedhang-suguhan",
+      "name": "Wedhang Suguhan",
+      "address": "Kawasan Citra Niaga, Jl. Niaga Selatan, Blok D, Kios No. 4, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "Tutup Buka 17:00",
+      "is_open": false,
+      "image": "https://wadahngopi.com/storage/cafes/01KHQQ2W20Y4XA0PWXNZCGCYFG.jpg",
+      "facilities": [
+        "Outdoor",
+        "Stopkontak"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/6287825793312",
+        "https://www.instagram.com/wedhang_suguhan?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQ2W23PZ37504BMGZ52TVK.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQ2W26FYMD90S9FG9JSJRF.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQ2W29YY57646EFFQDTQT4.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQ2W2BYRVNSG5H9DCRNCM1.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQ2W2EMWRQJE93PDW1DBWF.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQQ2W1WBMAP6PK2ENE4WMTS.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "widi-coffee",
+      "url": "https://wadahngopi.com/cafes/widi-coffee",
+      "name": "Widi Coffee",
+      "address": "Jl. Juanda 4 No. 99, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KHQQS7FM5VK8ZHK45CFDST6M.jpg",
+      "facilities": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/7bVjFZPCa68iVNYz7",
+      "social_links": [
+        "https://www.instagram.com/widicoffee?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.tiktok.com/@widicoffee?is_from_webapp=1&amp;sender_device=pc"
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQS7FQ73QFVD9H43KWBD57.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQS7FSZGG59KW1GM1B2RYK.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQS7FV3HMJJY796Z8V5Z8V.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQS7FZ82C3XYTEVWXFXPAY.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KHQQS7G13MPF85Z4WEYYAWTJ.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQQS7FJNK9HX4EKWVJ2XGNM.jpg",
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQQS7FKVN5PH0VP7XZE2YWA.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "witness",
+      "url": "https://wadahngopi.com/cafes/witness",
+      "name": "Witness",
+      "address": "Jl. Juanda 7, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "https://wadahngopi.com/storage/cafes/01KH5MCAH6FBP6VX3DVAM9B73Y.jpg",
+      "facilities": [
+        "AC",
+        "Indoor",
+        "Outdoor"
+      ],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/nfZj8y2okZtL3ksi9",
+      "social_links": [
+        "https://wa.me/6282158868568",
+        "https://www.instagram.com/witness.east?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5MCAHATP7BRJ2ZFYJFXT56.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5MCAHD7H5AF62TEAR8EEEN.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5MCAHHQ2MFEAY2DZZ87S98.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5MCAHKDEHZD2DN09DSETXP.jpg",
+        "https://wadahngopi.com/storage/cafes/gallery/01KH5MCAHNMQ5JKS37X7X02TGY.jpg"
+      ],
+      "menu_images": [
+        "https://wadahngopi.com/storage/cafes/menu-gallery/01KHQAEKBRF9DXJ8PR0T4567C4.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "cafe",
+      "slug": "you-coffee-and-brunch",
+      "url": "https://wadahngopi.com/cafes/you-coffee-and-brunch",
+      "name": "YOU Coffee and Brunch",
+      "address": "Jl. Gamelan No.2, Samarinda",
+      "status": "Tutup",
+      "is_open": false,
+      "image": "https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&q=80&w=800",
+      "facilities": [],
+      "description": "Nisi animi dicta ipsum et beatae quia. Assumenda et reiciendis quia ad facere et. Suscipit nihil quisquam et quia nihil consequatur nihil ut. Sed libero neque aspernatur similique. Quos quas est alias nisi sit.",
+      "paragraphs": [
+        "Nisi animi dicta ipsum et beatae quia. Assumenda et reiciendis quia ad facere et. Suscipit nihil quisquam et quia nihil consequatur nihil ut. Sed libero neque aspernatur similique. Quos quas est alias nisi sit.",
+        "Menu akan tampil di sini setelah ditambahkan"
+      ],
+      "google_maps_url": "",
+      "social_links": [
+        "https://wa.me/624925150707"
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    }
+  ],
+  "roasteries": [
+    {
+      "type": "roastery",
+      "slug": "angata-roastery",
+      "url": "https://wadahngopi.com/roastery/angata-roastery",
+      "name": "An.gata Roastery",
+      "address": "Selili, Kec. Samarinda Ilir, Samarinda.",
+      "status": "Tutup Buka 16:00",
+      "is_open": false,
+      "image": "/storage/roasteries/01KH8CBTX49QRNGMS1497ZPWMM.jpg",
+      "facilities": [],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/6pLuB4ZgKp4vcpKz7",
+      "social_links": [
+        "https://wa.me/6282227152888",
+        "https://www.instagram.com/an.gataroastery?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "roastery",
+      "slug": "konus-roastery",
+      "url": "https://wadahngopi.com/roastery/konus-roastery",
+      "name": "Konus Roastery",
+      "address": "Jl. Kuranji, Kel. Gn. Kelua, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka Sampai 00:00",
+      "is_open": true,
+      "image": "/storage/roasteries/01KH8C58ABYBSQNCZCT4DTH5RE.jpg",
+      "facilities": [],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/k62di3WrhAxHa32D8",
+      "social_links": [
+        "https://wa.me/628115088088",
+        "https://www.instagram.com/konusroastery?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "roastery",
+      "slug": "nature-coffee-roastery",
+      "url": "https://wadahngopi.com/roastery/nature-coffee-roastery",
+      "name": "Nature Coffee & Roastery",
+      "address": "Jl. Pemuda 2 No.84, Kel. Temindung Permai, Kec. Sungai Pinang, Samarinda.",
+      "status": "Buka Sampai 23:00",
+      "is_open": true,
+      "image": "/storage/roasteries/01KHZ8TW7AS96A5ATEV4M1DHYT.jpg",
+      "facilities": [],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/m2Bb17XAYZmBikVW8",
+      "social_links": [
+        "https://www.instagram.com/naturecoffeeroastery?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "roastery",
+      "slug": "triton-coffee-roaster",
+      "url": "https://wadahngopi.com/roastery/triton-coffee-roaster",
+      "name": "Triton Coffee Roaster",
+      "address": "Jl. Ir. Sutami No. A/8, Karang Asam Ulu, Kec. Sungai Kunjang, Samarinda.",
+      "status": "Buka 24 Jam",
+      "is_open": true,
+      "image": "/storage/roasteries/01KHZ8T0KFZQ5VWPF3M9AVGZ3T.jpg",
+      "facilities": [],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/gaZwLi86CQ5y4wMZ9",
+      "social_links": [
+        "https://www.instagram.com/tritoncoffeeroaster?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [],
+      "menu_images": [],
+      "products": []
+    },
+    {
+      "type": "roastery",
+      "slug": "kopi-samarinda",
+      "url": "https://wadahngopi.com/roastery/kopi-samarinda",
+      "name": "Kopi Samarinda",
+      "address": "Perumahan Garden Hills, Jl. A. Wahab Syahranie Blok Gardenia 4, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "Buka 24 Jam",
+      "is_open": true,
+      "image": "/storage/roasteries/01KH8BYQBGW0E2NDCS5NCYSV7K.jpg",
+      "facilities": [],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/5N9aM6j6J8be27Yq9",
+      "social_links": [
+        "https://wa.me/628115536900",
+        "https://www.instagram.com/kopisamarinda_?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==",
+        "https://www.facebook.com/kopinyasamarinda"
+      ],
+      "gallery_images": [],
+      "menu_images": [
+        "https://wadahngopi.com/storage/roasteries/menus/01KHZ7JZKRARK15QRG72NXHTG7.jpg",
+        "https://wadahngopi.com/storage/roasteries/menus/01KHZ7JZKTSQFWJZ4Z381Y2MJ8.jpg",
+        "https://wadahngopi.com/storage/roasteries/menus/01KHZ7JZKWE28CRD7MJS8EV6MN.jpg",
+        "https://wadahngopi.com/storage/roasteries/menus/01KHZ7JZKXJBBZ893ZWD6W7E7P.jpg"
+      ],
+      "products": []
+    },
+    {
+      "type": "roastery",
+      "slug": "floorforfloor",
+      "url": "https://wadahngopi.com/roastery/floorforfloor",
+      "name": "FloorForFloor",
+      "address": "Jl. Ery Suparjan, Kel. Sempaja Selatan, Kec. Samarinda Utara, Samarinda.",
+      "status": "Buka Sampai 22:00",
+      "is_open": true,
+      "image": "/storage/roasteries/01KH8B97C01X7Y9H8TMC75TMWB.jpg",
+      "facilities": [],
+      "description": "",
+      "paragraphs": [],
+      "google_maps_url": "https://maps.app.goo.gl/dPWJaGs5sD1BKdxL8",
+      "social_links": [
+        "https://www.instagram.com/floorforfloor?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw=="
+      ],
+      "gallery_images": [],
+      "menu_images": [
+        "https://wadahngopi.com/storage/roasteries/menus/01KH8DJG5YEBY2JQGCHH4P89G6.jpg"
+      ],
+      "products": []
+    }
+  ],
+  "information": [
+    {
+      "slug": "navigasi-rasa-panduan-lengkap-mengenal-karakteristik-arabica-robusta-liberica-dan-excelsa",
+      "url": "https://wadahngopi.com/information/navigasi-rasa-panduan-lengkap-mengenal-karakteristik-arabica-robusta-liberica-dan-excelsa",
+      "title": "Navigasi Rasa: Panduan Lengkap Mengenal Karakteristik Arabica, Robusta, Liberica, dan Excelsa",
+      "category": "Edukasi",
+      "summary": "Kenali perbedaan mendasar antara empat jenis kopi utama yang mendominasi industri global. Dari kompleksitas rasa Arabica hingga aroma unik Liberica, pahami karakteristik setiap biji untuk meningkatkan standar seduhan dan bisnis kopi Anda.",
+      "published_at": "22 Feb 2026",
+      "views": 108,
+      "image": "https://wadahngopi.com/storage/information/01KJ212AK5NGDX4X4C6XRRH540.png",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ212AK5NGDX4X4C6XRRH540.png",
+        "https://wadahngopi.com/storage/lDIJgwExFAFAGWbLfoXQ7LXkomfOKvsngSkQjygh.png"
+      ],
+      "content_html": "\n                    <p>Pemahaman mengenai varietas tanaman kopi adalah fondasi utama bagi siapa pun yang ingin menyelami dunia kopi lebih dalam, baik sebagai penikmat maupun pelaku usaha. Rasa yang muncul di dalam cangkir bukanlah sebuah kebetulan, melainkan jejak genetika dan pengaruh lingkungan tempat pohon tersebut tumbuh. Di Indonesia, kita memiliki akses yang luar biasa terhadap berbagai jenis kopi. Berikut adalah ulasan mendalam mengenai empat jenis kopi utama yang mendefinisikan standar industri saat ini:</p>\n\n<p><strong>1. Kopi Arabica: Kompleksitas di Dataran Tinggi</strong> Arabica merupakan spesies yang paling dihargai dalam pasar <em>specialty coffee</em>. Tanaman ini tumbuh optimal di dataran tinggi, biasanya di atas 1.000 mdpl. Proses pematangan yang lambat di suhu sejuk menciptakan kepadatan biji yang menghasilkan spektrum rasa yang sangat luas. Karakter utamanya adalah tingkat keasaman (<em>acidity</em>) yang cerah, aroma bunga, dan catatan rasa buah-buahan. Arabica memiliki kadar gula yang tinggi namun kafein yang rendah (1.2% - 1.5%).</p>\n\n<p><strong>2. Kopi Robusta: Pilar Kekuatan dan Ketangguhan</strong> Sesuai namanya, Robusta dikenal karena daya tahannya yang luar biasa terhadap hama dan suhu panas. Tumbuh di dataran rendah (di bawah 800 mdpl), spesies ini menjadi tulang punggung industri kopi komersial. Robusta tidak mengejar keasaman, melainkan menonjolkan <em>body</em> yang tebal dan rasa pahit yang tegas dengan aroma kacang-kacangan atau cokelat gelap. Kadar kafeinnya mencapai 2.2% - 2.7%, menjadikannya pilihan utama untuk campuran espresso dan kopi susu.</p>\n\n<p><strong>3. Kopi Liberica: Warisan Eksotis yang Unik</strong> Liberica memiliki karakteristik fisik yang sangat mencolok dengan ukuran pohon mencapai 20 meter dan biji yang paling besar. Di Indonesia, ia sering disebut sebagai \"Kopi Nangka\" karena aromanya yang sangat tajam menyerupai buah nangka matang. Profil rasanya sangat unik, memadukan kepahitan yang pekat dengan sensasi <em>smoky</em> (asap) dan aroma kayu yang tidak ditemukan pada spesies lain.</p>\n\n<p><strong>4. Kopi Excelsa: Dimensi Rasa yang Tersembunyi</strong> Walaupun secara teknis merupakan bagian dari keluarga Liberica, Excelsa memiliki kepribadian rasa yang kontras. Ia menawarkan kedalaman rasa yang kuat (<em>bold</em>) khas kopi dataran rendah, namun disertai dengan tingkat keasaman buah yang tajam mirip ceri atau beri. Karena aromanya yang kuat, Excelsa sering dimanfaatkan sebagai \"komponen rahasia\" dalam racikan <em>house blend</em> untuk menambah kompleksitas aroma.<a href=\"https://wadahngopi.com/storage/lDIJgwExFAFAGWbLfoXQ7LXkomfOKvsngSkQjygh.png\"><img src=\"https://wadahngopi.com/storage/lDIJgwExFAFAGWbLfoXQ7LXkomfOKvsngSkQjygh.png\" width=\"1078\" height=\"540\" alt=\"lDIJgwExFAFAGWbLfoXQ7LXkomfOKvsngSkQjygh.png\">Jenis Jenis Kopi</a></p>\n                "
+    },
+    {
+      "slug": "paket-bukber-widi-coffee-menu-spesial-ramadhan-mulai-65k-lengkap-dengan-takjil-unik",
+      "url": "https://wadahngopi.com/information/paket-bukber-widi-coffee-menu-spesial-ramadhan-mulai-65k-lengkap-dengan-takjil-unik",
+      "title": "Paket Bukber Widi Coffee: Menu Spesial Ramadhan Mulai 65K, Lengkap dengan Takjil Unik!",
+      "category": "Promo",
+      "summary": "Rasakan kehangatan buka puasa dengan menu khas Nusantara di Widi Coffee. Tersedia paket personal hingga paket ramesan untuk 6 orang mulai dari 350K. Lengkap dengan takjil Kurma Peanut Butter!",
+      "published_at": "22 Feb 2026",
+      "views": 95,
+      "image": "https://wadahngopi.com/storage/information/01KJ284MZGSD449HG02DQYY5S4.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ284MZGSD449HG02DQYY5S4.jpg",
+        "https://wadahngopi.com/storage/tMzqeehx8Ej94lTbnjwm9YqD3FFQrapSZkLVGtfY.jpg"
+      ],
+      "content_html": "\n                    <p>Buka puasa bukan cuma soal makan, tapi soal cerita, tawa, dan kebersamaan. Tahun ini, <strong>Widi Coffee</strong> menghadirkan pengalaman bukber yang berbeda dengan sentuhan rasa rumahan yang autentik dan suasana kedai yang nyaman.</p>\n\n<p>Kami menyediakan pilihan paket yang cocok untuk Anda yang datang sendiri maupun rombongan:</p>\n\n<p><strong>1. Paket Bukber Personal (65K)</strong> Solusi praktis buat yang mau bukber sendiri atau berdua tapi tetap spesial:</p>\n\n<ul><li>Ayam Bakar / Patin Bakar</li><li>Serondeng Jagung &amp; Mandai Goreng</li><li>Sambal Belimbing / Hampalam</li><li><strong>FREE:</strong> Kurma Peanut Butter &amp; Es Teh</li></ul>\n\n<p><strong>2. Paket Bukber Rame-Rame - 6 Orang (350K)</strong> Pilihan terbaik untuk kebersamaan keluarga atau teman kantor:</p>\n\n<ul><li>Ayam Bakar &amp; Patin Bakar</li><li>Serondeng Jagung &amp; Mandai Goreng</li><li>Ikan Asin &amp; Gangan Asam</li><li>Sambal Belimbing / Hampalam</li><li>Nasi Sebakul</li><li><strong>FREE:</strong> Kurma Peanut Butter &amp; Es Teh</li></ul>\n\n<p>Nikmati perpaduan rasa pedas-asam segar khas daerah yang bikin momen bukber jadi lebih berkesan hanya di Widi Coffee.</p>\n\n<p><strong>Lokasi &amp; Reservasi</strong>&nbsp;</p>\n\n<p><strong>Instagram:</strong> @widicoffee</p>\n\n<p><a href=\"https://wadahngopi.com/storage/tMzqeehx8Ej94lTbnjwm9YqD3FFQrapSZkLVGtfY.jpg\"><img src=\"https://wadahngopi.com/storage/tMzqeehx8Ej94lTbnjwm9YqD3FFQrapSZkLVGtfY.jpg\" width=\"1080\" height=\"1350\" alt=\"tMzqeehx8Ej94lTbnjwm9YqD3FFQrapSZkLVGtfY.jpg\">Promo</a></p>\n                "
+    },
+    {
+      "slug": "paket-bukber-rayas-caffe-samarinda-tutug-oncom",
+      "url": "https://wadahngopi.com/information/paket-bukber-rayas-caffe-samarinda-tutug-oncom",
+      "title": "Bukber Hemat di Raya's Caffe: Nikmati Spesialis Nasi Tutug Oncom Mulai 25 Ribu!",
+      "category": "Promo",
+      "summary": "Cari menu bukber yang beda? Raya's Caffe hadir dengan Paket Bukber Ramadan Penuh Berkah. Ada Nasi Tutug Oncom, Nasi Campur, hingga Bowl Beef mulai 25K, sudah dapat Es Teh Manis dan Takjil!",
+      "published_at": "23 Feb 2026",
+      "views": 49,
+      "image": "https://wadahngopi.com/storage/information/01KJ4CDH1FAK1EYPGDSMFHN22P.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ4CDH1FAK1EYPGDSMFHN22P.jpg",
+        "https://wadahngopi.com/storage/Lluj6swctdxpqIORDIuKx45BczoJiVuBWsp4KlIQ.webp",
+        "https://wadahngopi.com/storage/crSF8DbxRV0HBsl4PRIwOjAb9h2eXcnPcaTAjtWd.webp",
+        "https://wadahngopi.com/storage/fLaGqBDnsIynniujy5HuMtckTVE5jtlhTDEgt8Et.webp",
+        "https://wadahngopi.com/storage/viQ0wvjul451U2g7M5PEb8785LhAGNOm36A3rnV2.webp",
+        "https://wadahngopi.com/storage/tWg1cr4SKwaCJc43JBxquFniNcznazJoClhCbR8v.webp",
+        "https://wadahngopi.com/storage/fTdoiaSiSWVkFHZb8ShmdkKfkg3HSrvx4mPzbaod.webp",
+        "https://wadahngopi.com/storage/P3etY2wDp3SBdCAVamQDj6SUpQbrlbBLrMYI2dlo.webp"
+      ],
+      "content_html": "\n                    <p>Ramadan Penuh Berkah di <strong>Raya's Caffe</strong>! 🌙✨</p>\n\n<p>Buat kamu yang rindu masakan Nusantara yang otentik untuk berbuka puasa, Raya's Caffe telah menyiapkan berbagai pilihan paket kenyang dengan harga yang sangat bersahabat. Spesialisasi kami, <strong>Nasi Tutug Oncom</strong>, siap memanjakan lidah kamu!</p>\n\n<p><strong>Daftar Paket Bukber Raya's Caffe:</strong></p>\n\n<ul><li><strong>Paket Nasi Campur (25K):</strong> Nasi + Ayam + Lauk Pendamping + Es Teh Manis + Takjil.</li><li><strong>Paket Nasi Tutug Oncom (30K):</strong> Nasi Tutug Oncom Spesial + Ayam + Es Teh Manis + Takjil.</li><li><strong>Paket Nasi Tutug Oncom Komplit (40K):</strong> Porsi lebih lengkap dengan tambahan lauk + Es Teh Manis + Takjil.</li><li><strong>Paket Bowl Beef (80K):</strong> Beef Bowl Series + Es Teh Manis + Takjil.</li><li><strong>Paket Rame-Rame (140K):</strong> Paket porsi besar untuk keluarga atau teman-teman.</li></ul>\n\n<p>Semua paket sudah termasuk <strong>FREE Takjil</strong> dan <strong>Es Teh Manis Segar</strong>. Cocok banget buat kamu yang ingin buka puasa dengan rasa yang \"rumahan\" banget tapi di tempat yang nyaman.</p>\n\n<p><strong>Lokasi &amp; Informasi:</strong></p>\n\n<ul><li><strong>Alamat:</strong> Jl. KS Tubun Dalam, Dadi Mulya, Kec. Samarinda Ulu, Kota Samarinda.</li><li><strong>Instagram:</strong> @rayas_caffe_smd<a href=\"https://wadahngopi.com/storage/Lluj6swctdxpqIORDIuKx45BczoJiVuBWsp4KlIQ.webp\"><img src=\"https://wadahngopi.com/storage/Lluj6swctdxpqIORDIuKx45BczoJiVuBWsp4KlIQ.webp\" width=\"1080\" height=\"1350\" alt=\"Lluj6swctdxpqIORDIuKx45BczoJiVuBWsp4KlIQ.webp\">Promo</a></li></ul>\n\n<div><a href=\"https://wadahngopi.com/storage/crSF8DbxRV0HBsl4PRIwOjAb9h2eXcnPcaTAjtWd.webp\"><img src=\"https://wadahngopi.com/storage/crSF8DbxRV0HBsl4PRIwOjAb9h2eXcnPcaTAjtWd.webp\" width=\"1080\" height=\"1350\" alt=\"crSF8DbxRV0HBsl4PRIwOjAb9h2eXcnPcaTAjtWd.webp\">Promo</a><a href=\"https://wadahngopi.com/storage/fLaGqBDnsIynniujy5HuMtckTVE5jtlhTDEgt8Et.webp\"><img src=\"https://wadahngopi.com/storage/fLaGqBDnsIynniujy5HuMtckTVE5jtlhTDEgt8Et.webp\" width=\"1080\" height=\"1350\" alt=\"fLaGqBDnsIynniujy5HuMtckTVE5jtlhTDEgt8Et.webp\">Promo</a><a href=\"https://wadahngopi.com/storage/viQ0wvjul451U2g7M5PEb8785LhAGNOm36A3rnV2.webp\"><img src=\"https://wadahngopi.com/storage/viQ0wvjul451U2g7M5PEb8785LhAGNOm36A3rnV2.webp\" width=\"1080\" height=\"1350\" alt=\"viQ0wvjul451U2g7M5PEb8785LhAGNOm36A3rnV2.webp\">Promo</a><a href=\"https://wadahngopi.com/storage/tWg1cr4SKwaCJc43JBxquFniNcznazJoClhCbR8v.webp\"><img src=\"https://wadahngopi.com/storage/tWg1cr4SKwaCJc43JBxquFniNcznazJoClhCbR8v.webp\" width=\"1080\" height=\"1350\" alt=\"tWg1cr4SKwaCJc43JBxquFniNcznazJoClhCbR8v.webp\">Promo</a></div>\n\n<div><a href=\"https://wadahngopi.com/storage/fTdoiaSiSWVkFHZb8ShmdkKfkg3HSrvx4mPzbaod.webp\"><img src=\"https://wadahngopi.com/storage/fTdoiaSiSWVkFHZb8ShmdkKfkg3HSrvx4mPzbaod.webp\" width=\"1080\" height=\"1350\" alt=\"fTdoiaSiSWVkFHZb8ShmdkKfkg3HSrvx4mPzbaod.webp\">Promo</a><a href=\"https://wadahngopi.com/storage/P3etY2wDp3SBdCAVamQDj6SUpQbrlbBLrMYI2dlo.webp\"><img src=\"https://wadahngopi.com/storage/P3etY2wDp3SBdCAVamQDj6SUpQbrlbBLrMYI2dlo.webp\" width=\"1080\" height=\"1350\" alt=\"P3etY2wDp3SBdCAVamQDj6SUpQbrlbBLrMYI2dlo.webp\">Promo</a></div>\n                "
+    },
+    {
+      "slug": "paket-iftar-ramadan-kopi-loa-samarinda",
+      "url": "https://wadahngopi.com/information/paket-iftar-ramadan-kopi-loa-samarinda",
+      "title": "Paket Iftar Kopi Loa Indonesia: Buka Puasa Kenyang & Hemat Mulai 25 Ribu!",
+      "category": "Promo",
+      "summary": "Sambut keberkahan Ramadan 1447 H bersama Kopi Loa Indonesia! Nikmati 6 pilihan paket iftar mulai dari 25K yang sudah termasuk Lemon Tea dan takjil gratis. Cek detail menunya di sini!",
+      "published_at": "23 Feb 2026",
+      "views": 46,
+      "image": "https://wadahngopi.com/storage/information/01KJ49GC5HR5SWJ8YSTFWYTTPR.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ49GC5HR5SWJ8YSTFWYTTPR.jpg",
+        "https://wadahngopi.com/storage/IL5P62I0KTerWS0hKLl6Pp0rxoDnqPde0TnMCmWt.jpg"
+      ],
+      "content_html": "\n                    <p>Marhaban ya Ramadhan 1447 H! 🌟</p>\n\n<p>Buka puasa makin spesial dengan <strong>Paket Iftar Ramadan dari Kopi Loa Indonesia</strong>. Menu lengkap, harga bersahabat, dan rasa yang bikin rindu siap menemani momen kebersamaan Anda di bulan suci ini.</p>\n\n<p>Berikut pilihan paket yang bisa Anda nikmati:</p>\n\n<ul><li><strong>Paket 1 (Rp 28.000)</strong>: Spaghetti Carbonara + FREE Lemon Tea &amp; Takjil.</li><li><strong>Paket 2 (Rp 28.000)</strong>: Spaghetti Bolognese + FREE Lemon Tea &amp; Takjil.</li><li><strong>Paket 3 (Rp 25.000)</strong>: Nasi Telor Pontianak + FREE Lemon Tea &amp; Takjil.</li><li><strong>Paket 4 (Rp 28.000)</strong>: Rice Bowl Chicken Katsu (Teriyaki/Blackpepper/Hot Lava) + FREE Lemon Tea &amp; Takjil.</li><li><strong>Paket 5 (Rp 33.000)</strong>: Rice Bowl Belly (Teriyaki/Blackpepper/Hot Lava) + FREE Lemon Tea &amp; Takjil.</li><li><strong>Paket 6 (Rp 28.000)</strong>: Honey Chicken Karage + FREE Lemon Tea &amp; Takjil.</li></ul>\n\n<p>Semoga Ramadhan ini membawa kedamaian, kelancaran dalam beraktivitas, serta meningkatkan ketakwaan dan kebersamaan kita semua.</p>\n\n<p><strong>Lokasi &amp; Reservasi</strong>:</p>\n\n<ul><li><strong>Alamat</strong>: Jl. Anggur Dalam Ruko No. 12 (Deretan Indomaret), Samarinda.</li><li><strong>WhatsApp</strong>: 0819-9888-7771</li><li><strong>Instagram</strong>: @kopiloaindonesia<a href=\"https://wadahngopi.com/storage/IL5P62I0KTerWS0hKLl6Pp0rxoDnqPde0TnMCmWt.jpg\"><img src=\"https://wadahngopi.com/storage/IL5P62I0KTerWS0hKLl6Pp0rxoDnqPde0TnMCmWt.jpg\" width=\"1080\" height=\"1440\" alt=\"IL5P62I0KTerWS0hKLl6Pp0rxoDnqPde0TnMCmWt.jpg\">Promo</a></li></ul>\n                "
+    },
+    {
+      "slug": "ajakan-bukber-galuh-coffee-samarinda%20%20Category:%20Promo",
+      "url": "https://wadahngopi.com/information/ajakan-bukber-galuh-coffee-samarinda%20%20Category:%20Promo",
+      "title": "Pantun Bukber ala Galuh Coffee: Yuk, Buka Puasa Bersama di Sini!",
+      "category": "Promo",
+      "summary": "Galuh Coffee punya cara unik buat ngajak kamu bukber! Lewat pantun spesial, mereka mengundang Sobat Ngopi untuk merayakan momen kebersamaan di bulan Ramadan. Cek infonya di sini!",
+      "published_at": "23 Feb 2026",
+      "views": 40,
+      "image": "https://wadahngopi.com/storage/information/01KJ47D7GHCM8YMTX4MA3V8GWV.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ47D7GHCM8YMTX4MA3V8GWV.jpg",
+        "https://wadahngopi.com/storage/kkZv4wrS4wenfde7OtQMY21JDtxn3FXPLW7ElPas.jpg"
+      ],
+      "content_html": "\n                    <p><em>Minum kopi sambil baca koran,</em> <em>Lihat kakak di kebun memberantas hama.</em> <em>Dari aku pribadi ingin menyampaikan,</em> <em>Yuk kita berbuka puasa bersama!</em></p>\n\n<p>Bulan Ramadan selalu punya cerita, dan <strong>Galuh Coffee</strong> ingin menjadi bagian dari cerita buka puasa Anda tahun ini. Bukan sekadar tempat ngopi, Galuh Coffee menawarkan suasana yang hangat dan akrab, sangat cocok untuk Anda yang ingin melepas dahaga sambil bercerita selepas seharian berpuasa.</p>\n\n<p>Berikut adalah <strong>Pilihan Paket Bukber Galuh Coffee</strong> yang bisa Anda pilih:</p>\n\n<ul><li><strong>BUKBER 1 (35K):</strong> Nasi Rendang, Tempe Teri, Acar Nanas, Kerupuk, dan Sambal Merah.</li><li><strong>BUKBER 2 (35K):</strong> Ikan Mas, Nasi Putih, Kuah Sop, Tempe Tahu, Kerupuk, dan Sambal Ijo.</li><li><strong>BUKBER 3 (35K):</strong> Ayam Rica, Nasi Putih, Mie Goreng, Acar, dan Kerupuk.</li><li><strong>BUKBER 4 (35K):</strong> Ikan Tuna Bumbu, Nasi Putih, Mie Goreng, Acar, dan Kerupuk.</li><li><strong>BUKBER 5 (35K):</strong> Ikan Nila Goreng, Nasi Putih, Tahu Tempe, Kuah Sop/Soto, Kerupuk, dan Sambal Ijo.</li><li><strong>BUKBER 6 (30K):</strong> Ayam Lalapan, Nasi Putih, Tahu Tempe, Kuah Sop/Soto, Kerupuk, dan Sambal Ijo.</li><li><strong>BUKBER 7 (25K):</strong> Soto Ibu Mertua, Nasi Putih, dan Kerupuk.</li></ul>\n\n<p><strong>Catatan:</strong> Semua paket di atas sudah termasuk <strong>Air Mineral dan Takjil</strong>.</p>\n\n<p><strong>Kenapa Harus Bukber di Galuh Coffee?</strong></p>\n\n<ul><li><strong>Suasana Tenang:</strong> Cocok untuk yang mencari tempat bukber yang tidak terlalu bising sehingga obrolan lebih berkualitas.</li><li><strong>Menu Ekonomis:</strong> Pilihan paket lengkap dengan harga sangat bersahabat, mulai dari 25 ribu rupiah saja.</li><li><strong>Pelayanan Ramah:</strong> Berasa buka puasa di rumah sendiri!</li></ul>\n\n<p>Jangan biarkan rencana bukbermu sekadar wacana. Mari rapatkan barisan, atur jadwal, dan langsung meluncur ke Galuh Coffee. Kami siap menyambut kehadiran Anda dan orang-orang tersayang.</p>\n\n<p><strong>Lokasi &amp; Informasi:</strong></p>\n\n<ul><li><strong>Instagram:</strong> @galuh_coffee</li></ul>\n\n<p><a href=\"https://wadahngopi.com/storage/kkZv4wrS4wenfde7OtQMY21JDtxn3FXPLW7ElPas.jpg\"><img src=\"https://wadahngopi.com/storage/kkZv4wrS4wenfde7OtQMY21JDtxn3FXPLW7ElPas.jpg\" width=\"1080\" height=\"1348\" alt=\"kkZv4wrS4wenfde7OtQMY21JDtxn3FXPLW7ElPas.jpg\"></a><a href=\"https://wadahngopi.com/storage/kkZv4wrS4wenfde7OtQMY21JDtxn3FXPLW7ElPas.jpg\"><span style=\"text-decoration:underline;\">Promo</span></a></p>\n                "
+    },
+    {
+      "slug": "promo-paket-bukber-giras-kitchen-coffee-samarinda",
+      "url": "https://wadahngopi.com/information/promo-paket-bukber-giras-kitchen-coffee-samarinda",
+      "title": "Bukber Bukan Cuma Soal Makan: Promo Paket Nusantara Giras Mulai 120K untuk Berdua!",
+      "category": "Promo",
+      "summary": "Ajak mereka yang biasanya cuma ada di chat buat ketemu langsung di Giras Kitchen & Coffee! Nikmati paket bukber Nusantara & Rice Bowl mulai 120K per 2 orang, lengkap dengan free takjil.",
+      "published_at": "23 Feb 2026",
+      "views": 34,
+      "image": "https://wadahngopi.com/storage/information/01KJ4B5XV760ZADAPMNJ4Z4P0R.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ4B5XV760ZADAPMNJ4Z4P0R.jpg",
+        "https://wadahngopi.com/storage/YAPgQPnDMYqE7zJZDg6uBTIvxs7OAbijYpJXuF0w.jpg",
+        "https://wadahngopi.com/storage/PqQVjZTXTSgbQ5HaCr8O15Ctrl71s3UZLL013Buu.jpg"
+      ],
+      "content_html": "\n                    <p>Bukber nggak cuma soal makan, tapi soal siapa yang duduk satu meja bareng kamu. <strong>Giras Kitchen &amp; Coffee</strong> mengundang Anda untuk mengubah obrolan di <em>chat</em> menjadi momen temu kangen yang nyata di meja makan.</p>\n\n<p>Tahun ini, Giras menghadirkan pilihan menu yang variatif, mulai dari citarasa Nusantara yang otentik hingga praktisnya <em>Rice Bowl</em> kekinian.</p>\n\n<p><strong>Detail Promo Bukber Giras:</strong></p>\n\n<ul><li><strong>Harga Paket:</strong> Mulai dari <strong>Rp 120.000 untuk 2 orang (2 pax)</strong>.</li><li><strong>Pilihan Menu:</strong> Tersedia aneka menu Nusantara dan <em>Rice Bowl</em>.</li><li><strong>Benefit Tambahan:</strong> <strong>FREE Takjil</strong> untuk setiap pemesanan paket bukber.</li></ul>\n\n<p>Suasana Giras yang nyaman sangat cocok untuk Anda yang ingin mengobrol santai lebih lama setelah berbuka. Pastikan Anda melakukan reservasi terlebih dahulu karena slot harian terbatas!</p>\n\n<p><strong>Lokasi &amp; Reservasi:</strong></p>\n\n<ul><li><strong>WhatsApp Reservasi:</strong> 0851-2423-1809</li><li><strong>Instagram:</strong> @giras.smr</li></ul>\n\n<div><a href=\"https://wadahngopi.com/storage/YAPgQPnDMYqE7zJZDg6uBTIvxs7OAbijYpJXuF0w.jpg\"><img src=\"https://wadahngopi.com/storage/YAPgQPnDMYqE7zJZDg6uBTIvxs7OAbijYpJXuF0w.jpg\" width=\"1080\" height=\"1350\" alt=\"YAPgQPnDMYqE7zJZDg6uBTIvxs7OAbijYpJXuF0w.jpg\">Promo</a><a href=\"https://wadahngopi.com/storage/PqQVjZTXTSgbQ5HaCr8O15Ctrl71s3UZLL013Buu.jpg\"><img src=\"https://wadahngopi.com/storage/PqQVjZTXTSgbQ5HaCr8O15Ctrl71s3UZLL013Buu.jpg\" width=\"1080\" height=\"1350\" alt=\"PqQVjZTXTSgbQ5HaCr8O15Ctrl71s3UZLL013Buu.jpg\">Promo</a></div>\n                "
+    },
+    {
+      "slug": "promo-ramadhan-free-takjil-sela-coffee-tea-samarinda",
+      "url": "https://wadahngopi.com/information/promo-ramadhan-free-takjil-sela-coffee-tea-samarinda",
+      "title": "Bukber di Sela Coffee & Tea: Beli Menu Favorit, Gratis Takjil Kurma & Es Teh!",
+      "category": "Promo",
+      "summary": "Nikmati promo spesial Ramadan di Sela Coffee & Tea! Setiap pembelian menu favorit untuk berbuka puasa, kamu langsung dapat FREE takjil berupa kurma dan es teh segar.",
+      "published_at": "23 Feb 2026",
+      "views": 25,
+      "image": "https://wadahngopi.com/storage/information/01KJ4AMKB308HDCS8Q8BFWFPVA.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ4AMKB308HDCS8Q8BFWFPVA.jpg",
+        "https://wadahngopi.com/storage/smPOUEnbJDGO29gpe9wUt53K381DceaJBHgDtxDN.jpg"
+      ],
+      "content_html": "\n                    <p>Marhaban Ya Ramadhan! 🌙✨</p>\n\n<p>Momen buka puasa jadi lebih manis di <strong>Sela Coffee &amp; Tea</strong>. Selama bulan suci ini, ada <strong>Promo Spesial Ramadan</strong> buat kamu yang ingin reservasi bukber bareng teman atau keluarga.</p>\n\n<p><strong>Detail Promo:</strong></p>\n\n<ul><li><strong>FREE Takjil</strong>: Dapatkan gratis Kurma dan Es Teh untuk setiap pembelian menu favorit kamu.</li><li><strong>Syarat &amp; Ketentuan</strong>: Berlaku selama bulan Ramadan.</li></ul>\n\n<p>Yuk, amankan meja kamu dan reservasi sekarang juga agar momen berbuka tetap nyaman!</p>\n\n<p><strong>Informasi &amp; Reservasi:</strong></p>\n\n<ul><li><strong>Instagram</strong>: @sela.coffeeandtea<a href=\"https://wadahngopi.com/storage/smPOUEnbJDGO29gpe9wUt53K381DceaJBHgDtxDN.jpg\"><img src=\"https://wadahngopi.com/storage/smPOUEnbJDGO29gpe9wUt53K381DceaJBHgDtxDN.jpg\" width=\"1080\" height=\"1349\" alt=\"smPOUEnbJDGO29gpe9wUt53K381DceaJBHgDtxDN.jpg\"><span>SaveClip.App_637722162_17849354172683475_4800576146077368714_n.jpg</span> <span>155.46 KB</span></a></li></ul>\n                "
+    },
+    {
+      "slug": "ramadan-delight-bundling-package-double-dose-samarinda",
+      "url": "https://wadahngopi.com/information/ramadan-delight-bundling-package-double-dose-samarinda",
+      "title": "Ramadan Delight di Double Dose: Paket Bundling Iftar Premium Mulai 55K!",
+      "category": "Promo",
+      "summary": "Buka puasa lebih berkesan di Double Dose (DD)! Nikmati promo \"Ramadan Delight Bundling Package\" dengan pilihan menu Spaghetti hingga Japanese Chicken Curry mulai dari 55K saja.",
+      "published_at": "23 Feb 2026",
+      "views": 28,
+      "image": "https://wadahngopi.com/storage/information/01KJ49QDP0V7ZKTM5ARGQSX6QT.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ49QDP0V7ZKTM5ARGQSX6QT.jpg",
+        "https://wadahngopi.com/storage/6cKcvGuspjJYBWmX6N1oA3i0XuDjiW321M0BKnlQ.jpg",
+        "https://wadahngopi.com/storage/8KIkYxB0B30IZEQcxbSdtRkNOPZrIm9S5ndQhjqJ.jpg"
+      ],
+      "content_html": "\n                    <p><em>Ramadan is better with good food &amp; great company!</em> 🤍</p>\n\n<p><strong>Double Dose</strong> menghadirkan <strong>Ramadan Delight Bundling Package</strong> yang dirancang khusus untuk momen iftar Anda bersama teman dan keluarga tercinta. Cukup dengan <strong>Rp 55.000 per bundle</strong>, Anda sudah bisa menikmati kombinasi menu utama dan minuman segar pilihan.</p>\n\n<p><strong>Pilihan Menu Utama (Main Course):</strong></p>\n\n<ul><li><strong>Spaghetti Series</strong>: <em>ala Stoganoff</em>, <em>Bologna</em>, atau <em>Aglio e Porro</em>.</li><li><strong>Rice Series</strong>: <em>Chicken Karage Colo-Colo</em>, <em>Japanese Chicken Curry</em>, <em>Chicken Blackpepper</em>, atau <em>Spicy Salted Chicken</em>.</li></ul>\n\n<p><strong>Pilihan Minuman (Beverages):</strong></p>\n\n<ul><li>Tea (Varian: <em>Peach, Mango, Apple, Passion Fruit, Elder Flower</em>).</li></ul>\n\n<p>Promo ini tersedia khusus untuk layanan <strong>Dine-in</strong>. Segera tentukan pilihan menu favoritmu dan nikmati suasana bukber yang hangat di DD!</p>\n\n<p><strong>Lokasi &amp; Reservasi:</strong></p>\n\n<ul><li><strong>Alamat</strong>: Jl. Wijaya Kusuma, Samarinda.</li><li><strong>Instagram</strong>: @doubledose.og</li></ul>\n\n<p><a href=\"https://wadahngopi.com/storage/6cKcvGuspjJYBWmX6N1oA3i0XuDjiW321M0BKnlQ.jpg\"><img src=\"https://wadahngopi.com/storage/6cKcvGuspjJYBWmX6N1oA3i0XuDjiW321M0BKnlQ.jpg\" width=\"1080\" height=\"1350\" alt=\"6cKcvGuspjJYBWmX6N1oA3i0XuDjiW321M0BKnlQ.jpg\"></a><a href=\"https://wadahngopi.com/storage/6cKcvGuspjJYBWmX6N1oA3i0XuDjiW321M0BKnlQ.jpg\"><span style=\"text-decoration:underline;\">Promo</span></a><a href=\"https://wadahngopi.com/storage/8KIkYxB0B30IZEQcxbSdtRkNOPZrIm9S5ndQhjqJ.jpg\"><img src=\"https://wadahngopi.com/storage/8KIkYxB0B30IZEQcxbSdtRkNOPZrIm9S5ndQhjqJ.jpg\" width=\"1080\" height=\"1350\" alt=\"8KIkYxB0B30IZEQcxbSdtRkNOPZrIm9S5ndQhjqJ.jpg\"></a><a href=\"https://wadahngopi.com/storage/8KIkYxB0B30IZEQcxbSdtRkNOPZrIm9S5ndQhjqJ.jpg\"><span style=\"text-decoration:underline;\">Promo</span></a></p>\n                "
+    },
+    {
+      "slug": "vlorry-ramadhan-package-samarinda",
+      "url": "https://wadahngopi.com/information/vlorry-ramadhan-package-samarinda",
+      "title": "Vlorry Iftar Time: Nikmati Kehangatan Ramadan dengan Paket Lengkap Mulai 57K!",
+      "category": "Promo",
+      "summary": "Buka puasa di Vlorry Coffee terasa beda! Nikmati \"Vlorry Ramadhan Package\" dengan 6 pilihan menu mulai dari Ayam Penyet sampai Katsu Curry, lengkap dengan takjil (kurma, buah, puding coklat).",
+      "published_at": "23 Feb 2026",
+      "views": 30,
+      "image": "https://wadahngopi.com/storage/information/01KJ4957DTDGJQ16T43KDHYK0A.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ4957DTDGJQ16T43KDHYK0A.jpg",
+        "https://wadahngopi.com/storage/vmz0h1FaOGWIJbn9VRZlaHaChAbUtdxCfFR7f3L7.jpg"
+      ],
+      "content_html": "\n                    <p><em>Vlorry iftar time feels different!</em> 🌙✨</p>\n\n<p>Saatnya berbagi kebahagiaan di meja makan. <strong>Vlorry Coffee</strong> telah menyediakan <strong>Ramadhan Package</strong> spesial untuk menemani momen buka puasa Anda di bulan penuh berkah ini. Kami menyajikan pilihan menu Nusantara hingga <em>Western</em> yang sudah dikurasi khusus.</p>\n\n<p><strong>Pilihan Vlorry Ramadhan Package:</strong></p>\n\n<ul><li><strong>Paket A (57K):</strong> Ayam Penyet + Original Tea + Takjil.</li><li><strong>Paket B (57K):</strong> Chicken Sambal Matah + Original Tea + Takjil.</li><li><strong>Paket C (60K):</strong> Nasi Goreng Kampung + Original Tea + Takjil.</li><li><strong>Paket D (60K):</strong> Beef Teriyaki + Original Tea + Takjil.</li><li><strong>Paket E (63K):</strong> Grilled Chicken Salad + Original Tea + Takjil.</li><li><strong>Paket F (68K):</strong> Katsu Curry + Original Tea + Takjil.</li></ul>\n\n<p><strong>Catatan:</strong> Semua paket sudah termasuk <strong>Takjil Spesial</strong> berupa Kurma, Buah, dan Puding Coklat.</p>\n\n<p>Segera amankan meja Anda untuk berbuka puasa bersama teman, sahabat, atau keluarga tercinta.</p>\n\n<p><strong>Lokasi &amp; Reservasi:</strong></p>\n\n<ul><li><strong>Alamat:</strong> Jln. Anggur, Samarinda Ulu.</li><li><strong>WhatsApp:</strong> 0851-9046-9944.</li><li><strong>Instagram:</strong> @vlorry.coffee<a href=\"https://wadahngopi.com/storage/vmz0h1FaOGWIJbn9VRZlaHaChAbUtdxCfFR7f3L7.jpg\"><img src=\"https://wadahngopi.com/storage/vmz0h1FaOGWIJbn9VRZlaHaChAbUtdxCfFR7f3L7.jpg\" width=\"1080\" height=\"1350\" alt=\"vmz0h1FaOGWIJbn9VRZlaHaChAbUtdxCfFR7f3L7.jpg\">Promo</a></li></ul>\n                "
+    },
+    {
+      "slug": "wn-x-pubg-mobile-mabar-bukber-di-jawara-basecamp-samarinda",
+      "url": "https://wadahngopi.com/information/wn-x-pubg-mobile-mabar-bukber-di-jawara-basecamp-samarinda",
+      "title": "WN x PUBG Mobile: Mabar & Bukber di Jawara Basecamp Samarinda!",
+      "category": "Lomba",
+      "summary": "Ramaikan event PUBG Mobile di Jawara Basecamp (Wadah Nangkring)! Ada daily prize pool Rp 500.000, free takjil, hingga tournament offline dengan total hadiah jutaan rupiah.",
+      "published_at": "23 Feb 2026",
+      "views": 27,
+      "image": "https://wadahngopi.com/storage/information/01KJ48VAQ4HDXXZW8K3BZMS20T.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ48VAQ4HDXXZW8K3BZMS20T.jpg",
+        "https://wadahngopi.com/storage/310yRx429Wc4SMUvW0u8kCBTolSosVHGM0tFcTlm.jpg"
+      ],
+      "content_html": "\n                    <p>Siap <em>push rank</em> sambil nunggu bedug? <strong>Wadah Nangkring (WN)</strong> resmi jadi <strong>Jawara Basecamp Samarinda</strong> untuk event spesial Ramadan diTHRaktir PUBG Mobile!</p>\n\n<p><strong>1. Mabar &amp; Bukber Jawara Basecamp</strong></p>\n\n<p>Datang dan ramaikan keseruan main bareng squad kamu setiap hari selama periode event.</p>\n\n<ul><li><strong>Periode</strong>: 23 Februari – 8 Maret 2026</li><li><strong>Waktu</strong>: 16.00 – 20.00 WITA</li><li><strong>Benefit</strong>:<ul><li><em>Daily Prize Pool</em> Rp 500.000 per hari.</li><li><strong>FREE Takjil</strong> setiap hari buat yang mabar di lokasi.</li></ul></li><li><strong>Level Mabar</strong>:<ul><li>Datang Sendiri: Gratis Minuman.</li><li>Datang Berdua: Minuman + Snack.</li><li>Full Squad: Makan Kenyang!<a href=\"https://wadahngopi.com/storage/310yRx429Wc4SMUvW0u8kCBTolSosVHGM0tFcTlm.jpg\"><img src=\"https://wadahngopi.com/storage/310yRx429Wc4SMUvW0u8kCBTolSosVHGM0tFcTlm.jpg\" width=\"1080\" height=\"1350\" alt=\"310yRx429Wc4SMUvW0u8kCBTolSosVHGM0tFcTlm.jpg\">Promo</a></li></ul></li></ul>\n                "
+    },
+    {
+      "slug": "tournament-pubg-offline-wn-acrivox-samarinda",
+      "url": "https://wadahngopi.com/information/tournament-pubg-offline-wn-acrivox-samarinda",
+      "title": "WN x ACRIVOX PUBG Mobile Offline Tournament: Kompetisi Bergengsi Season 1!",
+      "category": "Lomba",
+      "summary": "Wadah Nangkring (WN) berkolaborasi dengan Acrivox menggelar turnamen offline PUBG Mobile Season 1. Pendaftaran GRATIS, slot terbatas hanya untuk 32 tim, dan total hadiah Rp 4.000.000",
+      "published_at": "23 Feb 2026",
+      "views": 27,
+      "image": "https://wadahngopi.com/storage/information/01KJ48C23YH5E7PYNBA5FYG2C3.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ48C23YH5E7PYNBA5FYG2C3.jpg",
+        "https://wadahngopi.com/storage/92Ln8BL4Obq4Cj9ahxYCEuGtsuJGr5QRPRk0k6Lz.jpg"
+      ],
+      "content_html": "\n                    <p><strong>Wadah Nangkring (WN)</strong> bersama <strong>Acrivox</strong> menghadirkan turnamen PUBG Mobile offline sebagai wadah kompetisi bagi tim terbaik untuk menunjukkan kemampuan dan strategi secara langsung.</p>\n\n<p>Ini adalah kesempatan bagi komunitas e-sports Samarinda untuk bertanding dalam suasana kompetitif yang profesional.</p>\n\n<p><strong>Detail Turnamen:</strong></p>\n\n<ul><li><strong>Main Event:</strong> 28 Februari – 1 Maret 2026</li><li><strong>Prize Pool:</strong> Rp 4.000.000</li><li><strong>Venue:</strong> Wadah Nangkring, Jl. Anggur, Kota Samarinda</li><li><strong>Pendaftaran:</strong> <strong>GRATIS</strong> (Maksimal 32 Tim)</li></ul>\n\n<p><em>Syarat &amp; Ketentuan berlaku.</em></p>\n\n<p><strong>Informasi &amp; Registrasi:</strong></p>\n\n<ul><li><strong>WhatsApp:</strong> 0822-5344-4192</li><li><strong>Instagram:</strong> @wadahnangkring / @acrivox.id</li></ul>\n\n<p><strong>⚠️ Kuota terbatas.</strong> Segera daftarkan tim Anda sebelum pendaftaran ditutup!</p>\n\n<p><a href=\"https://wadahngopi.com/storage/92Ln8BL4Obq4Cj9ahxYCEuGtsuJGr5QRPRk0k6Lz.jpg\"><img src=\"https://wadahngopi.com/storage/92Ln8BL4Obq4Cj9ahxYCEuGtsuJGr5QRPRk0k6Lz.jpg\" width=\"1080\" height=\"1350\" alt=\"92Ln8BL4Obq4Cj9ahxYCEuGtsuJGr5QRPRk0k6Lz.jpg\"></a><a href=\"https://wadahngopi.com/storage/92Ln8BL4Obq4Cj9ahxYCEuGtsuJGr5QRPRk0k6Lz.jpg\"><span style=\"text-decoration:underline;\">Lomba</span></a></p>\n                "
+    },
+    {
+      "slug": "paket-ramadhan-iftar-wadah-nangkring-samarinda",
+      "url": "https://wadahngopi.com/information/paket-ramadhan-iftar-wadah-nangkring-samarinda",
+      "title": "Bukber Estetik di Wadah Nangkring (WN): Paket Iftar Mulai 55K Saja!",
+      "category": "Promo",
+      "summary": "Temukan kehangatan Ramadan di Wadah Nangkring (WN). Nikmati paket Iftar personal (55K) atau berdua (110K) dengan pilihan main course populer dan bebas pilih minuman!",
+      "published_at": "23 Feb 2026",
+      "views": 24,
+      "image": "https://wadahngopi.com/storage/information/01KJ47ZKPJTH0CF2PSVP64VSJH.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ47ZKPJTH0CF2PSVP64VSJH.jpg",
+        "https://wadahngopi.com/storage/rl7VC7eMg9sirriyykBoKUEYZujKZEAjzoXyLrjV.jpg",
+        "https://wadahngopi.com/storage/MVNMQDfYDVF9gsOmE5zjvqUAUhYjed2OVIvSL5mt.jpg"
+      ],
+      "content_html": "\n                    <p>Malam-malam Ramadan memang paling pas dibagikan bersama. Ramadan adalah musim untuk melambatkan langkah, berkumpul, dan menemukan kehangatan dalam momen-momen sederhana.</p>\n\n<p><strong>Wadah Nangkring (WN)</strong> kini hadir menemani waktu berbuka Anda dengan <strong>Ramadhan Iftar Package</strong> yang disiapkan spesial untuk momen kebersamaan:</p>\n\n<p><strong>1. Paket 1 Pax (55K)</strong></p>\n\n<ul><li>1 Main Course</li><li>1 Beverages (Bebas pilih semua varian minuman)</li></ul>\n\n<p><strong>2. Paket 2 Pax (110K)</strong></p>\n\n<ul><li>2 Main Course</li><li>2 Beverages (Bebas pilih semua varian minuman)</li></ul>\n\n<p><strong>Pilihan Main Course (Menu Utama):</strong></p>\n\n<ul><li>Nasi Goreng</li><li>Salted Egg Chicken</li><li>Chicken Rice Bowl Teriyaki</li><li>Chicken Rice Bowl Lada Hitam</li></ul>\n\n<p>Segera atur jadwal kumpul Anda dan reservasi tempat sekarang sebelum penuh!</p>\n\n<p><strong>Lokasi &amp; Reservasi:</strong></p>\n\n<ul><li><strong>Alamat:</strong> Jl. Anggur, Sidodadi, Samarinda.</li><li><strong>WhatsApp:</strong> 0822-2098-4174</li><li><strong>Instagram:</strong> @wadahnangkring</li></ul>\n\n<div><a href=\"https://wadahngopi.com/storage/rl7VC7eMg9sirriyykBoKUEYZujKZEAjzoXyLrjV.jpg\"><img src=\"https://wadahngopi.com/storage/rl7VC7eMg9sirriyykBoKUEYZujKZEAjzoXyLrjV.jpg\" width=\"1024\" height=\"1365\" alt=\"rl7VC7eMg9sirriyykBoKUEYZujKZEAjzoXyLrjV.jpg\">Promo</a><a href=\"https://wadahngopi.com/storage/MVNMQDfYDVF9gsOmE5zjvqUAUhYjed2OVIvSL5mt.jpg\"><img src=\"https://wadahngopi.com/storage/MVNMQDfYDVF9gsOmE5zjvqUAUhYjed2OVIvSL5mt.jpg\" width=\"1024\" height=\"1365\" alt=\"MVNMQDfYDVF9gsOmE5zjvqUAUhYjed2OVIvSL5mt.jpg\">Promo</a></div>\n                "
+    },
+    {
+      "slug": "bukber-homie-di-voorvo-paket-ayam-spesial-mulai-50k-free-takjil",
+      "url": "https://wadahngopi.com/information/bukber-homie-di-voorvo-paket-ayam-spesial-mulai-50k-free-takjil",
+      "title": "Bukber \"Homie\" di VOORVO: Paket Ayam Spesial Mulai 50K & Free Takjil!",
+      "category": "Promo",
+      "summary": "Buka puasa makin nikmat bareng orang tersayang di VOORVO food & drink. Dapatkan paket ayam pilihan lengkap dengan minuman mulai 50K dan bonus takjil gratis!",
+      "published_at": "23 Feb 2026",
+      "views": 8,
+      "image": "https://wadahngopi.com/storage/information/01KJ46WR2XS70GE03T3MV85S03.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ46WR2XS70GE03T3MV85S03.jpg",
+        "https://wadahngopi.com/storage/GCNO1L2Jj7VvnUEmhucGbZZWyCM7gAjonjAbzQg5.jpg",
+        "https://wadahngopi.com/storage/q7Kf6p0DyiVpN4Az7ZJnxc7fJ7VJSs9QljXGtWR6.jpg"
+      ],
+      "content_html": "\n                    <p>Buka puasa makin nikmat dan hangat bareng orang tersayang di <strong>VOORVO food &amp; drink</strong>. Dengan suasana yang nyaman dan porsi yang memuaskan, kami hadir dengan <strong>Spesial Ramadhan Menu</strong> yang ramah di kantong.</p>\n\n<p>Pilih paket favoritmu untuk menemani waktu berbuka:</p>\n\n<ul><li><strong>Paket 50K (Hemat, Praktis &amp; Lezat)</strong>: Termasuk Nasi Putih, Ayam Pilihan, Ice/Hot Tea, dan <strong>Free Takjil</strong>.</li><li><strong>Paket 55K (Lebih Special &amp; Premium)</strong>: Termasuk Nasi Putih, Ayam Pilihan, <strong>Coffee Series</strong>, dan <strong>Free Takjil</strong>.</li></ul>\n\n<p><strong>Pilihan Olahan Ayam (Bebas Pilih Rasa)</strong>:</p>\n\n<ul><li>Telur Asin</li><li>Lada Hitam</li><li>Caramel</li><li>Sambal Matah</li><li>Geprek</li></ul>\n\n<p>Semua menu kami menggunakan bahan yang <em>fresh</em> dan dijamin halal. Tersedia untuk layanan <em>Dine In</em> maupun <em>Take Away</em>. Pastikan momen Anda lebih istimewa dengan melakukan reservasi sebelum kuota penuh!</p>\n\n<p><strong>Lokasi &amp; Reservasi</strong>:</p>\n\n<ul><li><strong>Alamat</strong>: Jl. Durian No. 2, Samarinda.</li><li><strong>WhatsApp</strong>: 0851-8954-6067 atau 0851-7321-8220.</li><li><strong>Instagram</strong>: @voorvo.foodrink.</li></ul>\n\n<div><a href=\"https://wadahngopi.com/storage/GCNO1L2Jj7VvnUEmhucGbZZWyCM7gAjonjAbzQg5.jpg\"><img src=\"https://wadahngopi.com/storage/GCNO1L2Jj7VvnUEmhucGbZZWyCM7gAjonjAbzQg5.jpg\" width=\"1080\" height=\"1919\" alt=\"GCNO1L2Jj7VvnUEmhucGbZZWyCM7gAjonjAbzQg5.jpg\">Promo</a><a href=\"https://wadahngopi.com/storage/q7Kf6p0DyiVpN4Az7ZJnxc7fJ7VJSs9QljXGtWR6.jpg\"><img src=\"https://wadahngopi.com/storage/q7Kf6p0DyiVpN4Az7ZJnxc7fJ7VJSs9QljXGtWR6.jpg\" width=\"1080\" height=\"1919\" alt=\"q7Kf6p0DyiVpN4Az7ZJnxc7fJ7VJSs9QljXGtWR6.jpg\">Promo</a></div>\n                "
+    },
+    {
+      "slug": "promo-bukber-unico-coffee-cake-samarinda",
+      "url": "https://wadahngopi.com/information/promo-bukber-unico-coffee-cake-samarinda",
+      "title": "Promo Bukber Hemat UNICO Coffee & Cake: Paket Lengkap Mulai 80K untuk Berdua!",
+      "category": "Promo",
+      "summary": "Ramadan makin manis di UNICO Coffee & Cake! Nikmati paket bukber hemat mulai 80K untuk berdua, lengkap dengan nasi, es teh, dan brownies chocochips andalan UNICO. Cek pilihan paketnya di sini!",
+      "published_at": "23 Feb 2026",
+      "views": 12,
+      "image": "https://wadahngopi.com/storage/information/01KJ46C21AY18WSD39759C1XGZ.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ46C21AY18WSD39759C1XGZ.jpg",
+        "https://wadahngopi.com/storage/iWZo5ltRss5S0C35QktSYMpZZGaCm8emwNPrB6Sv.jpg"
+      ],
+      "content_html": "\n                    <p>Ramadan semakin dekat! Jadikan momen ini waktu terbaik untuk berkumpul, bercerita, dan berbagi tawa bareng orang tersayang. <strong>UNICO Coffee &amp; Cake</strong> hadir dengan Promo Bukber Spesial yang pastinya ramah di kantong tapi tetap berkelas.</p>\n\n<p>Berikut pilihan paket yang bisa kamu pilih untuk buka bersama:</p>\n\n<ul><li><strong>Paket Berdua (Rp80.000)</strong>:<ul><li>2 Porsi Nasi Goreng / Ayam Geprek.</li><li>2 Brownies Chocochips.</li><li>2 Sweet Ice Tea.</li></ul></li><li><strong>Paket Bertiga (Rp115.000)</strong>:<ul><li>3 Porsi Nasi Goreng / Ayam Geprek.</li><li>3 Brownies Chocochips.</li><li>3 Sweet Ice Tea.</li></ul></li><li><strong>Paket Berempat (Rp170.000)</strong>:<ul><li>4 Porsi Nasi Goreng / Ayam Geprek.</li><li>4 Brownies Chocochips.</li><li>4 Sweet Ice Tea + 1 Kentang Goreng.</li></ul></li></ul>\n\n<p>Menu lengkap, harga hemat, dan suasana yang hangat. Cocok banget buat bukber bareng sahabat, keluarga, sampai rekan kerja di Unico.</p>\n\n<p><strong>Lokasi &amp; Reservasi:</strong></p>\n\n<ul><li><strong>Alamat:</strong> Jl. Ir. H. Juanda No. 80C, Samarinda, Kalimantan Timur.</li><li><strong>WhatsApp Reservasi:</strong> +62 857 5313 4298.<a href=\"https://wadahngopi.com/storage/iWZo5ltRss5S0C35QktSYMpZZGaCm8emwNPrB6Sv.jpg\"><img src=\"https://wadahngopi.com/storage/iWZo5ltRss5S0C35QktSYMpZZGaCm8emwNPrB6Sv.jpg\" width=\"1080\" height=\"1350\" alt=\"iWZo5ltRss5S0C35QktSYMpZZGaCm8emwNPrB6Sv.jpg\"></a><a href=\"https://wadahngopi.com/storage/iWZo5ltRss5S0C35QktSYMpZZGaCm8emwNPrB6Sv.jpg\"><span style=\"text-decoration:underline;\">Promo</span></a></li></ul>\n                "
+    },
+    {
+      "slug": "promo-ramadhan-kena-samarinda-kopi",
+      "url": "https://wadahngopi.com/information/promo-ramadhan-kena-samarinda-kopi",
+      "title": "Ramadhan Spesial Menu Kena Samarinda: Rice Bowl Hemat Mulai 35K Free Ice Tea & Kurma!",
+      "category": "Promo",
+      "summary": "Bukber praktis dan nikmat di Kena Kopi & Tea! Nikmati varian Rice Bowl mulai dari 35K, sudah dapat gratis Es Teh dan Kurma. Cek pilihan menunya di sini!",
+      "published_at": "22 Feb 2026",
+      "views": 22,
+      "image": "https://wadahngopi.com/storage/information/01KJ270JDZ7AK69FSWBG82T66V.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ270JDZ7AK69FSWBG82T66V.jpg",
+        "https://wadahngopi.com/storage/UcAmZW7e98QYLOJswRoeS01jjwALivMUiHUE3dPn.jpg"
+      ],
+      "content_html": "\n                    <p>Ramadhan kali ini jadi lebih spesial di <strong>Kena Samarinda (Kena Kopi &amp; Tea)</strong>. Buat kalian yang cari menu buka puasa yang praktis, mengenyangkan, tapi tetap ramah di kantong, kami menghadirkan <strong>Ramadhan Spesial Menu</strong> dengan harga yang sangat kompetitif.</p>\n\n<p>Setiap pembelian paket Rice Bowl di bawah ini, kalian sudah otomatis mendapatkan <strong>Free Ice Tea</strong> dan <strong>Kurma</strong> untuk membatalkan puasa.</p>\n\n<p><strong>Pilihan Ramadhan Spesial Menu:</strong></p>\n\n<ul><li><strong>Rice Bowl Black Pepper:</strong> 35K</li><li><strong>Rice Bowl Nashville:</strong> 35K</li><li><strong>Rice Bowl Salted Egg:</strong> 40K</li><li><strong>Rice Bowl Beef Belly:</strong> 43K</li></ul>\n\n<p><strong>Benefit Tambahan:</strong></p>\n\n<ul><li><strong>FREE Ice Tea:</strong> Langsung dapat es teh manis segar untuk setiap porsi.</li><li><strong>FREE Kurma:</strong> Pembuka puasa sunnah yang manis secara cuma-cuma.</li></ul>\n\n<p>Jangan sampai kehabisan tempat untuk momen bukber kalian! Segera hubungi nomor reservasi kami agar cerita buka puasa kalian jadi lebih berkesan.</p>\n\n<p><strong>Reservasi &amp; Informasi:</strong> </p>\n\n<p><strong>WhatsApp:</strong> 0877-7834-4868</p>\n\n<p><strong>Instagram: </strong>@kena_samarinda</p>\n\n<p><a href=\"https://wadahngopi.com/storage/UcAmZW7e98QYLOJswRoeS01jjwALivMUiHUE3dPn.jpg\"><img src=\"https://wadahngopi.com/storage/UcAmZW7e98QYLOJswRoeS01jjwALivMUiHUE3dPn.jpg\" width=\"1080\" height=\"1439\" alt=\"UcAmZW7e98QYLOJswRoeS01jjwALivMUiHUE3dPn.jpg\"></a><a href=\"https://wadahngopi.com/storage/UcAmZW7e98QYLOJswRoeS01jjwALivMUiHUE3dPn.jpg\"><span style=\"text-decoration:underline;\">Promo</span></a></p>\n                "
+    },
+    {
+      "slug": "promo-ramadhan-deals-pluto-house",
+      "url": "https://wadahngopi.com/information/promo-ramadhan-deals-pluto-house",
+      "title": "Ramadhan Deals Pluto House: Paket Buka Puasa Hemat Mulai 60K (Free Takjil & Refill Ice Tea)",
+      "category": "Promo",
+      "summary": "Sambut bulan suci dengan paket spesial Ramadhan Deals di Pluto House. Nikmati pilihan Main Course lezat dengan bonus kurama, takjil, dan refill Ice Tea gratis. Cocok untuk buka bersama teman atau keluarga!",
+      "published_at": "22 Feb 2026",
+      "views": 25,
+      "image": "https://wadahngopi.com/storage/information/01KJ22R7F3G5KQ3QKZ6PYJ1RTC.jpg",
+      "images": [
+        "https://wadahngopi.com/storage/information/01KJ22R7F3G5KQ3QKZ6PYJ1RTC.jpg",
+        "https://wadahngopi.com/storage/tMJvmKetzGhosGuGn5tXTZEj2m9P0JWc8FZ4X3AC.jpg"
+      ],
+      "content_html": "\n                    <p>Bulan Ramadhan telah tiba, dan <strong>Pluto House</strong> menghadirkan penawaran spesial <strong>\"Ramadhan Deals\"</strong> untuk menemani momen berbuka puasa Anda. Dengan suasana kedai yang asri dan tenang, kami menyediakan paket makan lengkap yang dirancang khusus untuk kenyamanan Anda berbuka sendiri maupun bersama-sama.</p>\n\n<p><strong>Pilihan Paket Ramadhan Deals:</strong></p>\n\n<ol><li>Paket 1 Pax (60K): 1 Main Course + 1 Beverage</li><li>Paket 2 Pax (115K): 2 Main Course + 2 Beverages</li><li>Paket 4 Pax (225K): 4 Main Course + 4 Beverages</li></ol>\n\n<p><strong>Pilihan Menu Utama (Main Course):</strong> Anda dapat memilih varian menu andalan kami berikut ini:</p>\n\n<ol><li>Ayam Sambal Matah</li><li>Beef Belly Blackpepper</li><li>Katsu Curry</li><li>Ricebowl Teriyaki</li><li>Ricebowl ala Thai</li><li>Nasi Goreng</li></ol>\n\n<p><strong>Keuntungan Tambahan (Gratis):</strong> Setiap pembelian paket di atas, Anda akan mendapatkan:</p>\n\n<ol><li>Free Kurma &amp; Takjil.</li><li>Free Refill Ice Tea untuk semua menu.</li></ol>\n\n<p>Segera reservasi meja Anda untuk acara Buka Puasa Bersama (Bukber) agar tidak kehabisan tempat. Pluto House adalah pilihan tepat untuk menikmati hidangan lezat dalam balutan suasana yang hangat.<a href=\"https://wadahngopi.com/storage/tMJvmKetzGhosGuGn5tXTZEj2m9P0JWc8FZ4X3AC.jpg\"><img src=\"https://wadahngopi.com/storage/tMJvmKetzGhosGuGn5tXTZEj2m9P0JWc8FZ4X3AC.jpg\" width=\"1179\" height=\"2096\" alt=\"tMJvmKetzGhosGuGn5tXTZEj2m9P0JWc8FZ4X3AC.jpg\">Promo</a></p>\n                "
+    }
+  ]
+}

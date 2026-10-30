@@ -1,0 +1,184 @@
+/* =============================================
+   GLASS EFFECT — Reusable Glassmorphism 2026
+   ============================================= */
+
+/* --- Base Glass (legacy, preserved) --- */
+.glass-morphism {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(15, 9, 6, 0.04);
+}
+
+/* --- Glass Card (Standardized) --- */
+@layer components {
+    .glass-card {
+        @apply bg-white/5 border border-white/10 backdrop-blur-md;
+    }
+}
+
+/* --- Bento Glass (Light) — Primary tile system --- */
+.glass-bento {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.06) 100%
+    );
+    backdrop-filter: blur(24px) saturate(200%) brightness(1.08);
+    -webkit-backdrop-filter: blur(24px) saturate(200%) brightness(1.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--radius-bento);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.07),
+        0 2px 8px rgba(0, 0, 0, 0.04),
+        0 1px 0 rgba(255, 255, 255, 0.55) inset,
+        0 -1px 0 rgba(0, 0, 0, 0.04) inset;
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+                box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+/* --- Hero Tile Premium Dark Glass --- */
+.hero-tile {
+    background: linear-gradient(
+        145deg,
+        rgba(41, 28, 8, 0.94) 0%,
+        rgba(62, 42, 12, 0.9) 50%,
+        rgba(30, 20, 5, 0.96) 100%
+    );
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: 1px solid rgba(234, 179, 8, 0.28);
+    border-top: 1px solid rgba(234, 179, 8, 0.45);
+    box-shadow:
+        0 0 60px rgba(234, 179, 8, 0.08) inset,
+        0 20px 60px rgba(0, 0, 0, 0.25),
+        0 1px 0 rgba(234, 179, 8, 0.3) inset;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-premium);
+}
+
+.hero-tile::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(234,179,8,0.18) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- Stat Tiles: Depth & Warmth --- */
+.stat-tile {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(20px) saturate(190%);
+    -webkit-backdrop-filter: blur(20px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-top: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-bento);
+    box-shadow:
+        0 4px 24px rgba(234, 179, 8, 0.08),
+        0 1px 0 rgba(255,255,255,0.85) inset;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+
+.stat-tile:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(234,179,8,0.15), 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    background: linear-gradient(135deg, #EAB308 0%, #FDE68A 50%, #CA8A04 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: text-shimmer-sweep 3s linear infinite;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+/* --- Detail Bento Magazine Tiles --- */
+.detail-bento-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+}
+
+.detail-bento-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.detail-tile {
+    background: rgba(255,255,255,0.68);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: var(--radius-bento);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.detail-tile:hover, .detail-tile:active {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.12), 0 0 0 1px rgba(234, 179, 8, 0.25);
+    background: rgba(255,255,255,0.9);
+}
+
+.detail-tile--fullwidth {
+    grid-column: 1 / -1;
+}
+
+.detail-tile__icon {
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-tile--lokasi .detail-tile__icon { color: #EAB308; }
+.detail-tile--chat .detail-tile__icon { color: #22C55E; }
+.detail-tile--hours .detail-tile__icon { color: #8B7355; }
+
+.detail-tile__label {
+    font-weight: 800;
+    font-size: 0.98rem;
+    color: #1a1a1a;
+    letter-spacing: -0.01em;
+}
+
+.detail-tile__sublabel {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #888;
+    margin-top: 1px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+/* --- Fallbacks --- */
+@supports not (backdrop-filter: blur(1px)) {
+    .stat-tile, .detail-tile {
+        background: rgba(255, 255, 255, 0.96);
+    }
+    .hero-tile {
+        background: rgba(30, 20, 10, 0.96);
+    }
+}

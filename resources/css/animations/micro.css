@@ -1,0 +1,91 @@
+/* =============================================
+   MICRO-INTERACTIONS & Animation Utilities
+   ============================================= */
+
+/* Fade Up (staggerable) */
+.animate-fade-up {
+    opacity: 0;
+    animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.animate-up {
+    animation: slideUpFade 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(24px);
+}
+
+/* Animation Delay Utilities */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Refined Hover Float (More subtle, premium) */
+.hover-float {
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    display: inline-block;
+}
+
+.hover-float:hover {
+    transform: translateY(-3px);
+}
+
+/* NOTE: .cafe-card-2026 and .card-shine are fully defined in components/cards.css
+   DO NOT redefine them here — that would override the 3D tilt & bento entrance. */
+
+/* Staggerable Card Entrances (Intersection Observer based) */
+.card-stagger {
+    opacity: 1; /* Fallback: Visible by default */
+    transform: none;
+    transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform, opacity;
+}
+
+.card-stagger.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* Glossy Shine Sweep — helper only, actual behaviour in cards.css */
+.card-shine {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.28),
+        transparent
+    );
+    transform: skewX(-20deg);
+    transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+    z-index: 4;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .animate-fade-up,
+    .animate-up {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+
+    .card-stagger {
+        transition: none;
+    }
+}
+
+/* Fallback visual buat iOS (Micro-shake) */
+@keyframes haptic-shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    50% { transform: translate(-1px, -2px) rotate(-1deg); }
+    100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+.haptic-fallback {
+    animation: haptic-shake 0.15s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}

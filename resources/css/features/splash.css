@@ -1,0 +1,152 @@
+/* =============================================
+   SPLASH SCREEN — Premium First-Load Branding
+   Lightweight: CSS-only animations, no JS deps
+   ============================================= */
+
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #1A0F0A;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.splash-screen.splash-hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Subtle radial glow behind logo */
+.splash-screen::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+    animation: splash-pulse 2s ease-in-out infinite;
+}
+
+/* Logo container */
+.splash-logo {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: splash-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Brand icon — coffee cup emoji or SVG */
+.splash-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(245, 158, 11, 0.25);
+}
+
+.splash-icon img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+/* Brand text */
+.splash-brand {
+    text-align: center;
+}
+
+.splash-brand-name {
+    font-family: var(--font-sans, 'Inter', sans-serif);
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    line-height: 1;
+}
+
+.splash-brand-name span {
+    color: #F59E0B;
+}
+
+.splash-brand-tagline {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 8px;
+}
+
+/* Loading bar */
+.splash-loader {
+    position: absolute;
+    bottom: max(48px, env(safe-area-inset-bottom, 48px));
+    width: 120px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.splash-loader-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #F59E0B, #D97706);
+    border-radius: 3px;
+    animation: splash-load 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* --- Animations --- */
+@keyframes splash-enter {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.96);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes splash-load {
+    0% {
+        width: 0;
+    }
+
+    60% {
+        width: 80%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes splash-pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}

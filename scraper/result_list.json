@@ -1,0 +1,246 @@
+{
+  "overlayGone": true,
+  "count": 12,
+  "cards": [
+    {
+      "name": "Labricca Coffee",
+      "addr": "Jl. Gerilya, Samarinda",
+      "href": "https://wadahngopi.com/cafes/labricca-coffee",
+      "img": "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&q=80&w=800",
+      "status": "TUTUP",
+      "tags": [],
+      "more": ""
+    },
+    {
+      "name": "Rapi Rapi Coffee",
+      "addr": "Jl. Juanda 2 No.2, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/rapi-rapi-coffee",
+      "img": "/storage/cafes/01KGZ25NEM9MNDCENW82R8XPK9.jpg",
+      "status": "TUTUP Buka 15:00",
+      "tags": [
+        "Wifi",
+        "Game Cente...",
+        "Mushola"
+      ],
+      "more": "+5"
+    },
+    {
+      "name": "Gudang Kena",
+      "addr": "Gg. Tridaya No.29, Kel. Air Putih, Kec. Samarinda Ulu, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/gudang-kena",
+      "img": "/storage/cafes/01KHQRWSYXBMT7M63ZCCQX2ANX.jpg",
+      "status": "BUKA Sampai 00:00",
+      "tags": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "more": "+4"
+    },
+    {
+      "name": "Pluto House And Coffee",
+      "addr": "Jl. Angklung, Samarinda",
+      "href": "https://wadahngopi.com/cafes/pluto-house-and-coffee",
+      "img": "https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=800",
+      "status": "TUTUP",
+      "tags": [],
+      "more": ""
+    },
+    {
+      "name": "Penny Royal",
+      "addr": "Jl. Wijaya Kusuma V No.49 (Belakang TK ITTIHAD), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/penny-royal",
+      "img": "/storage/cafes/01KGYYYBC9X4GFEYRVER5JQHVB.jpg",
+      "status": "TUTUP Buka 16:00",
+      "tags": [
+        "Wifi",
+        "AC",
+        "Indoor"
+      ],
+      "more": "+3"
+    },
+    {
+      "name": "House Of Dondang",
+      "addr": "Jl. Juanda 1B No. 36A Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/house-of-dondang",
+      "img": "/storage/cafes/01KH5N99GH7QZR9CHR0EYDJ0DJ.jpg",
+      "status": "TUTUP Buka 15:00",
+      "tags": [
+        "Wifi",
+        "Barbershop",
+        "AC"
+      ],
+      "more": "+6"
+    },
+    {
+      "name": "Pluto House & Coffee",
+      "addr": "Jl. Angklung, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/pluto-house-coffee",
+      "img": "/storage/cafes/01KHX7NMC01GJCXZY958NWT4A1.jpg",
+      "status": "TUTUP Buka 16:00",
+      "tags": [
+        "Wifi",
+        "Photobox",
+        "Mushola"
+      ],
+      "more": "+6"
+    },
+    {
+      "name": "Wedhang Suguhan",
+      "addr": "Kawasan Citra Niaga, Jl. Niaga Selatan, Blok D, Kios No. 4, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/wedhang-suguhan",
+      "img": "/storage/cafes/01KHQQ2W20Y4XA0PWXNZCGCYFG.jpg",
+      "status": "TUTUP Buka 17:00",
+      "tags": [
+        "Outdoor",
+        "Stopkontak"
+      ],
+      "more": ""
+    },
+    {
+      "name": "Made In Coldbrew",
+      "addr": "Kawasan Citra Niaga, Jl. Aga Khan Award, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/made-in-coldbrew-1",
+      "img": "/storage/cafes/01KHK1HYDAJBM9282CMY877YFW.jpg",
+      "status": "TUTUP Buka 10:00",
+      "tags": [
+        "AC",
+        "Indoor",
+        "Outdoor"
+      ],
+      "more": "+1"
+    },
+    {
+      "name": "Kong Djie Coffee Samarinda",
+      "addr": "Jl. Niaga Utara, Samarinda",
+      "href": "https://wadahngopi.com/cafes/kong-djie-coffee-samarinda",
+      "img": "https://images.unsplash.com/photo-1561047029-3000c6812c53?auto=format&fit=crop&q=80&w=800",
+      "status": "TUTUP",
+      "tags": [],
+      "more": ""
+    },
+    {
+      "name": "Kopi Komak",
+      "addr": "Jl. Siradj Salman (Depan Toko Aribah Grosir), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/kopi-komak",
+      "img": "/storage/cafes/01KHQSPAR2YDJFVC6DAZYJ2N4B.jpg",
+      "status": "TUTUP Buka 16:30",
+      "tags": [
+        "Wifi",
+        "Stopkontak"
+      ],
+      "more": ""
+    },
+    {
+      "name": "Hexa Coffee Bar",
+      "addr": "Jl. Anggur No. 51, Kel. Sidodadi, Kec. Samarinda Ulu, Samarinda.",
+      "href": "https://wadahngopi.com/cafes/hexa-coffee-bar",
+      "img": "/storage/cafes/01KH314Z82ZK8Q46N3T2BXV8ZC.jpg",
+      "status": "TUTUP Buka 17:00",
+      "tags": [
+        "Wifi",
+        "Outdoor",
+        "Stopkontak"
+      ],
+      "more": "+1"
+    }
+  ],
+  "results": [
+    {
+      "slug": "labricca-coffee",
+      "name": "Labricca Coffee",
+      "address": "Jl. Gerilya, Samarinda",
+      "status": "TUTUP",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "rapi-rapi-coffee",
+      "name": "Rapi Rapi Coffee",
+      "address": "Jl. Juanda 2 No.2, Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "TUTUP Buka 15:00",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "gudang-kena",
+      "name": "Gudang Kena",
+      "address": "Gg. Tridaya No.29, Kel. Air Putih, Kec. Samarinda Ulu, Samarinda.",
+      "status": "BUKA Sampai 00:00",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "pluto-house-and-coffee",
+      "name": "Pluto House And Coffee",
+      "address": "Jl. Angklung, Samarinda",
+      "status": "TUTUP",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "penny-royal",
+      "name": "Penny Royal",
+      "address": "Jl. Wijaya Kusuma V No.49 (Belakang TK ITTIHAD), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "TUTUP Buka 16:00",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "house-of-dondang",
+      "name": "House Of Dondang",
+      "address": "Jl. Juanda 1B No. 36A Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "TUTUP Buka 15:00",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "pluto-house-coffee",
+      "name": "Pluto House & Coffee",
+      "address": "Jl. Angklung, Kel. Dadi Mulya, Kec. Samarinda Ulu, Samarinda.",
+      "status": "TUTUP Buka 16:00",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "wedhang-suguhan",
+      "name": "Wedhang Suguhan",
+      "address": "Kawasan Citra Niaga, Jl. Niaga Selatan, Blok D, Kios No. 4, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "TUTUP Buka 17:00",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "made-in-coldbrew-1",
+      "name": "Made In Coldbrew",
+      "address": "Kawasan Citra Niaga, Jl. Aga Khan Award, Kel. Pelabuhan, Kec. Samarinda Kota, Samarinda.",
+      "status": "TUTUP Buka 10:00",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "kong-djie-coffee-samarinda",
+      "name": "Kong Djie Coffee Samarinda",
+      "address": "Jl. Niaga Utara, Samarinda",
+      "status": "TUTUP",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "kopi-komak",
+      "name": "Kopi Komak",
+      "address": "Jl. Siradj Salman (Depan Toko Aribah Grosir), Kel. Air Hitam, Kec. Samarinda Ulu, Samarinda.",
+      "status": "TUTUP Buka 16:30",
+      "mapsUrl": "",
+      "images": []
+    },
+    {
+      "slug": "hexa-coffee-bar",
+      "name": "Hexa Coffee Bar",
+      "address": "Jl. Anggur No. 51, Kel. Sidodadi, Kec. Samarinda Ulu, Samarinda.",
+      "status": "TUTUP Buka 17:00",
+      "mapsUrl": "",
+      "images": []
+    }
+  ]
+}

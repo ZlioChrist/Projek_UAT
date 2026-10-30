@@ -1,0 +1,47 @@
+/* =============================================
+   WADAHNGOPI — CSS Architecture 2026
+   ============================================== */
+
+/* --- 0. Tailwind CSS --- */
+@import "tailwindcss";
+
+/* --- 1. Design Tokens & Variables --- */
+@import "./base/tokens.css";
+
+/* --- 2. Reset & Base Layout --- */
+@import "./base/reset.css";
+
+/* --- 3. Keyframes (load early for animations) --- */
+@import "./animations/keyframes.css";
+
+/* --- 4. Typography --- */
+@import "./base/typography.css";
+
+
+/* --- 5. Effects (reusable utilities) --- */
+@import "./effects/glass.css";
+@import "./effects/shadows.css";
+@import "./effects/background.css";
+
+/* --- 6. Components (atomic, reusable) --- */
+@import "./components/nav.css";
+@import "./components/buttons.css";
+@import "./components/badges.css";
+@import "./components/chips.css";
+@import "./components/cards.css";
+@import "./components/skeleton.css";
+@import "./components/empty-state.css";
+
+/* --- 7. Features (page-specific) --- */
+@import "./features/explore.css";
+@import "./features/detail.css";
+@import "./features/saved.css";
+@import "./features/onboarding.css";
+@import "./features/pull-refresh.css";
+@import "./features/roulette.css";
+@import "./features/splash.css";
+@import "./features/account.css";
+
+/* --- 8. Micro-interactions & Page Transitions --- */
+@import "./animations/micro.css";
+@import "./animations/transitions.css";

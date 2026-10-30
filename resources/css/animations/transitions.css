@@ -1,0 +1,15 @@
+/* =============================================
+   PAGE TRANSITIONS — wire:navigate
+   ============================================= */
+
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: fade-out 0.15s ease-out;
+}
+
+::view-transition-new(root) {
+    animation: fade-in 0.2s ease-in;
+}

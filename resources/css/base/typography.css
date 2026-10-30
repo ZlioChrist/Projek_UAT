@@ -1,0 +1,48 @@
+/* =============================================
+   TYPOGRAPHY SYSTEM
+   ============================================= */
+
+
+body {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+}
+
+/* Premium Text Effects */
+.text-premium-label {
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--color-text-muted);
+}
+
+/* Text Shimmer (flowing gradient) */
+.text-shimmer {
+    background: linear-gradient(to right,
+            #EAB308 20%,
+            #FDE68A 40%,
+            #EAB308 60%,
+            #CA8A04 80%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 4s linear infinite;
+}
+
+/* Tracking Utils */
+.tracking-premium {
+    letter-spacing: -0.04em;
+}
+
+.tracking-wide-premium {
+    letter-spacing: 0.15em;
+}

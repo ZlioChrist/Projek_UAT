@@ -1,0 +1,509 @@
+/* =============================================
+   EXPLORE PAGE — Hero, Search, Sort, Grid
+   ============================================= */
+
+/* --- Fixed Header --- */
+.explore-hero-2026 {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 480px;
+    z-index: var(--z-sticky);
+    padding: 32px 20px 12px;
+    background: #FFFDFB;
+    border-radius: 0 0 36px 36px;
+    /* Lebih membulat */
+    overflow: visible;
+    box-shadow: 0 8px 32px rgba(20, 12, 8, 0.04);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Transisi sangat elegan */
+    will-change: padding, background, box-shadow, transform;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.explore-hero-2026.is-compact {
+    padding-top: 36px;
+    padding-bottom: 20px;
+    gap: 6px;
+    background: rgba(255, 253, 251, 0.95);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 16px 40px -12px rgba(20, 12, 8, 0.12);
+}
+
+/* Spacers */
+.header-spacer-2026 {
+    height: 330px;
+    width: 100%;
+}
+
+.header-spacer-saved {
+    height: 180px;
+    width: 100%;
+}
+
+.header-spacer-info {
+    height: 190px;
+    width: 100%;
+}
+
+/* Branding */
+.explore-branding-wrapper {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left top;
+    will-change: transform, opacity;
+}
+
+.explore-hero-2026.is-compact .explore-branding-wrapper {
+    transform: scale(0.92);
+    opacity: 0.95;
+}
+
+/* Orbs (decorative blurs) */
+.hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.1;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.hero-orb-1 {
+    width: 200px;
+    height: 200px;
+    background: var(--color-amber);
+    top: -50px;
+    right: -50px;
+    animation: float-orb 8s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+    width: 150px;
+    height: 150px;
+    background: var(--color-coffee);
+    bottom: 20%;
+    left: -30px;
+    animation: float-orb 10s ease-in-out infinite reverse;
+}
+
+.hero-orb-3 {
+    width: 100px;
+    height: 100px;
+    background: var(--color-amber);
+    top: 40%;
+    right: 10%;
+    animation: float-orb 6s ease-in-out infinite 2s;
+}
+
+/* Topbar */
+.explore-topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: var(--z-content);
+}
+
+.explore-brand {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #2C1810;
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+}
+
+.explore-brand span {
+    color: #F59E0B;
+}
+
+.explore-tagline {
+    font-size: 0.55rem;
+    font-weight: 800;
+    color: #8B7355;
+    letter-spacing: 0.08em;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.explore-logo-box {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 9px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(26, 15, 10, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.explore-logo-box img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+/* --- Search Box 2026 — Premium Glassmorphism --- */
+.explore-search-2026 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    padding: 10px 16px;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-top: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+        0 4px 24px rgba(20, 12, 8, 0.06),
+        0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    position: relative;
+    z-index: var(--z-search);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform, box-shadow;
+}
+
+.explore-search-2026:focus-within {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(234, 179, 8, 0.42);
+    box-shadow:
+        0 8px 32px rgba(234, 179, 8, 0.14),
+        0 0 0 4px rgba(234, 179, 8, 0.08),
+        0 1px 0 rgba(255, 255, 255, 1) inset;
+    transform: translateY(-1px);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+    .explore-search-2026 {
+        background: rgba(255, 255, 255, 0.97);
+    }
+}
+
+.search-icon-pulse {
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, var(--color-espresso) 0%, var(--color-coffee) 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.explore-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-espresso);
+    background: transparent;
+    font-family: var(--font-sans);
+}
+
+.explore-search-input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.6;
+}
+
+/* --- Sort Dropdown --- */
+.explore-sort-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 280px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(26, 15, 10, 0.25);
+    border: 1px solid rgba(26, 15, 10, 0.08);
+    z-index: var(--z-dropdown);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.sort-dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    background: #F5EFED;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2C1810;
+}
+
+.sort-dropdown-body {
+    padding: 8px;
+}
+
+.sort-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2C1810;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.sort-dropdown-item:hover {
+    background: #F5EFED;
+}
+
+.sort-dropdown-item.active {
+    background: #2C1810;
+    color: white;
+}
+
+.sort-dropdown-alphabet {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    border-top: 1px solid #E6E1DC;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+/* --- Cafe Grid — Bento Masonry 2026 --- */
+.explore-cafe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: dense; /* Crucial for Bento Layout: fills gaps automatically */
+    gap: 12px;
+    padding: 16px 12px 140px;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+@media (min-width: 480px) {
+    .explore-cafe-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        padding: 16px 14px 140px;
+    }
+}
+
+@media (min-width: 768px) {
+    .explore-cafe-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 24px 20px 140px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .explore-cafe-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 640px) {
+    .explore-cafe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+        padding: 20px 16px 140px;
+    }
+}
+
+/* Featured card spans full width in bento grid */
+.explore-cafe-grid .card-featured {
+    grid-column: span 2;
+}
+
+/* --- Result Counter (single source) --- */
+.explore-result-counter-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+    padding: 0 4px;
+}
+
+.explore-result-counter {
+    background: rgba(245, 158, 11, 0.05);
+    padding: 4px 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.counter-number {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #F59E0B;
+}
+
+.counter-text {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #8B7355;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Loading State */
+.explore-loading-state {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #8B7355;
+    opacity: 0.6;
+}
+
+.explore-loading-state i {
+    font-size: 1.1rem;
+}
+
+.explore-loading-state span {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* City Selector */
+.explore-city-selector {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Match the roastery listing proportions on wadahngopi.com. */
+.roastery-page .explore-hero-2026 {
+    border-radius: 0 0 36px 36px;
+}
+
+.roastery-page .explore-search-2026 {
+    min-height: 60px;
+    border-radius: 24px;
+}
+
+.roastery-page .explore-cafe-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.explore-page .category-pill.active,
+.roastery-page .category-pill.active,
+.explore-page .city-pill.active,
+.roastery-page .city-pill.active {
+    background: linear-gradient(135deg, #EAB308, #CA8A04) !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    box-shadow: 0 4px 20px rgba(234, 179, 8, 0.35) !important;
+}
+
+.city-select-premium {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 24px;
+    background: white;
+    border: 2px solid rgba(26, 15, 10, 0.05);
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #2C1810;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 16px rgba(26, 15, 10, 0.04);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath fill='%232C1810' d='M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80a8,8,0,0,1,11.32-11.32L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 18px;
+}
+
+.city-select-premium:focus {
+    outline: none;
+    border-color: var(--color-amber);
+    box-shadow: 0 8px 32px rgba(245, 158, 11, 0.15);
+    transform: translateY(-2px);
+}
+
+.city-select-premium:hover {
+    border-color: rgba(26, 15, 10, 0.2);
+    background-color: #F8F7F5;
+}
+
+/* Infinite Scroll */
+.scroll-sentinel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px 140px;
+    gap: 12px;
+}
+
+.loading-more-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #F5EFED;
+    border-top-color: var(--color-amber);
+    border-radius: 50%;
+    animation: spin-smooth 0.8s linear infinite;
+}
+
+.end-of-results {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: rgba(26, 15, 10, 0.03);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+}
+
+.end-of-results i {
+    color: var(--color-amber);
+}
+
+/* Filter Scroll Edge Gradients */
+.filter-scroll-wrapper {
+    position: relative;
+}
+
+.filter-scroll-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 32px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #FFFDFB);
+    pointer-events: none;
+    z-index: var(--z-fade);
+}
+
+.explore-hero-2026.is-compact .filter-scroll-wrapper::after {
+    background: linear-gradient(90deg, transparent, rgba(255, 253, 251, 0.98));
+}
+
+/* Responsive Tweaks */
+@media (min-width: 400px) {
+    .explore-main-title {
+        font-size: 2.8rem;
+    }
+}

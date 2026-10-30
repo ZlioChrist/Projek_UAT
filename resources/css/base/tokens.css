@@ -1,0 +1,80 @@
+/* =============================================
+   DESIGN TOKENS — Single Source of Truth
+   ============================================= */
+
+@theme {
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Brand Colors (Refined for Premium Contrast) */
+    --color-espresso: #1A0F0A; /* Base espresso sesuai request cuy */
+    --color-espresso-dark: #2C1810; /* Dark variant buat teks */
+    --color-coffee: #6F4E37;   /* Traditional coffee brown */
+    --color-coffee-dark: #231109;
+    --color-coffee-light: #A68A78;
+    --color-cream: #FCFAF7;    /* Warmer, more luxurious cream */
+    --color-cream-dark: #F2EBE8;
+    --color-amber: #EAB308;    /* More vibrant golden amber */
+
+    /* Text System */
+    --color-text: #1C1917;
+    --color-text-muted: #78716C;
+
+    /* premium Shadow System (iOS-Inspired Multi-layer) */
+    --shadow-soft: 
+        0 2px 4px rgba(15, 9, 6, 0.02),
+        0 4px 12px rgba(15, 9, 6, 0.04);
+    
+    --shadow-premium: 
+        0 20px 50px -12px rgba(15, 9, 6, 0.12),
+        0 8px 16px -4px rgba(15, 9, 6, 0.04);
+
+    --shadow-glass: 
+        0 8px 32px 0 rgba(15, 9, 6, 0.08),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+
+    --glow-amber: 0 0 30px rgba(234, 179, 8, 0.25);
+
+    /* Premium Animation Curves (Ease-only for Animation property) */
+    --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.65, 0.45, 1);
+
+    /* Motion Shorthands (For Transition property) */
+    --transition-bounce: all 0.6s var(--ease-bounce);
+    --transition-smooth: all 0.5s var(--ease-smooth);
+    --transition-premium: all 0.7s var(--ease-premium);
+
+    /* UI Standardizations (Radius & Spacing) */
+    --radius-premium: 32px;
+    --radius-bento: 24px;
+    --radius-pill: 100px;
+    --radius-button: 16px;
+    
+    --spacing-bento: 24px;
+    --spacing-card-p: 16px;
+    --spacing-badge-x: 12px;
+    --spacing-badge-y: 6px;
+
+    /* Typography System Tokens (Inside Theme for Tailwind 4) */
+
+    --font-heading: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Inter', 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Z-Index Scale — Predictable Stacking */
+:root {
+    --z-base: 1;
+    --z-fade: 5;
+    --z-content: 10;
+    --z-badge: 20;
+    --z-actions: 30;
+    --z-search: 50;
+    --z-sticky: 400;
+    --z-header: 500;
+    --z-dropdown: 600;
+    --z-nav: 700;
+    --z-overlay: 900;
+
+    /* Glass border (reusable) */
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+}

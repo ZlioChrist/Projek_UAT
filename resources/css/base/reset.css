@@ -1,0 +1,72 @@
+/* =============================================
+   BASE RESET & LAYOUT
+   ============================================= */
+
+html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: visible;
+}
+
+body {
+    background-color: var(--color-cream);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    /* Dots pattern — scroll only */
+    background-image: radial-gradient(var(--color-espresso) 0.5px, transparent 0.5px);
+    background-size: 24px 24px;
+    background-attachment: scroll;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Main Container — Mobile-first app shell */
+.main-container {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    background: transparent; /* Biar background body ngalir terus tanpa kepotong */
+    position: relative;
+    padding-bottom: 140px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+    display: block;
+    overflow: visible !important;
+    z-index: auto;
+}
+
+@media (min-width: 481px) {
+    body {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.15);
+}

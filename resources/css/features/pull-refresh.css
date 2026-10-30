@@ -1,0 +1,138 @@
+/* =============================================
+   PULL-TO-REFRESH — Coffee Drip Animation
+   GPU-friendly: only transform + opacity
+   ============================================= */
+
+/* Container — sits above main-container */
+.ptr-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    z-index: 9990;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+}
+
+.ptr-indicator {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(-70px) scale(0.6);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+
+.ptr-indicator.visible {
+    opacity: 1;
+}
+
+.ptr-indicator.refreshing {
+    opacity: 1;
+    transform: translateY(16px) scale(1) !important;
+}
+
+/* SVG Cup & Coffee */
+.ptr-cup {
+    width: 48px;
+    height: 48px;
+    filter: drop-shadow(0 4px 12px rgba(26, 15, 10, 0.15));
+}
+
+/* Coffee fill inside the cup — controlled by clipPath */
+.ptr-coffee-fill {
+    transition: none;
+    /* JS controls this directly */
+}
+
+/* Steam particles — only show when refreshing */
+.ptr-steam {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(176, 137, 104, 0.4);
+    border-radius: 50%;
+    bottom: 100%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ptr-indicator.refreshing .ptr-steam {
+    opacity: 1;
+}
+
+.ptr-steam:nth-child(1) {
+    left: 35%;
+    animation: steam-rise 1.2s ease-out infinite;
+    animation-delay: 0s;
+}
+
+.ptr-steam:nth-child(2) {
+    left: 50%;
+    animation: steam-rise 1.2s ease-out infinite;
+    animation-delay: 0.3s;
+}
+
+.ptr-steam:nth-child(3) {
+    left: 65%;
+    animation: steam-rise 1.2s ease-out infinite;
+    animation-delay: 0.6s;
+}
+
+/* Drip droplet — falls from top into cup */
+.ptr-drip {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 8px;
+    background: var(--color-coffee);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    opacity: 0;
+}
+
+.ptr-indicator.visible .ptr-drip {
+    animation: drip-fall 0.8s cubic-bezier(0.55, 0, 1, 0.45) infinite;
+}
+
+.ptr-indicator.refreshing .ptr-drip {
+    animation: drip-fall 0.5s cubic-bezier(0.55, 0, 1, 0.45) infinite;
+}
+
+/* Text hint */
+.ptr-text {
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.55rem;
+    font-weight: 800;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.ptr-indicator.visible .ptr-text {
+    opacity: 0.6;
+}
+
+.ptr-indicator.refreshing .ptr-text {
+    opacity: 1;
+}
+
+/* Cup bounce when refreshing */
+.ptr-indicator.refreshing .ptr-cup {
+    animation: cup-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}

@@ -1,0 +1,662 @@
+/* =============================================
+   CARDS — All Card Variants
+   ============================================= */
+
+/* --- Luxury Grid --- */
+.luxury-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 0 20px;
+}
+
+@media (max-width: 340px) {
+    .luxury-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Vertical Luxury Card --- */
+.luxury-cafe-card {
+    background: white;
+    border-radius: 32px;
+    padding: 10px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(26, 15, 10, 0.03);
+    transition: var(--transition-bounce);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.luxury-cafe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-premium);
+    border-color: rgba(26, 15, 10, 0.08);
+}
+
+.luxury-cafe-card:active {
+    transform: scale(0.95);
+}
+
+.luxury-image-wrapper {
+    aspect-ratio: 3/4;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    background: var(--color-cream-dark);
+}
+
+.luxury-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.luxury-cafe-card:hover .luxury-image-wrapper img {
+    transform: scale(1.1);
+}
+
+.luxury-card-content {
+    padding: 14px 4px 4px;
+}
+
+.luxury-card-title-v2 {
+    color: var(--color-espresso);
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.luxury-card-location-v2 {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.luxury-meta-row {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+/* --- Horizontal Card (Saved Page) --- */
+.saved-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 24px;
+}
+
+.luxury-horizontal-card {
+    background: white;
+    border-radius: 28px;
+    padding: 12px;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 16px;
+    align-items: center;
+    text-decoration: none !important;
+    box-shadow:
+        0 4px 16px rgba(26, 15, 10, 0.06),
+        0 1px 3px rgba(26, 15, 10, 0.03);
+    border: 1px solid rgba(26, 15, 10, 0.04);
+    transition:
+        transform 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.35s cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    animation: bento-enter 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.luxury-horizontal-card:hover {
+    transform: translateX(5px) translateY(-2px);
+    box-shadow:
+        0 12px 32px rgba(26, 15, 10, 0.12),
+        0 0 0 1px rgba(234, 179, 8, 0.15);
+    border-color: rgba(234, 179, 8, 0.2);
+}
+
+.luxury-horizontal-card:active {
+    transform: scale(0.97);
+    transition-duration: 0.1s;
+}
+
+.luxury-horizontal-card:hover .trash-btn-subtle {
+    opacity: 1;
+    background: #FEF2F2;
+    color: #EF4444;
+}
+
+/* Swipe-to-delete reveal layer */
+.luxury-horizontal-card .swipe-delete-reveal {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 72px;
+    background: linear-gradient(135deg, #FCA5A5, #EF4444);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 28px 28px 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+}
+
+.luxury-horizontal-card.swiping-left .swipe-delete-reveal {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    animation: slide-reveal-red 0.25s ease;
+}
+
+.horizontal-img-wrapper {
+    width: 85px;
+    height: 85px;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.horizontal-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.horizontal-card-content {
+    flex: 1;
+    min-width: 0;
+    padding-right: 10px;
+}
+
+.horizontal-card-title {
+    color: var(--color-espresso);
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
+}
+
+.horizontal-card-location {
+    color: var(--color-text-muted);
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: flex;
+    gap: 4px;
+}
+
+/* --- Cafe Card 2026 (Explore/Roastery pages) — 3D Bento Edition --- */
+.cafe-card-2026 {
+    position: relative;
+    background: white;
+    border-radius: 22px;
+    overflow: hidden;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    box-shadow:
+        0 4px 20px rgba(26, 15, 10, 0.06),
+        0 1px 3px rgba(26, 15, 10, 0.04);
+    border: 1px solid rgba(26, 15, 10, 0.04);
+
+    /* 3D Transform Foundation */
+    transform-style: preserve-3d;
+    transition:
+        transform 0.42s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.42s cubic-bezier(0.23, 1, 0.32, 1),
+        border-color 0.3s ease;
+    will-change: transform;
+
+    /* Staggered bento entrance */
+    animation: bento-enter 0.55s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@media (min-width: 768px) {
+    .cafe-card-2026 {
+        border-radius: 28px;
+    }
+}
+
+/* --- Bento Stagger via nth-child --- */
+.cafe-card-2026:nth-child(1) { animation-delay: 0.04s; }
+.cafe-card-2026:nth-child(2) { animation-delay: 0.09s; }
+.cafe-card-2026:nth-child(3) { animation-delay: 0.14s; }
+.cafe-card-2026:nth-child(4) { animation-delay: 0.19s; }
+.cafe-card-2026:nth-child(5) { animation-delay: 0.24s; }
+.cafe-card-2026:nth-child(6) { animation-delay: 0.29s; }
+.cafe-card-2026:nth-child(7) { animation-delay: 0.34s; }
+.cafe-card-2026:nth-child(8) { animation-delay: 0.39s; }
+.cafe-card-2026:nth-child(n+9) { animation-delay: 0.42s; }
+
+/* --- 3D Hover Tilt --- */
+.cafe-card-2026:hover {
+    transform:
+        perspective(800px)
+        rotateX(-3deg)
+        rotateY(3deg)
+        translateY(-8px)
+        scale(1.025);
+    box-shadow:
+        0 26px 54px rgba(26, 15, 10, 0.14),
+        0 0 0 1px rgba(234, 179, 8, 0.18),
+        24px 24px 64px rgba(26, 15, 10, 0.08),
+        -6px -6px 24px rgba(255, 255, 255, 0.12);
+    border-color: rgba(234, 179, 8, 0.22);
+}
+
+.cafe-card-2026:active {
+    transform: scale(0.97);
+    transition-duration: 0.12s;
+}
+
+/* --- Featured Bento Tile (1 per 5 cards via Blade logic) --- */
+.cafe-card-2026.card-featured {
+    grid-column: span 2;
+}
+
+.cafe-card-2026.card-featured .cafe-card-image {
+    aspect-ratio: 16/9;
+}
+
+/* --- Card Image Container --- */
+.cafe-card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background-color: #F5EFED;
+}
+
+/* Image parallax within card — scale reserve for hover zoom */
+.cafe-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.04); /* reserve for parallax pull-back on hover */
+    transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+.cafe-card-2026:hover .cafe-card-img {
+    transform: scale(1.12) translateZ(0);
+}
+
+/* Gradient overlay */
+.cafe-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(26, 15, 10, 0.65) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.cafe-card-2026:hover .cafe-card-overlay {
+    opacity: 1;
+}
+
+/* Status Badge — floats above card surface */
+.status-badge {
+    transform: translateZ(24px);
+    transition: transform 0.3s ease;
+}
+
+/* Card Actions */
+.cafe-card-actions {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    gap: 6px;
+    z-index: var(--z-actions);
+}
+
+/* Card Content */
+.cafe-card-content {
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+@media (min-width: 768px) {
+    .cafe-card-content {
+        padding: 14px 16px;
+        gap: 6px;
+    }
+}
+
+.cafe-card-title {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #2C1810;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cafe-card-address {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #8B7355;
+}
+
+.cafe-card-address i {
+    color: #F59E0B;
+    font-size: 0.85rem;
+}
+
+.cafe-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+}
+
+.cafe-tag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #5C4A3D;
+    background: #F5EFED;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.02em;
+    border: 1px solid rgba(26, 15, 10, 0.05);
+}
+
+.cafe-tag-more {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #8B7355;
+    padding: 4px 6px;
+}
+
+/* --- Card Shine — angled sweep across card --- */
+.card-shine {
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.28),
+        transparent
+    );
+    transform: skewX(-20deg);
+    transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+    z-index: 4;
+}
+
+.cafe-card-2026:hover .card-shine {
+    left: 160%;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .cafe-card-2026 {
+        animation: none;
+        transition: box-shadow 0.2s ease;
+    }
+    .cafe-card-2026:hover {
+        transform: translateY(-4px);
+    }
+    .card-shine { display: none; }
+}
+
+/* --- Product Card (Menu/Catalog) --- */
+.luxury-product-card {
+    background: white;
+    border-radius: 28px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.luxury-product-card:active {
+    transform: translateY(2px);
+    background: #fcfcfc;
+}
+
+.product-img-v3 {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #fafafa;
+}
+
+.product-img-v3 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.product-info-v3 {
+    padding: 4px 2px;
+}
+
+.product-name-v3 {
+    font-weight: 800;
+    color: var(--color-espresso);
+    font-size: 0.85rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 6px;
+    height: 2.6em;
+}
+
+.product-price-v3 {
+    font-size: 0.95rem;
+    font-weight: 900;
+    color: var(--color-amber);
+    letter-spacing: -0.01em;
+}
+
+/* --- Catalog Card --- */
+.luxury-catalog-card {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #fdfdfd;
+    aspect-ratio: 1/1.2;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.luxury-catalog-card:active {
+    transform: scale(0.96);
+}
+
+.luxury-catalog-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.luxury-catalog-card:hover img {
+    transform: scale(1.05);
+}
+
+/* --- Skeleton Loaders --- */
+.skeleton-card {
+    background: white !important;
+    border-color: rgba(26, 15, 10, 0.03) !important;
+    pointer-events: none;
+}
+
+.skeleton-shimmer {
+    background: linear-gradient(90deg,
+            #F5EFED 0%,
+            #FAF7F5 25%,
+            #FFFFFF 50%,
+            #FAF7F5 75%,
+            #F5EFED 100%);
+    background-size: 400% 100%;
+    animation: shimmer-sweep 1.8s ease-in-out infinite;
+    border-radius: 12px;
+}
+
+.skeleton-image {
+    width: 100%;
+    aspect-ratio: 4/5;
+    border-radius: 24px 24px 0 0;
+}
+
+.skeleton-image.skeleton-shimmer {
+    border-radius: 24px 24px 0 0;
+}
+
+.skeleton-title {
+    height: 18px;
+    width: 80%;
+    border-radius: 8px;
+}
+
+.skeleton-text {
+    height: 14px;
+    border-radius: 6px;
+}
+
+.skeleton-pill {
+    width: 54px;
+    height: 18px;
+    border-radius: 100px;
+}
+
+.skeleton-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 18px;
+    flex-shrink: 0;
+}
+
+/* --- Info Card (Information Page) --- */
+.info-list-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+    gap: 14px;
+}
+
+.info-item-row {
+    background: #fff;
+    border-radius: 28px;
+    padding: 14px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    text-decoration: none !important;
+    transition: var(--transition-bounce);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.info-item-row:active {
+    transform: scale(0.96);
+}
+
+.info-img-compact {
+    width: 85px;
+    height: 85px;
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.info-img-compact img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info-text-box {
+    flex: 1;
+    min-width: 0;
+}
+
+.info-headline {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--color-espresso);
+    line-height: 1.35;
+    margin-bottom: 4px;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.info-meta-small {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Touch device optimizations: matikan 3D tilt, sembunyikan hover actions */
+@media (hover: none) and (pointer: coarse) {
+    .cafe-card-actions {
+        display: none !important;
+    }
+
+    .cafe-card-2026:hover {
+        transform: none !important;
+        box-shadow: 0 4px 20px rgba(26, 15, 10, 0.06), 0 1px 3px rgba(26, 15, 10, 0.04) !important;
+        border-color: rgba(26, 15, 10, 0.04) !important;
+    }
+
+    .cafe-card-2026:active {
+        transform: scale(0.97) !important;
+        transition-duration: 0.12s !important;
+    }
+
+    /* Matikan zoom image pada touch hover */
+    .cafe-card-2026:hover .cafe-card-img {
+        transform: scale(1.04) !important;
+    }
+
+    /* Sembunyikan card shine di touch */
+    .card-shine {
+        display: none !important;
+    }
+}

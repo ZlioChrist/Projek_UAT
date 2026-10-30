@@ -1,0 +1,79 @@
+.bottom-nav.dock-nav-home {
+  position: fixed !important;
+  bottom: max(24px, env(safe-area-inset-bottom)) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: min(400px, calc(100% - 28px)) !important;
+  max-width: 400px !important;
+  height: 72px !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  border-radius: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  padding: 0 12px !important;
+  z-index: 9999 !important;
+  box-shadow:
+    0 20px 50px -12px rgba(26, 15, 10, 0.2),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 -1px 0 rgba(255, 255, 255, 0.4) inset !important;
+}
+
+.bottom-nav.dock-nav-home .nav-item {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  color: #4b5563 !important;
+  transition: color 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  flex: 1 !important;
+  position: relative !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  height: 70.4px !important;
+  border-radius: 36px !important;
+}
+
+.bottom-nav.dock-nav-home .nav-item i {
+  font-size: 1.6rem !important;
+  margin-bottom: 0 !important;
+}
+
+.bottom-nav.dock-nav-home .nav-item:hover {
+  color: #1a0f0a !important;
+}
+
+.bottom-nav.dock-nav-home .nav-item.active {
+  color: #1a0f0a !important;
+  background: transparent !important;
+}
+
+.bottom-nav.dock-nav-home .nav-item.active i {
+  color: #f59e0b !important;
+}
+
+.bottom-nav.dock-nav-home .nav-label {
+  color: inherit !important;
+  font-size: 0.65rem !important;
+  font-weight: 800 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.0325rem !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+.bottom-nav.dock-nav-home .nav-item:focus-visible {
+  outline: 2px solid #a96d2b !important;
+  outline-offset: -2px !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-nav.dock-nav-home .nav-item {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,50 @@
+/* =============================================
+   BACKGROUND SYSTEM — Ambient & Texture
+   ============================================= */
+
+body, .app-shell {
+    background: 
+        radial-gradient(ellipse 70% 50% at 15% 0%, rgba(234,179,8,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 85% 100%, rgba(202,138,4,0.08) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 60% at 50% 50%, #FFFBF0 0%, #FEF9EC 100%);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Texture Overlay (Grain) */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3%3Ffilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Subtle Animated Orb — Global */
+body::after {
+    content: '';
+    position: fixed;
+    top: -100px;
+    right: -100px;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(234,179,8,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: orb-drift 25s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes orb-drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-40px, 60px) scale(1.15); }
+    66% { transform: translate(30px, -30px) scale(0.9); }
+}
+
+.bg-noise {
+    position: relative;
+    z-index: 2;
+}

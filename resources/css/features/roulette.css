@@ -1,0 +1,390 @@
+/* =============================================
+   CAFE ROULETTE — Spin & Win Animation
+   GPU-friendly: transform + opacity only
+   ============================================= */
+
+/* --- Floating Action Button --- */
+.roulette-fab {
+    position: fixed;
+    bottom: 100px;
+    right: max(calc((100vw - 480px) / 2 + 16px), 16px);
+    z-index: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    font-family: inherit;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    -webkit-tap-highlight-color: transparent;
+    text-transform: uppercase;
+    will-change: transform;
+}
+
+.roulette-fab:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 12px 40px rgba(245, 158, 11, 0.5);
+}
+
+.roulette-fab:active {
+    transform: scale(0.95);
+}
+
+/* Dragging state — disable transitions for real-time tracking */
+.roulette-fab.is-dragging {
+    transition: none !important;
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(245, 158, 11, 0.5),
+        0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: grabbing;
+    z-index: 9999;
+    opacity: 0.9;
+}
+
+/* Snap-back transition when drag ends */
+.roulette-fab:not(.is-dragging) {
+    transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        top 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.roulette-fab i {
+    font-size: 1.1rem;
+    animation: gentle-bob 2.5s ease-in-out infinite;
+}
+
+/* --- Modal Overlay --- */
+.roulette-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9995;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(26, 15, 10, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 24px;
+}
+
+/* --- Modal Container --- */
+.roulette-modal {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    background: white;
+    border-radius: 32px;
+    padding: 28px 24px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Modal decorative gradient */
+.roulette-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #F59E0B, #D97706, #B45309);
+    border-radius: 32px 32px 0 0;
+}
+
+/* --- Close Button --- */
+.roulette-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: #F5EFED;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.roulette-close:hover {
+    background: #EDE5E0;
+    color: var(--color-espresso);
+    transform: rotate(90deg);
+}
+
+/* --- Header --- */
+.roulette-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.roulette-emoji {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 8px;
+    animation: gentle-bob 3s ease-in-out infinite;
+}
+
+.roulette-title {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--color-espresso);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+}
+
+.roulette-subtitle {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+/* --- Spin Stage (card container) --- */
+.roulette-stage {
+    position: relative;
+    height: 200px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #FAF7F5;
+    border: 1px solid rgba(26, 15, 10, 0.04);
+}
+
+/* Individual roulette cards */
+.roulette-card {
+    position: absolute;
+    width: 85%;
+    max-width: 280px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(26, 15, 10, 0.05);
+    opacity: 0;
+    transform: translateY(100%) scale(0.8);
+    transition: none;
+    will-change: transform, opacity;
+}
+
+.roulette-card-img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    background: #F5EFED;
+}
+
+.roulette-card-info {
+    padding: 10px 14px 12px;
+}
+
+.roulette-card-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-espresso);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.roulette-card-city {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+/* Winner State */
+.roulette-card.is-winner {
+    animation: winner-reveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    z-index: 5;
+    border: 2px solid #F59E0B;
+}
+
+.roulette-card.is-winner::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 21px;
+    border: 2px solid transparent;
+    animation: winner-glow-pulse 1.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* --- Spin Button --- */
+.roulette-spin-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 800;
+    font-family: inherit;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.roulette-spin-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+.roulette-spin-btn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.roulette-spin-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Spin button shimmer */
+.roulette-spin-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer-sweep 3s ease-in-out infinite;
+}
+
+/* --- Winner CTA Buttons --- */
+.roulette-cta-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.roulette-cta {
+    flex: 1;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    font-family: inherit;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-transform: uppercase;
+    border: none;
+}
+
+.roulette-cta-primary {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: white;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.roulette-cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.roulette-cta-secondary {
+    background: #F5EFED;
+    color: var(--color-espresso);
+}
+
+.roulette-cta-secondary:hover {
+    background: #EDE5E0;
+    transform: translateY(-2px);
+}
+
+/* --- Confetti Particles --- */
+.confetti-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 20;
+}
+
+.confetti-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    top: 0;
+    animation: confetti-fall 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    will-change: transform, opacity;
+}
+
+/* --- Empty State --- */
+.roulette-empty {
+    text-align: center;
+    padding: 20px;
+}
+
+.roulette-empty-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.5;
+}
+
+.roulette-empty-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+/* --- Responsive --- */
+@media (max-width: 380px) {
+    .roulette-modal {
+        padding: 24px 18px;
+        border-radius: 28px;
+    }
+
+    .roulette-title {
+        font-size: 1.15rem;
+    }
+
+    .roulette-stage {
+        height: 180px;
+    }
+}
+
+/* Hide FAB on very small screens where it overlaps nav */
+@media (max-height: 500px) {
+    .roulette-fab {
+        bottom: 80px;
+        padding: 8px 12px;
+        font-size: 0.65rem;
+    }
+}
