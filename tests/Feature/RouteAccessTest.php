@@ -3,6 +3,7 @@
 use App\Models\Cafe;
 use App\Models\Information;
 use App\Models\Roastery;
+use App\Models\User;
 
 // --- Landing Page ---
 
@@ -10,6 +11,19 @@ it('displays the home landing page', function () {
     $this->get(route('home'))
         ->assertSuccessful()
         ->assertSee('WadahNgopi');
+});
+
+it('shows the signed-in customer name in the account navigation data', function () {
+    $customer = User::factory()->create([
+        'name' => 'Kopi Pelanggan',
+        'role' => 'user',
+    ]);
+
+    $this->actingAs($customer, 'customer')
+        ->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('data-current-user-name="Kopi Pelanggan"', false)
+        ->assertDontSee('Akun Kopi Pelanggan');
 });
 
 // --- Explore ---

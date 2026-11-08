@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\RoasteryResource\Pages;
 use App\Models\Roastery;
@@ -24,16 +25,18 @@ class RoasteryResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Daftar Roastery';
 
-    protected static ?string $navigationGroup = 'Manajemen Warung';
+    protected static ?string $navigationGroup = 'Manajemen Roastery';
+
+    protected static ?int $navigationSort = 1;
 
     public static function canViewAny(): bool
     {
-        return in_array(auth()->user()?->role, ['developer', 'roastery'], true);
+        return in_array(AuthenticatedUser::get()?->role, ['developer', 'roastery'], true);
     }
 
     public static function canCreate(): bool
     {
-        return self::canViewAny();
+        return UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer;
     }
 
     public static function form(Form $form): Form
@@ -88,7 +91,7 @@ class RoasteryResource extends Resource
                             ->required(),
                     ])
                     ->columns(2)
-                    ->visible(fn () => auth()->user()?->role === 'developer'),
+                    ->visible(fn () => AuthenticatedUser::get()?->role === 'developer'),
 
                 // SECTION: ROASTERY OWNER CONTENT
                 Forms\Components\Section::make('Detail Roastery')
@@ -107,7 +110,7 @@ class RoasteryResource extends Resource
                                 'published' => 'Langsung Tayangin!',
                             ])
                             ->label('Update Status')
-                            ->visible(fn () => auth()->user()?->role === 'developer'),
+                            ->visible(fn () => AuthenticatedUser::get()?->role === 'developer'),
 
                         Forms\Components\Textarea::make('description')
                             ->label('Tentang Roastery')
@@ -156,18 +159,38 @@ class RoasteryResource extends Resource
                             ])->columns(2),
 
                         Forms\Components\Section::make('Pembayaran pesanan')
-                            ->description('Unggah QRIS statis dari penyedia QRIS Anda dan tulis instruksi pembayaran. Sistem hanya menyimpan gambar dan tidak terhubung ke bank.')
+                            ->description('Isi informasi transfer bank dan unggah QRIS statis. Sistem menyimpan informasi dan gambar, tetapi tidak terhubung ke bank.')
                             ->schema([
                                 Forms\Components\FileUpload::make('payment_qr_path')
                                     ->label('Gambar QRIS')
                                     ->image()
                                     ->disk('public')
                                     ->directory('payment-qrs')
-                                    ->maxSize(5120),
+                                    ->visibility('public')
+                                    ->maxSize(5120)
+                                    ->helperText('Gambar disimpan di penyimpanan publik agar bisa ditampilkan pada checkout. Unggah ulang untuk mengganti QRIS.'),
+                                Forms\Components\TextInput::make('bank_name')
+                                    ->label('Nama bank')
+                                    ->placeholder('Contoh: BCA, Mandiri, BRI, BNI, atau BSI')
+                                    ->prefixIcon('heroicon-o-building-library')
+                                    ->maxLength(100),
+                                Forms\Components\TextInput::make('bank_account_number')
+                                    ->label('Nomor rekening')
+                                    ->placeholder('Masukkan nomor rekening')
+                                    ->prefixIcon('heroicon-o-credit-card')
+                                    ->maxLength(50),
+                                Forms\Components\TextInput::make('bank_account_name')
+                                    ->label('Nama pemilik rekening')
+                                    ->placeholder('Sesuai nama pada rekening')
+                                    ->prefixIcon('heroicon-o-user')
+                                    ->maxLength(120)
+                                    ->columnSpanFull(),
                                 Forms\Components\Textarea::make('payment_instructions')
-                                    ->label('Instruksi QRIS / transfer manual')
+                                    ->label('Catatan transfer (opsional)')
                                     ->rows(4)
                                     ->maxLength(2000)
+                                    ->placeholder('Contoh: Cantumkan kode pesanan pada berita transfer.')
+                                    ->helperText('Ditampilkan sebagai catatan tambahan pada checkout. Jangan masukkan PIN atau kata sandi bank.')
                                     ->columnSpanFull(),
                             ])->columns(2),
 
@@ -249,7 +272,7 @@ class RoasteryResource extends Resource
                                     ->columnSpanFull(),
                             ]),
                     ])
-                    ->visible(fn () => in_array(UserRole::fromUserValue(auth()->user()?->role), [UserRole::Developer, UserRole::Roastery], true)),
+                    ->visible(fn () => in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Roastery], true)),
             ]);
     }
 
@@ -304,9 +327,9 @@ class RoasteryResource extends Resource
                     ->weight('bold')
                     ->label('Nama Roastery'),
                 Tables\Columns\TextColumn::make('owner_display')
-                    ->state(fn (Roastery $record): string => $record->name)
+                    ->state(fn (Roastery $record): string => $record->owner?->name ?? 'Belum ditentukan')
                     ->label('Owner')
-                    ->visible(fn () => UserRole::fromUserValue(auth()->user()?->role) === UserRole::Developer),
+                    ->visible(fn () => UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer),
                 Tables\Columns\TextColumn::make('city.name')
                     ->label('Kota')
                     ->badge()
@@ -351,8 +374,8 @@ class RoasteryResource extends Resource
     {
         $query = parent::getEloquentQuery()->with(['owner', 'city']);
 
-        if (UserRole::fromUserValue(auth()->user()?->role) === UserRole::Roastery) {
-            $query->where('owner_id', auth()->id());
+        if (UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Roastery) {
+            $query->where('owner_id', AuthenticatedUser::id());
         }
 
         return $query;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DockItem = ({ icon, label, url, active, onClick }) => {
+const DockItem = ({ icon, label, url, active, onClick, ariaLabel, photoUrl }) => {
     const handleClick = (event) => {
         if (onClick) {
             onClick(event);
@@ -20,17 +20,19 @@ const DockItem = ({ icon, label, url, active, onClick }) => {
         <a
             href={url}
             onClick={handleClick}
-            aria-label={label}
+            aria-label={ariaLabel || label}
             aria-current={active ? 'page' : undefined}
-            className={`nav-item ${active ? 'active' : ''}`}
+            className={`nav-item ${active ? 'active' : ''} ${ariaLabel ? 'account-nav-item' : ''}`}
         >
-            <i className={currentIcon} aria-hidden="true"></i>
+            {photoUrl
+                ? <img className="nav-account-avatar" src={photoUrl} alt="" aria-hidden="true" />
+                : <i className={currentIcon} aria-hidden="true"></i>}
             <span className="nav-label">{label}</span>
         </a>
     );
 };
 
-const DockNav = ({ currentRoute, routes, isAuthenticated }) => {
+const DockNav = ({ currentRoute, routes, isAuthenticated, currentUserName, currentUserPhotoUrl }) => {
     const items = [
         { id: 'home', label: 'Beranda', icon: 'ph ph-house', url: routes.home },
         { id: 'roastery', label: 'Roastery', icon: 'ph ph-coffee-bean', url: routes.roastery },
@@ -39,8 +41,18 @@ const DockNav = ({ currentRoute, routes, isAuthenticated }) => {
     ];
 
     const authenticated = isAuthenticated === true || isAuthenticated === 'true';
+    const accountLabel = typeof currentUserName === 'string' && currentUserName.trim()
+        ? currentUserName.trim()
+        : 'Akun';
     items.push(authenticated
-        ? { id: 'account', label: 'Akun', icon: 'ph ph-user-circle', url: routes.account }
+        ? {
+            id: 'account',
+            label: accountLabel,
+            icon: 'ph ph-user-circle',
+            url: routes.account,
+            ariaLabel: `Akun ${accountLabel}`,
+            photoUrl: typeof currentUserPhotoUrl === 'string' ? currentUserPhotoUrl : '',
+        }
         : { id: 'login', label: 'Masuk', icon: 'ph ph-user-circle', url: routes.login });
 
     const navClass = 'bottom-nav dock-nav-home';

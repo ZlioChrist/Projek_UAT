@@ -53,6 +53,14 @@ class RoasterySearch extends Component
         $this->resetPage();
     }
 
+    public function clearSearch(): void
+    {
+        $this->search = '';
+        $this->sort = 'relevance';
+        $this->perPage = 12;
+        $this->resetPage();
+    }
+
     public function updatedCityId(): void
     {
         $this->validate(['cityId' => 'nullable|exists:cities,id']);
@@ -197,7 +205,13 @@ class RoasterySearch extends Component
             }
         } else {
             if ($this->filter !== 'terdekat') {
-                if ($this->sort === 'name_az') {
+                if ($this->search && $this->sort === 'relevance') {
+                    $searchTerm = trim($this->search);
+                    $query->orderByRaw(
+                        'CASE WHEN LOWER(name) = LOWER(?) THEN 0 WHEN LOWER(name) LIKE LOWER(?) THEN 1 WHEN LOWER(name) LIKE LOWER(?) THEN 2 ELSE 3 END',
+                        [$searchTerm, $searchTerm . '%', '%' . $searchTerm . '%']
+                    )->latest();
+                } elseif ($this->sort === 'name_az') {
                     $query->orderBy('name', 'asc');
                 } elseif ($this->sort === 'name_za') {
                     $query->orderBy('name', 'desc');

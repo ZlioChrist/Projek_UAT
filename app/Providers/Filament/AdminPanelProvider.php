@@ -2,10 +2,20 @@
 
 namespace App\Providers\Filament;
 
+use App\Support\AuthenticatedUser;
+use App\Enums\UserRole;
+use App\Filament\Pages\AiOptimization;
+use App\Filament\Pages\Auth\CustomLogin;
+use App\Filament\Pages\Dashboard;
+use App\Filament\Pages\ProfileSettings;
+use App\Filament\Widgets\StatsOverview;
+use App\Filament\Widgets\WelcomeBanner;
+use App\Http\Middleware\SecurityHeaders;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationItem;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -13,7 +23,9 @@ use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\HtmlString;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
@@ -24,7 +36,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login(\App\Filament\Pages\Auth\CustomLogin::class)
+            ->login(CustomLogin::class)
+            ->authGuard('web')
             ->brandName('WadahNgopi')
             ->brandLogo(asset('wadahngopi.png'))
             ->brandLogoHeight('3.5rem')
@@ -40,7 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ->font('Outfit')
             ->renderHook(
                 'panels::styles.after',
-                fn () => new \Illuminate\Support\HtmlString('
+                fn () => new HtmlString('
                     <link rel="stylesheet" href="'.asset('css/filament-custom.css').'?v='.filemtime(public_path('css/filament-custom.css')).'">
                     <meta name="theme-color" content="#060606">
                     <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -51,26 +64,47 @@ class AdminPanelProvider extends PanelProvider
                     </style>
                 '),
             )
-            ->renderHook(
-                'panels::head.start',
-                fn () => new \Illuminate\Support\HtmlString('
-                    <meta http-equiv="X-Frame-Options" content="DENY">
-                    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-                    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(self)">
-                '),
-            )
             ->darkMode(true)
             ->sidebarCollapsibleOnDesktop()
             ->spa()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                \App\Filament\Pages\Dashboard::class,
+                Dashboard::class,
+            ])
+            ->navigationGroups([
+                'Manajemen Kafe',
+                'Manajemen Roastery',
+                'Fitur Tambahan',
+                'Manajemen User',
+                'Akun',
+                'Manajemen Konten',
+                'Kendali Admin',
+            ])
+            ->navigationItems([
+                NavigationItem::make('Optimalisasi AI')
+                    ->url(fn (): string => AiOptimization::getUrl())
+                    ->icon('heroicon-o-sparkles')
+                    ->group('Fitur Tambahan')
+                    ->sort(1)
+                    ->visible(fn (): bool => in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin, UserRole::Roastery], true)),
+                NavigationItem::make('Kelola User')
+                    ->url(fn (): string => ProfileSettings::getUrl())
+                    ->icon('heroicon-o-user-circle')
+                    ->group('Manajemen User')
+                    ->sort(1)
+                    ->visible(fn (): bool => in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin, UserRole::Roastery], true)),
+                NavigationItem::make('Notifikasi Pelanggan')
+                    ->url(fn (): string => route('notifications.index'))
+                    ->icon('heroicon-o-bell')
+                    ->group('Akun')
+                    ->badge(fn (): ?string => AuthenticatedUser::get()?->unreadNotifications()->count() ?: null, 'warning')
+                    ->visible(fn (): bool => UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::User),
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                \App\Filament\Widgets\WelcomeBanner::class,
-                \App\Filament\Widgets\StatsOverview::class,
+                WelcomeBanner::class,
+                StatsOverview::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -82,11 +116,10 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                \Illuminate\Routing\Middleware\ThrottleRequests::class.':60,1',
-                \App\Http\Middleware\SecurityHeaders::class,
+                ThrottleRequests::class.':60,1',
+                SecurityHeaders::class,
             ])
             ->authMiddleware([
-                \App\Http\Middleware\RedirectUserFromAdmin::class,
                 Authenticate::class,
             ]);
     }

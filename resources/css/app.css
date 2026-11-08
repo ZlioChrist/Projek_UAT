@@ -41,6 +41,10 @@
 @import "./features/roulette.css";
 @import "./features/splash.css";
 @import "./features/account.css";
+@import "./features/checkout.css";
+@import "./features/cart.css";
+@import "./features/micro-polish.css";
+@import "./features/information.css";
 
 /* --- 8. Micro-interactions & Page Transitions --- */
 @import "./animations/micro.css";

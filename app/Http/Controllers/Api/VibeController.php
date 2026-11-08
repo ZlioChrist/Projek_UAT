@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Support\AuthenticatedUser;
 use App\Http\Controllers\Controller;
 use App\Models\Cafe;
 use App\Services\VibeService;
@@ -57,7 +58,7 @@ class VibeController extends Controller
             $validated['user_lat'] ?? null,
             $validated['user_lng'] ?? null,
             $fingerprint,
-            auth()->id()
+            AuthenticatedUser::id()
         );
 
         // Set rate limit for 4 hours

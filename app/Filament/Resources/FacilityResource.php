@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\FacilityResource\Pages;
 use App\Models\Facility;
@@ -10,6 +11,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class FacilityResource extends Resource
 {
@@ -17,11 +20,54 @@ class FacilityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-check-badge';
 
-    protected static ?string $navigationGroup = 'Manajemen Konten';
+    protected static ?string $navigationLabel = 'Daftar Fasilitas';
+
+    protected static ?string $navigationGroup = 'Manajemen Kafe';
+
+    protected static ?int $navigationSort = 2;
 
     public static function canViewAny(): bool
     {
-        return UserRole::fromUserValue(auth()->user()?->role) === UserRole::Developer;
+        return in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin], true);
+    }
+
+    public static function canCreate(): bool
+    {
+        return self::canViewAny() && (
+            UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer
+            || AuthenticatedUser::require()->cafes()->exists()
+        );
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return self::ownsRecord($record);
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return self::ownsRecord($record);
+    }
+
+    private static function ownsRecord(Model $record): bool
+    {
+        $user = AuthenticatedUser::get();
+
+        return UserRole::fromUserValue($user?->role) === UserRole::Developer
+            || (UserRole::fromUserValue($user?->role) === UserRole::Admin
+                && $user !== null
+                && $user->cafes()->whereKey($record->cafe_id)->exists());
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery()->with('cafe');
+
+        if (UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Admin) {
+            $query->whereIn('cafe_id', AuthenticatedUser::require()->cafes()->select('id'));
+        }
+
+        return $query;
     }
 
     public static function form(Form $form): Form
@@ -29,10 +75,18 @@ class FacilityResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('cafe_id')
-                    ->relationship('cafe', 'name')
+                    ->relationship(
+                        'cafe',
+                        'name',
+                        fn (Builder $query): Builder => UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Admin
+                            ? $query->whereIn('id', AuthenticatedUser::require()->cafes()->select('id'))
+                            : $query,
+                    )
                     ->searchable()
                     ->preload()
                     ->required()
+                    ->disabled(fn (?Facility $record): bool => $record !== null)
+                    ->dehydrated()
                     ->label('Milik Cafe'),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -48,13 +102,14 @@ class FacilityResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('cafe.name')
+                    ->label('Kafe')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('icon')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('cafes_count')
-                    ->counts('cafe')
-                    ->label('Digunakan di Cafe'),
             ])
             ->filters([
                 //
@@ -65,7 +120,8 @@ class FacilityResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->visible(fn (): bool => UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer),
                 ]),
             ]);
     }

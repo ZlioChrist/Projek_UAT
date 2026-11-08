@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Support\AuthenticatedUser;
 use App\Http\Controllers\Controller;
 use App\Models\Cafe;
 use App\Services\WfcScoreService;
@@ -29,7 +30,7 @@ class WfcScoreController extends Controller
 
         // Prevent multiple ratings from the same user for the same cafe
         $existing = \App\Models\WfcScore::where('cafe_id', $cafe->id)
-            ->where('user_id', auth()->id())
+            ->where('user_id', AuthenticatedUser::id())
             ->first();
 
         if ($existing) {

@@ -11,12 +11,16 @@ it('syncs missing cafe and roastery coordinates from official Google Maps links'
         'slug' => 'mapped-cafe',
         'status' => 'published',
         'google_maps_url' => 'https://maps.app.goo.gl/cafe',
+        'latitude' => null,
+        'longitude' => null,
     ]);
     $roastery = Roastery::factory()->create([
         'name' => 'Mapped Roastery',
         'slug' => 'mapped-roastery',
         'status' => 'published',
         'google_maps_url' => 'https://maps.app.goo.gl/roastery',
+        'latitude' => null,
+        'longitude' => null,
     ]);
 
     Http::fake(function (Request $request) {
@@ -46,6 +50,8 @@ it('does not request untrusted map URLs or overwrite existing coordinates', func
         'slug' => 'untrusted-map',
         'status' => 'published',
         'google_maps_url' => 'https://example.com/@-0.5,117.1',
+        'latitude' => null,
+        'longitude' => null,
     ]);
     $existing = Cafe::factory()->create([
         'slug' => 'existing-coordinates',

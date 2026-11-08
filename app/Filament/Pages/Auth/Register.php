@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Auth;
 
+use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Select;
@@ -63,7 +64,7 @@ class Register extends BaseRegister
     public function getRedirectUrl(): string
     {
         /** @var \App\Models\User $user */
-        $user = auth()->user();
+        $user = AuthenticatedUser::get();
 
         if ($user && $user->role === UserRole::User) {
             return route('home');

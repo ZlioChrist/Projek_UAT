@@ -13,27 +13,27 @@ class FacilityPolicy
      */
     public function viewAny(User $user): bool
     {
-        return UserRole::fromUserValue($user->role) === UserRole::Developer;
+        return in_array(UserRole::fromUserValue($user->role), [UserRole::Developer, UserRole::Admin], true);
     }
 
     public function view(User $user, Facility $facility): bool
     {
-        return UserRole::fromUserValue($user->role) === UserRole::Developer;
+        return $this->ownsFacility($user, $facility);
     }
 
     public function create(User $user): bool
     {
-        return UserRole::fromUserValue($user->role) === UserRole::Developer;
+        return UserRole::fromUserValue($user->role) === UserRole::Developer || $user->cafes()->exists();
     }
 
     public function update(User $user, Facility $facility): bool
     {
-        return UserRole::fromUserValue($user->role) === UserRole::Developer;
+        return $this->ownsFacility($user, $facility);
     }
 
     public function delete(User $user, Facility $facility): bool
     {
-        return UserRole::fromUserValue($user->role) === UserRole::Developer;
+        return $this->ownsFacility($user, $facility);
     }
 
     public function restore(User $user, Facility $facility): bool
@@ -43,6 +43,13 @@ class FacilityPolicy
 
     public function forceDelete(User $user, Facility $facility): bool
     {
-        return UserRole::fromUserValue($user->role) === UserRole::Developer;
+        return $this->ownsFacility($user, $facility);
+    }
+
+    private function ownsFacility(User $user, Facility $facility): bool
+    {
+        return UserRole::fromUserValue($user->role) === UserRole::Developer
+            || (UserRole::fromUserValue($user->role) === UserRole::Admin
+                && $user->cafes()->whereKey($facility->cafe_id)->exists());
     }
 }

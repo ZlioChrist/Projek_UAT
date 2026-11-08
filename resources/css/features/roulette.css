@@ -11,57 +11,64 @@
     z-index: 800;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 16px;
-    background: linear-gradient(135deg, #F59E0B, #D97706);
+    gap: 9px;
+    min-height: 46px;
+    padding: 0 17px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: linear-gradient(135deg, #3b281d, #24170f);
     color: white;
-    border: none;
     border-radius: 50px;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 800;
     font-family: inherit;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     cursor: pointer;
-    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.4),
-        0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 24px rgba(36, 23, 15, 0.26),
+        0 2px 6px rgba(0, 0, 0, 0.12),
+        0 1px 0 rgba(255, 255, 255, 0.12) inset;
+    transition: left 650ms ease, top 650ms ease, background 550ms ease, box-shadow 550ms ease, color 550ms ease, opacity 600ms ease;
     -webkit-tap-highlight-color: transparent;
-    text-transform: uppercase;
-    will-change: transform;
+    touch-action: none;
+    user-select: none;
+    cursor: grab;
+}
+
+.roulette-fab.is-dragging {
+    z-index: 9999;
+    cursor: grabbing;
+    transition: none;
+    box-shadow: 0 10px 24px rgba(36, 23, 15, 0.28);
 }
 
 .roulette-fab:hover {
-    transform: scale(1.08) translateY(-2px);
-    box-shadow: 0 12px 40px rgba(245, 158, 11, 0.5);
+    background: linear-gradient(135deg, #463225, #302016);
+    box-shadow: 0 9px 26px rgba(36, 23, 15, 0.28),
+        0 1px 0 rgba(255, 255, 255, 0.14) inset;
 }
 
 .roulette-fab:active {
-    transform: scale(0.95);
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.3);
 }
 
-/* Dragging state — disable transitions for real-time tracking */
-.roulette-fab.is-dragging {
-    transition: none !important;
-    transform: scale(1.05);
-    box-shadow: 0 12px 40px rgba(245, 158, 11, 0.5),
-        0 4px 12px rgba(0, 0, 0, 0.15);
-    cursor: grabbing;
-    z-index: 9999;
-    opacity: 0.9;
-}
-
-/* Snap-back transition when drag ends */
-.roulette-fab:not(.is-dragging) {
-    transition: left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        top 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        box-shadow 0.3s ease,
-        opacity 0.3s ease;
+.roulette-fab:focus-visible {
+    outline: 3px solid rgba(111, 78, 55, 0.38);
+    outline-offset: 3px;
 }
 
 .roulette-fab i {
     font-size: 1.1rem;
-    animation: gentle-bob 2.5s ease-in-out infinite;
+    color: #f0dfc8;
+    transition: transform 500ms ease, color 500ms ease;
+}
+
+.roulette-fab:hover i {
+    transform: rotate(-12deg);
+}
+
+.roulette-fab:active i {
+    color: #fff;
+    transform: rotate(12deg) scale(1.05);
 }
 
 /* --- Modal Overlay --- */
@@ -384,7 +391,18 @@
 @media (max-height: 500px) {
     .roulette-fab {
         bottom: 80px;
-        padding: 8px 12px;
+        min-height: 40px;
+        padding: 0 12px;
         font-size: 0.65rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .roulette-fab {
+        transition: none;
+    }
+
+    .roulette-fab i {
+        transition: none;
     }
 }

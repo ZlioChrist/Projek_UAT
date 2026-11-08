@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\AuthenticatedUser;
 use App\Models\Cafe;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
@@ -39,11 +40,11 @@ class CafeController extends Controller
         });
 
         $hasRated = auth()->check()
-            ? $cafe->wfcScores->contains('user_id', auth()->id())
+            ? $cafe->wfcScores->contains('user_id', AuthenticatedUser::id())
             : false;
 
         $hasCheckedInToday = auth()->check()
-            ? \App\Models\CheckIn::where('user_id', auth()->id())
+            ? \App\Models\CheckIn::where('user_id', AuthenticatedUser::id())
                 ->where('cafe_id', $cafe->id)
                 ->whereDate('created_at', today())
                 ->exists()

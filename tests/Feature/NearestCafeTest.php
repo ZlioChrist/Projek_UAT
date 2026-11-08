@@ -25,7 +25,6 @@ class NearestCafeTest extends TestCase
         }
     }
 
-    /** @test */
     public function test_it_sorts_cafes_by_distance_when_nearest_filter_is_active()
     {
         // 1. Create Cafes at known locations
@@ -69,7 +68,6 @@ class NearestCafeTest extends TestCase
             });
     }
 
-    /** @test */
     public function test_it_calculates_distance_correctly()
     {
         $cafe = Cafe::factory()->create([

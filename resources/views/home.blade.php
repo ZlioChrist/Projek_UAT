@@ -77,20 +77,15 @@
                     </a>
                 </nav>
 
-                <div class="wn-account-entry">
-                    @auth
-                        <a href="{{ route('account') }}">Akun {{ auth()->user()->name }}</a>
-                    @else
+                @guest
+                    <div class="wn-account-entry">
                         <span>Sudah punya akun?</span>
                         <a href="{{ route('login') }}">Masuk</a>
                         <a href="{{ route('register') }}">Daftar pelanggan</a>
-                    @endauth
-                </div>
+                    </div>
+                @endguest
 
                 <footer class="wn-home-footer">
-                    <nav aria-label="Tautan pesanan">
-                        <a href="{{ route('feedback.create') }}">Kritik &amp; saran</a>
-                    </nav>
                     <span>WADAHNGOPI.COM <span aria-hidden="true">©</span> 2026</span>
                 </footer>
             </section>
@@ -271,6 +266,12 @@
             color: #fff;
         }
 
+        .wn-social-links a:focus-visible {
+            outline: 2px solid #f8b642;
+            outline-offset: 4px;
+            border-radius: 12px;
+        }
+
         .wn-social-icon {
             display: grid;
             width: 40px;
@@ -387,6 +388,13 @@
             background: rgba(255, 255, 255, .09);
             color: rgba(255, 255, 255, .62);
             font-size: 15px;
+            transition: transform .18s ease, background .18s ease, color .18s ease;
+        }
+
+        .wn-action-link:hover .wn-action-arrow {
+            transform: translateX(2px);
+            background: rgba(248, 182, 66, .18);
+            color: #f8b642;
         }
 
         .wn-account-entry {
@@ -403,8 +411,7 @@
             font-weight: 600;
         }
 
-        .wn-account-entry a,
-        .wn-account-entry button {
+        .wn-account-entry a {
             padding: 5px 10px;
             border: 1px solid rgba(248, 182, 66, .28);
             border-radius: 999px;
@@ -417,13 +424,11 @@
             transition: background .18s ease, border-color .18s ease;
         }
 
-        .wn-account-entry a:hover,
-        .wn-account-entry button:hover {
+        .wn-account-entry a:hover {
             border-color: rgba(248, 182, 66, .55);
             background: rgba(248, 182, 66, .18);
         }
 
-        .wn-account-entry form { margin: 0; }
         .wn-home-footer {
             display: flex;
             flex-direction: column;
@@ -473,7 +478,8 @@
 
         @media (prefers-reduced-motion: reduce) {
             .wn-social-links a,
-            .wn-action-link { transition: none; }
+            .wn-action-link,
+            .wn-action-arrow { transition: none; }
         }
     </style>
 @endsection

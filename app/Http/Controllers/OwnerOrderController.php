@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filament\Pages\Dashboard;
 use App\Models\Order;
 use App\Models\ReceiptPrintJob;
 use App\Services\OrderService;
@@ -13,6 +14,13 @@ use Illuminate\View\View;
 
 class OwnerOrderController extends Controller
 {
+    public function dashboard(Request $request): RedirectResponse
+    {
+        $this->ensureCafeOperator($request);
+
+        return redirect(Dashboard::getUrl());
+    }
+
     public function index(Request $request): View
     {
         $this->ensureCafeOperator($request);

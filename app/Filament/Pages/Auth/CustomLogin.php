@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Auth;
 
+use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Pages\Auth\Login as BaseLogin;
@@ -65,7 +66,7 @@ class CustomLogin extends BaseLogin
     protected function getRedirectUrl(): string
     {
         /** @var \App\Models\User $user */
-        $user = auth()->user();
+        $user = AuthenticatedUser::get();
 
         if ($user && UserRole::fromUserValue($user->role) === UserRole::User) {
             return route('home');

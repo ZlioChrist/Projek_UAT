@@ -1,12 +1,16 @@
 {{-- Cafe Roulette — "Bingung? Putar Aja!" --}}
-<div x-data="cafeRoulette(@this)" x-init="init()">
+<div x-data="cafeRoulette(@this)">
 
-    {{-- Draggable Floating Action Button --}}
-    <button class="roulette-fab" id="roulette-fab-btn" x-ref="fab" x-show="!$wire.isOpen"
-        :class="{ 'is-dragging': fabDragging }" :style="fabStyle" @mousedown.prevent="fabDragStart($event)"
-        @touchstart.passive="fabDragStart($event)" x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 translate-y-4 scale-90"
-        x-transition:enter-end="opacity-100 translate-y-0 scale-100">
+    {{-- Floating Action Button --}}
+    <button class="roulette-fab" id="roulette-fab-btn" type="button" aria-label="Bingung memilih kafe? Buka pemilih kafe acak"
+        title="Bantu pilihkan kafe" x-show="!$wire.isOpen" wire:click="openModal"
+        :class="{ 'is-dragging': fabDragging }" :style="fabStyle"
+        @pointerdown="startFabDrag($event)" @pointermove="moveFab($event)"
+        @pointerup="endFabDrag($event)" @pointercancel="endFabDrag($event)"
+        @click.capture="if (suppressFabClick) { $event.preventDefault(); $event.stopImmediatePropagation(); suppressFabClick = false; }"
+        x-transition:enter="transition ease-out duration-600"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100">
         <i class="ph-bold ph-shuffle"></i>
         <span>Bingung?</span>
     </button>
@@ -117,133 +121,77 @@
         errorMessage: '',
         audioCtx: null,
         spinTimeout: null,
-
-        // Draggable FAB state
         fabDragging: false,
-        fabX: null,
-        fabY: null,
-        fabStartX: 0,
-        fabStartY: 0,
-        fabTouchStartX: 0,
-        fabTouchStartY: 0,
         fabMoved: false,
+        suppressFabClick: false,
+        fabPointerId: null,
+        fabStartClientX: 0,
+        fabStartClientY: 0,
+        fabStartLeft: 0,
+        fabStartTop: 0,
         fabStyle: '',
 
-        init() {
-            // Restore saved FAB position from localStorage
-            const saved = localStorage.getItem('roulette-fab-pos');
-            if (saved) {
-                try {
-                    const pos = JSON.parse(saved);
-                    const bounds = this.getContainerBounds();
-                    this.fabX = Math.min(Math.max(bounds.left + 8, pos.x), bounds.right - 60);
-                    this.fabY = Math.min(Math.max(8, pos.y), window.innerHeight - 60);
-                    this.applyFabPosition();
-                } catch (e) { /* ignore corrupt data */ }
-            }
-
-            // Global move/end listeners (bound once)
-            this._fabMove = (e) => this.fabDragMove(e);
-            this._fabEnd = (e) => this.fabDragEnd(e);
-        },
-
-        // Get the app container bounds (respects max-width: 480px centered layout)
-        getContainerBounds() {
+        getFabBounds() {
             const container = document.querySelector('.main-container');
-            if (container) {
-                const rect = container.getBoundingClientRect();
-                return { left: rect.left, right: rect.right, width: rect.width };
-            }
-            return { left: 0, right: window.innerWidth, width: window.innerWidth };
+            const rect = container?.getBoundingClientRect();
+
+            return rect
+                ? { left: rect.left, right: rect.right }
+                : { left: 0, right: window.innerWidth };
         },
 
-        // --- Draggable FAB Methods ---
-        fabDragStart(e) {
-            const touch = e.touches ? e.touches[0] : e;
-            this.fabTouchStartX = touch.clientX;
-            this.fabTouchStartY = touch.clientY;
+        startFabDrag(event) {
+            if (event.button !== 0) return;
+
+            const rect = event.currentTarget.getBoundingClientRect();
+            this.fabPointerId = event.pointerId;
             this.fabMoved = false;
-
-            const fab = this.$refs.fab;
-            const rect = fab.getBoundingClientRect();
-            this.fabStartX = touch.clientX - rect.left;
-            this.fabStartY = touch.clientY - rect.top;
-
-            // Attach global listeners
-            document.addEventListener('mousemove', this._fabMove, { passive: false });
-            document.addEventListener('mouseup', this._fabEnd);
-            document.addEventListener('touchmove', this._fabMove, { passive: false });
-            document.addEventListener('touchend', this._fabEnd);
+            this.fabStartClientX = event.clientX;
+            this.fabStartClientY = event.clientY;
+            this.fabStartLeft = rect.left;
+            this.fabStartTop = rect.top;
+            event.currentTarget.setPointerCapture(event.pointerId);
         },
 
-        fabDragMove(e) {
-            e.preventDefault();
-            const touch = e.touches ? e.touches[0] : e;
+        moveFab(event) {
+            if (event.pointerId !== this.fabPointerId) return;
 
-            const dx = Math.abs(touch.clientX - this.fabTouchStartX);
-            const dy = Math.abs(touch.clientY - this.fabTouchStartY);
+            const deltaX = event.clientX - this.fabStartClientX;
+            const deltaY = event.clientY - this.fabStartClientY;
+            if (!this.fabMoved && Math.hypot(deltaX, deltaY) < 7) return;
 
-            // Only start dragging after 8px movement (distinguish tap vs drag)
-            if (!this.fabMoved && (dx + dy) < 8) return;
+            event.preventDefault();
             this.fabMoved = true;
             this.fabDragging = true;
 
-            // Calculate new position (clamped to container bounds)
-            const fab = this.$refs.fab;
-            const w = fab.offsetWidth;
-            const h = fab.offsetHeight;
-            const bounds = this.getContainerBounds();
-            const minX = bounds.left + 8;
-            const maxX = bounds.right - w - 8;
-            const maxY = window.innerHeight - h - 8;
+            const fab = event.currentTarget;
+            const bounds = this.getFabBounds();
+            const minLeft = Math.max(8, bounds.left + 8);
+            const maxLeft = Math.max(minLeft, Math.min(window.innerWidth, bounds.right) - fab.offsetWidth - 8);
+            const maxTop = Math.max(8, window.innerHeight - fab.offsetHeight - 8);
+            const left = Math.min(Math.max(minLeft, this.fabStartLeft + deltaX), maxLeft);
+            const top = Math.min(Math.max(8, this.fabStartTop + deltaY), maxTop);
 
-            this.fabX = Math.min(Math.max(minX, touch.clientX - this.fabStartX), maxX);
-            this.fabY = Math.min(Math.max(8, touch.clientY - this.fabStartY), maxY);
-            this.applyFabPosition();
+            this.fabStyle = `left:${left}px;top:${top}px;right:auto;bottom:auto;`;
         },
 
-        fabDragEnd() {
-            // Remove global listeners
-            document.removeEventListener('mousemove', this._fabMove);
-            document.removeEventListener('mouseup', this._fabEnd);
-            document.removeEventListener('touchmove', this._fabMove);
-            document.removeEventListener('touchend', this._fabEnd);
+        endFabDrag(event) {
+            if (event.pointerId !== this.fabPointerId) return;
+            this.fabPointerId = null;
+            if (!this.fabMoved) return;
 
-            if (!this.fabMoved) {
-                // It was a tap, not a drag — open modal
-                this.fabDragging = false;
-                wire.openModal();
-                return;
-            }
+            const fab = event.currentTarget;
+            const rect = fab.getBoundingClientRect();
+            const bounds = this.getFabBounds();
+            const minLeft = Math.max(8, bounds.left + 8);
+            const maxLeft = Math.max(minLeft, Math.min(window.innerWidth, bounds.right) - fab.offsetWidth - 8);
+            const left = Math.min(Math.max(rect.left, minLeft), maxLeft);
+            const top = Math.min(Math.max(8, rect.top), Math.max(8, window.innerHeight - fab.offsetHeight - 8));
 
-            // Snap to nearest edge within container bounds
-            const fab = this.$refs.fab;
-            const w = fab.offsetWidth;
-            const bounds = this.getContainerBounds();
-            const midX = bounds.left + bounds.width / 2;
-
-            if (this.fabX + w / 2 < midX) {
-                this.fabX = bounds.left + 12; // Snap to container left
-            } else {
-                this.fabX = bounds.right - w - 12; // Snap to container right
-            }
-
-            this.applyFabPosition();
-
-            // Save position to localStorage
-            localStorage.setItem('roulette-fab-pos', JSON.stringify({
-                x: this.fabX,
-                y: this.fabY,
-            }));
-
-            // Small delay before removing dragging class (for smooth snap transition)
-            setTimeout(() => { this.fabDragging = false; }, 300);
-        },
-
-        applyFabPosition() {
-            if (this.fabX !== null && this.fabY !== null) {
-                this.fabStyle = `position:fixed; left:${this.fabX}px; top:${this.fabY}px; right:auto; bottom:auto;`;
-            }
+            this.fabStyle = `left:${left}px;top:${top}px;right:auto;bottom:auto;`;
+            this.fabDragging = false;
+            this.suppressFabClick = true;
+            window.setTimeout(() => { this.suppressFabClick = false; }, 250);
         },
 
         async doSpin() {

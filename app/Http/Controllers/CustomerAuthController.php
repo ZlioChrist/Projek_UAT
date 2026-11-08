@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class CustomerAuthController extends Controller
 {
     public function showLogin(): View
     {
-        return view('auth.customer-login');
+        return view('auth.customer-auth', ['mode' => 'login']);
     }
 
     public function login(Request $request): RedirectResponse
@@ -31,11 +32,17 @@ class CustomerAuthController extends Controller
             ]);
         }
 
-        if (! Auth::attempt([
+        if (! Auth::guard('customer')->attempt([
             'email' => $validated['email'],
             'password' => $validated['password'],
-            'role' => 'user',
         ], $request->boolean('remember'))) {
+            RateLimiter::hit($key, 60);
+            throw ValidationException::withMessages(['email' => 'Email atau kata sandi tidak sesuai dengan akun pelanggan.']);
+        }
+
+        $role = UserRole::fromUserValue(Auth::guard('customer')->user()?->role);
+        if ($role !== UserRole::User) {
+            Auth::guard('customer')->logout();
             RateLimiter::hit($key, 60);
             throw ValidationException::withMessages(['email' => 'Email atau kata sandi tidak sesuai dengan akun pelanggan.']);
         }
@@ -48,7 +55,7 @@ class CustomerAuthController extends Controller
 
     public function showRegister(): View
     {
-        return view('auth.customer-register');
+        return view('auth.customer-auth', ['mode' => 'register']);
     }
 
     public function register(Request $request): RedirectResponse
@@ -66,7 +73,7 @@ class CustomerAuthController extends Controller
             'role' => 'user',
         ]);
 
-        Auth::login($user);
+        Auth::guard('customer')->login($user);
         $request->session()->regenerate();
 
         return redirect()->intended(route('account'));

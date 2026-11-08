@@ -63,6 +63,18 @@ it('includes unsafe-eval in CSP header for Alpine.js compatibility', function ()
     expect($csp)->toContain('unsafe-eval');
 });
 
+it('allows admin icon fonts and sets framing protection through response headers', function () {
+    $response = $this->get(route('filament.admin.auth.login'));
+
+    $response->assertOk()
+        ->assertHeader('X-Frame-Options')
+        ->assertDontSee('<meta http-equiv="X-Frame-Options"', false);
+
+    expect($response->headers->get('Content-Security-Policy'))
+        ->toContain("font-src")
+        ->toContain('https://unpkg.com');
+});
+
 // --- UserRole Enum ---
 
 it('recognizes valid user roles', function (string $role) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\AuthenticatedUser;
 use App\Models\Cafe;
 use App\Models\Tongkrongan;
 use App\Models\TongkronganItem;
@@ -69,7 +70,7 @@ class TongkronganController extends Controller
         $tongkrongan = Tongkrongan::create([
             'title' => $validated['title'],
             'creator_fingerprint' => $fingerprint,
-            'creator_user_id' => auth()->id(),
+            'creator_user_id' => AuthenticatedUser::id(),
         ]);
 
         foreach ($validated['cafe_ids'] as $cafeId) {
@@ -147,7 +148,7 @@ class TongkronganController extends Controller
         TongkronganVote::create([
             'tongkrongan_item_id' => $item->id,
             'voter_fingerprint' => $fingerprint,
-            'voter_user_id' => auth()->id(),
+            'voter_user_id' => AuthenticatedUser::id(),
         ]);
 
         return response()->json([

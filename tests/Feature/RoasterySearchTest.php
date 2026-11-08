@@ -29,6 +29,35 @@ it('searches roasteries by name', function () {
         ->assertDontSee('Warung Biasa');
 });
 
+it('ranks an exact roastery name match ahead of newer partial matches', function () {
+    Roastery::factory()->create([
+        'name' => 'Biji Kopi',
+        'status' => 'published',
+        'created_at' => now()->subDay(),
+    ]);
+    Roastery::factory()->create([
+        'name' => 'Biji Kopi Samarinda',
+        'status' => 'published',
+        'created_at' => now(),
+    ]);
+
+    Livewire::test(RoasterySearch::class)
+        ->set('search', 'Biji Kopi')
+        ->assertSeeInOrder(['Biji Kopi', 'Biji Kopi Samarinda']);
+});
+
+it('clears the roastery search and restores the default results', function () {
+    Roastery::factory()->create(['name' => 'Biji Kopi Samarinda', 'status' => 'published']);
+    Roastery::factory()->create(['name' => 'Warung Biasa', 'status' => 'published']);
+
+    Livewire::test(RoasterySearch::class)
+        ->set('search', 'Biji Kopi')
+        ->call('clearSearch')
+        ->assertSet('search', '')
+        ->assertSet('sort', 'relevance')
+        ->assertSee('Warung Biasa');
+});
+
 it('validates roastery search max length', function () {
     Livewire::test(RoasterySearch::class)
         ->set('search', str_repeat('x', 101))
@@ -198,7 +227,11 @@ it('sets user location for roastery search', function () {
 });
 
 it('explains when nearest roastery results cannot be calculated without roastery coordinates', function () {
-    Roastery::factory()->create(['status' => 'published']);
+    Roastery::factory()->create([
+        'status' => 'published',
+        'latitude' => null,
+        'longitude' => null,
+    ]);
 
     Livewire::test(RoasterySearch::class)
         ->call('setUserLocation', -1.25, 116.85)

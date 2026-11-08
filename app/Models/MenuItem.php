@@ -27,6 +27,17 @@ class MenuItem extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::saving(function (MenuItem $menuItem): void {
+            $stockIncreased = (int) $menuItem->stock > (int) $menuItem->getOriginal('stock');
+
+            if ($menuItem->exists && $menuItem->isDirty('stock') && $stockIncreased && $menuItem->available_stock > 0) {
+                $menuItem->is_active = true;
+            }
+        });
+    }
+
     public function cafe(): BelongsTo
     {
         return $this->belongsTo(Cafe::class);

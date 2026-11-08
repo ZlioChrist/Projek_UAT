@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Middleware\SanitizeLivewireRequests;
+use App\Http\Middleware\SecurityHeaders;
+use App\Http\Middleware\UseCustomerSession;
+use Illuminate\Contracts\Auth\Middleware\AuthenticatesRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,6 +15,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'customer.site' => UseCustomerSession::class,
+        ]);
+        $middleware->prependToPriorityList(
+            AuthenticatesRequests::class,
+            UseCustomerSession::class,
+        );
+
         // Trust Cloudflare proxies (production) - prevents IP spoofing
         $middleware->trustProxies(at: [
             // Cloudflare IPv4 ranges (https://www.cloudflare.com/ips-v4/)
@@ -35,10 +47,10 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         // Sanitize Livewire requests (strip browser-injected toJSON calls from Boost)
-        $middleware->append(\App\Http\Middleware\SanitizeLivewireRequests::class);
+        $middleware->append(SanitizeLivewireRequests::class);
 
         // Add security headers
-        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+        $middleware->append(SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

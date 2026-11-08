@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CafeResource\Pages;
 
+use App\Support\AuthenticatedUser;
 use App\Filament\Resources\CafeResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -19,8 +20,8 @@ class EditCafe extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        if (auth()->user()?->role === 'admin') {
-            $data['owner_id'] = auth()->id();
+        if (AuthenticatedUser::get()?->role === 'admin') {
+            $data['owner_id'] = AuthenticatedUser::id();
             $data['status'] = 'review';
         }
 

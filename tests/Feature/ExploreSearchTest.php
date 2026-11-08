@@ -51,6 +51,35 @@ it('filters cafes by search term', function () {
         ->assertDontSee('Warung Makan Enak');
 });
 
+it('ranks an exact cafe name match ahead of newer partial matches', function () {
+    Cafe::factory()->create([
+        'name' => 'Kopi Susu',
+        'status' => 'published',
+        'created_at' => now()->subDay(),
+    ]);
+    Cafe::factory()->create([
+        'name' => 'Kopi Susu Tetangga',
+        'status' => 'published',
+        'created_at' => now(),
+    ]);
+
+    Livewire::test(ExploreSearch::class)
+        ->set('search', 'Kopi Susu')
+        ->assertSeeInOrder(['Kopi Susu', 'Kopi Susu Tetangga']);
+});
+
+it('clears the cafe search and restores the default results', function () {
+    Cafe::factory()->create(['name' => 'Kopi Susu Tetangga', 'status' => 'published']);
+    Cafe::factory()->create(['name' => 'Warung Makan Enak', 'status' => 'published']);
+
+    Livewire::test(ExploreSearch::class)
+        ->set('search', 'Kopi Susu')
+        ->call('clearSearch')
+        ->assertSet('search', '')
+        ->assertSet('sort', 'relevance')
+        ->assertSee('Warung Makan Enak');
+});
+
 it('validates search max length', function () {
     $longSearch = str_repeat('a', 101);
 
@@ -191,7 +220,11 @@ it('accepts user location coordinates', function () {
 });
 
 it('explains when nearest cafe results cannot be calculated without cafe coordinates', function () {
-    Cafe::factory()->create(['status' => 'published']);
+    Cafe::factory()->create([
+        'status' => 'published',
+        'latitude' => null,
+        'longitude' => null,
+    ]);
 
     Livewire::test(ExploreSearch::class)
         ->call('setUserLocation', -1.25, 116.85)

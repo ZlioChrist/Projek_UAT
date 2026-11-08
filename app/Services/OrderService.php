@@ -9,6 +9,7 @@ use App\Models\OrderPayment;
 use App\Models\ReceiptPrintJob;
 use App\Models\Roastery;
 use App\Models\User;
+use App\Notifications\OrderReadyNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -333,6 +334,10 @@ class OrderService
             }
             $locked->save();
             $this->recordStatus($locked, $from, $target, $actor->id, 'Status diperbarui oleh kedai.');
+
+            if ($target === Order::STATUS_READY && $locked->user_id) {
+                User::query()->findOrFail($locked->user_id)->notify(new OrderReadyNotification($locked));
+            }
 
             return $locked->fresh(['cafe', 'roastery', 'items']);
         }, 3);

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Support\AuthenticatedUser;
 use App\Models\Cafe;
 use App\Models\WfcScore;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +51,7 @@ class WfcScoreService
         return DB::transaction(function () use ($cafe, $data, $isVerified, $reason) {
             $score = WfcScore::create([
                 'cafe_id' => $cafe->id,
-                'user_id' => auth()->id(),
+                'user_id' => AuthenticatedUser::id(),
                 'wifi_rating' => $data['wifi_rating'],
                 'outlet_rating' => $data['outlet_rating'],
                 'comfort_rating' => $data['comfort_rating'],

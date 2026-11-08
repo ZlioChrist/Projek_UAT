@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\CafeResource\Pages;
 use App\Models\Cafe;
@@ -11,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class CafeResource extends Resource
 {
@@ -18,26 +20,39 @@ class CafeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
 
-    protected static ?string $navigationLabel = 'Daftar Cafe Kita';
+    protected static ?string $navigationLabel = 'Daftar Kafe';
 
     protected static ?string $modelLabel = 'Cafe';
 
     protected static ?string $pluralModelLabel = 'Daftar Cafe';
 
-    protected static ?string $navigationGroup = 'Manajemen Warung';
+    protected static ?string $navigationGroup = 'Manajemen Kafe';
+
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function canViewAny(): bool
     {
-        $role = UserRole::fromUserValue(auth()->user()?->role);
+        $role = UserRole::fromUserValue(AuthenticatedUser::get()?->role);
 
         return in_array($role, [UserRole::Developer, UserRole::Admin], true);
     }
 
     public static function canCreate(): bool
     {
-        return self::canViewAny();
+        return in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin], true);
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return $record instanceof Cafe
+            && ! $record->menuItems()->exists()
+            && ! $record->orders()->exists()
+            && ! $record->feedback()->exists()
+            && ! $record->checkIns()->exists()
+            && ! $record->wfcScores()->exists()
+            && ! $record->vibeVotes()->exists();
     }
 
     public static function form(Form $form): Form
@@ -47,14 +62,15 @@ class CafeResource extends Resource
                 // SECTION 1: SHARED CORE INFO
                 Forms\Components\Section::make('Informasi Utama')
                     ->icon('heroicon-o-information-circle')
-                    ->description('Data dasar cafe kamu.')
+                    ->description(fn (): string => UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Admin
+                        ? 'Perubahan profil kafe akan ditinjau sebelum ditayangkan.'
+                        : 'Data dasar cafe kamu.')
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
                             ->maxLength(255)
                             ->placeholder('Contoh: Kopi Malem Jumat')
-                            ->label('Nama Cafe')
-                            ->readOnly(fn (string $operation): bool => $operation !== 'create' && auth()->user()?->role === 'admin'),
+                            ->label('Nama Cafe'),
 
                         Forms\Components\Select::make('city_id')
                             ->relationship('city', 'name')
@@ -62,11 +78,9 @@ class CafeResource extends Resource
                             ->preload()
                             ->label('Kota Lokasi')
                             ->placeholder('Pilih kota...')
-                            ->required()
-                            ->disabled(fn (string $operation): bool => $operation !== 'create' && auth()->user()?->role === 'admin')
-                            ->dehydrated(),
+                            ->required(),
                     ])
-                    ->columns(2),
+                    ->columns(['default' => 1, 'md' => 2]),
 
                 // SECTION 2: ADMIN/DEV CONTROLS
                 Forms\Components\Section::make('Kendali Admin')
@@ -84,7 +98,7 @@ class CafeResource extends Resource
                             ->label('Siapa Pemiliknya?')
                             ->placeholder('Pilih nama kafe...')
                             ->required()
-                            ->visible(fn () => auth()->user()?->role === 'developer'),
+                            ->visible(fn () => AuthenticatedUser::get()?->role === 'developer'),
 
                         Forms\Components\Select::make('status')
                             ->options([
@@ -95,11 +109,11 @@ class CafeResource extends Resource
                             ->label('Status Sekarang')
                             ->default('draft')
                             ->required()
-                            ->visible(fn () => auth()->user()?->role === 'developer'),
+                            ->visible(fn () => AuthenticatedUser::get()?->role === 'developer'),
 
                     ])
-                    ->columns(2)
-                    ->visible(fn () => auth()->user()?->role === 'developer'),
+                    ->columns(['default' => 1, 'md' => 2])
+                    ->visible(fn () => AuthenticatedUser::get()?->role === 'developer'),
 
                 // SECTION: MAIN CONTENT
                 Forms\Components\Section::make('Detail Cafe')
@@ -131,7 +145,7 @@ class CafeResource extends Resource
                                             ->default(true)
                                             ->columnSpanFull(),
                                     ])
-                                    ->columns(4)
+                                    ->columns(['default' => 1, 'sm' => 2, 'lg' => 4])
                                     ->reorderable()
                                     ->addActionLabel('+ Tambah Halaman Menu')
                                     ->columnSpanFull(),
@@ -209,24 +223,45 @@ class CafeResource extends Resource
                                     ->placeholder('0812xxxxxxxx')
                                     ->label('Nomor WhatsApp (Aktif)')
                                     ->helperText('Format bebas (08xx atau 628xx). Sistem otomatis konversi ke link WA.'),
-                            ])->columns(2),
+                            ])->columns(['default' => 1, 'md' => 2]),
 
                         Forms\Components\Section::make('Pembayaran Pesanan')
                             ->icon('heroicon-o-qr-code')
-                            ->description('Unggah gambar QRIS statis yang Anda terima dari penyedia QRIS. Sistem tidak terhubung ke bank; staf memeriksa bukti dan mencatat status pembayaran secara manual.')
+                            ->description('Atur informasi transfer bank dan unggah QRIS statis. Sistem tidak terhubung ke bank; staf memeriksa bukti dan mencatat status pembayaran secara manual.')
                             ->schema([
                                 Forms\Components\FileUpload::make('payment_qr_path')
                                     ->image()
+                                    ->disk('public')
                                     ->directory('cafes/payment-qr')
                                     ->visibility('public')
                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                     ->maxSize(5120)
-                                    ->label('Gambar QRIS statis'),
+                                    ->label('Gambar QRIS statis')
+                                    ->helperText('Gambar disimpan di penyimpanan publik agar bisa ditampilkan pada checkout. Unggah ulang untuk mengganti QRIS.'),
+                                Forms\Components\TextInput::make('bank_name')
+                                    ->label('Nama bank')
+                                    ->placeholder('Contoh: BCA, Mandiri, BRI, BNI, atau BSI')
+                                    ->prefixIcon('heroicon-o-building-library')
+                                    ->maxLength(100),
+                                Forms\Components\TextInput::make('bank_account_number')
+                                    ->label('Nomor rekening')
+                                    ->placeholder('Masukkan nomor rekening')
+                                    ->prefixIcon('heroicon-o-credit-card')
+                                    ->maxLength(50),
+                                Forms\Components\TextInput::make('bank_account_name')
+                                    ->label('Nama pemilik rekening')
+                                    ->placeholder('Sesuai nama pada rekening')
+                                    ->prefixIcon('heroicon-o-user')
+                                    ->maxLength(120)
+                                    ->columnSpanFull(),
                                 Forms\Components\Textarea::make('payment_instructions')
-                                    ->label('Instruksi Pembayaran')
+                                    ->label('Catatan transfer (opsional)')
                                     ->maxLength(1000)
-                                    ->placeholder('Transfer sesuai total, lalu masukkan nomor referensi dan unggah bukti.'),
-                            ])->columns(2),
+                                    ->rows(3)
+                                    ->placeholder('Contoh: Cantumkan kode pesanan pada berita transfer.')
+                                    ->helperText('Ditampilkan sebagai catatan tambahan pada checkout. Jangan masukkan PIN atau kata sandi bank.')
+                                    ->columnSpanFull(),
+                            ])->columns(['default' => 1, 'md' => 2]),
 
                         Forms\Components\Section::make('Jam Operasional')
                             ->icon('heroicon-o-clock')
@@ -276,7 +311,7 @@ class CafeResource extends Resource
                                 Forms\Components\TextInput::make('longitude')
                                     ->numeric()
                                     ->placeholder('Contoh: 106.xxxx'),
-                            ])->columns(2),
+                            ])->columns(['default' => 1, 'md' => 2]),
 
                         Forms\Components\Section::make('Social Media')
                             ->icon('heroicon-o-globe-alt')
@@ -305,7 +340,7 @@ class CafeResource extends Resource
                                             ->default(true)
                                             ->columnSpan(1),
                                     ])
-                                    ->columns(4)
+                                    ->columns(['default' => 1, 'sm' => 2, 'lg' => 4])
                                     ->defaultItems(0)
                                     ->maxItems(4)
                                     ->addActionLabel('+ Tambah Sosmed')
@@ -313,7 +348,7 @@ class CafeResource extends Resource
                                     ->columnSpanFull(),
                             ]),
                     ])
-                    ->visible(fn () => in_array(UserRole::fromUserValue(auth()->user()?->role), [UserRole::Developer, UserRole::Admin], true)),
+                    ->visible(fn () => in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin], true)),
             ]);
     }
 
@@ -351,7 +386,7 @@ class CafeResource extends Resource
                             ? $state
                             : ($state ?? data_get($record?->operating_hours, "{$legacyGroup}.close"))),
                 ])
-                ->columns(2)
+                ->columns(['default' => 1, 'sm' => 2])
                 ->hidden(fn (Forms\Get $get): bool => (bool) $get('is_24_hours'));
         }, array_keys($days), array_values($days));
     }
@@ -362,7 +397,7 @@ class CafeResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image_path')
                     ->label('Foto')
-                    ->visible(fn () => UserRole::fromUserValue(auth()->user()?->role) === UserRole::Admin),
+                    ->visible(fn () => UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Admin),
 
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
@@ -371,10 +406,10 @@ class CafeResource extends Resource
                     ->label('Nama Cafe'),
 
                 Tables\Columns\TextColumn::make('owner_display')
-                    ->state(fn (Cafe $record): string => $record->name)
+                    ->state(fn (Cafe $record): string => $record->owner?->name ?? 'Belum ditentukan')
                     ->label('Owner')
                     ->toggleable()
-                    ->visible(fn () => UserRole::fromUserValue(auth()->user()?->role) === UserRole::Developer),
+                    ->visible(fn () => UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer),
 
                 Tables\Columns\TextColumn::make('city.name')
                     ->label('Kota')
@@ -415,19 +450,15 @@ class CafeResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->url(fn (Cafe $record): string => static::getUrl('edit', ['record' => $record])),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery()->with(['owner']);
 
-        if (UserRole::fromUserValue(auth()->user()?->role) === UserRole::Admin) {
-            $query->where('owner_id', auth()->id());
+        if (UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Admin) {
+            $query->where('owner_id', AuthenticatedUser::id());
         }
 
         return $query;

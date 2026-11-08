@@ -12,6 +12,7 @@ class CustomerFeedback extends Model
     protected $fillable = [
         'cafe_id',
         'roastery_id',
+        'order_id',
         'category',
         'customer_name',
         'customer_contact',
@@ -28,6 +29,11 @@ class CustomerFeedback extends Model
     public function roastery(): BelongsTo
     {
         return $this->belongsTo(Roastery::class);
+    }
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
     }
 
     public function getShopAttribute(): Cafe|Roastery|null

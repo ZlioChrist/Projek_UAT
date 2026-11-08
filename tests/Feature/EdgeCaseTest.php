@@ -78,7 +78,7 @@ it('returns 404 for unpublished roastery via route', function () {
 // --- Overnight Operating Hours ---
 
 it('detects cafe as open during overnight hours', function () {
-    Carbon::setTestNow(Carbon::parse('next monday')->setTime(1, 0)); // 1 AM
+    Carbon::setTestNow(Carbon::parse('next tuesday')->setTime(1, 0)); // 1 AM after a weekday overnight shift
 
     $cafe = Cafe::factory()->create([
         'operating_hours' => [

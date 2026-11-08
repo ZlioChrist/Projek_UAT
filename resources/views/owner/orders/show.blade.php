@@ -37,6 +37,23 @@
         @elseif($order->status === \App\Models\Order::STATUS_READY)
             <div class="rounded-2xl bg-emerald-50 p-4 text-sm font-semibold text-emerald-900">Minta pembeli menunjukkan kode <span class="font-mono font-black">{{ $order->public_code }}</span>, lalu cocokkan melalui form serah-terima di dashboard pesanan.</div>
         @endif
+        @if(in_array($order->status, [\App\Models\Order::STATUS_READY, \App\Models\Order::STATUS_COMPLETED], true))
+            <section class="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+                <h2 class="font-black text-emerald-950">Kirim notifikasi WhatsApp ke pelanggan</h2>
+                @if($order->customer_whatsapp)
+                    @php
+                        $customerPhone = preg_replace('/\D+/', '', $order->customer_whatsapp);
+                        $notice = $order->status === \App\Models\Order::STATUS_COMPLETED
+                            ? "Halo {$order->customer_name}, pesanan {$order->public_code} dari {$order->shop_name} telah selesai. Terima kasih sudah memesan!"
+                            : "Halo {$order->customer_name}, pesanan {$order->public_code} dari {$order->shop_name} sudah siap diambil. Silakan tunjukkan kode pesanan saat mengambil.";
+                    @endphp
+                    <a href="https://wa.me/{{ $customerPhone }}?text={{ rawurlencode($notice) }}" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex rounded-full bg-emerald-700 px-5 py-3 font-black text-white no-underline">Buka WhatsApp dan kirim pesan</a>
+                    <p class="mt-2 text-xs text-emerald-900">WhatsApp akan terbuka dengan pesan terisi. Tekan Kirim di WhatsApp untuk mengirimkannya.</p>
+                @else
+                    <p class="mt-2 text-sm text-emerald-900">Pelanggan tidak mencantumkan nomor WhatsApp.</p>
+                @endif
+            </section>
+        @endif
 
         @if($order->canBeCancelled())<form method="POST" action="{{ route('owner.orders.cancel',$order->public_code) }}" class="mt-5">@csrf<input type="hidden" name="reason" value="Dibatalkan oleh kedai."><button class="text-sm font-bold text-rose-700">Batalkan pesanan dan lepas stok reservasi</button></form>@endif
         @if($order->paid_at)<div class="mt-6 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-5"><a href="{{ route('owner.orders.print',$order->public_code) }}" class="rounded-full bg-[#2C1810] px-5 py-3 font-bold text-white no-underline">Lihat / cetak nota</a><form method="POST" action="{{ route('owner.orders.reprint',$order->public_code) }}">@csrf<button class="rounded-full border border-slate-300 px-5 py-3 font-bold">Cetak ulang</button></form></div>@endif

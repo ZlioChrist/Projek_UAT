@@ -49,11 +49,12 @@ class OrderingUatTest extends TestCase
 
     public function test_customer_checkout_reserves_stock_and_verified_payment_consumes_it_once(): void
     {
-        $this->actingAs($this->customer)
+        $this->actingAs($this->customer, 'customer')
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => [$this->menuItem->id => 2]]])
             ->post(route('checkout.store', $this->cafe->slug), [
                 'customer_name' => 'Pembeli UAT',
                 'customer_whatsapp' => '081234567890',
+                'payment_method' => 'transfer',
             ])
             ->assertRedirect();
 
@@ -83,13 +84,19 @@ class OrderingUatTest extends TestCase
         ])->assertSessionHasErrors('reference');
         $this->assertDatabaseCount('order_payments', 1);
 
-        $this->actingAs($this->owner)
+        $this->actingAs($this->owner, 'web')
             ->post(route('owner.orders.confirm-payment', $order->public_code))
             ->assertRedirect(route('owner.orders.print', $order->public_code));
 
         $this->assertSame(Order::STATUS_PAID, $order->fresh()->status);
         $this->assertSame(3, $this->menuItem->fresh()->stock);
         $this->assertSame(0, $this->menuItem->fresh()->reserved_stock);
+        $this->get(route('orders.receipt', $order->public_code))
+            ->assertOk()
+            ->assertSee('Lunas / terverifikasi')
+            ->assertSee('Tunjukkan bukti pembayaran dari aplikasi bank/e-wallet')
+            ->assertDontSee('QRIS')
+            ->assertDontSee('<img');
         $this->assertSame(1, ReceiptPrintJob::where('order_id', $order->id)->where('kind', 'automatic')->count());
         $this->assertSame('pending', ReceiptPrintJob::where('order_id', $order->id)->where('kind', 'automatic')->firstOrFail()->state);
         $this->assertSame('confirmed', OrderPayment::where('order_id', $order->id)->firstOrFail()->status);
@@ -102,6 +109,58 @@ class OrderingUatTest extends TestCase
         $this->post(route('owner.orders.confirm-payment', $order->public_code))->assertSessionHasErrors('payment');
         $this->assertSame(3, $this->menuItem->fresh()->stock, 'A duplicate confirmation must not decrement inventory again.');
         $this->assertSame(1, ReceiptPrintJob::where('order_id', $order->id)->where('kind', 'automatic')->count());
+    }
+
+    public function test_adding_a_menu_item_can_return_json_for_the_in_page_cart_popup(): void
+    {
+        $this->actingAs($this->customer, 'customer')
+            ->withSession(['order_cart' => ['seller_type' => null, 'seller_id' => null, 'items' => []]])
+            ->postJson(route('cart.items.add', [$this->cafe->slug, $this->menuItem->id]))
+            ->assertOk()
+            ->assertJson([
+                'message' => 'Menu ditambahkan ke keranjang.',
+                'added_item_id' => $this->menuItem->id,
+                'shop_name' => $this->cafe->name,
+                'cart_count' => 1,
+                'total' => 25000,
+            ]);
+        $this->assertSame(1, (int) session('order_cart.items.'.$this->menuItem->id));
+    }
+
+    public function test_customer_login_is_required_before_a_product_can_be_added_to_cart(): void
+    {
+        $this->postJson(route('cart.items.add', [$this->cafe->slug, $this->menuItem->id]))
+            ->assertUnauthorized();
+
+        $this->assertSame([], session('order_cart.items', []));
+
+        $this->get(route('cafes.show', $this->cafe->slug))
+            ->assertOk()
+            ->assertSee('data-customer-authenticated="false"', false)
+            ->assertSee('Masuk sebagai customer');
+    }
+
+    public function test_increasing_stock_reactivates_an_inactive_menu_item_when_stock_is_available(): void
+    {
+        $this->menuItem->update([
+            'stock' => 0,
+            'is_active' => false,
+        ]);
+
+        $this->menuItem->update(['stock' => 3]);
+
+        $this->assertTrue($this->menuItem->fresh()->is_active);
+    }
+
+    public function test_decreasing_stock_does_not_reactivate_an_inactive_menu_item(): void
+    {
+        $this->menuItem->update([
+            'is_active' => false,
+        ]);
+
+        $this->menuItem->update(['stock' => 4]);
+
+        $this->assertFalse($this->menuItem->fresh()->is_active);
     }
 
     public function test_checkout_requires_customer_login_and_returns_to_checkout_after_login(): void
@@ -118,7 +177,7 @@ class OrderingUatTest extends TestCase
             'email' => $this->customer->email,
             'password' => 'password',
         ])->assertRedirect($checkout);
-        $this->assertAuthenticatedAs($this->customer);
+        $this->assertAuthenticatedAs($this->customer, 'customer');
         $this->get($checkout)->assertOk();
     }
 
@@ -133,7 +192,7 @@ class OrderingUatTest extends TestCase
 
         $customer = User::where('email', 'pelanggan-baru@example.test')->firstOrFail();
         $this->assertSame('user', $customer->role);
-        $this->assertAuthenticatedAs($customer);
+        $this->assertAuthenticatedAs($customer, 'customer');
 
         $this->get(route('account'))
             ->assertOk()
@@ -141,7 +200,72 @@ class OrderingUatTest extends TestCase
             ->assertSee('Keranjang pesanan')
             ->assertSee('Lacak pesanan')
             ->assertSee('Tempat tersimpan')
+            ->assertSee('Kritik & saran')
+            ->assertSee('Atur profil')
+            ->assertSee('Ruang pelanggan')
+            ->assertDontSee('Simpan profil')
+            ->assertDontSee('Daftarkan kafe / roastery')
             ->assertSee('Keluar dari akun');
+
+        $this->get(route('account.profile.edit'))->assertOk()->assertSee('Simpan profil');
+        $this->get(route('account.feedback.index'))->assertOk()->assertSee('Kritik & saran');
+    }
+
+    public function test_customer_can_update_profile_name_email_and_photo(): void
+    {
+        Storage::fake('public');
+
+        $this->actingAs($this->customer, 'customer')
+            ->patch(route('account.profile.update'), [
+                'name' => 'Nama Pelanggan Baru',
+                'email' => 'nama-baru@example.test',
+                'profile_photo' => UploadedFile::fake()->image('avatar.png', 120, 120),
+            ])
+            ->assertRedirect(route('account.profile.edit'))
+            ->assertSessionHas('status', 'Profil berhasil diperbarui.');
+
+        $this->customer->refresh();
+        $this->assertSame('Nama Pelanggan Baru', $this->customer->name);
+        $this->assertSame('nama-baru@example.test', $this->customer->email);
+        $this->assertNotNull($this->customer->profile_photo_path);
+        Storage::disk('public')->assertExists($this->customer->profile_photo_path);
+
+        $this->get(route('account'))
+            ->assertOk()
+            ->assertSee('Nama Pelanggan Baru')
+            ->assertSee(Storage::disk('public')->url($this->customer->profile_photo_path), false)
+            ->assertSee('data-current-user-photo-url="'.e(Storage::disk('public')->url($this->customer->profile_photo_path)).'"', false);
+
+        $previousPhotoPath = $this->customer->profile_photo_path;
+        $this->patch(route('account.profile.update'), [
+            'name' => 'Nama Pelanggan Baru',
+            'email' => 'nama-baru@example.test',
+            'remove_profile_photo' => '1',
+        ])->assertRedirect(route('account.profile.edit'));
+
+        $this->customer->refresh();
+        $this->assertNull($this->customer->profile_photo_path);
+        Storage::disk('public')->assertMissing($previousPhotoPath);
+    }
+
+    public function test_customer_profile_rejects_non_image_uploads_and_duplicate_email(): void
+    {
+        Storage::fake('public');
+
+        $this->actingAs($this->customer, 'customer')
+            ->from(route('account.profile.edit'))
+            ->patch(route('account.profile.update'), [
+                'name' => 'Nama Tetap',
+                'email' => 'nama-baru@example.test',
+                'profile_photo' => UploadedFile::fake()->create('avatar.pdf', 100, 'application/pdf'),
+            ])
+            ->assertSessionHasErrors('profile_photo');
+
+        $otherUser = User::factory()->create(['email' => 'used@example.test']);
+        $this->patch(route('account.profile.update'), [
+            'name' => 'Nama Tetap',
+            'email' => $otherUser->email,
+        ])->assertSessionHasErrors('email');
     }
 
     public function test_public_cafe_catalog_hides_items_without_available_stock(): void
@@ -161,6 +285,7 @@ class OrderingUatTest extends TestCase
         $this->get(route('cafes.show', $this->cafe->slug))
             ->assertOk()
             ->assertSee('Kopi Susu UAT')
+            ->assertSee('id="app-toast"', false)
             ->assertDontSee('Tersedia 5')
             ->assertDontSee('Stok habis');
     }
@@ -174,6 +299,45 @@ class OrderingUatTest extends TestCase
             ->assertSee('Kopi Susu UAT')
             ->assertDontSee('tersedia 5')
             ->assertDontSee('Stok final');
+    }
+
+    public function test_customer_can_add_another_same_shop_product_without_leaving_cart(): void
+    {
+        $secondItem = MenuItem::create([
+            'cafe_id' => $this->cafe->id,
+            'name' => 'Latte UAT',
+            'price' => '30000.00',
+            'stock' => 4,
+            'reserved_stock' => 0,
+            'is_active' => true,
+        ]);
+        $cart = [
+            'seller_type' => 'cafe',
+            'seller_id' => $this->cafe->id,
+            'cafe_id' => $this->cafe->id,
+            'items' => [$this->menuItem->id => 1],
+        ];
+
+        $this->actingAs($this->customer, 'customer')
+            ->withSession(['order_cart' => $cart])
+            ->get(route('cart.show'))
+            ->assertOk()
+            ->assertSee('Tambah produk lain')
+            ->assertSee('Latte UAT')
+            ->assertSee('data-cart-add-form')
+            ->assertSee('data-customer-authenticated="true"', false);
+
+        $this->postJson(route('cart.items.add', [$this->cafe->slug, $secondItem->id]))
+            ->assertOk()
+            ->assertJsonPath('cart_count', 2)
+            ->assertJsonPath('total', 55000)
+            ->assertJsonPath('items.1.name', 'Latte UAT');
+
+        $this->get(route('cart.show'))
+            ->assertOk()
+            ->assertSee('Kopi Susu UAT')
+            ->assertSee('Latte UAT')
+            ->assertSee('Rp55.000');
     }
 
     public function test_repeated_checkout_with_same_key_reuses_order_and_reserves_stock_once(): void
@@ -191,17 +355,17 @@ class OrderingUatTest extends TestCase
 
     public function test_empty_cart_and_overstock_checkout_do_not_create_orders_or_change_stock(): void
     {
-        $this->actingAs($this->customer)
+        $this->actingAs($this->customer, 'customer')
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => []]])
             ->post(route('checkout.store', $this->cafe->slug), [
-                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890',
+                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer',
             ])
             ->assertSessionHasErrors('cart');
 
-        $this->actingAs($this->customer)
+        $this->actingAs($this->customer, 'customer')
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => [$this->menuItem->id => 6]]])
             ->post(route('checkout.store', $this->cafe->slug), [
-                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890',
+                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer',
             ])
             ->assertSessionHasErrors([
                 'cart' => 'Jumlah pesanan tidak dapat dipenuhi. Silakan sesuaikan jumlahnya.',
@@ -220,12 +384,12 @@ class OrderingUatTest extends TestCase
             'stock' => 4, 'reserved_stock' => 0, 'is_active' => true,
         ]);
 
-        $this->actingAs($buyer)
+        $this->actingAs($buyer, 'customer')
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => [
                 $this->menuItem->id => 1,
                 $secondItem->id => 2,
             ]]])
-            ->post(route('checkout.store', $this->cafe->slug), ['customer_name' => 'Akun UAT'])
+            ->post(route('checkout.store', $this->cafe->slug), ['customer_name' => 'Akun UAT', 'payment_method' => 'transfer'])
             ->assertRedirect();
 
         $order = Order::with('items')->firstOrFail();
@@ -249,7 +413,7 @@ class OrderingUatTest extends TestCase
             null,
         );
 
-        $this->actingAs($this->owner)
+        $this->actingAs($this->owner, 'web')
             ->post(route('owner.orders.status', $order->public_code), ['status' => 'preparing'])
             ->assertSessionHasErrors('status');
 
@@ -367,10 +531,11 @@ class OrderingUatTest extends TestCase
             ->assertSee('Katalog Produk Roastery')
             ->assertSee('Beans Roastery UAT');
 
-        $this->post(route('roastery.cart.items.add', [$roastery->slug, $product->id]))
+        $this->actingAs($this->customer, 'customer')
+            ->post(route('roastery.cart.items.add', [$roastery->slug, $product->id]))
             ->assertRedirect(route('cart.show'));
-        $this->actingAs($this->customer)->get(route('roastery.checkout.show', $roastery->slug))->assertOk();
-        $this->actingAs($this->customer)->post(route('roastery.checkout.store', $roastery->slug), [
+        $this->actingAs($this->customer, 'customer')->get(route('roastery.checkout.show', $roastery->slug))->assertOk();
+        $this->actingAs($this->customer, 'customer')->post(route('roastery.checkout.store', $roastery->slug), [
             'customer_name' => 'Pembeli Roastery',
             'customer_whatsapp' => '081234567890',
             'payment_method' => 'cash',
@@ -384,9 +549,13 @@ class OrderingUatTest extends TestCase
             ->assertOk()
             ->assertSee('Bayar tunai di '.$roastery->name)
             ->assertSee($order->public_code);
-        $this->get(route('orders.receipt', $order->public_code))->assertOk()->assertSee('Cetak / Simpan PDF');
+        $this->get(route('orders.receipt', $order->public_code))
+            ->assertOk()
+            ->assertSee('Cetak / Simpan PDF')
+            ->assertSee('Tunjukkan kode pesanan ini kepada staf')
+            ->assertDontSee('<img');
 
-        $this->actingAs($this->owner)
+        $this->actingAs($this->owner, 'web')
             ->post(route('owner.orders.confirm-cash-payment', $order->public_code))
             ->assertRedirect(route('owner.orders.print', $order->public_code));
         $this->assertSame(Order::STATUS_PAID, $order->fresh()->status);
@@ -396,6 +565,44 @@ class OrderingUatTest extends TestCase
             'payment_method' => 'cash',
             'status' => 'confirmed',
         ]);
+    }
+
+    public function test_cart_rejects_products_from_a_second_shop_and_explains_single_shop_orders(): void
+    {
+        $roastery = Roastery::factory()->create([
+            'owner_id' => $this->owner->id,
+            'status' => 'published',
+        ]);
+        $roasteryProduct = MenuItem::create([
+            'roastery_id' => $roastery->id,
+            'name' => 'Beans Kedai Kedua',
+            'category' => 'Beans',
+            'price' => '85000.00',
+            'stock' => 5,
+            'reserved_stock' => 0,
+            'is_active' => true,
+        ]);
+
+        $this->actingAs($this->customer, 'customer')
+            ->withSession([
+                'order_cart' => [
+                    'seller_type' => 'cafe',
+                    'seller_id' => $this->cafe->id,
+                    'cafe_id' => $this->cafe->id,
+                    'items' => [$this->menuItem->id => 1],
+                ],
+            ])
+            ->post(route('roastery.cart.items.add', [$roastery->slug, $roasteryProduct->id]))
+            ->assertRedirect()
+            ->assertSessionHasErrors([
+                'cart' => 'Satu pesanan hanya boleh berisi produk dari satu kedai. Selesaikan pesanan sebelumnya atau kosongkan keranjang untuk memesan dari kedai ini.',
+            ]);
+
+        $this->assertSame(
+            [$this->menuItem->id => 1],
+            session('order_cart.items'),
+            'A failed cross-shop add must preserve the existing cart.',
+        );
     }
 
     public function test_customer_feedback_requires_contact_and_is_managed_in_panel(): void
@@ -428,23 +635,124 @@ class OrderingUatTest extends TestCase
         ])->assertSessionHasErrors('customer_contact');
     }
 
+    public function test_customer_can_send_one_feedback_for_their_completed_order(): void
+    {
+        $order = Order::create([
+            'cafe_id' => $this->cafe->id,
+            'user_id' => $this->customer->id,
+            'public_code' => 'FDBK1234',
+            'status' => Order::STATUS_COMPLETED,
+            'payment_status' => 'paid',
+            'payment_method' => 'cash',
+            'customer_name' => 'Pembeli UAT',
+            'customer_whatsapp' => '081234567890',
+            'subtotal' => '25000.00',
+            'total' => '25000.00',
+            'completed_at' => now(),
+        ]);
+
+        $this->actingAs($this->customer, 'customer')
+            ->get(route('orders.feedback.create', $order->public_code))
+            ->assertOk()
+            ->assertSee($this->cafe->name)
+            ->assertSee('Pesanan selesai');
+        $this->get(route('account'))
+            ->assertOk()
+            ->assertSee('Kritik &amp; saran', false)
+            ->assertSee('Beri masukan');
+
+        $this->post(route('orders.feedback.store', $order->public_code), [
+            'category' => 'suggestion',
+            'customer_name' => 'Pembeli UAT',
+            'customer_contact' => '081234567890',
+            'message' => 'Mohon sediakan pilihan susu oat.',
+        ])->assertRedirect(route('account'));
+
+        $this->assertDatabaseHas('customer_feedback', [
+            'order_id' => $order->id,
+            'cafe_id' => $this->cafe->id,
+            'category' => 'suggestion',
+            'customer_contact' => '081234567890',
+        ]);
+
+        $this->get(route('account'))
+            ->assertSee('Masukan terkirim')
+            ->assertDontSee('Beri masukan');
+        $this->post(route('orders.feedback.store', $order->public_code), [
+            'category' => 'criticism',
+            'customer_name' => 'Pembeli UAT',
+            'customer_contact' => '081234567890',
+            'message' => 'Masukan kedua untuk pesanan yang sama.',
+        ])->assertRedirect(route('account'));
+        $this->assertDatabaseCount('customer_feedback', 1);
+    }
+
+    public function test_feedback_for_order_requires_owner_and_completed_status(): void
+    {
+        $order = Order::create([
+            'cafe_id' => $this->cafe->id,
+            'user_id' => $this->customer->id,
+            'public_code' => 'FDBK5678',
+            'status' => Order::STATUS_READY,
+            'payment_status' => 'paid',
+            'payment_method' => 'cash',
+            'customer_name' => 'Pembeli UAT',
+            'subtotal' => '25000.00',
+            'total' => '25000.00',
+        ]);
+
+        $this->actingAs($this->customer, 'customer')
+            ->get(route('orders.feedback.create', $order->public_code))
+            ->assertNotFound();
+
+        $order->update(['status' => Order::STATUS_COMPLETED, 'completed_at' => now()]);
+        $otherCustomer = User::factory()->create(['role' => 'user']);
+
+        $this->actingAs($otherCustomer, 'customer')
+            ->post(route('orders.feedback.store', $order->public_code), [
+                'category' => 'suggestion',
+                'customer_name' => 'Pelanggan Lain',
+                'customer_contact' => '081234567891',
+                'message' => 'Saran dari akun yang bukan pemilik pesanan.',
+            ])
+            ->assertNotFound();
+
+        $this->assertDatabaseCount('customer_feedback', 0);
+    }
+
     public function test_qris_and_transfer_remain_manual_and_do_not_call_bank_services(): void
     {
+        Storage::fake('public');
+        Storage::disk('public')->put('cafes/payment-qr/static-cafe.png', 'fake-qris-image');
         $this->cafe->update([
             'payment_qr_path' => 'cafes/payment-qr/static-cafe.png',
             'payment_instructions' => 'Gunakan QRIS statis kedai dan tunggu verifikasi staf.',
+            'bank_name' => 'BCA',
+            'bank_account_number' => '0123456789',
+            'bank_account_name' => 'Wadah Ngopi',
         ]);
         $cart = ['cafe_id' => $this->cafe->id, 'items' => [$this->menuItem->id => 1]];
 
-        $this->actingAs($this->customer)->withSession(['order_cart' => $cart])
+        $this->actingAs($this->customer, 'customer')->withSession(['order_cart' => $cart])
             ->get(route('checkout.show', $this->cafe->slug))
             ->assertOk()
             ->assertSee('QRIS')
-            ->assertSee('Transfer manual')
-            ->assertSee('Tunai saat di kedai')
-            ->assertSee('tidak terhubung ke bank');
+            ->assertSee('data-payment-selector', false)
+            ->assertSee('data-payment-panel="qris"', false)
+            ->assertSee('data-payment-panel="transfer"', false)
+            ->assertSee('Transfer')
+            ->assertSee('Instruksi transfer')
+            ->assertSee('BCA')
+            ->assertSee('0123456789')
+            ->assertSee('Wadah Ngopi')
+            ->assertSee('static-cafe.png')
+            ->assertSee('storage/cafes/payment-qr/static-cafe.png', false)
+            ->assertSee('Ringkasan pesanan')
+            ->assertSee('Biaya pengiriman')
+            ->assertSee('Tunai di kedai')
+            ->assertSee('QRIS statis perlu dikonfirmasi manual oleh kedai.');
 
-        $this->actingAs($this->customer)->post(route('checkout.store', $this->cafe->slug), [
+        $this->actingAs($this->customer, 'customer')->post(route('checkout.store', $this->cafe->slug), [
             'customer_name' => 'Pembeli Transfer',
             'customer_whatsapp' => '081234567890',
             'payment_method' => 'transfer',
@@ -452,7 +760,10 @@ class OrderingUatTest extends TestCase
         $transferOrder = Order::where('payment_method', 'transfer')->firstOrFail();
         $this->get(route('orders.show', $transferOrder->public_code))
             ->assertOk()
-            ->assertSee('Pembayaran transfer manual')
+            ->assertSee('Pembayaran transfer')
+            ->assertSee('Detail transfer')
+            ->assertSee('0123456789')
+            ->assertSee('Atas nama')
             ->assertSee('Gunakan QRIS statis kedai');
 
         Storage::fake('local');
@@ -468,7 +779,7 @@ class OrderingUatTest extends TestCase
             'status' => 'submitted',
         ]);
 
-        $this->actingAs($this->customer)->withSession(['order_cart' => $cart])
+        $this->actingAs($this->customer, 'customer')->withSession(['order_cart' => $cart])
             ->post(route('checkout.store', $this->cafe->slug), [
                 'customer_name' => 'Pembeli QRIS',
                 'customer_whatsapp' => '081234567890',
@@ -479,5 +790,38 @@ class OrderingUatTest extends TestCase
             ->assertOk()
             ->assertSee('static-cafe.png')
             ->assertSee('Pembayaran QRIS');
+    }
+
+    public function test_missing_qris_file_disables_qris_and_shows_shop_contact_option(): void
+    {
+        Storage::fake('public');
+        $this->cafe->update([
+            'payment_qr_path' => 'cafes/payment-qr/missing.png',
+            'whatsapp_number' => '081234567890',
+        ]);
+        $cart = ['cafe_id' => $this->cafe->id, 'items' => [$this->menuItem->id => 1]];
+
+        $this->actingAs($this->customer, 'customer')
+            ->withSession(['order_cart' => $cart])
+            ->get(route('checkout.show', $this->cafe->slug))
+            ->assertOk()
+            ->assertSee('QRIS kedai saat ini belum tersedia')
+            ->assertSee('https://wa.me/6281234567890')
+            ->assertDontSee('value="qris"');
+
+        $this->withSession(['order_cart' => $cart])
+            ->post(route('checkout.store', $this->cafe->slug), [
+                'customer_name' => 'Pembeli QRIS',
+                'customer_whatsapp' => '081234567890',
+                'payment_method' => 'qris',
+            ])
+            ->assertSessionHasErrors('payment_method');
+
+        $this->withSession(['order_cart' => $cart])
+            ->post(route('checkout.store', $this->cafe->slug), [
+                'customer_name' => 'Pembeli Tanpa Metode',
+                'customer_whatsapp' => '081234567890',
+            ])
+            ->assertSessionHasErrors('payment_method');
     }
 }

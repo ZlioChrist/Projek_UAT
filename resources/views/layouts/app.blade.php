@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+    class="{{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'page-canvas-white' : (request()->routeIs('roastery.show', 'cafes.show') ? 'page-canvas-detail' : '') }}"
+    style="{{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'min-height:100%;background:#fff;background-image:none;' : (request()->routeIs('roastery.show', 'cafes.show') ? 'min-height:100%;background:#fcfaf7;background-image:none;' : '') }}">
 
 <head>
     <script>document.documentElement.classList.add('js-active')</script>
@@ -27,15 +29,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/app.jsx'])
 </head>
 
-<body x-data="{
-    toast: { show: false, message: '', type: 'success' },
-    showToast(message, type = 'success') {
-        this.toast.show = true;
-        this.toast.message = message;
-        this.toast.type = type;
-        setTimeout(() => { this.toast.show = false; }, 3000);
-    }
-}" @toast.window="showToast($event.detail.message, $event.detail.type)">
+<body class="{{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'page-canvas-white' : (request()->routeIs('roastery.show', 'cafes.show') ? 'page-canvas-detail' : '') }}"
+    style="{{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'min-height:100vh;background:#fff;background-image:none;' : (request()->routeIs('roastery.show', 'cafes.show') ? 'min-height:100vh;background:#fcfaf7;background-image:none;' : '') }}">
 
     {{-- Splash Screen Manual --}}
     <div id="splash-screen" class="splash-screen"
@@ -88,25 +83,24 @@
         })();
     </script>
 
-    {{-- Global Toast --}}
-    <div x-show="toast.show" x-cloak class="fixed top-8 left-1/2 -translate-x-1/2 z-[9999] pointer-events-none transition-all duration-300"
-         x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
-         x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-4">
-        <div class="px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 backdrop-blur-xl border bg-espresso/90 text-white"
-             :class="toast.type === 'warning' ? 'border-amber-500/50' : (toast.type === 'error' ? 'border-rose-500/50' : 'border-white/20')">
-            <i class="ph-fill text-lg"
-               :class="toast.type === 'warning' ? 'ph-warning-circle text-amber-500' : (toast.type === 'error' ? 'ph-x-circle text-rose-500' : 'ph-check-circle text-emerald-500')"></i>
-            <span class="text-sm font-bold" x-text="toast.message"></span>
-        </div>
+    <div id="app-toast" class="app-toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+        <i id="app-toast-icon" class="ph-fill ph-check-circle app-toast-icon" aria-hidden="true"></i>
+        <span id="app-toast-message" class="app-toast-message"></span>
+        <a id="app-toast-action" class="app-toast-action" hidden></a>
+        <button id="app-toast-dismiss" class="app-toast-dismiss" type="button" aria-label="Tutup notifikasi">
+            <i class="ph-bold ph-x" aria-hidden="true"></i>
+        </button>
     </div>
 
     <x-onboarding />
 
-    <div class="main-container" id="main-container">
+    <div class="main-container {{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'page-canvas-white' : (request()->routeIs('roastery.show', 'cafes.show') ? 'page-canvas-detail' : '') }}" id="main-container"
+        style="{{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'min-height:100vh;background:#fff;' : (request()->routeIs('roastery.show', 'cafes.show') ? 'min-height:100vh;background:#fcfaf7;' : '') }}">
         @auth
-            @if(in_array(auth()->user()->role, ['developer', 'admin', 'roastery'], true))
+            @if(in_array(\App\Support\AuthenticatedUser::require()->role, ['developer', 'admin', 'roastery'], true))
                 <nav class="relative z-40 flex justify-end gap-2 px-4 py-2 text-xs font-bold" aria-label="Navigasi pengelola">
-                    <a href="{{ route('owner.orders.index') }}" class="rounded-full border border-amber-300 bg-amber-50 px-3 py-2 text-amber-900 no-underline">Pesanan kedai</a>
+                    <a href="{{ route('owner.dashboard') }}" class="rounded-full border border-amber-300 bg-amber-50 px-3 py-2 text-amber-900 no-underline">Dashboard kedai</a>
+                    <a href="{{ route('owner.orders.index') }}" class="rounded-full border border-slate-200 bg-white/90 px-3 py-2 text-slate-700 no-underline">Notifikasi pesanan</a>
                     <a href="{{ url('/admin') }}" class="rounded-full border border-slate-200 bg-white/90 px-3 py-2 text-slate-700 no-underline">Panel pengelola</a>
                 </nav>
             @endif
@@ -117,6 +111,8 @@
         <div id="bottom-nav-react"
              data-current-route="{{ optional(request()->route())->getName() ?? '' }}"
              data-is-authenticated="{{ auth()->check() ? 'true' : 'false' }}"
+             data-current-user-name="{{ auth()->user()?->name ?? '' }}"
+             data-current-user-photo-url="{{ auth()->user()?->profile_photo_path ? \Illuminate\Support\Facades\Storage::disk('public')->url(auth()->user()->profile_photo_path) : '' }}"
              data-routes="{{ json_encode([
                  'home' => route('home'),
                  'roastery' => route('roastery'),

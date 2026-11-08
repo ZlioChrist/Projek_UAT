@@ -66,7 +66,70 @@
     z-index: var(--z-actions);
 }
 
+.detail-nav-overlay > a,
+.detail-nav-overlay > div > a,
+.detail-nav-overlay > div > button {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    border-color: rgba(255, 255, 255, 0.24) !important;
+    transition: background-color 550ms ease, border-color 550ms ease, box-shadow 550ms ease, transform 550ms ease !important;
+}
+
+.detail-nav-overlay > a:hover,
+.detail-nav-overlay > div > a:hover,
+.detail-nav-overlay > div > button:hover {
+    background-color: rgba(255, 255, 255, 0.24) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.detail-nav-overlay > a:active,
+.detail-nav-overlay > div > a:active,
+.detail-nav-overlay > div > button:active {
+    background-color: rgba(255, 255, 255, 0.32) !important;
+}
+
+.detail-cart-link {
+    position: relative;
+}
+
+.detail-cart-count {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    z-index: 1;
+    display: flex;
+    min-width: 17px;
+    height: 17px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2px;
+    border: 2px solid #2C1810;
+    border-radius: 9999px;
+    background: #F59E0B;
+    color: #2C1810;
+    font-size: 9px;
+    font-weight: 900;
+    line-height: 1;
+}
+
 /* Detail Content */
+html.page-canvas-detail,
+body.page-canvas-detail,
+#main-container.page-canvas-detail {
+    min-height: 100vh;
+    background: #fcfaf7 !important;
+    background-image: none !important;
+}
+
+.page-canvas-detail .detail-wrapper {
+    background: #fcfaf7;
+}
+
+.page-canvas-detail .detail-content-luxury {
+    border-color: transparent !important;
+    background: #fcfaf7 !important;
+    box-shadow: none !important;
+}
+
 .detail-content-luxury {
     margin-top: -30px;
     background: var(--color-cream);
@@ -75,6 +138,38 @@
     position: relative;
     z-index: var(--z-content);
     box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.page-canvas-detail .detail-menu-photo-grid {
+    display: grid;
+}
+
+.page-canvas-detail .detail-menu-photo-card,
+.page-canvas-detail .detail-menu-photo-frame {
+    min-width: 0;
+}
+
+.page-canvas-detail .detail-menu-photo-frame {
+    display: block;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #f3f0ec;
+}
+
+.page-canvas-detail .detail-menu-photo-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    visibility: visible;
+    opacity: 1;
+}
+
+.page-canvas-detail .cafe-menu-item-image {
+    display: block;
+    object-fit: cover;
+    visibility: visible;
+    opacity: 1;
 }
 
 /* Cafe menu catalogue */

@@ -1,0 +1,139 @@
+.app-toast {
+    position: fixed;
+    z-index: 9999;
+    right: 16px;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    width: min(440px, calc(100vw - 32px));
+    align-items: center;
+    gap: 11px;
+    padding: 13px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    background: rgba(37, 24, 18, 0.96);
+    box-shadow: 0 16px 38px rgba(26, 15, 10, 0.2);
+    color: #fff;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 180ms ease, transform 180ms ease;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.app-toast[hidden] {
+    display: none;
+}
+
+.app-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.app-toast-icon {
+    flex: 0 0 auto;
+    color: #86efac;
+    font-size: 1.2rem;
+}
+
+.app-toast[data-type="warning"] .app-toast-icon {
+    color: #fbbf24;
+}
+
+.app-toast[data-type="error"] .app-toast-icon {
+    color: #fda4af;
+}
+
+.app-toast-message {
+    min-width: 0;
+    flex: 1 1 auto;
+    font-size: 0.875rem;
+    font-weight: 650;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.app-toast-action {
+    flex: 0 0 auto;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fcd34d;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.app-toast-action:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.app-toast-dismiss {
+    display: grid;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.68);
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.app-toast-dismiss:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.explore-page .category-pill,
+.roastery-page .category-pill,
+.information-feed-page .category-pill {
+    transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.explore-page .category-pill:hover,
+.roastery-page .category-pill:hover,
+.information-feed-page .category-pill:hover {
+    transform: translateY(-1px);
+}
+
+.information-feed-page a:focus-visible,
+.explore-page a:focus-visible,
+.roastery-page a:focus-visible {
+    outline: 3px solid rgba(217, 119, 6, 0.48);
+    outline-offset: 3px;
+}
+
+.information-feed-page > .px-6 {
+    padding-bottom: 1rem;
+}
+
+.information-feed-page .group:focus-visible {
+    border-radius: 28px;
+    outline: 3px solid rgba(217, 119, 6, 0.48);
+    outline-offset: 4px;
+}
+
+.cafe-menu-item:focus-within {
+    border-color: #e8c98f;
+    box-shadow: 0 8px 22px rgba(44, 24, 16, 0.08);
+}
+
+@media (max-width: 640px) {
+    .app-toast {
+        right: 12px;
+        bottom: calc(86px + env(safe-area-inset-bottom, 0px));
+        width: calc(100vw - 24px);
+        padding: 11px 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-toast,
+    .explore-page .category-pill,
+    .roastery-page .category-pill,
+    .information-feed-page .category-pill {
+        transition: none;
+    }
+}

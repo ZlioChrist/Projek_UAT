@@ -26,13 +26,17 @@
         </div>
 
         {{-- Premium Search Box --}}
-        <div class="explore-search-2026" @click.away="showSortMenu = false">
+        <div class="explore-search-2026" x-data="{ hasSearch: @js((bool) $search) }" @click.away="showSortMenu = false">
             <div class="search-icon-pulse">
                 <i class="ph-bold ph-magnifying-glass" wire:loading.remove wire:target="search, filter, cityId, sort, activeLetter"></i>
                 <i class="ph-bold ph-spinner animate-spin text-amber-500" wire:loading wire:target="search, filter, cityId, sort, activeLetter"></i>
             </div>
-            <input type="text" id="cafe-search" name="search" wire:model.live.debounce.500ms="search" placeholder="Cari cafe favoritmu..." 
-                class="explore-search-input disabled:opacity-50" wire:loading.attr="disabled" wire:target="search, filter, cityId, sort, activeLetter">
+            <input type="text" id="cafe-search" name="search" wire:model.live.debounce.150ms="search" placeholder="Cari cafe favoritmu..."
+                class="explore-search-input" autocomplete="off" @input="hasSearch = $event.target.value.length > 0">
+            <button type="button" class="explore-clear-search-btn" x-show="hasSearch" x-cloak
+                wire:click="clearSearch" @click="hasSearch = false" aria-label="Hapus pencarian" title="Hapus pencarian">
+                <i class="ph-bold ph-x"></i>
+            </button>
             <button class="explore-sort-btn disabled:opacity-50" @click="showSortMenu = !showSortMenu"
                 :class="showSortMenu ? 'active' : ''" wire:loading.attr="disabled" wire:target="search, filter, cityId, sort, activeLetter">
                 <i class="ph-bold ph-sliders-horizontal"></i>
@@ -95,15 +99,17 @@
 
         {{-- Category Filter Pills --}}
         <div class="filter-scroll-wrapper">
-            <div class="explore-category-pills">
-                <button class="category-pill disabled:opacity-50" :class="$wire.filter === 'semua' ? 'active' : ''"
+            <div class="explore-category-pills" role="group" aria-label="Filter kedai">
+                <button type="button" class="category-pill disabled:opacity-50" :class="$wire.filter === 'semua' ? 'active' : ''"
+                    :aria-pressed="$wire.filter === 'semua'"
                     wire:click="$set('filter', 'semua')" wire:loading.attr="disabled">
                     <i class="ph-fill ph-coffee" wire:loading.remove wire:target="$set('filter', 'semua')"></i>
                     <i class="ph-bold ph-spinner animate-spin" wire:loading wire:target="$set('filter', 'semua')"></i>
                     <span>Semua</span>
                 </button>
-                <button class="category-pill disabled:opacity-70 disabled:cursor-not-allowed" 
+                <button type="button" class="category-pill disabled:opacity-70 disabled:cursor-not-allowed"
                     :class="$wire.filter === 'terdekat' ? 'active' : ''"
+                    :aria-pressed="$wire.filter === 'terdekat'"
                     @click="getLocation()"
                     wire:loading.attr="disabled"
                     wire:target="setUserLocation, filter">
@@ -111,8 +117,9 @@
                     <i class="ph ph-circle-notch animate-spin text-amber-500" x-show="isLocating" wire:loading wire:target="setUserLocation, filter"></i>
                     <span>Terdekat</span>
                 </button>
-                <button class="category-pill pill-open disabled:opacity-70 disabled:cursor-not-allowed" 
+                <button type="button" class="category-pill pill-open disabled:opacity-70 disabled:cursor-not-allowed"
                     :class="$wire.filter === 'buka' ? 'active' : ''"
+                    :aria-pressed="$wire.filter === 'buka'"
                     wire:click="$set('filter', 'buka')" 
                     wire:loading.attr="disabled"
                     wire:target="filter">
@@ -125,14 +132,17 @@
 
         {{-- City Filter Pills --}}
         <div class="filter-scroll-wrapper">
-            <div class="explore-city-pills">
-                <button wire:click="$set('cityId', '')" wire:loading.attr="disabled"
+            <div class="explore-city-pills" role="group" aria-label="Filter kota">
+                <button type="button" wire:click="$set('cityId', '')" wire:loading.attr="disabled"
+                    aria-pressed="{{ $cityId === '' || $cityId === null ? 'true' : 'false' }}"
                     class="city-pill {{ $cityId === '' || $cityId === null ? 'active' : '' }} disabled:opacity-50">
                     <span wire:loading.remove wire:target="$set('cityId', '')">Semua Kota</span>
                     <span wire:loading wire:target="$set('cityId', '')"><i class="ph-bold ph-spinner animate-spin"></i></span>
                 </button>
                 @foreach($cities as $city)
-                    <button wire:click="$set('cityId', '{{ $city['id'] }}')" wire:loading.attr="disabled"
+                    <button type="button" wire:key="explore-city-{{ $city['id'] }}"
+                        wire:click="$set('cityId', '{{ $city['id'] }}')" wire:loading.attr="disabled"
+                        aria-pressed="{{ (string) $cityId === (string) $city['id'] ? 'true' : 'false' }}"
                         class="city-pill {{ (string)$cityId === (string)$city['id'] ? 'active' : '' }} disabled:opacity-50">
                         <span wire:loading.remove wire:target="$set('cityId', '{{ $city['id'] }}')">{{ $city['name'] }}</span>
                         <span wire:loading wire:target="$set('cityId', '{{ $city['id'] }}')"><i class="ph-bold ph-spinner animate-spin"></i></span>
@@ -200,10 +210,10 @@
                                         $timeText = '24 Jam';
                                     } elseif ($isOpen && isset($todayHours['close'])) {
                                         $timeText = 'Sampai ' . \Carbon\Carbon::parse($todayHours['close'])->format('H:i');
-                                    } elseif (! $isOpen && ! $cafe->is_24_hours && isset($todayHours['close'])) {
-                                        $timeText = 'Tutup pukul ' . \Carbon\Carbon::parse($todayHours['close'])->format('H:i');
                                     } elseif (! $isOpen && isset($todayHours['open'])) {
                                         $timeText = 'Buka ' . \Carbon\Carbon::parse($todayHours['open'])->format('H:i');
+                                    } elseif (! $isOpen && ! $cafe->is_24_hours && isset($todayHours['close'])) {
+                                        $timeText = 'Tutup pukul ' . \Carbon\Carbon::parse($todayHours['close'])->format('H:i');
                                     }
                                 }
                             @endphp
@@ -283,8 +293,8 @@
             </a>
         @empty
             {{-- Premium Empty State with SVG --}}
-            <div class="col-span-full empty-state-premium">
-                <div class="empty-state-illustration">
+            <div class="col-span-full empty-state-premium explore-empty-state" role="status" aria-live="polite">
+                <div class="empty-state-illustration explore-empty-state-illustration" aria-hidden="true">
                     <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="100" cy="130" rx="60" ry="12" fill="#F5EFED"/>
                         <path d="M60 70 C60 50, 80 35, 100 35 C120 35, 140 50, 140 70 L140 110 C140 120, 130 130, 120 130 L80 130 C70 130, 60 120, 60 110 Z" fill="#2C1810" stroke="#1A0F0A" stroke-width="2"/>
@@ -302,19 +312,27 @@
                     </svg>
                 </div>
                 @if($filter === 'terdekat')
-                    <h3>{{ $hasGeolocatedCafes ? 'Cafe Terdekat Tidak Ditemukan' : 'Lokasi Cafe Belum Tersedia' }}</h3>
-                    <p>
+                    <span class="explore-empty-state-eyebrow">Pencarian Lokasi</span>
+                    <h3 class="explore-empty-state-title">{{ $hasGeolocatedCafes ? 'Belum Ada Cafe di Sekitar' : 'Lokasi Cafe Belum Tersedia' }}</h3>
+                    <p class="explore-empty-state-description">
                         {{ $hasGeolocatedCafes
                             ? 'Belum ada cafe berkoordinat dalam radius 20 km dari lokasi Anda.'
                             : 'Belum ada cafe dengan koordinat. Admin perlu mengisi latitude dan longitude cafe agar jarak dapat dihitung.' }}
                     </p>
                 @else
-                    <h3>Cafe Tidak Ditemukan</h3>
-                    <p>Hmm, belum ada cafe yang cocok. Coba ubah filter atau kata kunci pencarianmu.</p>
+                    <span class="explore-empty-state-eyebrow">Jelajahi Cafe</span>
+                    <h3 class="explore-empty-state-title">{{ $search ? 'Cafe Belum Ditemukan' : 'Belum Ada Cafe yang Cocok' }}</h3>
+                    @if($search)
+                        <div class="explore-empty-state-query">
+                            <i class="ph-bold ph-magnifying-glass" aria-hidden="true"></i>
+                            <span>{{ $search }}</span>
+                        </div>
+                    @endif
+                    <p class="explore-empty-state-description">Coba periksa ejaan atau gunakan kata kunci lain. Kamu juga bisa mengubah filter pencarian.</p>
                 @endif
                 <button class="empty-state-cta" wire:click="resetAllFilters">
                     <i class="ph-bold ph-arrow-counter-clockwise"></i>
-                    Reset Pencarian
+                    Atur Ulang Pencarian
                 </button>
             </div>
         @endforelse
@@ -407,7 +425,7 @@
                         this.$dispatch('toast', { message: 'Gagal mendapatkan lokasi.', type: 'error' });
                     }
                 },
-                { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
             );
         }
     }));

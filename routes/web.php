@@ -8,8 +8,11 @@ use App\Http\Controllers\Api\WfcScoreController;
 use App\Http\Controllers\CafeController;
 use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerFeedbackController;
+use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\InformationController;
+use App\Http\Controllers\MerchantApplicationController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OwnerOrderController;
 use App\Http\Controllers\RoasteryController;
@@ -19,7 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 // Public routes with rate limiting
-Route::middleware(['throttle:web'])->group(function () {
+Route::middleware(['throttle:web', 'customer.site'])->group(function () {
     Route::get('/', [CafeController::class, 'index'])->name('home');
     Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
     Route::get('/saved', [SavedController::class, 'index'])->name('saved');
@@ -39,17 +42,29 @@ Route::middleware(['throttle:web'])->group(function () {
 
     // Customers must sign in before checkout. Ordering and stock remain scoped to one seller.
     Route::get('/cart', [OrderController::class, 'cart'])->name('cart.show');
-    Route::post('/cafes/{cafe}/menu/{menuItem}/cart', [OrderController::class, 'addItem'])->name('cart.items.add');
-    Route::post('/roasteries/{roastery}/menu/{menuItem}/cart', [OrderController::class, 'addRoasteryItem'])->name('roastery.cart.items.add');
-    Route::patch('/cart/items/{menuItem}', [OrderController::class, 'updateItem'])->name('cart.items.update');
-    Route::delete('/cart', [OrderController::class, 'clearCart'])->name('cart.clear');
+    Route::post('/cafes/{cafe}/menu/{menuItem}/cart', [OrderController::class, 'addItem'])->middleware('auth')->name('cart.items.add');
+    Route::post('/roasteries/{roastery}/menu/{menuItem}/cart', [OrderController::class, 'addRoasteryItem'])->middleware('auth')->name('roastery.cart.items.add');
+    Route::patch('/cart/items/{menuItem}', [OrderController::class, 'updateItem'])->middleware('auth')->name('cart.items.update');
+    Route::delete('/cart', [OrderController::class, 'clearCart'])->middleware('auth')->name('cart.clear');
     Route::middleware('auth')->group(function () {
         Route::get('/account', AccountController::class)->name('account');
+        Route::get('/account/profile', [CustomerProfileController::class, 'edit'])->name('account.profile.edit');
+        Route::patch('/account/profile', [CustomerProfileController::class, 'update'])->name('account.profile.update');
+        Route::get('/account/feedback', [CustomerFeedbackController::class, 'indexForCustomer'])->name('account.feedback.index');
+        Route::get('/account/merchant-application', [MerchantApplicationController::class, 'create'])->name('merchant-applications.create');
+        Route::post('/account/merchant-application', [MerchantApplicationController::class, 'store'])->middleware('throttle:5,1')->name('merchant-applications.store');
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::post('/notifications/{notificationId}/open', [NotificationController::class, 'open'])
+            ->name('notifications.open');
         Route::get('/checkout/{cafe}', [OrderController::class, 'checkout'])->name('checkout.show');
         Route::post('/checkout/{cafe}', [OrderController::class, 'placeOrder'])->name('checkout.store');
         Route::get('/checkout/roastery/{roastery}', [OrderController::class, 'checkoutRoastery'])->name('roastery.checkout.show');
         Route::post('/checkout/roastery/{roastery}', [OrderController::class, 'placeRoasteryOrder'])->name('roastery.checkout.store');
         Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
+        Route::get('/orders/{code}/feedback', [CustomerFeedbackController::class, 'createForOrder'])->name('orders.feedback.create');
+        Route::post('/orders/{code}/feedback', [CustomerFeedbackController::class, 'storeForOrder'])
+            ->middleware('throttle:5,1')
+            ->name('orders.feedback.store');
     });
     Route::get('/order-tracking', [OrderController::class, 'lookupForm'])->name('orders.lookup');
     Route::post('/order-tracking', [OrderController::class, 'lookup'])->middleware('throttle:10,1')->name('orders.lookup.submit');
@@ -59,7 +74,8 @@ Route::middleware(['throttle:web'])->group(function () {
     Route::get('/orders/{code}', [OrderController::class, 'show'])->middleware('throttle:30,1')->name('orders.show');
 
     // Kedai/order operations are additionally scoped to the authenticated cafe owner.
-    Route::prefix('owner')->name('owner.')->middleware('auth')->group(function () {
+    Route::prefix('owner')->name('owner.')->middleware('auth:web')->group(function () {
+        Route::get('/dashboard', [OwnerOrderController::class, 'dashboard'])->name('dashboard');
         Route::get('/orders', [OwnerOrderController::class, 'index'])->name('orders.index');
         Route::post('/pickup', [OwnerOrderController::class, 'pickup'])->middleware('throttle:20,1')->name('orders.pickup');
         Route::get('/orders/{code}', [OwnerOrderController::class, 'show'])->name('orders.show');
@@ -122,8 +138,8 @@ Route::middleware(['throttle:web'])->group(function () {
 
     // Auth Actions
     Route::post('/logout', function (Request $request) {
-        auth()->logout();
-        $request->session()->invalidate();
+        auth('customer')->logout();
+        $request->session()->regenerate();
         $request->session()->regenerateToken();
 
         return redirect('/');

@@ -53,6 +53,7 @@ class OrderingUatTest extends TestCase
             ->post(route('checkout.store', $this->cafe->slug), [
                 'customer_name' => 'Pembeli UAT',
                 'customer_whatsapp' => '081234567890',
+                'payment_method' => 'transfer',
             ])
             ->assertRedirect();
 
@@ -171,14 +172,14 @@ class OrderingUatTest extends TestCase
         $this->actingAs($this->customer)
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => []]])
             ->post(route('checkout.store', $this->cafe->slug), [
-                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890',
+                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer',
             ])
             ->assertSessionHasErrors('cart');
 
         $this->actingAs($this->customer)
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => [$this->menuItem->id => 6]]])
             ->post(route('checkout.store', $this->cafe->slug), [
-                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890',
+                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer',
             ])
             ->assertSessionHasErrors([
                 'cart' => 'Jumlah pesanan tidak dapat dipenuhi. Silakan sesuaikan jumlahnya.',
@@ -202,7 +203,7 @@ class OrderingUatTest extends TestCase
                 $this->menuItem->id => 1,
                 $secondItem->id => 2,
             ]]])
-            ->post(route('checkout.store', $this->cafe->slug), ['customer_name' => 'Akun UAT'])
+            ->post(route('checkout.store', $this->cafe->slug), ['customer_name' => 'Akun UAT', 'payment_method' => 'transfer'])
             ->assertRedirect();
 
         $order = Order::with('items')->firstOrFail();

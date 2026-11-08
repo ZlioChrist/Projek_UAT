@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\CustomerFeedbackResource\Pages;
 use App\Models\CustomerFeedback;
@@ -25,11 +26,11 @@ class CustomerFeedbackResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Masukan Pelanggan';
 
-    protected static ?string $navigationGroup = 'Manajemen Warung';
+    protected static ?string $navigationGroup = 'Manajemen Kafe';
 
     public static function canViewAny(): bool
     {
-        return UserRole::fromUserValue(auth()->user()?->role) === UserRole::Developer;
+        return UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer;
     }
 
     public static function canCreate(): bool
@@ -44,13 +45,13 @@ class CustomerFeedbackResource extends Resource
 
     public static function canEdit(Model $record): bool
     {
-        return UserRole::fromUserValue(auth()->user()?->role) === UserRole::Developer;
+        return UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer;
     }
 
     public static function getEloquentQuery(): Builder
     {
-        $query = parent::getEloquentQuery()->with(['cafe.owner', 'roastery.owner']);
-        if (auth()->user()?->role !== 'developer') {
+        $query = parent::getEloquentQuery()->with(['cafe.owner', 'roastery.owner', 'order']);
+        if (AuthenticatedUser::get()?->role !== 'developer') {
             $query->whereRaw('1 = 0');
         }
 
@@ -61,6 +62,7 @@ class CustomerFeedbackResource extends Resource
     {
         return $form->schema([
             Forms\Components\TextInput::make('shop_label')->label('Kafe / roastery')->formatStateUsing(fn (CustomerFeedback $record): ?string => $record->shop?->name)->disabled(),
+            Forms\Components\TextInput::make('order.public_code')->label('Kode pesanan')->disabled(),
             Forms\Components\TextInput::make('category')->label('Jenis masukan')->disabled(),
             Forms\Components\TextInput::make('customer_name')->label('Nama pelanggan')->disabled(),
             Forms\Components\TextInput::make('customer_contact')->label('Kontak')->disabled(),
@@ -77,6 +79,7 @@ class CustomerFeedbackResource extends Resource
     {
         return $table->columns([
             Tables\Columns\TextColumn::make('id')->label('Kafe / roastery')->state(fn (CustomerFeedback $record): ?string => $record->shop?->name),
+            Tables\Columns\TextColumn::make('order.public_code')->label('Pesanan')->placeholder('Masukan umum')->searchable(),
             Tables\Columns\TextColumn::make('category')->label('Jenis')->badge(),
             Tables\Columns\TextColumn::make('customer_name')->label('Pelanggan')->searchable(),
             Tables\Columns\TextColumn::make('customer_contact')->label('Kontak')->searchable(),

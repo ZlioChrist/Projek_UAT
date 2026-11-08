@@ -92,9 +92,10 @@ class SyncOfficialPlaceCoordinates extends Command
             throw new \RuntimeException("Google Maps returned HTTP {$response->status()}.");
         }
 
-        $effectiveUrl = $response->effectiveUri()?->__toString()
-            ?? $response->header('Location')
-            ?? $url;
+        $effectiveUri = $response->effectiveUri()?->__toString();
+        $effectiveUrl = $effectiveUri !== null && $effectiveUri !== $url
+            ? $effectiveUri
+            : ($response->header('Location') ?? $effectiveUri ?? $url);
 
         if (! $this->isGoogleMapsUrl($effectiveUrl)) {
             throw new \RuntimeException('The map link redirected outside Google Maps.');

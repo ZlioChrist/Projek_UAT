@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Cafe;
+use App\Models\MenuItem;
 use App\Models\Roastery;
 use App\Observers\CafeObserver;
+use App\Observers\MenuItemObserver;
 use App\Observers\RoasteryObserver;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -31,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         // (SoftDeletes global scope causes issues during migrate:fresh)
         if (!app()->runningInConsole() || !collect($_SERVER['argv'] ?? [])->contains(fn($v) => str_contains($v, 'migrate'))) {
             Cafe::observe(CafeObserver::class);
+            MenuItem::observe(MenuItemObserver::class);
             Roastery::observe(RoasteryObserver::class);
         }
 

@@ -3,15 +3,15 @@
 
     {{-- Header Page --}}
     <div class="saved-page-header">
-        <h2 class="saved-page-title">
+        <p class="saved-page-title">
             <span class="saved-count-badge"
                   x-show="$wire.items.length > 0"
                   x-text="$wire.items.length"
                   x-transition:enter="transition ease-out duration-300"
                   x-transition:enter-start="opacity-0 scale-50"
                   x-transition:enter-end="opacity-100 scale-100">0</span>
-            Tersimpan
-        </h2>
+            <span x-text="$wire.items.length === 1 ? '1 tempat tersimpan' : `${$wire.items.length} tempat tersimpan`">0 tempat tersimpan</span>
+        </p>
     </div>
 
     {{-- Skeleton Loading --}}

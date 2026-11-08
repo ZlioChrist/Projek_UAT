@@ -12,10 +12,17 @@
 <body>
 <main class="paper">
     <header class="center"><h2>{{ $order->shop_name }}</h2><p class="muted">{{ $order->shop?->address }}</p><p class="muted">Struk pesanan ambil di kedai</p></header><hr>
-    <p class="muted">Waktu: {{ $order->created_at->format('d/m/Y H:i') }}<br>Pemesan: {{ $order->customer_name }}<br>Status: {{ $order->status_label }}<br>Metode bayar: {{ strtoupper($order->payment_method) }}</p><hr>
+    <p class="muted">Waktu: {{ $order->created_at->format('d/m/Y H:i') }}<br>Pemesan: {{ $order->customer_name }}<br>Status pesanan: {{ $order->status_label }}<br>Status pembayaran: {{ match($order->payment_status) { 'paid' => 'Lunas / terverifikasi', 'submitted' => 'Bukti menunggu verifikasi', 'rejected' => 'Pembayaran perlu diperiksa kembali', 'cancelled' => 'Dibatalkan', default => 'Belum dibayar' } }}</p><hr>
     @foreach($order->items as $item)<div class="row"><span>{{ $item->name_snapshot }} × {{ $item->quantity }}</span><strong>Rp{{ number_format((float)$item->line_total,0,',','.') }}</strong></div>@endforeach
     <hr><div class="row"><strong>TOTAL</strong><strong>Rp{{ number_format((float)$order->total,0,',','.') }}</strong></div><hr>
-    <p class="center muted">KODE PESANAN / PENGAMBILAN</p><p class="center code">{{ $order->public_code }}</p><p class="center muted">Tunjukkan kode ini kepada staf saat membayar atau mengambil pesanan.</p>
+    <p class="center muted">KODE PESANAN / PENGAMBILAN</p><p class="center code">{{ $order->public_code }}</p>
+    @if($order->payment_status === 'paid')
+        <p class="center muted">Pembayaran sudah terverifikasi. Tunjukkan bukti pembayaran dari aplikasi bank/e-wallet dan kode pesanan ini kepada staf saat mengambil pesanan.</p>
+    @elseif($order->payment_status === 'submitted')
+        <p class="center muted">Bukti pembayaran sedang menunggu verifikasi kedai. Tunjukkan bukti pembayaran dan kode pesanan ini kepada staf.</p>
+    @else
+        <p class="center muted">Tunjukkan kode pesanan ini kepada staf untuk konfirmasi pembayaran dan pengambilan pesanan.</p>
+    @endif
 </main>
 <div class="actions"><button type="button" onclick="window.print()">Cetak / Simpan PDF</button><a href="{{ route('orders.show', $order->public_code) }}">Kembali</a></div>
 </body>

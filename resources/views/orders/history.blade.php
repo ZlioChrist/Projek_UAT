@@ -1,17 +1,37 @@
 @extends('layouts.app')
 @section('title', 'Riwayat Pesanan - WadahNgopi')
 @section('content')
-<div class="mx-auto max-w-4xl px-4 py-10"><h1 class="mb-6 text-3xl font-black text-[#2C1810]">Riwayat Pesanan</h1>
-    <div class="space-y-3">
+<main class="wn-customer-page wn-history-page">
+    <a href="{{ route('account') }}" class="wn-customer-back"><i class="ph ph-arrow-left" aria-hidden="true"></i> Kembali ke profil</a>
+    <header class="wn-customer-page-header">
+        <span class="wn-customer-eyebrow"><i class="ph ph-receipt" aria-hidden="true"></i> Aktivitas akun</span>
+        <h1>Riwayat pesanan</h1>
+        <p>Semua pesanan yang pernah kamu buat, lengkap dengan status dan detailnya.</p>
+    </header>
+    <div class="wn-history-list">
         @forelse($orders as $order)
-            <a href="{{ route('orders.show', $order->public_code) }}" class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 no-underline">
-                <div><strong class="text-[#2C1810]">{{ $order->shop_name }}</strong><p class="text-xs text-slate-500">{{ $order->created_at->format('d/m/Y H:i') }} · {{ $order->public_code }}</p><p class="mt-1 text-xs text-slate-600">{{ $order->items->map(fn ($item) => $item->name_snapshot.' × '.$item->quantity)->implode(' · ') }}</p></div>
-                <div class="text-right"><strong class="text-amber-800">Rp{{ number_format((float)$order->total,0,',','.') }}</strong><p class="text-xs text-slate-500">{{ $order->status_label }}</p></div>
+            <a href="{{ route('orders.show', $order->public_code) }}" class="wn-history-card">
+                <span class="wn-history-icon"><i class="ph ph-coffee" aria-hidden="true"></i></span>
+                <span class="wn-history-content">
+                    <strong>{{ $order->shop_name }}</strong>
+                    <span class="wn-history-meta">{{ $order->created_at->format('d/m/Y H:i') }} <span aria-hidden="true">·</span> {{ $order->public_code }}</span>
+                    <span class="wn-history-items">{{ $order->items->map(fn ($item) => $item->name_snapshot.' × '.$item->quantity)->implode(' · ') }}</span>
+                </span>
+                <span class="wn-history-total">
+                    <strong>Rp{{ number_format((float)$order->total,0,',','.') }}</strong>
+                    <span class="wn-history-status">{{ $order->status_label }}</span>
+                </span>
+                <i class="ph ph-caret-right wn-history-arrow" aria-hidden="true"></i>
             </a>
         @empty
-            <div class="rounded-2xl bg-white p-8 text-center text-slate-500">Belum ada pesanan di akun ini.</div>
+            <div class="wn-customer-empty">
+                <span><i class="ph ph-receipt" aria-hidden="true"></i></span>
+                <strong>Belum ada pesanan</strong>
+                <p>Pesanan yang kamu buat akan muncul di sini.</p>
+                <a href="{{ route('explore') }}">Jelajahi kafe</a>
+            </div>
         @endforelse
     </div>
-    <div class="mt-5">{{ $orders->links() }}</div>
-</div>
+    @if($orders->hasPages())<div class="wn-history-pagination">{{ $orders->links() }}</div>@endif
+</main>
 @endsection

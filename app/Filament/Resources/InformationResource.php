@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Support\AuthenticatedUser;
 use App\Filament\Resources\InformationResource\Pages;
 use App\Models\Information;
 use Filament\Forms;
@@ -21,7 +22,7 @@ class InformationResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()?->role === 'developer';
+        return AuthenticatedUser::get()?->role === 'developer';
     }
 
     protected static ?string $navigationLabel = 'Informasi & Berita';

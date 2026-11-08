@@ -6,10 +6,10 @@
   width: min(400px, calc(100% - 28px)) !important;
   max-width: 400px !important;
   height: 72px !important;
-  background: rgba(255, 255, 255, 0.45) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  background: rgba(255, 253, 248, 0.76) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.72) !important;
   border-radius: 36px !important;
   display: flex !important;
   align-items: center !important;
@@ -17,9 +17,9 @@
   padding: 0 12px !important;
   z-index: 9999 !important;
   box-shadow:
-    0 20px 50px -12px rgba(26, 15, 10, 0.2),
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 -1px 0 rgba(255, 255, 255, 0.4) inset !important;
+    0 18px 42px -12px rgba(26, 15, 10, 0.16),
+    0 1px 0 rgba(255, 255, 255, 0.88) inset,
+    0 -1px 0 rgba(255, 255, 255, 0.36) inset !important;
 }
 
 .bottom-nav.dock-nav-home .nav-item {
@@ -44,6 +44,15 @@
   margin-bottom: 0 !important;
 }
 
+.bottom-nav.dock-nav-home .nav-account-avatar {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  border: 1px solid rgba(26, 15, 10, 0.18);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 .bottom-nav.dock-nav-home .nav-item:hover {
   color: #1a0f0a !important;
 }
@@ -65,6 +74,13 @@
   letter-spacing: 0.0325rem !important;
   text-transform: uppercase !important;
   white-space: nowrap !important;
+}
+
+.bottom-nav.dock-nav-home .account-nav-item .nav-label {
+  max-width: 68px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: none !important;
 }
 
 .bottom-nav.dock-nav-home .nav-item:focus-visible {

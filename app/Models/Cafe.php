@@ -42,6 +42,9 @@ class Cafe extends Model
         'menu_images',
         'payment_qr_path',
         'payment_instructions',
+        'bank_name',
+        'bank_account_number',
+        'bank_account_name',
         'wfc_avg_score',
         'wfc_review_count',
         'current_vibe',
@@ -86,6 +89,11 @@ class Cafe extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->owner();
     }
 
     public function menuItems(): HasMany

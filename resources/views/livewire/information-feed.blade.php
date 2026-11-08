@@ -1,4 +1,4 @@
-<div class="block min-h-screen pb-32 bg-[#FAF9F6]">
+<div class="information-feed-page block min-h-screen pb-32 bg-[#FAF9F6]">
     {{-- Premium Header (Matches Explore & Saved) --}}
     <header class="explore-hero-2026" x-data="{ isScrolled: false }" :class="{ 'is-compact': isScrolled }"
         @scroll.window="isScrolled = window.pageYOffset > 50">
@@ -22,28 +22,25 @@
 
         {{-- Category Pills (Matches Explore Style) --}}
         <div class="filter-scroll-wrapper">
-            <div class="explore-category-pills">
-                <button class="category-pill disabled:opacity-50 disabled:cursor-not-allowed"
+            <div class="explore-category-pills information-category-pills" role="group" aria-label="Kategori informasi">
+                <button type="button" class="category-pill information-category-pill information-category-pill--all disabled:opacity-50 disabled:cursor-not-allowed"
                     :class="$wire.activeCategory === 'Semua' ? 'active' : ''" wire:click="setCategory('Semua')"
+                    :aria-pressed="$wire.activeCategory === 'Semua'"
                     wire:loading.attr="disabled" wire:target="setCategory('Semua')">
-                    <i class="ph-fill ph-check-square" x-show="$wire.activeCategory === 'Semua'" wire:loading.remove
-                        wire:target="setCategory('Semua')"></i>
-                    <i class="ph-bold ph-spinner animate-spin" wire:loading wire:target="setCategory('Semua')"></i>
+                    <i class="ph-fill ph-check-square" x-show="$wire.activeCategory === 'Semua'"></i>
                     <span>Semua</span>
                 </button>
                 @foreach (['Berita', 'Edukasi', 'Lomba', 'Promo'] as $cat)
-                    <button class="category-pill disabled:opacity-50 disabled:cursor-not-allowed"
+                    <button type="button" class="category-pill information-category-pill information-category-pill--{{ strtolower($cat) }} disabled:opacity-50 disabled:cursor-not-allowed"
                         :class="$wire.activeCategory === '{{ $cat }}' ? 'active' : ''"
+                        :aria-pressed="$wire.activeCategory === '{{ $cat }}'"
                         wire:click="setCategory('{{ $cat }}')" wire:loading.attr="disabled"
                         wire:target="setCategory('{{ $cat }}')">
-                        <span wire:loading.remove wire:target="setCategory('{{ $cat }}')">
-                            @if($cat === 'Berita') <i class="ph-fill ph-newspaper"></i>
-                            @elseif($cat === 'Edukasi') <i class="ph-fill ph-book-open"></i>
-                            @elseif($cat === 'Lomba') <i class="ph-fill ph-trophy"></i>
-                            @elseif($cat === 'Promo') <i class="ph-fill ph-tag"></i>
-                            @endif
-                        </span>
-                        <i class="ph-bold ph-spinner animate-spin" wire:loading wire:target="setCategory('{{ $cat }}')"></i>
+                        @if($cat === 'Berita') <i class="ph-fill ph-newspaper"></i>
+                        @elseif($cat === 'Edukasi') <i class="ph-fill ph-book-open"></i>
+                        @elseif($cat === 'Lomba') <i class="ph-fill ph-trophy"></i>
+                        @elseif($cat === 'Promo') <i class="ph-fill ph-tag"></i>
+                        @endif
                         <span>{{ $cat }}</span>
                     </button>
                 @endforeach
@@ -65,13 +62,13 @@
     <div class="header-spacer-info"></div>
 
     {{-- Main Content Window --}}
-    <div class="px-6 space-y-10">
+    <div class="information-content px-6 space-y-10">
         {{-- Populer Section --}}
         @if($activeCategory === 'Semua' && $popularInformations->isNotEmpty())
             <div class="overflow-hidden" wire:transition.fade>
                 <div class="flex items-center justify-between mb-5">
                     <div class="flex items-center gap-2">
-                        <div class="w-1 h-4 bg-[#F59E0B] rounded-full"></div>
+                        <div class="information-section-accent w-1 h-4 rounded-full"></div>
                         <h2 class="text-xs font-black text-[#2C1810] uppercase tracking-widest">Populer Saat Ini</h2>
                     </div>
                 </div>
@@ -79,7 +76,7 @@
                 <div class="flex gap-5 overflow-x-auto no-scrollbar -mx-6 px-6 pb-6 snap-x snap-mandatory">
                     @foreach ($popularInformations as $info)
                         <a href="{{ route('information.show', $info) }}"
-                            class="group flex-shrink-0 snap-center relative transition-transform active:scale-95">
+                            class="information-popular-card group flex-shrink-0 snap-center relative transition-transform active:scale-95">
                             {{-- Premium Vertical Card --}}
                             <div
                                 class="w-[280px] aspect-[4/3] rounded-[32px] overflow-hidden shadow-[0_12px_40px_0_rgba(20,12,8,0.06)] relative isolate border border-white/60 bg-[#F5EFED] group-hover:shadow-[0_24px_60px_-12px_rgba(20,12,8,0.12)] transition-shadow duration-500">
@@ -108,7 +105,7 @@
                                 {{-- Floating View Count --}}
                                 <div
                                     class="absolute top-4 right-4 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center gap-1.5 text-white/90 text-[0.65rem] font-bold shadow-sm z-30">
-                                    <i class="ph-fill ph-eye text-[#F59E0B]"></i>
+                                    <i class="information-accent-icon ph-fill ph-eye"></i>
                                     <span>{{ number_format($info->views) }}</span>
                                 </div>
 
@@ -116,11 +113,11 @@
                                 <div
                                     class="absolute bottom-0 left-0 right-0 p-6 pt-12 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 z-30">
                                     <span
-                                        class="inline-block px-3 py-1 mb-3 text-[0.6rem] font-black text-[#2C1810] uppercase bg-[#F59E0B] rounded-lg shadow-lg shadow-orange-500/20">
+                                        class="information-category-badge inline-block px-3 py-1 mb-3 text-[0.6rem] font-black uppercase rounded-lg">
                                         {{ $info->category }}
                                     </span>
                                     <h3
-                                        class="text-white text-lg font-bold leading-tight line-clamp-2 mb-2 group-hover:text-[#F59E0B] transition-colors">
+                                        class="information-popular-title text-white text-lg font-bold leading-tight line-clamp-2 mb-2 transition-colors">
                                         {{ $info->title }}
                                     </h3>
                                     <p class="text-white/70 text-xs font-medium line-clamp-1">
@@ -145,7 +142,7 @@
                 </div>
 
                 {{-- Loading Indicator --}}
-                <div wire:loading class="text-[#F59E0B]">
+                <div wire:loading class="information-accent-icon">
                     <i class="ph ph-circle-notch animate-spin text-lg"></i>
                 </div>
             </div>
@@ -153,7 +150,7 @@
             <div class="flex flex-col gap-4">
                 @forelse($informations as $info)
                     <a href="{{ route('information.show', $info) }}"
-                        class="group relative flex gap-4 p-3.5 bg-white hover:bg-white rounded-[28px] border border-black/5 shadow-[0_4px_12px_rgba(20,12,8,0.03)] hover:shadow-[0_16px_40px_-12px_rgba(20,12,8,0.08)] transition-all duration-400 active:scale-[0.98] overflow-hidden">
+                        class="information-article-card group relative flex gap-4 p-3.5 bg-white hover:bg-white rounded-[28px] border border-black/5 shadow-[0_4px_12px_rgba(20,12,8,0.03)] hover:shadow-[0_16px_40px_-12px_rgba(20,12,8,0.08)] transition-all duration-400 active:scale-[0.98] overflow-hidden">
 
                         {{-- Hover Effect Glow --}}
                         <div
@@ -182,7 +179,7 @@
                         <div class="flex-1 min-w-0 py-1.5 flex flex-col justify-center">
                             <div class="flex items-center gap-2 mb-2">
                                 <span
-                                    class="text-[0.6rem] font-black text-[#F59E0B] uppercase tracking-wider px-2 py-0.5 bg-[#FFF8E1] rounded-md">
+                                    class="information-category-badge text-[0.6rem] font-black uppercase tracking-wider px-2 py-0.5 rounded-md">
                                     {{ $info->category }}
                                 </span>
                                 <span class="text-[0.65rem] font-bold text-[#1a0f0a]/40 bg-gray-50 px-2 py-0.5 rounded-md">
@@ -191,13 +188,13 @@
                             </div>
 
                             <h3
-                                class="text-[1rem] font-bold text-[#2C1810] leading-snug line-clamp-2 mb-2 group-hover:text-[#F59E0B] transition-colors">
+                                class="information-article-title text-[1rem] font-bold text-[#2C1810] leading-snug line-clamp-2 mb-2 transition-colors">
                                 {{ $info->title }}
                             </h3>
 
                             <div class="flex items-center gap-3 mt-auto">
                                 <div class="flex items-center gap-1.5 text-[0.7rem] font-bold text-[#8B7355]">
-                                    <i class="ph-fill ph-eye text-[#F59E0B]"></i>
+                                    <i class="information-accent-icon ph-fill ph-eye"></i>
                                     {{ number_format($info->views) }} <span
                                         class="font-medium text-[#1a0f0a]/40">Views</span>
                                 </div>
@@ -207,7 +204,7 @@
                         {{-- Arrow Indicator --}}
                         <div
                             class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-                            <i class="ph-bold ph-caret-right text-[#F59E0B]"></i>
+                            <i class="information-accent-icon ph-bold ph-caret-right"></i>
                         </div>
                     </a>
                 @empty
@@ -234,7 +231,7 @@
                             </svg>
                         </div>
                         <h3>Belum Ada Konten</h3>
-                        <p>Kategori <span class="font-bold text-[#F59E0B]">{{ $activeCategory }}</span> belum memiliki
+                        <p>Kategori <span class="information-accent-text font-bold">{{ $activeCategory }}</span> belum memiliki
                             artikel.</p>
                         <button class="empty-state-cta" wire:click="setCategory('Semua')">
                             <i class="ph-bold ph-arrow-counter-clockwise"></i>
@@ -261,10 +258,10 @@
             @else
                 @if($informations->count() > 0)
                     <div class="scroll-sentinel py-10">
-                        <div class="end-of-results bg-amber-50/50 border border-amber-100 flex flex-col gap-2 p-6 rounded-3xl">
+                        <div class="end-of-results flex flex-col gap-2 p-6 rounded-3xl">
                             <div class="flex items-center gap-2 justify-center">
-                                <i class="ph-fill ph-check-circle text-amber-500 text-xl"></i>
-                                <span class="inline-flex items-center gap-2 text-espresso font-black"><i class="ph-fill ph-check-circle text-amber-600" aria-hidden="true"></i>Kamu sudah mencapai batas akhir</span>
+                                <i class="information-accent-icon ph-fill ph-check-circle text-xl"></i>
+                                <span class="inline-flex items-center gap-2 text-espresso font-black"><i class="information-accent-icon ph-fill ph-check-circle" aria-hidden="true"></i>Kamu sudah mencapai batas akhir</span>
                             </div>
                         </div>
                     </div>

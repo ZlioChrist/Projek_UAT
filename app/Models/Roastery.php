@@ -46,6 +46,9 @@ class Roastery extends Model
         'official_status_checked_at',
         'payment_qr_path',
         'payment_instructions',
+        'bank_name',
+        'bank_account_number',
+        'bank_account_name',
     ];
 
     /**
@@ -86,6 +89,11 @@ class Roastery extends Model
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->owner();
     }
 
     public function menuItems(): HasMany

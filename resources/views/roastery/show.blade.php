@@ -183,6 +183,15 @@
                 </a>
 
                 <div class="flex items-center gap-2.5">
+                    @php
+                        $cartItemCount = collect(session('order_cart.items', []))
+                            ->sum(fn ($quantity) => max(0, (int) $quantity));
+                    @endphp
+                    <a href="{{ route('cart.show') }}" data-cart-count-link aria-label="Keranjang, {{ $cartItemCount }} produk" title="Keranjang"
+                        class="detail-cart-link relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white shadow-2xl backdrop-blur-xl transition-all hover:bg-black/40 active:scale-90">
+                        <i class="ph ph-shopping-cart text-xl" aria-hidden="true"></i>
+                        <span data-cart-count-badge class="detail-cart-count">{{ $cartItemCount }}</span>
+                    </a>
                     <button
                         class="w-11 h-11 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white shadow-2xl transition-all active:scale-90 hover:bg-black/40 shrink-0"
                         @click="toggleBookmark">
@@ -367,7 +376,7 @@
                             <article class="flex gap-4 rounded-2xl border border-slate-100 p-4">
                                 @if($item->image_path)<img src="{{ Storage::disk('public')->url($item->image_path) }}" alt="{{ $item->name }}" class="h-20 w-20 rounded-xl object-cover">@endif
                                 <div class="min-w-0 flex-1"><p class="text-xs font-bold uppercase text-amber-700">{{ $item->category ?: 'Produk' }}</p><h3 class="font-black text-[#2C1810]">{{ $item->name }}</h3>@if($item->description)<p class="mt-1 text-xs text-slate-600">{{ $item->description }}</p>@endif
-                                    <div class="mt-3 flex items-center justify-between gap-3"><strong>Rp{{ number_format((float)$item->price,0,',','.') }}</strong><form method="POST" action="{{ route('roastery.cart.items.add', [$roastery->slug, $item->id]) }}">@csrf<button class="rounded-full bg-[#2C1810] px-4 py-2 text-sm font-bold text-white">Tambah</button></form></div>
+                                    <div class="mt-3 flex items-center justify-between gap-3"><strong>Rp{{ number_format((float)$item->price,0,',','.') }}</strong><form method="POST" action="{{ route('roastery.cart.items.add', [$roastery->slug, $item->id]) }}" data-cart-add-form data-customer-authenticated="{{ auth()->check() ? 'true' : 'false' }}">@csrf<button type="submit" class="rounded-full bg-[#2C1810] px-4 py-2 text-sm font-bold text-white">Tambah</button></form></div>
                                 </div>
                             </article>
                         @endforeach
@@ -407,19 +416,19 @@
 
                 @if(count($menuImages) > 0)
                     {{-- Premium Uniform Grid (Aspect 4:5 + Interaction) --}}
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
+                    <div class="detail-menu-photo-grid grid grid-cols-2 md:grid-cols-4 gap-4 px-1">
                         @foreach($menuImages as $index => $img)
-                            <div class="relative group/menu cursor-pointer transform transition-all duration-500 hover:-translate-y-2"
+                            <div class="detail-menu-photo-card relative group/menu cursor-pointer transform transition-all duration-500 hover:-translate-y-2"
                                 @click="openLightbox('menu', {{ $index }})"
                                 style="animation: fadeInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) {{ $index * 0.05 }}s both;">
 
                                 {{-- Card Container (Fixed Aspect Ratio 4:5 + Deep Shadow) --}}
                                 <div
-                                    class="roastery-menu-card relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-white shadow-[0_8px_20px_-6px_rgba(0,0,0,0.08)] group-hover/menu:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] transition-all duration-500 ring-1 ring-black/5">
+                                    class="roastery-menu-card detail-menu-photo-frame relative aspect-[4/5] w-full rounded-2xl overflow-hidden bg-white shadow-[0_8px_20px_-6px_rgba(0,0,0,0.08)] group-hover/menu:shadow-[0_20px_40px_-12px_rgba(0,0,0,0.15)] transition-all duration-500 ring-1 ring-black/5">
 
                                     {{-- Image (Smart Crop + Zoom Effect) --}}
                                     <img src="{{ $img['url'] }}"
-                                        class="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/menu:scale-105"
+                                        class="detail-menu-photo-image w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover/menu:scale-105"
                                         alt="Menu Roastery" loading="lazy">
 
                                     {{-- Full Gradient Overlay (Cinematic) --}}
@@ -782,4 +791,5 @@
             }));
         });
     </script>
+    @include('orders.partials.cart-add-modal')
 @endsection

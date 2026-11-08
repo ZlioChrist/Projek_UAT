@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Support\AuthenticatedUser;
 use App\Models\Cafe;
 use App\Models\Roastery;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +34,7 @@ class SavedItems extends Component
         $this->items = [];
 
         if (auth()->check()) {
-            $bookmarks = \App\Models\Bookmark::where('user_id', auth()->id())->get();
+            $bookmarks = \App\Models\Bookmark::where('user_id', AuthenticatedUser::id())->get();
             $this->cafeIds = $bookmarks->where('bookmarkable_type', 'cafe')->pluck('bookmarkable_id')->toArray();
             $this->roasteryIds = $bookmarks->where('bookmarkable_type', 'roastery')->pluck('bookmarkable_id')->toArray();
         }

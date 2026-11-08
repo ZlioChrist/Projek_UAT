@@ -1,15 +1,20 @@
 @extends('layouts.app')
 @section('title', 'Lacak Pesanan - WadahNgopi')
 @section('content')
-<div class="mx-auto max-w-xl px-4 py-16">
-    <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm">
-        <p class="text-xs font-black uppercase tracking-widest text-amber-700">Tanpa akun pun bisa</p><h1 class="mb-2 text-3xl font-black text-[#2C1810]">Lacak pesanan</h1>
-        <p class="mb-6 text-sm leading-relaxed text-slate-600">Masukkan kode dari nota digital. Kode ini juga digunakan kedai untuk mencocokkan pesanan saat pengambilan, jadi jangan bagikan ke orang lain.</p>
-        @if($errors->any())<div class="mb-4 rounded-xl bg-rose-50 p-3 text-rose-800">{{ $errors->first() }}</div>@endif
-        <form method="POST" action="{{ route('orders.lookup.submit') }}" class="space-y-4">@csrf
-            <label class="block text-sm font-bold">Kode pesanan<input name="code" required minlength="8" maxlength="20" autocomplete="off" class="mt-1 w-full rounded-xl border border-slate-300 p-3 uppercase" placeholder="CONTOH: AB12CD34EF56"></label>
-            <button class="w-full rounded-full bg-amber-600 px-5 py-3 font-black text-white">Lihat status pesanan</button>
+<main class="wn-customer-page wn-lookup-page">
+    <a href="{{ route('account') }}" class="wn-customer-back"><i class="ph ph-arrow-left" aria-hidden="true"></i> Kembali ke profil</a>
+    <section class="wn-lookup-card">
+        <span class="wn-lookup-illustration"><i class="ph ph-package" aria-hidden="true"></i></span>
+        <span class="wn-customer-eyebrow">Pesanan kamu</span>
+        <h1>Lacak pesanan</h1>
+        <p>Masukkan kode pada nota digital untuk melihat status terbaru pesananmu. Jangan bagikan kode ini kepada orang lain.</p>
+        @if($errors->any())<div role="alert" class="wn-customer-alert">{{ $errors->first() }}</div>@endif
+        <form method="POST" action="{{ route('orders.lookup.submit') }}" class="wn-lookup-form">@csrf
+            <label for="order-code">Kode pesanan</label>
+            <input id="order-code" name="code" required minlength="8" maxlength="20" autocomplete="off" value="{{ old('code') }}" class="wn-lookup-input" placeholder="Contoh: AB12CD34EF56">
+            <button type="submit"><i class="ph ph-magnifying-glass" aria-hidden="true"></i> Lihat status pesanan</button>
         </form>
-    </div>
-</div>
+        <span class="wn-lookup-hint"><i class="ph ph-lock-key" aria-hidden="true"></i> Kode pesanan menjaga informasi tetap aman.</span>
+    </section>
+</main>
 @endsection
