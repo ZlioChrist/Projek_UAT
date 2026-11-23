@@ -106,7 +106,7 @@ class CustomerFeedbackController extends Controller
         ]);
 
         return redirect()->route('account')
-            ->with('status', 'Terima kasih. Masukan untuk pesanan ini sudah tersimpan.');
+            ->with('status', 'Masukan terkirim.');
     }
 
     private function ownedCompletedOrder(string $code, Request $request): Order

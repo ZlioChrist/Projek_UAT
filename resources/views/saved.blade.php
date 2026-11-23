@@ -9,7 +9,7 @@
         </a>
         <header class="wn-customer-page-header">
             <span class="wn-customer-eyebrow"><i class="ph ph-heart" aria-hidden="true"></i> Favorit kamu</span>
-            <h1>Tempat tersimpan</h1>
+            <h1>Favorit</h1>
             <p>Kafe dan roastery yang kamu simpan, siap dikunjungi kapan saja.</p>
         </header>
         <section class="wn-saved-list" aria-label="Daftar tempat tersimpan">

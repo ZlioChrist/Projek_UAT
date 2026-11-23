@@ -3,10 +3,15 @@
 namespace Tests\Feature;
 
 use App\Models\City;
+use App\Models\Cafe;
 use App\Models\MerchantApplication;
+use App\Models\Roastery;
 use App\Models\User;
+use App\Filament\Resources\MerchantApplicationResource\Pages\ListMerchantApplications;
+use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class MerchantApplicationTest extends TestCase
@@ -36,6 +41,62 @@ class MerchantApplicationTest extends TestCase
             'status' => MerchantApplication::STATUS_PENDING,
         ]);
         $this->assertSame('user', $customer->fresh()->role);
+    }
+
+    public function test_approved_cafe_and_roastery_applications_start_as_pending_businesses(): void
+    {
+        $developer = User::factory()->create(['role' => 'developer']);
+        $cafeOwner = User::factory()->create(['role' => 'user']);
+        $roasteryOwner = User::factory()->create(['role' => 'user']);
+        $city = City::factory()->create();
+
+        $cafeApplication = MerchantApplication::create([
+            'user_id' => $cafeOwner->id,
+            'business_type' => 'cafe',
+            'business_name' => 'Kafe Pending',
+            'city_id' => $city->id,
+            'address' => 'Jalan Merdeka Nomor 10',
+            'whatsapp_number' => '6281234567890',
+            'status' => MerchantApplication::STATUS_PENDING,
+        ]);
+        $roasteryApplication = MerchantApplication::create([
+            'user_id' => $roasteryOwner->id,
+            'business_type' => 'roastery',
+            'business_name' => 'Roastery Pending',
+            'city_id' => $city->id,
+            'address' => 'Jalan Merdeka Nomor 12',
+            'whatsapp_number' => '6281234567891',
+            'status' => MerchantApplication::STATUS_PENDING,
+        ]);
+
+        Filament::setCurrentPanel(Filament::getPanel('admin'));
+        $this->actingAs($developer);
+
+        Livewire::test(ListMerchantApplications::class)
+            ->callTableAction('approve', $cafeApplication)
+            ->callTableAction('approve', $roasteryApplication);
+
+        $this->assertDatabaseHas('cafes', [
+            'name' => 'Kafe Pending',
+            'owner_id' => $cafeOwner->id,
+            'status' => 'review',
+        ]);
+        $this->assertDatabaseHas('roasteries', [
+            'name' => 'Roastery Pending',
+            'owner_id' => $roasteryOwner->id,
+            'status' => 'review',
+        ]);
+        $this->assertSame('admin', $cafeOwner->fresh()->role);
+        $this->assertSame('roastery', $roasteryOwner->fresh()->role);
+    }
+
+    public function test_new_cafe_and_roastery_records_default_to_pending_without_a_status(): void
+    {
+        $cafe = Cafe::factory()->create(['status' => null]);
+        $roastery = Roastery::factory()->create(['status' => null]);
+
+        $this->assertSame('review', $cafe->status);
+        $this->assertSame('review', $roastery->status);
     }
 
     public function test_shop_operators_can_browse_the_main_site_separately_from_their_panel(): void

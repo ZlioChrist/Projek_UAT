@@ -15,7 +15,7 @@
                 <span class="wn-account-order-mark"><i class="ph ph-chat-circle-text" aria-hidden="true"></i></span>
                 <span class="wn-account-feedback-order-copy">
                     <strong>{{ $order->shop_name }}</strong>
-                    <small>{{ $order->public_code }} · {{ $order->completed_at?->format('d/m/Y H:i') ?? $order->created_at->format('d/m/Y H:i') }}</small>
+                    <small>{{ $order->display_code }} · {{ $order->completed_at?->format('d/m/Y H:i') ?? $order->created_at->format('d/m/Y H:i') }}</small>
                 </span>
                 @if($order->feedback)
                     <span class="wn-account-order-status is-completed">Terkirim</span>
@@ -24,9 +24,11 @@
                 @endif
             </article>
         @empty
-            <div class="wn-account-empty">
-                <i class="ph ph-chat-circle-text" aria-hidden="true"></i>
+            <div class="wn-customer-empty">
+                <span><i class="ph ph-chat-circle-text" aria-hidden="true"></i></span>
+                <strong>Belum ada pesanan selesai</strong>
                 <p>Pesanan yang sudah selesai akan muncul di sini. Setelah itu, kamu bisa mengirim kritik atau saran.</p>
+                <a href="{{ route('orders.history') }}">Lihat riwayat</a>
             </div>
         @endforelse
     </section>

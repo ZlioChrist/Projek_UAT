@@ -13,10 +13,6 @@
     box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.3);
 }
 
-.btn-premium:active {
-    transform: scale(0.98);
-}
-
 /* Sort Button */
 .sort-luxury-btn {
     width: 42px;
@@ -30,10 +26,6 @@
     transition: var(--transition-bounce);
     cursor: pointer;
     flex-shrink: 0;
-}
-
-.sort-luxury-btn:active {
-    transform: scale(0.9);
 }
 
 /* Quick Action Button (on card images) */
@@ -138,10 +130,6 @@
 .empty-state-cta:hover {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 16px 40px rgba(26, 15, 10, 0.3);
-}
-
-.empty-state-cta:active {
-    transform: scale(0.97);
 }
 
 /* Trash Button (Saved Page) */

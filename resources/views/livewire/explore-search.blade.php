@@ -175,10 +175,137 @@
         @endfor
     </div>
 
+    @if($filter === 'terdekat' && $userLat !== null && $userLng !== null)
+        @php
+            $formattedCoordinates = number_format($userLat, 6, '.', '').', '.number_format($userLng, 6, '.', '');
+            $gpsMapsUrl = 'https://www.google.com/maps/search/?api=1&query='.rawurlencode(str_replace(', ', ',', $formattedCoordinates));
+            $nearestLocationMapsUrl = $nearestLocationPointIsClosest
+                ? ($nearestLocationPoint->google_maps_url ?: 'https://www.google.com/maps/search/?api=1&query='.rawurlencode(
+                    number_format($nearestLocationPoint->latitude, 6, '.', '').','.number_format($nearestLocationPoint->longitude, 6, '.', '')
+                ))
+                : null;
+        @endphp
+        <section class="mx-3 mt-4 rounded-2xl border border-amber-200 bg-amber-50/90 p-4 text-espresso sm:mx-4"
+            role="status" aria-live="polite">
+            <div class="flex items-start gap-3">
+                <i class="ph-fill ph-map-pin mt-0.5 text-xl text-amber-600" aria-hidden="true"></i>
+                <div class="min-w-0">
+                    <p class="font-bold">Titik lokasi perangkat Anda</p>
+                    <p class="mt-1 break-words text-sm text-espresso/80">
+                        Koordinat: {{ $formattedCoordinates }}
+                        @if($userAccuracy !== null)
+                            <span class="font-semibold">(perkiraan akurasi &plusmn;{{ number_format($userAccuracy, 0) }} m)</span>
+                        @else
+                            <span class="font-semibold">(akurasi lokasi tidak tersedia)</span>
+                        @endif
+                    </p>
+                    <a class="mt-1 inline-flex text-sm font-semibold text-amber-800 underline decoration-amber-400 underline-offset-2"
+                        href="{{ $gpsMapsUrl }}" target="_blank" rel="noopener noreferrer">
+                        Buka titik GPS di Google Maps
+                    </a>
+
+                    @if($userAccuracy === null)
+                        <p class="mt-2 text-sm text-espresso/70">Akurasi lokasi tidak diterima, jadi aplikasi belum bisa memastikan Anda berada di titik kafe tertentu.</p>
+                    @elseif($userAccuracy > 25)
+                        <p class="mt-2 text-sm text-espresso/70">
+                            Lokasi perangkat belum cukup presisi untuk memastikan kafe tempat Anda berada.
+                            @if($nearestPlace)
+                                Titik terdaftar terdekat:
+                                @if($nearestLocationPointIsClosest)
+                                    <a class="font-semibold text-amber-800 underline decoration-amber-400 underline-offset-2"
+                                        href="{{ $nearestLocationMapsUrl }}" target="_blank" rel="noopener noreferrer">{{ $nearestPlace->name }}</a>
+                                @else
+                                    <a class="font-semibold text-amber-800 underline decoration-amber-400 underline-offset-2"
+                                        href="{{ route('cafes.show', $nearestCafe) }}">{{ $nearestPlace->name }}</a>
+                                @endif
+                                (sekitar {{ $nearestPlaceDistance < 1
+                                    ? round($nearestPlaceDistance * 1000).' m'
+                                    : number_format($nearestPlaceDistance, 1).' km' }} dari koordinat perangkat).
+                            @else
+                                Belum ada titik terdaftar dalam radius 20 km.
+                            @endif
+                            Jarak tersebut hanya perkiraan karena akurasi perangkat &plusmn;{{ number_format($userAccuracy, 0) }} m.
+                            Coba aktifkan lokasi presisi/GPS lalu ambil lokasi kembali.
+                        </p>
+                    @elseif($isAtCafe && $nearestPlace)
+                        <p class="mt-2 font-semibold">Lokasi Anda terdeteksi di sekitar
+                            @if($nearestLocationPointIsClosest)
+                                <a class="text-amber-800 underline decoration-amber-400 underline-offset-2"
+                                    href="{{ $nearestLocationMapsUrl }}" target="_blank" rel="noopener noreferrer">{{ $nearestPlace->name }}</a>.
+                            @else
+                                <a class="text-amber-800 underline decoration-amber-400 underline-offset-2"
+                                    href="{{ route('cafes.show', $nearestCafe) }}">{{ $nearestPlace->name }}</a>.
+                            @endif
+                            berdasarkan titik GPS perangkat.
+                        </p>
+                    @elseif($nearestPlace)
+                        <p class="mt-2 text-sm text-espresso/70">Titik kafe terdekat dari lokasi Anda adalah
+                            @if($nearestLocationPointIsClosest)
+                                <a class="font-semibold text-amber-800 underline decoration-amber-400 underline-offset-2"
+                                    href="{{ $nearestLocationMapsUrl }}" target="_blank" rel="noopener noreferrer">{{ $nearestPlace->name }}</a>
+                            @else
+                                <a class="font-semibold text-amber-800 underline decoration-amber-400 underline-offset-2"
+                                    href="{{ route('cafes.show', $nearestCafe) }}">{{ $nearestPlace->name }}</a>
+                            @endif
+                            ({{ $nearestPlaceDistance < 1
+                                ? round($nearestPlaceDistance * 1000).' m'
+                                : number_format($nearestPlaceDistance, 1).' km' }}). Ini bukan kepastian bahwa Anda sedang berada di sana.
+                        </p>
+                    @else
+                        <p class="mt-2 text-sm text-espresso/70">Belum ada titik kafe berkoordinat dalam radius 20 km dari lokasi GPS ini.</p>
+                    @endif
+                    <p class="mt-2 text-sm text-espresso/70">
+                        @if($nearestLocationPointIsClosest)
+                            Titik terdekat ditampilkan pertama; kafe berikutnya diurutkan berdasarkan jarak dari lokasi perangkat.
+                        @else
+                            Kafe di bawah diurutkan berdasarkan jarak dari lokasi perangkat.
+                        @endif
+                    </p>
+                </div>
+            </div>
+        </section>
+    @endif
+
     {{-- Cafe Grid Premium - Hidden while loading more to prevent jump --}}
     <main class="explore-cafe-grid" 
         wire:loading.class="opacity-50 pointer-events-none" 
         wire:target="loadMore, filter, cityId, search, activeLetter, sort, setSort, setLetter">
+        @if($filter === 'terdekat' && $nearestLocationPointIsClosest && $nearestLocationPoint)
+            <a data-location-point="{{ $nearestLocationPoint->slug }}"
+                href="{{ $nearestLocationMapsUrl }}" target="_blank" rel="noopener noreferrer"
+                class="group flex min-h-48 flex-col justify-between rounded-3xl border-2 border-amber-300 bg-amber-50 p-5 text-espresso shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                aria-label="Buka arah ke {{ $nearestLocationPoint->name }}">
+                <div class="flex items-start justify-between gap-3">
+                    <span class="inline-flex items-center gap-1 rounded-full bg-amber-200 px-3 py-1 text-xs font-bold text-amber-950">
+                        <i class="ph-fill ph-map-pin" aria-hidden="true"></i>
+                        Pin lokasi terdaftar
+                    </span>
+                    <i class="ph-bold ph-arrow-up-right text-amber-700" aria-hidden="true"></i>
+                </div>
+                <div class="mt-5">
+                    <h2 class="font-heading text-xl font-black">{{ $nearestLocationPoint->name }}</h2>
+                    @if($nearestLocationPoint->address)
+                        <p class="mt-1 text-sm font-medium leading-5 text-espresso/75">
+                            <i class="ph-fill ph-map-pin text-amber-600" aria-hidden="true"></i>
+                            {{ $nearestLocationPoint->address }}
+                        </p>
+                    @endif
+                    <p class="mt-1 text-xs font-semibold text-espresso/65">
+                        Koordinat pin: {{ number_format($nearestLocationPoint->latitude, 7, '.', '') }}, {{ number_format($nearestLocationPoint->longitude, 7, '.', '') }}
+                    </p>
+                    <p class="mt-1 text-sm font-semibold text-espresso/75">
+                        Estimasi dari perangkat:
+                        {{ $nearestPlaceDistance < 1
+                            ? round($nearestPlaceDistance * 1000).' m'
+                            : number_format($nearestPlaceDistance, 1).' km' }}
+                    </p>
+                    <p class="mt-2 text-xs text-espresso/65">
+                        Pin usaha memakai koordinat terdaftar. Akurasi lokasi perangkat &plusmn;{{ $userAccuracy === null ? 'tidak tersedia' : number_format($userAccuracy, 0).' m' }}.
+                    </p>
+                </div>
+            </a>
+        @endif
+
         @forelse($cafes as $cafe)
             <a href="{{ route('cafes.show', $cafe) }}" 
                class="cafe-card-2026 group card-stagger" 
@@ -238,7 +365,9 @@
                         @if(isset($cafe->distance))
                             <div class="cafe-distance-badge">
                                 <i class="ph-fill ph-navigation-arrow text-amber-400"></i>
-                                <span>{{ number_format($cafe->distance, 1) }} km</span>
+                                <span>{{ $cafe->distance < 1
+                                    ? round($cafe->distance * 1000).' m'
+                                    : number_format($cafe->distance, 1).' km' }}</span>
                             </div>
                         @endif
 
@@ -266,6 +395,18 @@
                 {{-- Card Content --}}
                 <div class="cafe-card-content">
                     <h3 class="cafe-card-title font-heading tracking-premium">{{ $cafe->name }}</h3>
+                    @if($filter === 'terdekat' && $loop->first)
+                        <span class="mb-2 inline-flex w-fit items-center gap-1 rounded-full bg-amber-100 px-2.5 py-1 text-[0.65rem] font-bold text-amber-900">
+                            <i class="ph-fill {{ $isAtCafe && ! $nearestLocationPointIsClosest ? 'ph-map-pin' : 'ph-navigation-arrow' }}" aria-hidden="true"></i>
+                            @if($isAtCafe && ! $nearestLocationPointIsClosest)
+                                Lokasi Anda
+                            @elseif($nearestLocationPointIsClosest)
+                                Kafe berikutnya
+                            @else
+                                Kafe terdekat
+                            @endif
+                        </span>
+                    @endif
                     <p class="cafe-card-address font-medium">
                         <i class="ph-fill ph-map-pin text-amber-500"></i>
                         <span class="drop-shadow-sm">{{ $cafe->address }}</span>    
@@ -400,33 +541,87 @@
                 this.$dispatch('toast', { message: 'Browser tidak mendukung Geolocation', type: 'error' });
                 return;
             }
+
+            if (this.isLocating) {
+                return;
+            }
+
             this.isLocating = true;
-            navigator.geolocation.getCurrentPosition(
-                (pos) => {
-                    // Send to backend
-                    this.$wire.setUserLocation(pos.coords.latitude, pos.coords.longitude);
-                    this.isLocating = false;
-                },
-                (err) => { 
-                    console.error('Geolocation Error:', err);
-                    this.isLocating = false; 
-                    
-                    if (err.code === 1) { // PERMISSION_DENIED
-                        if (!window.isSecureContext) {
-                            this.$dispatch('toast', { message: 'Fitur Terdekat butuh HTTPS/Secure connection', type: 'error' });
-                        } else {
-                            this.$dispatch('toast', { message: 'Izin lokasi ditolak. Cek pengaturan browser.', type: 'error' });
-                        }
-                    } else if (err.code === 2) { // POSITION_UNAVAILABLE
-                        this.$dispatch('toast', { message: 'Lokasi tidak ditemukan. Periksa layanan lokasi perangkat.', type: 'error' });
-                    } else if (err.code === 3) { // TIMEOUT
-                        this.$dispatch('toast', { message: 'Permintaan lokasi terlalu lama. Coba lagi.', type: 'error' });
-                    } else {
-                        this.$dispatch('toast', { message: 'Gagal mendapatkan lokasi.', type: 'error' });
+            let watchId = null;
+            let timeoutId = null;
+            let bestPosition = null;
+            let finished = false;
+
+            const stopWatching = () => {
+                if (watchId !== null) {
+                    navigator.geolocation.clearWatch(watchId);
+                }
+                if (timeoutId !== null) {
+                    window.clearTimeout(timeoutId);
+                }
+            };
+
+            const usePosition = (position) => {
+                if (finished) return;
+                finished = true;
+                stopWatching();
+                this.$wire.setUserLocation(
+                    position.coords.latitude,
+                    position.coords.longitude,
+                    position.coords.accuracy
+                );
+                this.isLocating = false;
+            };
+
+            const showLocationError = (error) => {
+                if (finished) return;
+                if (bestPosition) {
+                    usePosition(bestPosition);
+                    return;
+                }
+
+                finished = true;
+                stopWatching();
+                console.error('Geolocation Error:', error);
+                this.isLocating = false;
+
+                if (error.code === 1) {
+                    this.$dispatch('toast', {
+                        message: !window.isSecureContext
+                            ? 'Fitur Terdekat butuh HTTPS/Secure connection'
+                            : 'Izin lokasi ditolak. Cek pengaturan browser.',
+                        type: 'error'
+                    });
+                } else if (error.code === 2) {
+                    this.$dispatch('toast', { message: 'Lokasi tidak ditemukan. Periksa layanan lokasi perangkat.', type: 'error' });
+                } else if (error.code === 3) {
+                    this.$dispatch('toast', { message: 'Lokasi tidak ditemukan dalam 15 detik. Coba lagi.', type: 'error' });
+                } else {
+                    this.$dispatch('toast', { message: 'Gagal mendapatkan lokasi.', type: 'error' });
+                }
+            };
+
+            watchId = navigator.geolocation.watchPosition(
+                (position) => {
+                    if (!bestPosition || position.coords.accuracy < bestPosition.coords.accuracy) {
+                        bestPosition = position;
+                    }
+
+                    if (position.coords.accuracy <= 5) {
+                        usePosition(position);
                     }
                 },
+                showLocationError,
                 { enableHighAccuracy: true, timeout: 20000, maximumAge: 0 }
             );
+
+            timeoutId = window.setTimeout(() => {
+                if (bestPosition) {
+                    usePosition(bestPosition);
+                } else {
+                    showLocationError({ code: 3 });
+                }
+            }, 15000);
         }
     }));
 </script>

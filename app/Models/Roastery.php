@@ -187,6 +187,10 @@ class Roastery extends Model
     protected static function booted(): void
     {
         static::creating(function ($roastery) {
+            if (blank($roastery->status)) {
+                $roastery->status = 'review';
+            }
+
             if (empty($roastery->slug)) {
                 $roastery->slug = static::generateUniqueSlug($roastery->name);
             }

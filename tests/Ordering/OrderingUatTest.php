@@ -54,6 +54,7 @@ class OrderingUatTest extends TestCase
                 'customer_name' => 'Pembeli UAT',
                 'customer_whatsapp' => '081234567890',
                 'payment_method' => 'transfer',
+                'sender_bank' => 'bca',
             ])
             ->assertRedirect();
 
@@ -172,14 +173,14 @@ class OrderingUatTest extends TestCase
         $this->actingAs($this->customer)
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => []]])
             ->post(route('checkout.store', $this->cafe->slug), [
-                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer',
+                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer', 'sender_bank' => 'bca',
             ])
             ->assertSessionHasErrors('cart');
 
         $this->actingAs($this->customer)
             ->withSession(['order_cart' => ['cafe_id' => $this->cafe->id, 'items' => [$this->menuItem->id => 6]]])
             ->post(route('checkout.store', $this->cafe->slug), [
-                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer',
+                'customer_name' => 'Pembeli UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer', 'sender_bank' => 'bca',
             ])
             ->assertSessionHasErrors([
                 'cart' => 'Jumlah pesanan tidak dapat dipenuhi. Silakan sesuaikan jumlahnya.',
@@ -203,7 +204,7 @@ class OrderingUatTest extends TestCase
                 $this->menuItem->id => 1,
                 $secondItem->id => 2,
             ]]])
-            ->post(route('checkout.store', $this->cafe->slug), ['customer_name' => 'Akun UAT', 'payment_method' => 'transfer'])
+            ->post(route('checkout.store', $this->cafe->slug), ['customer_name' => 'Akun UAT', 'customer_whatsapp' => '081234567890', 'payment_method' => 'transfer', 'sender_bank' => 'bca'])
             ->assertRedirect();
 
         $order = Order::with('items')->firstOrFail();
@@ -211,13 +212,13 @@ class OrderingUatTest extends TestCase
         $this->assertSame('50000.00', $order->total);
         $this->get(route('orders.history'))
             ->assertOk()
-            ->assertSee($order->public_code)
+            ->assertSee($order->display_code)
             ->assertSee('Kopi Susu UAT × 1')
             ->assertSee('Roti UAT × 2')
             ->assertSee('Menunggu Pembayaran');
     }
 
-    public function test_unpaid_order_cannot_be_prepared_and_does_not_decrement_stock(): void
+    public function test_unpaid_order_cannot_be_marked_ready_and_does_not_decrement_stock(): void
     {
         $order = app(OrderService::class)->placeOrder(
             $this->cafe,
@@ -228,7 +229,7 @@ class OrderingUatTest extends TestCase
         );
 
         $this->actingAs($this->owner)
-            ->post(route('owner.orders.status', $order->public_code), ['status' => 'preparing'])
+            ->post(route('owner.orders.status', $order->public_code), ['status' => 'ready', 'ready_confirmed' => '1'])
             ->assertSessionHasErrors('status');
 
         $this->assertSame(Order::STATUS_AWAITING_PAYMENT, $order->fresh()->status);
@@ -253,7 +254,7 @@ class OrderingUatTest extends TestCase
 
         $this->get(route('orders.show', $order->public_code))
             ->assertOk()
-            ->assertSee($order->public_code)
+            ->assertSee($order->display_code)
             ->assertSee('Menunggu Pembayaran');
 
         $this->get(route('orders.status', $order->public_code))
@@ -261,27 +262,29 @@ class OrderingUatTest extends TestCase
             ->assertJsonPath('status', Order::STATUS_AWAITING_PAYMENT);
     }
 
-    public function test_pickup_code_completes_only_a_ready_order_once(): void
+    public function test_pickup_code_records_handoff_and_customer_confirms_receipt(): void
     {
         $service = app(OrderService::class);
-        $order = $service->placeOrder($this->cafe, [$this->menuItem->id => 1], 'Guest Pickup', null, null);
-        $service->submitPayment($order, 'UAT-PICKUP-0001', '25000.00', 'payment-proofs/test.pdf');
+        $order = $service->placeOrder($this->cafe, [$this->menuItem->id => 1], 'Guest Pickup', null, $this->customer->id);
+        Storage::fake('local');
+        Storage::disk('local')->put('payment-proofs/test.pdf', 'test-proof');
+        $service->submitPayment($order, 'payment-proofs/test.pdf');
         $order = $service->confirmPayment($order->fresh(), $this->owner);
 
         $this->actingAs($this->owner)
-            ->post(route('owner.orders.pickup'), ['code' => $order->public_code])
+            ->post(route('owner.orders.pickup'), ['code' => $order->display_code])
             ->assertSessionHasErrors('code');
         $this->assertSame(Order::STATUS_PAID, $order->fresh()->status);
 
         $printJob = ReceiptPrintJob::where('order_id', $order->id)->where('kind', 'automatic')->firstOrFail();
-        $this->post(route('owner.orders.status', $order->public_code), ['status' => 'preparing'])
+        $this->post(route('owner.orders.status', $order->public_code), ['status' => 'ready', 'ready_confirmed' => '1'])
             ->assertSessionHasErrors('status');
         $this->post(route('owner.print-jobs.status', $printJob), [
             'state' => 'failed', 'last_error' => 'Printer offline',
         ])->assertRedirect(route('owner.orders.print', $order->public_code));
         $this->assertSame('failed', $printJob->fresh()->state);
         $this->assertSame($this->owner->id, $printJob->fresh()->reported_by);
-        $this->post(route('owner.orders.status', $order->public_code), ['status' => 'preparing'])
+        $this->post(route('owner.orders.status', $order->public_code), ['status' => 'ready', 'ready_confirmed' => '1'])
             ->assertSessionHasErrors('status');
         $this->post(route('owner.print-jobs.status', $printJob), ['state' => 'printed'])
             ->assertRedirect(route('owner.orders.print', $order->public_code));
@@ -298,26 +301,29 @@ class OrderingUatTest extends TestCase
         ])->assertSessionHasErrors('state');
         $this->assertSame('printed', $printJob->fresh()->state);
 
-        $this->post(route('owner.orders.status', $order->public_code), ['status' => 'preparing'])
-            ->assertSessionHas('status');
-        $this->assertSame(Order::STATUS_PREPARING, $order->fresh()->status);
-        $this->assertNotNull($order->fresh()->preparing_at);
-        $this->post(route('owner.orders.status', $order->public_code), ['status' => 'ready'])
+        $this->post(route('owner.orders.status', $order->public_code), ['status' => 'ready', 'ready_confirmed' => '1'])
             ->assertSessionHas('status');
         $this->assertSame(Order::STATUS_READY, $order->fresh()->status);
         $this->assertNotNull($order->fresh()->ready_at);
 
-        $this->post(route('owner.orders.pickup'), ['code' => $order->public_code])
+        $this->post(route('owner.orders.pickup'), ['code' => $order->display_code])
             ->assertSessionHas('status');
-        $this->assertSame(Order::STATUS_COMPLETED, $order->fresh()->status);
-        $this->assertNotNull($order->fresh()->completed_at);
+        $this->assertSame(Order::STATUS_AWAITING_RECEIPT_CONFIRMATION, $order->fresh()->status);
+        $this->assertNull($order->fresh()->completed_at);
         $this->assertDatabaseHas('order_status_histories', [
             'order_id' => $order->id,
             'from_status' => Order::STATUS_READY,
-            'to_status' => Order::STATUS_COMPLETED,
+            'to_status' => Order::STATUS_AWAITING_RECEIPT_CONFIRMATION,
         ]);
 
-        $this->post(route('owner.orders.pickup'), ['code' => $order->public_code])
+        $this->actingAs($this->customer, 'customer')
+            ->post(route('orders.confirm-received', $order->public_code))
+            ->assertRedirect(route('orders.show', $order->public_code));
+        $this->assertSame(Order::STATUS_COMPLETED, $order->fresh()->status);
+        $this->assertNotNull($order->fresh()->completed_at);
+
+        $this->actingAs($this->owner)
+            ->post(route('owner.orders.pickup'), ['code' => $order->display_code])
             ->assertSessionHasErrors('code');
     }
 }

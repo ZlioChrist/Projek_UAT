@@ -71,7 +71,3 @@
     transform: translateY(-5px) scale(1.05);
     box-shadow: 0 15px 40px rgba(234,179,8,0.5);
 }
-
-.empty-state__action:active {
-    transform: scale(0.96);
-}

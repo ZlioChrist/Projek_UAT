@@ -102,12 +102,12 @@ class CafeResource extends Resource
 
                         Forms\Components\Select::make('status')
                             ->options([
-                                'draft' => 'Masih Draft',
-                                'review' => 'Lagi Di-Review',
-                                'published' => 'Udah Tayang',
+                                'draft' => 'Draf',
+                                'review' => 'Pending',
+                                'published' => 'Publik',
                             ])
                             ->label('Status Sekarang')
-                            ->default('draft')
+                            ->default('review')
                             ->required()
                             ->visible(fn () => AuthenticatedUser::get()?->role === 'developer'),
 
@@ -224,6 +224,29 @@ class CafeResource extends Resource
                                     ->label('Nomor WhatsApp (Aktif)')
                                     ->helperText('Format bebas (08xx atau 628xx). Sistem otomatis konversi ke link WA.'),
                             ])->columns(['default' => 1, 'md' => 2]),
+
+                        Forms\Components\Section::make('Tarif Pengantaran')
+                            ->icon('heroicon-o-truck')
+                            ->description('Atur kedua tarif untuk mengaktifkan pesanan antar. Mitra mengukur jarak rute secara manual di Google Maps; biaya dasar + (jarak km dibulatkan ke atas × tarif per km). Kosongkan keduanya untuk menonaktifkan pesanan antar.')
+                            ->schema([
+                                Forms\Components\TextInput::make('delivery_base_fee')
+                                    ->label('Biaya dasar (Rp)')
+                                    ->numeric()
+                                    ->integer()
+                                    ->minValue(0)
+                                    ->maxValue(9999999999)
+                                    ->prefix('Rp')
+                                    ->helperText('Isi 0 jika tidak ada biaya dasar.'),
+                                Forms\Components\TextInput::make('delivery_fee_per_km')
+                                    ->label('Tarif per km (Rp)')
+                                    ->numeric()
+                                    ->integer()
+                                    ->minValue(0)
+                                    ->maxValue(9999999999)
+                                    ->prefix('Rp')
+                                    ->helperText('Tarif dikalikan jarak rute yang dibulatkan ke atas.'),
+                            ])
+                            ->columns(['default' => 1, 'md' => 2]),
 
                         Forms\Components\Section::make('Pembayaran Pesanan')
                             ->icon('heroicon-o-qr-code')
@@ -427,9 +450,9 @@ class CafeResource extends Resource
                         default => 'gray',
                     })
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'draft' => 'Draft',
-                        'review' => 'Pending Review',
-                        'published' => 'Published',
+                        'draft' => 'Draf',
+                        'review' => 'Pending',
+                        'published' => 'Publik',
                         default => $state,
                     })
                     ->sortable(),
@@ -438,9 +461,9 @@ class CafeResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->options([
-                        'draft' => 'Draft',
-                        'review' => 'Pending Review',
-                        'published' => 'Published',
+                        'draft' => 'Draf',
+                        'review' => 'Pending',
+                        'published' => 'Publik',
                     ]),
                 Tables\Filters\SelectFilter::make('city_id')
                     ->label('Berdasarkan Kota')

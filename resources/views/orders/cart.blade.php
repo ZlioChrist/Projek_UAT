@@ -1,58 +1,100 @@
 @extends('layouts.app')
 @section('title', 'Keranjang Pesanan - WadahNgopi')
 @section('content')
-<main class="cart-page mx-auto max-w-4xl px-4 py-10">
-    <div class="cart-header mb-6 flex items-center justify-between gap-3">
-        <div><p class="text-xs font-black uppercase tracking-widest text-amber-700">Pesanan ambil di kedai</p><h1 class="text-3xl font-black text-[#2C1810]">Keranjang</h1></div>
-        <a href="{{ route('orders.lookup') }}" class="cart-track-link text-sm font-bold text-amber-800">Lacak pesanan</a>
-    </div>
-    @if(session('status'))<div class="cart-notice cart-notice-success mb-4 rounded-xl p-3">{{ session('status') }}</div>@endif
-    @if($errors->any())<div class="cart-notice cart-notice-error mb-4 rounded-xl p-3">{{ $errors->first() }}</div>@endif
+@php
+    $cartTotal = $items->sum(fn ($item) => (float) $item->price * $item->cart_quantity)
+        + $addonsByParent->flatten(1)->sum(fn ($item) => (float) $item->price * $item->cart_quantity);
+@endphp
+<main class="wn-customer-page cart-page">
+    <a href="{{ auth()->check() ? route('account') : route('explore') }}" class="wn-customer-back">
+        <i class="ph ph-arrow-left" aria-hidden="true"></i>
+        {{ auth()->check() ? 'Kembali ke akun' : 'Jelajahi kafe' }}
+    </a>
+
+    <header class="wn-customer-page-header cart-header">
+        <span class="wn-customer-eyebrow"><i class="ph ph-shopping-bag-open" aria-hidden="true"></i> Pesanan di kafe</span>
+        <h1>Keranjang</h1>
+        <p>Periksa pesananmu. Cara menerima pesanan dapat dipilih saat checkout.</p>
+    </header>
+
+    @if(session('status'))<div class="cart-notice cart-notice-success">{{ session('status') }}</div>@endif
+    @if($errors->any())<div class="cart-notice cart-notice-error">{{ $errors->first() }}</div>@endif
     @if(!$cafe || $items->isEmpty())
-        <div class="cart-empty rounded-3xl border border-slate-200 bg-white p-8 text-center"><span class="cart-empty-icon" aria-hidden="true"><i class="ph ph-basket"></i></span><p class="font-bold text-slate-600">Keranjang masih kosong.</p><a class="mt-4 inline-block rounded-full bg-[#2C1810] px-5 py-3 font-bold text-white no-underline" href="{{ route('explore') }}">Cari kedai</a></div>
+        <div class="wn-customer-empty cart-empty">
+            <span aria-hidden="true"><i class="ph ph-basket"></i></span>
+            <strong>Keranjang masih kosong</strong>
+            <p>Pilih minuman atau produk favoritmu, lalu lanjutkan pesanan di sini.</p>
+            <a href="{{ route('explore') }}">Jelajahi kafe</a>
+        </div>
     @else
-        <div class="cart-shop-bar mb-4 flex items-center justify-between rounded-2xl p-4"><strong>{{ $cafe->name }}</strong><form method="POST" action="{{ route('cart.clear') }}">@csrf @method('DELETE')<button class="cart-clear-button text-sm font-bold">Kosongkan</button></form></div>
-        <div id="cart-items-list" data-cart-items data-update-url-template="{{ route('cart.items.update', ['menuItem' => '__MENU_ITEM_ID__']) }}" class="space-y-3">
+        <div class="cart-shop-bar">
+            <strong><i class="ph ph-storefront" aria-hidden="true"></i> {{ $cafe->name }}</strong>
+            <form method="POST" action="{{ route('cart.clear') }}">@csrf @method('DELETE')<button class="cart-clear-button">Kosongkan</button></form>
+        </div>
+        <div id="cart-items-list" data-cart-items data-update-url-template="{{ route('cart.items.update', ['menuItem' => '__MENU_ITEM_ID__']) }}" class="cart-items-list">
             @foreach($items as $item)
                 <article data-cart-item="{{ $item->id }}" class="cart-item">
-                    <div class="cart-item-details"><h2 data-cart-item-name>{{ $item->name }}</h2><p data-cart-item-price>Rp{{ number_format((float)$item->price,0,',','.') }}</p></div>
+                    <div class="cart-item-details">
+                        <h2 data-cart-item-name>{{ $item->name }}</h2>
+                        <p data-cart-item-price>Rp{{ number_format((float)$item->price,0,',','.') }}</p>
+                    </div>
                     <div class="cart-item-controls">
-                        <form method="POST" action="{{ route('cart.items.update', $item->id) }}" class="cart-quantity-form">@csrf @method('PATCH')<input aria-label="Jumlah" name="quantity" type="number" min="0" max="99" value="{{ $item->cart_quantity }}" class="cart-quantity-input"><button class="cart-update-button">Perbarui</button></form>
+                        <form method="POST" action="{{ route('cart.items.update', $item->id) }}" class="cart-quantity-form">
+                            @csrf @method('PATCH')
+                            <input aria-label="Jumlah" name="quantity" type="number" min="0" max="99" value="{{ $item->cart_quantity }}" class="cart-quantity-input">
+                            <button class="cart-update-button">Perbarui</button>
+                        </form>
                         <strong data-cart-item-subtotal class="cart-item-subtotal">Rp{{ number_format((float)$item->price * $item->cart_quantity,0,',','.') }}</strong>
                     </div>
                 </article>
+                @foreach($addonsByParent->get($item->id, collect()) as $addon)
+                    <article class="cart-item ml-4 border-l-2 border-amber-200 pl-4">
+                        <div class="cart-item-details">
+                            <h2>+ {{ $addon->addon_name }} <span class="text-sm font-medium text-slate-500">({{ $item->name }})</span></h2>
+                            <p>Rp{{ number_format((float) $addon->price, 0, ',', '.') }} / topping</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <form method="POST" action="{{ route('cart.addons.update', [$item->id, $addon->id]) }}" class="cart-quantity-form">
+                                @csrf @method('PATCH')
+                                <input aria-label="Jumlah {{ $addon->addon_name }}" name="quantity" type="number" min="0" max="99" value="{{ $addon->cart_quantity }}" class="cart-quantity-input">
+                                <button class="cart-update-button">Perbarui</button>
+                            </form>
+                            <strong class="cart-item-subtotal">Rp{{ number_format((float) $addon->price * $addon->cart_quantity, 0, ',', '.') }}</strong>
+                        </div>
+                    </article>
+                @endforeach
             @endforeach
         </div>
-        <div class="cart-total mt-4 flex justify-end rounded-2xl p-4 text-lg font-black">
-            <span>Total</span><strong id="cart-grand-total">Rp{{ number_format($items->sum(fn ($item) => (float) $item->price * $item->cart_quantity), 0, ',', '.') }}</strong>
+        <div class="cart-total">
+            <span>Total</span><strong id="cart-grand-total">Rp{{ number_format($cartTotal, 0, ',', '.') }}</strong>
         </div>
         @if($additionalItems->isNotEmpty())
-            <section class="cart-recommendations mt-8 rounded-3xl border border-amber-100 bg-white p-5 sm:p-6">
-                <div class="mb-4">
-                    <p class="text-xs font-black uppercase tracking-widest text-amber-700">Belanja di kedai yang sama</p>
-                    <h2 class="mt-1 text-xl font-black text-[#2C1810]">Tambah produk lain</h2>
-                    <p class="mt-1 text-sm text-slate-600">Produk akan langsung ditambahkan tanpa meninggalkan keranjang.</p>
+            <section class="cart-recommendations">
+                <div class="cart-recommendations-heading">
+                    <p class="cart-recommendations-eyebrow">Belanja di kedai yang sama</p>
+                    <h2>Tambah produk lain</h2>
+                    <p>Produk akan langsung ditambahkan tanpa meninggalkan keranjang.</p>
                 </div>
-                <div class="grid gap-3 sm:grid-cols-2">
+                <div class="cart-recommendations-list">
                     @foreach($additionalItems as $item)
-                        <article data-additional-item="{{ $item->id }}" class="cart-recommendation-item flex items-center justify-between gap-3 rounded-2xl border border-slate-200 p-4">
+                        <article data-additional-item="{{ $item->id }}" class="cart-recommendation-item">
                             <div class="min-w-0">
-                                @if($item->category)<p class="text-xs font-bold uppercase text-amber-700">{{ $item->category }}</p>@endif
-                                <h3 class="truncate font-bold text-[#2C1810]">{{ $item->name }}</h3>
-                                <p class="text-sm text-slate-600">Rp{{ number_format((float) $item->price, 0, ',', '.') }}</p>
+                                @if($item->category)<p class="cart-recommendation-category">{{ $item->category }}</p>@endif
+                                <h3>{{ $item->name }}</h3>
+                                <p>Rp{{ number_format((float) $item->price, 0, ',', '.') }}</p>
                             </div>
                             <form method="POST" action="{{ $cafe instanceof \App\Models\Cafe ? route('cart.items.add', [$cafe->slug, $item->id]) : route('roastery.cart.items.add', [$cafe->slug, $item->id]) }}" data-cart-add-form data-customer-authenticated="{{ auth()->check() ? 'true' : 'false' }}">
                                 @csrf
-                                <button type="submit" class="cart-add-button rounded-full bg-[#2C1810] px-4 py-2 text-sm font-bold text-white">Tambah</button>
+                                <button type="submit" class="cart-add-button">Tambah</button>
                             </form>
                         </article>
                     @endforeach
                 </div>
             </section>
         @endif
-        <div class="cart-actions mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl p-5">
-            <a href="{{ $cafe instanceof \App\Models\Cafe ? route('cafes.show', $cafe->slug) : route('roastery.show', $cafe->slug) }}" class="cart-back-link font-bold no-underline">Kembali ke katalog {{ $cafe instanceof \App\Models\Cafe ? 'kafe' : 'roastery' }}</a>
-            <a href="{{ $cafe instanceof \App\Models\Cafe ? route('checkout.show', $cafe->slug) : route('roastery.checkout.show', $cafe->slug) }}" class="cart-checkout-button rounded-full px-6 py-3 font-black text-white no-underline">Lanjut checkout</a>
+        <div class="cart-actions">
+            <a href="{{ $cafe instanceof \App\Models\Cafe ? route('cafes.show', $cafe->slug) : route('roastery.show', $cafe->slug) }}" class="cart-back-link">Kembali ke katalog {{ $cafe instanceof \App\Models\Cafe ? 'kafe' : 'roastery' }}</a>
+            <a href="{{ $cafe instanceof \App\Models\Cafe ? route('checkout.show', $cafe->slug) : route('roastery.checkout.show', $cafe->slug) }}" class="cart-checkout-button">Lanjut checkout</a>
         </div>
     @endif
 </main>

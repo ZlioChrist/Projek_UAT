@@ -1,16 +1,84 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nota {{ $order->public_code }}</title>
-<style>
-body{font:14px/1.45 Arial,sans-serif;color:#222;margin:0;background:#f2f2f2}.paper{width:min(100%,380px);margin:24px auto;background:white;padding:24px;box-sizing:border-box}.center{text-align:center}.row{display:flex;justify-content:space-between;gap:12px;padding:5px 0}.code{font:700 20px monospace;letter-spacing:2px}.muted{color:#666;font-size:12px}.actions{width:min(100%,380px);margin:0 auto 32px;display:grid;gap:8px}.actions form{margin:0}.actions button,.actions a{display:block;width:100%;box-sizing:border-box;padding:11px;text-align:center;border:0;border-radius:8px;background:#654321;color:white;font-weight:700;text-decoration:none}.actions .secondary{background:#555}.actions .danger{background:#9f2732}@media print{body{background:white}.paper{margin:0 auto;padding:12px}.actions{display:none}}
-</style></head><body>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nota {{ $order->display_code }}</title>
+<style>@include('orders.partials.receipt-styles')</style></head><body class="receipt-page">
 @php($payload = $job->payload)
-<main class="paper"><header class="center"><h2>{{ $payload['cafe_name'] }}</h2><p class="muted">{{ $payload['cafe_address'] }}</p><p class="muted">Nota pesanan ambil di kedai</p></header><hr>
-<p class="muted">Waktu: {{ $payload['paid_at'] ? \Illuminate\Support\Carbon::parse($payload['paid_at'])->format('d/m/Y H:i') : $order->created_at->format('d/m/Y H:i') }}<br>Pemesan: {{ $payload['customer_name'] }}<br>Order: {{ $payload['order_code'] }}</p><hr>
-@foreach($payload['items'] as $item)<div class="row"><span>{{ $item['name'] }} × {{ $item['quantity'] }}</span><strong>Rp{{ number_format((float)$item['line_total'],0,',','.') }}</strong></div>@endforeach
-<hr><div class="row"><strong>TOTAL</strong><strong>Rp{{ number_format((float)$payload['total'],0,',','.') }}</strong></div><hr><p class="center muted">KODE PENGAMBILAN</p><p class="center code">{{ $payload['pickup_code'] }}</p><p class="center muted">Simpan kode ini dan tunjukkan kepada kedai saat mengambil pesanan.</p><p class="center muted">Terima kasih telah memesan.</p></main>
-<div class="actions"><button type="button" onclick="window.print()">Buka dialog cetak</button>
-<p class="muted">Tandai berhasil hanya setelah nota fisik benar-benar keluar dari printer thermal.</p><form method="POST" action="{{ route('owner.print-jobs.status',$job->id) }}">@csrf<input type="hidden" name="state" value="printed"><button type="submit">Tandai cetak berhasil</button></form>
-<form method="POST" action="{{ route('owner.print-jobs.status',$job->id) }}">@csrf<input type="hidden" name="state" value="failed"><input type="hidden" name="last_error" value="Printer offline / kertas habis (dilaporkan staf)"><button class="danger" type="submit">Cetak gagal / perlu dicoba lagi</button></form>
-<a class="secondary" href="{{ route('owner.orders.show',$order->public_code) }}">Kembali ke detail pesanan</a></div>
-<script>window.addEventListener('load',()=>setTimeout(()=>window.print(),600));</script>
+@php($isDelivery = ($payload['fulfillment_method'] ?? 'pickup') === 'delivery')
+@php($paymentStatus = $order->payment_status === 'paid' ? 'Lunas' : 'Belum lunas')
+<main class="receipt-shell">
+    <article class="receipt-paper">
+        <header class="receipt-header">
+            <span class="receipt-brand">WADAHNGOPI · NOTA PESANAN</span>
+            <h1 class="receipt-title">{{ $payload['cafe_name'] }}</h1>
+            @if($payload['cafe_address'])<p class="receipt-address">{{ $payload['cafe_address'] }}</p>@endif
+            <p class="receipt-type">{{ $isDelivery ? 'Pesanan diantar' : 'Pesanan diambil di kedai' }}</p>
+            <span class="receipt-status{{ $order->payment_status === 'paid' ? '' : ' receipt-status--unpaid' }}">{{ $paymentStatus }}</span>
+        </header>
+
+        <section class="receipt-meta" aria-label="Informasi pesanan">
+            <div class="receipt-meta-item">
+                <span class="receipt-meta-label">Waktu</span>
+                <strong class="receipt-meta-value">{{ $payload['paid_at'] ? \Illuminate\Support\Carbon::parse($payload['paid_at'])->format('d/m/Y H:i') : $order->created_at->format('d/m/Y H:i') }}</strong>
+            </div>
+            <div class="receipt-meta-item">
+                <span class="receipt-meta-label">Pemesan</span>
+                <strong class="receipt-meta-value">{{ $payload['customer_name'] }}</strong>
+            </div>
+            <div class="receipt-meta-item receipt-meta-item--wide">
+                <span class="receipt-meta-label">Kode pesanan</span>
+                <strong class="receipt-meta-value">{{ $order->display_code }}</strong>
+            </div>
+        </section>
+
+        @if($isDelivery)
+            <section class="receipt-meta" aria-label="Informasi pengantaran">
+                <div class="receipt-meta-item receipt-meta-item--wide">
+                    <span class="receipt-meta-label">Alamat pengantaran</span>
+                    <strong class="receipt-meta-value">{{ $payload['delivery_address'] }}</strong>
+                </div>
+                @if(!empty($payload['delivery_distance_km']))
+                    <div class="receipt-meta-item receipt-meta-item--wide">
+                        <span class="receipt-meta-label">Jarak rute</span>
+                        <strong class="receipt-meta-value">{{ number_format((float)$payload['delivery_distance_km'],2,',','.') }} km</strong>
+                    </div>
+                @endif
+            </section>
+        @endif
+
+        <section class="receipt-items" aria-label="Rincian pesanan">
+            <h2 class="receipt-section-title">Rincian pesanan</h2>
+            @foreach($payload['items'] as $item)
+                <div class="receipt-item">
+                    <div>
+                        <span class="receipt-item-name">{{ $item['name'] }}</span>
+                        <span class="receipt-item-quantity">{{ $item['quantity'] }} × Rp{{ number_format((float)$item['unit_price'],0,',','.') }}</span>
+                    </div>
+                    <strong class="receipt-item-price">Rp{{ number_format((float)$item['line_total'],0,',','.') }}</strong>
+                </div>
+            @endforeach
+        </section>
+
+        <section class="receipt-totals" aria-label="Ringkasan pembayaran">
+            <div class="receipt-total-row"><span>Subtotal</span><strong>Rp{{ number_format((float)$payload['subtotal'],0,',','.') }}</strong></div>
+            @if($isDelivery)
+                <div class="receipt-total-row"><span>Ongkir</span><strong>Rp{{ number_format((float)$payload['delivery_fee'],0,',','.') }}</strong></div>
+            @endif
+            <div class="receipt-total-row receipt-total-row--grand"><span>TOTAL</span><strong>Rp{{ number_format((float)$payload['total'],0,',','.') }}</strong></div>
+        </section>
+
+        <section class="receipt-code-box">
+            <p class="receipt-code-label">KODE PESANAN</p>
+            <strong class="receipt-code">{{ $order->display_code }}</strong>
+            <p class="receipt-note">{{ $isDelivery ? 'Simpan kode ini sebagai referensi pesanan.' : 'Tunjukkan kode ini kepada kedai saat mengambil pesanan.' }}</p>
+        </section>
+        <p class="receipt-thanks">Terima kasih sudah memesan ☕</p>
+    </article>
+
+    <div class="receipt-actions">
+        <button class="receipt-button" type="button" onclick="window.print()">Buka dialog cetak</button>
+        <p class="receipt-actions-note">Tandai berhasil hanya setelah nota fisik benar-benar keluar dari printer.</p>
+        <form method="POST" action="{{ route('owner.print-jobs.status',$job->id) }}">@csrf<input type="hidden" name="state" value="printed"><button class="receipt-button receipt-button--confirm" type="submit">Tandai cetak berhasil</button></form>
+        <form method="POST" action="{{ route('owner.print-jobs.status',$job->id) }}">@csrf<input type="hidden" name="state" value="failed"><input type="hidden" name="last_error" value="Printer offline / kertas habis (dilaporkan staf)"><button class="receipt-button receipt-button--danger" type="submit">Cetak gagal / coba lagi</button></form>
+        <a class="receipt-button receipt-button--secondary" href="{{ route('owner.orders.show',$order->public_code) }}">Kembali ke detail pesanan</a>
+    </div>
+</main>
 </body></html>

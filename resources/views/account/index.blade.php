@@ -26,6 +26,9 @@
                 <a href="{{ route('account.profile.edit') }}" class="wn-account-profile-edit-link">
                     <i class="ph ph-pencil-simple" aria-hidden="true"></i> Atur profil
                 </a>
+                <a href="{{ route('account.whatsapp.edit') }}" class="wn-account-profile-edit-link">
+                    <i class="ph ph-shield-check" aria-hidden="true"></i> Login WhatsApp
+                </a>
             </div>
         </div>
         <div class="wn-account-stats" aria-label="Ringkasan akun">
@@ -37,7 +40,7 @@
                 <span class="wn-account-stat-value">{{ $savedCount }}</span>
                 <span class="wn-account-stat-label">Tersimpan</span>
             </a>
-            <a class="wn-account-stat" href="{{ route('orders.lookup') }}">
+            <a class="wn-account-stat" href="{{ route('orders.history') }}">
                 <span class="wn-account-stat-value">{{ $activeOrderCount }}</span>
                 <span class="wn-account-stat-label">Berjalan</span>
             </a>
@@ -67,12 +70,6 @@
                         <span class="wn-account-shortcut-meta">{{ $orderCount }}</span>
                         <span class="wn-account-shortcut-arrow" aria-hidden="true"><i class="ph ph-caret-right"></i></span>
                     </a>
-                    <a href="{{ route('orders.lookup') }}" class="wn-account-shortcut">
-                        <span class="wn-account-shortcut-icon"><i class="ph ph-map-pin-line" aria-hidden="true"></i></span>
-                        <span class="wn-account-shortcut-copy"><strong>Lacak pesanan</strong><span class="wn-account-shortcut-description">Pantau proses pesananmu.</span></span>
-                        <span class="wn-account-shortcut-meta">{{ $activeOrderCount > 0 ? $activeOrderCount.' aktif' : 'Cek status' }}</span>
-                        <span class="wn-account-shortcut-arrow" aria-hidden="true"><i class="ph ph-caret-right"></i></span>
-                    </a>
                     <a href="{{ route('cart.show') }}" class="wn-account-shortcut">
                         <span class="wn-account-shortcut-icon"><i class="ph ph-shopping-bag-open" aria-hidden="true"></i></span>
                         <span class="wn-account-shortcut-copy"><strong>Keranjang pesanan</strong><span class="wn-account-shortcut-description">Lanjutkan pilihan kopi favoritmu.</span></span>
@@ -86,7 +83,7 @@
                 <nav class="wn-account-shortcuts" aria-label="Menu favorit dan bantuan">
                     <a href="{{ route('saved') }}" class="wn-account-shortcut">
                         <span class="wn-account-shortcut-icon"><i class="ph ph-heart" aria-hidden="true"></i></span>
-                        <span class="wn-account-shortcut-copy"><strong>Tempat tersimpan</strong><span class="wn-account-shortcut-description">Kafe dan roastery pilihanmu.</span></span>
+                        <span class="wn-account-shortcut-copy"><strong>Favorit</strong><span class="wn-account-shortcut-description">Kafe dan roastery pilihanmu.</span></span>
                         <span class="wn-account-shortcut-meta">{{ $savedCount }}</span>
                         <span class="wn-account-shortcut-arrow" aria-hidden="true"><i class="ph ph-caret-right"></i></span>
                     </a>

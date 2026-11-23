@@ -93,10 +93,10 @@ const CheckInButton = ({ cafeId, cafeName, cafeLat, cafeLng, isAuthenticated }) 
                     disabled={isCheckedIn || isLoading}
                     whileTap={{ scale: 0.96 }}
                     aria-live="polite" /* biar screen reader tau pas lagi loading ngab */
-                    className={`w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-sm transition-all shadow-lg ${
+                    className={`cafe-check-in-button w-full flex items-center justify-center gap-3 py-4 rounded-2xl font-bold text-sm transition-all shadow-lg ${
                         isCheckedIn
-                            ? 'bg-emerald-50 border-2 border-emerald-200 text-emerald-600'
-                            : 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-2 border-amber-400/50 hover:shadow-xl active:shadow-md'
+                            ? 'cafe-check-in-button--complete'
+                            : ''
                     }`}
                 >
                     {isLoading ? (

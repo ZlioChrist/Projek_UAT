@@ -164,12 +164,29 @@ class MenuItemResource extends Resource
             Forms\Components\Textarea::make('description')->label('Deskripsi')->maxLength(1000)->columnSpanFull(),
             Forms\Components\TextInput::make('price')->label('Harga')->numeric()->minValue(0)->prefix('Rp')->required(),
             Forms\Components\TextInput::make('stock')
-                ->label('Stok fisik')
-                ->helperText('Stok tersedia dikurangi reservasi pesanan yang belum lunas.')
+                ->label('Jumlah stok fisik')
+                ->helperText('Stok awal otomatis 100. Ubah sesuai jumlah barang yang benar-benar ada, termasuk unit yang sedang dipesan.')
+                ->default(MenuItem::DEFAULT_INITIAL_STOCK)
                 ->numeric()
                 ->integer()
-                ->minValue(fn (?MenuItem $record): int => (int) ($record?->reserved_stock ?? 0))
+                ->minValue(fn (?MenuItem $record): int => max(0, (int) ($record?->reserved_stock ?? 0)))
+                ->maxValue(1000000)
+                ->live(onBlur: true)
                 ->required(),
+            Forms\Components\Placeholder::make('stock_reservation_summary')
+                ->label('Ringkasan stok')
+                ->content(function (Forms\Get $get, ?MenuItem $record): string {
+                    if (! $record) {
+                        return 'Stok tersedia akan sama dengan stok fisik selama belum ada pesanan.';
+                    }
+
+                    $reserved = (int) $record->reserved_stock;
+                    $physicalStock = (int) ($get('stock') ?? $record->stock);
+                    $available = max(0, $physicalStock - $reserved);
+
+                    return "Sedang dipesan: {$reserved} · Dapat dipesan setelah disimpan: {$available}";
+                })
+                ->columnSpanFull(),
             Forms\Components\FileUpload::make('image_path')
                 ->label('Foto produk')
                 ->image()
@@ -196,8 +213,8 @@ class MenuItemResource extends Resource
                 Tables\Columns\TextColumn::make('category')->label('Kategori')->searchable()->sortable()->placeholder('Belum dikategorikan'),
                 Tables\Columns\TextColumn::make('price')->label('Harga')->money('IDR'),
                 Tables\Columns\TextColumn::make('stock')->label('Stok fisik')->numeric(),
-                Tables\Columns\TextColumn::make('reserved_stock')->label('Direservasi')->numeric()->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('available_stock')->label('Tersedia')->numeric()->state(fn (MenuItem $record) => $record->available_stock),
+                Tables\Columns\TextColumn::make('reserved_stock')->label('Sedang dipesan')->numeric(),
+                Tables\Columns\TextColumn::make('available_stock')->label('Bisa dipesan')->numeric()->state(fn (MenuItem $record) => $record->available_stock),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->label('Aktif')
                     ->disabled(fn (MenuItem $record): bool => ! self::ownsRecord($record)),

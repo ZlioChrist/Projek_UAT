@@ -14,6 +14,7 @@
         "filament/filament": "3.3",
         "intervention/image": "^3.11",
         "laravel/framework": "^12.0",
+        "laravel/socialite": "^5.33",
         "laravel/tinker": "^2.10.1",
         "mews/purifier": "^3.4",
         "predis/predis": "*",

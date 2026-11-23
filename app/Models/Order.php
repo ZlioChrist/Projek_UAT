@@ -19,6 +19,10 @@ class Order extends Model
 
     public const STATUS_READY = 'ready';
 
+    public const STATUS_DELIVERING = 'delivering';
+
+    public const STATUS_AWAITING_RECEIPT_CONFIRMATION = 'awaiting_receipt_confirmation';
+
     public const STATUS_COMPLETED = 'completed';
 
     public const STATUS_CANCELLED = 'cancelled';
@@ -29,15 +33,19 @@ class Order extends Model
         self::STATUS_PAID,
         self::STATUS_PREPARING,
         self::STATUS_READY,
+        self::STATUS_DELIVERING,
+        self::STATUS_AWAITING_RECEIPT_CONFIRMATION,
         self::STATUS_COMPLETED,
         self::STATUS_CANCELLED,
     ];
 
     protected $fillable = [
-        'cafe_id', 'user_id', 'public_code', 'idempotency_key', 'status', 'payment_status',
-        'roastery_id', 'payment_method',
+        'cafe_id', 'user_id', 'public_code', 'display_code', 'idempotency_key', 'status', 'payment_status',
+        'roastery_id', 'payment_method', 'sender_bank', 'fulfillment_method',
+        'delivery_address', 'delivery_distance_km', 'delivery_fee', 'delivery_fee_confirmed_at', 'delivery_started_at',
+        'receipt_confirmation_deadline_started_at',
         'customer_name', 'customer_whatsapp', 'customer_note', 'subtotal', 'total',
-        'paid_at', 'preparing_at', 'ready_at', 'completed_at', 'cancelled_at',
+        'payment_expires_at', 'paid_at', 'preparing_at', 'ready_at', 'completed_at', 'cancelled_at',
     ];
 
     protected function casts(): array
@@ -45,9 +53,15 @@ class Order extends Model
         return [
             'subtotal' => 'decimal:2',
             'total' => 'decimal:2',
+            'payment_expires_at' => 'datetime',
             'paid_at' => 'datetime',
             'preparing_at' => 'datetime',
             'ready_at' => 'datetime',
+            'delivery_fee' => 'decimal:2',
+            'delivery_distance_km' => 'decimal:2',
+            'delivery_fee_confirmed_at' => 'datetime',
+            'delivery_started_at' => 'datetime',
+            'receipt_confirmation_deadline_started_at' => 'datetime',
             'completed_at' => 'datetime',
             'cancelled_at' => 'datetime',
         ];
@@ -110,7 +124,9 @@ class Order extends Model
             self::STATUS_PENDING_VERIFICATION => 'Menunggu Konfirmasi Kedai',
             self::STATUS_PAID => 'Lunas',
             self::STATUS_PREPARING => 'Sedang Disiapkan',
-            self::STATUS_READY => 'Siap Diambil',
+            self::STATUS_READY => $this->fulfillment_method === 'delivery' ? 'Siap Diantar' : 'Siap Diambil',
+            self::STATUS_DELIVERING => 'Dalam Pengantaran',
+            self::STATUS_AWAITING_RECEIPT_CONFIRMATION => 'Menunggu Konfirmasi Diterima',
             self::STATUS_COMPLETED => 'Selesai',
             self::STATUS_CANCELLED => 'Dibatalkan',
             default => 'Status Tidak Dikenal',
@@ -120,5 +136,11 @@ class Order extends Model
     public function canBeCancelled(): bool
     {
         return in_array($this->status, [self::STATUS_AWAITING_PAYMENT, self::STATUS_PENDING_VERIFICATION], true);
+    }
+
+    public function canBeCancelledByCustomer(): bool
+    {
+        return $this->status === self::STATUS_AWAITING_PAYMENT
+            && in_array($this->payment_status, ['unpaid', 'rejected'], true);
     }
 }

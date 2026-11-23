@@ -116,7 +116,7 @@ class MerchantApplicationResource extends Resource
                     ->icon('heroicon-m-check-circle')
                     ->color('success')
                     ->requiresConfirmation()
-                    ->modalDescription('Akun customer akan diubah menjadi akun pengelola. Usaha dibuat sebagai draft dan belum tampil publik sampai disiapkan dan diterbitkan.')
+                    ->modalDescription('Akun customer akan diubah menjadi akun pengelola. Usaha baru akan berstatus Pending dan belum tampil untuk pelanggan. Admin dapat mengubah statusnya setelah ditinjau.')
                     ->visible(fn (MerchantApplication $record): bool => $record->status === MerchantApplication::STATUS_PENDING)
                     ->action(function (MerchantApplication $record): void {
                         DB::transaction(function () use ($record): void {
@@ -139,7 +139,7 @@ class MerchantApplicationResource extends Resource
                                 'whatsapp_number' => $application->whatsapp_number,
                                 'description' => $application->description,
                                 'owner_id' => $user->id,
-                                'status' => 'draft',
+                                'status' => 'review',
                             ];
 
                             if ($application->business_type === 'cafe') {
@@ -159,7 +159,7 @@ class MerchantApplicationResource extends Resource
 
                         Notification::make()
                             ->title('Pengajuan disetujui')
-                            ->body('Usaha dibuat sebagai draft dan akses admin telah diaktifkan.')
+                            ->body('Usaha dibuat dengan status Pending dan akses pengelola telah diaktifkan.')
                             ->success()
                             ->send();
                     }),

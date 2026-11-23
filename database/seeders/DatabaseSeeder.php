@@ -68,5 +68,8 @@ class DatabaseSeeder extends Seeder
                 'status' => 'published',
             ]));
         }
+
+        $this->call(AkKreatifLocationPointSeeder::class);
+        $this->call(MenuAddonSeeder::class);
     }
 }

@@ -17,7 +17,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OwnerOrderController;
 use App\Http\Controllers\RoasteryController;
 use App\Http\Controllers\SavedController;
+use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\TongkronganController;
+use App\Http\Controllers\WhatsAppAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +31,37 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
     Route::get('/information', [InformationController::class, 'index'])->name('information');
     Route::get('/information/{information:slug}', [InformationController::class, 'show'])->name('information.show');
     Route::get('/profile', fn () => auth()->check() ? redirect()->route('account') : redirect()->route('login'))->name('profile');
+    Route::get('/auth/google/customer/redirect', [SocialAuthController::class, 'redirect'])
+        ->defaults('audience', 'customer')
+        ->middleware('guest:customer')
+        ->middleware('throttle:10,1')
+        ->name('auth.google.customer');
+    Route::get('/auth/google/callback', [SocialAuthController::class, 'callback'])
+        ->middleware('throttle:10,1')
+        ->name('auth.google.callback');
+    Route::post('/login/whatsapp/request', [WhatsAppAuthController::class, 'requestLoginCode'])
+        ->defaults('audience', 'customer')
+        ->middleware('guest:customer')
+        ->middleware('throttle:5,1')
+        ->name('auth.whatsapp.login.request');
+    Route::post('/login/whatsapp/verify', [WhatsAppAuthController::class, 'verifyLoginCode'])
+        ->middleware('guest:customer')
+        ->middleware('throttle:10,1')
+        ->name('auth.whatsapp.login.verify');
+    Route::get('/admin/auth/google/redirect', [SocialAuthController::class, 'redirect'])
+        ->defaults('audience', 'admin')
+        ->middleware('guest:web')
+        ->middleware('throttle:10,1')
+        ->name('owner.auth.google.redirect');
+    Route::post('/admin/login/whatsapp/request', [WhatsAppAuthController::class, 'requestLoginCode'])
+        ->defaults('audience', 'admin')
+        ->middleware('guest:web')
+        ->middleware('throttle:5,1')
+        ->name('owner.auth.whatsapp.login.request');
+    Route::post('/admin/login/whatsapp/verify', [WhatsAppAuthController::class, 'verifyLoginCode'])
+        ->middleware('guest:web')
+        ->middleware('throttle:10,1')
+        ->name('owner.auth.whatsapp.login.verify');
     Route::middleware('guest')->group(function () {
         Route::get('/login', [CustomerAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [CustomerAuthController::class, 'login'])->middleware('throttle:10,1')->name('login.store');
@@ -45,11 +78,23 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
     Route::post('/cafes/{cafe}/menu/{menuItem}/cart', [OrderController::class, 'addItem'])->middleware('auth')->name('cart.items.add');
     Route::post('/roasteries/{roastery}/menu/{menuItem}/cart', [OrderController::class, 'addRoasteryItem'])->middleware('auth')->name('roastery.cart.items.add');
     Route::patch('/cart/items/{menuItem}', [OrderController::class, 'updateItem'])->middleware('auth')->name('cart.items.update');
+    Route::patch('/cart/items/{menuItem}/addons/{addonMenuItem}', [OrderController::class, 'updateAddon'])->middleware('auth')->name('cart.addons.update');
     Route::delete('/cart', [OrderController::class, 'clearCart'])->middleware('auth')->name('cart.clear');
     Route::middleware('auth')->group(function () {
         Route::get('/account', AccountController::class)->name('account');
         Route::get('/account/profile', [CustomerProfileController::class, 'edit'])->name('account.profile.edit');
         Route::patch('/account/profile', [CustomerProfileController::class, 'update'])->name('account.profile.update');
+        Route::get('/account/security/whatsapp', [WhatsAppAuthController::class, 'showPhoneLink'])
+            ->defaults('audience', 'customer')
+            ->name('account.whatsapp.edit');
+        Route::post('/account/security/whatsapp/request', [WhatsAppAuthController::class, 'requestPhoneLinkCode'])
+            ->defaults('audience', 'customer')
+            ->middleware('throttle:5,1')
+            ->name('account.whatsapp.request');
+        Route::post('/account/security/whatsapp/verify', [WhatsAppAuthController::class, 'verifyPhoneLinkCode'])
+            ->defaults('audience', 'customer')
+            ->middleware('throttle:10,1')
+            ->name('account.whatsapp.verify');
         Route::get('/account/feedback', [CustomerFeedbackController::class, 'indexForCustomer'])->name('account.feedback.index');
         Route::get('/account/merchant-application', [MerchantApplicationController::class, 'create'])->name('merchant-applications.create');
         Route::post('/account/merchant-application', [MerchantApplicationController::class, 'store'])->middleware('throttle:5,1')->name('merchant-applications.store');
@@ -61,15 +106,19 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
         Route::get('/checkout/roastery/{roastery}', [OrderController::class, 'checkoutRoastery'])->name('roastery.checkout.show');
         Route::post('/checkout/roastery/{roastery}', [OrderController::class, 'placeRoasteryOrder'])->name('roastery.checkout.store');
         Route::get('/orders/history', [OrderController::class, 'history'])->name('orders.history');
+        Route::post('/orders/{code}/cancel', [OrderController::class, 'cancel'])
+            ->middleware('throttle:5,1')
+            ->name('orders.cancel');
         Route::get('/orders/{code}/feedback', [CustomerFeedbackController::class, 'createForOrder'])->name('orders.feedback.create');
         Route::post('/orders/{code}/feedback', [CustomerFeedbackController::class, 'storeForOrder'])
             ->middleware('throttle:5,1')
             ->name('orders.feedback.store');
     });
-    Route::get('/order-tracking', [OrderController::class, 'lookupForm'])->name('orders.lookup');
-    Route::post('/order-tracking', [OrderController::class, 'lookup'])->middleware('throttle:10,1')->name('orders.lookup.submit');
     Route::get('/orders/{code}/status', [OrderController::class, 'status'])->middleware('throttle:60,1')->name('orders.status');
     Route::post('/orders/{code}/payment', [OrderController::class, 'submitPayment'])->middleware('throttle:10,1')->name('orders.payment.submit');
+    Route::post('/orders/{code}/confirm-received', [OrderController::class, 'confirmReceived'])
+        ->middleware(['auth:customer', 'throttle:10,1'])
+        ->name('orders.confirm-received');
     Route::get('/orders/{code}/receipt', [OrderController::class, 'receipt'])->middleware('throttle:30,1')->name('orders.receipt');
     Route::get('/orders/{code}', [OrderController::class, 'show'])->middleware('throttle:30,1')->name('orders.show');
 
@@ -82,12 +131,25 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
         Route::post('/orders/{code}/confirm-payment', [OwnerOrderController::class, 'confirmPayment'])->name('orders.confirm-payment');
         Route::post('/orders/{code}/confirm-cash-payment', [OwnerOrderController::class, 'confirmCashPayment'])->name('orders.confirm-cash-payment');
         Route::post('/orders/{code}/reject-payment', [OwnerOrderController::class, 'rejectPayment'])->name('orders.reject-payment');
+        Route::post('/orders/{code}/delivery-fee', [OwnerOrderController::class, 'setDeliveryFee'])->name('orders.delivery-fee');
         Route::post('/orders/{code}/status', [OwnerOrderController::class, 'status'])->name('orders.status');
         Route::post('/orders/{code}/cancel', [OwnerOrderController::class, 'cancel'])->name('orders.cancel');
         Route::get('/orders/{code}/payments/{paymentId}/proof', [OwnerOrderController::class, 'proof'])->name('orders.payment-proof');
         Route::get('/orders/{code}/print', [OwnerOrderController::class, 'printReceipt'])->name('orders.print');
         Route::post('/orders/{code}/print/reprint', [OwnerOrderController::class, 'reprint'])->name('orders.reprint');
         Route::post('/print-jobs/{receiptPrintJob}/status', [OwnerOrderController::class, 'updatePrintJob'])->name('print-jobs.status');
+    });
+
+    Route::prefix('admin/security/whatsapp')->name('owner.account.whatsapp.')->middleware('auth:web')->group(function (): void {
+        Route::get('/', [WhatsAppAuthController::class, 'showPhoneLink'])->defaults('audience', 'admin')->name('edit');
+        Route::post('/request', [WhatsAppAuthController::class, 'requestPhoneLinkCode'])
+            ->defaults('audience', 'admin')
+            ->middleware('throttle:5,1')
+            ->name('request');
+        Route::post('/verify', [WhatsAppAuthController::class, 'verifyPhoneLinkCode'])
+            ->defaults('audience', 'admin')
+            ->middleware('throttle:10,1')
+            ->name('verify');
     });
 
     Route::get('/feedback', [CustomerFeedbackController::class, 'create'])->name('feedback.create');

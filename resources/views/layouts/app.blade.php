@@ -94,7 +94,7 @@
 
     <x-onboarding />
 
-    <div class="main-container {{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'page-canvas-white' : (request()->routeIs('roastery.show', 'cafes.show') ? 'page-canvas-detail' : '') }}" id="main-container"
+    <div class="main-container {{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'page-canvas-white' : (request()->routeIs('roastery.show', 'cafes.show') ? 'page-canvas-detail' : '') }} {{ request()->routeIs('owner.orders.*') ? 'main-container-owner-orders' : '' }}" id="main-container"
         style="{{ request()->routeIs('explore', 'roastery', 'information', 'information.*') ? 'min-height:100vh;background:#fff;' : (request()->routeIs('roastery.show', 'cafes.show') ? 'min-height:100vh;background:#fcfaf7;' : '') }}">
         @auth
             @if(in_array(\App\Support\AuthenticatedUser::require()->role, ['developer', 'admin', 'roastery'], true))

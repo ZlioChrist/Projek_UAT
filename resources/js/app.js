@@ -62,21 +62,110 @@ function initToastNotifications() {
     dismiss.addEventListener('click', hideToast);
 }
 
+const updateTransferBankInputs = (selector, paymentMethod) => {
+    const isTransfer = paymentMethod === 'transfer';
+    const transferPanel = selector.querySelector('[data-payment-panel="transfer"]');
+
+    if (transferPanel) transferPanel.hidden = !isTransfer;
+
+    selector.querySelectorAll('input[name="sender_bank"]').forEach((input) => {
+        input.disabled = !isTransfer;
+        input.required = isTransfer;
+    });
+};
+
+document.querySelectorAll('[data-payment-selector]').forEach((selector) => {
+    const selectedMethod = selector.querySelector('input[name="payment_method"]:checked')?.value;
+    updateTransferBankInputs(selector, selectedMethod);
+});
+
+const syncFulfillmentOptions = (selector) => {
+    const form = selector.closest('form');
+    const fulfillment = selector.querySelector('input[name="fulfillment_method"]:checked')?.value ?? 'pickup';
+    const delivery = fulfillment === 'delivery';
+    const addressField = form?.querySelector('[data-delivery-address-field]');
+    const address = form?.querySelector('[data-delivery-address]');
+    const feeNote = form?.querySelector('[data-delivery-fee-note]');
+    const feeSummary = form?.querySelector('[data-checkout-delivery-fee]');
+    const fulfillmentSummary = form?.querySelector('[data-fulfillment-summary]');
+    const paymentSelector = form?.querySelector('[data-payment-selector]');
+    const cashOption = paymentSelector?.querySelector('[data-payment-cash-option]');
+    const cashInput = cashOption?.querySelector('input[name="payment_method"]');
+
+    if (addressField) addressField.hidden = !delivery;
+    if (address) {
+        address.disabled = !delivery;
+        address.required = delivery;
+    }
+    if (feeNote) feeNote.hidden = !delivery;
+    if (feeSummary) feeSummary.textContent = delivery ? 'Dikonfirmasi kafe' : 'Rp0';
+    if (fulfillmentSummary) {
+        fulfillmentSummary.innerHTML = delivery
+            ? '<i class="ph-fill ph-moped-front" aria-hidden="true"></i> Diantar ke alamat yang kamu berikan'
+            : '<i class="ph-fill ph-storefront" aria-hidden="true"></i> Diambil langsung di kedai';
+    }
+    if (cashOption) cashOption.hidden = delivery;
+    if (cashInput) {
+        cashInput.disabled = delivery;
+        if (delivery && cashInput.checked) {
+            const replacement = paymentSelector.querySelector('input[name="payment_method"]:not([value="cash"])');
+            if (replacement) {
+                replacement.checked = true;
+                replacement.dispatchEvent(new Event('change', {bubbles: true}));
+            }
+        }
+    }
+};
+
+document.querySelectorAll('[data-fulfillment-selector]').forEach((selector) => {
+    syncFulfillmentOptions(selector);
+    selector.addEventListener('change', (event) => {
+        if (event.target instanceof HTMLInputElement && event.target.name === 'fulfillment_method') {
+            selector.querySelectorAll('.checkout-payment-option').forEach((option) => {
+                const radio = option.querySelector('input[name="fulfillment_method"]');
+                option.classList.toggle('is-selected', radio?.checked ?? false);
+            });
+            syncFulfillmentOptions(selector);
+        }
+    });
+});
+
+document.querySelectorAll('[data-payment-proof-form]').forEach((form) => {
+    const proofInput = form.querySelector('input[name="proof"]');
+    const submitButton = form.querySelector('button[type="submit"], button:not([type])');
+    if (!(proofInput instanceof HTMLInputElement) || !(submitButton instanceof HTMLButtonElement)) return;
+
+    const syncProofSubmissionState = () => {
+        submitButton.disabled = proofInput.files?.length !== 1;
+    };
+
+    proofInput.addEventListener('change', syncProofSubmissionState);
+    syncProofSubmissionState();
+});
+
 document.addEventListener('change', (event) => {
     const input = event.target;
-    if (!(input instanceof HTMLInputElement) || input.name !== 'payment_method') return;
+    if (!(input instanceof HTMLInputElement)) return;
 
     const selector = input.closest('[data-payment-selector]');
     if (!selector) return;
 
-    selector.querySelectorAll('.checkout-payment-option').forEach((option) => {
-        const radio = option.querySelector('input[name="payment_method"]');
-        option.classList.toggle('is-selected', radio?.checked ?? false);
-    });
+    if (input.name === 'payment_method') {
+        selector.querySelectorAll('.checkout-payment-option').forEach((option) => {
+            const radio = option.querySelector('input[name="payment_method"]');
+            option.classList.toggle('is-selected', radio?.checked ?? false);
+        });
 
-    selector.querySelectorAll('[data-payment-panel]').forEach((panel) => {
-        panel.hidden = panel.dataset.paymentPanel !== input.value;
-    });
+        selector.querySelectorAll('[data-payment-panel]').forEach((panel) => {
+            panel.hidden = panel.dataset.paymentPanel !== input.value;
+        });
+        updateTransferBankInputs(selector, input.value);
+    } else if (input.name === 'sender_bank') {
+        selector.querySelectorAll('.checkout-sender-bank-option').forEach((option) => {
+            const radio = option.querySelector('input[name="sender_bank"]');
+            option.classList.toggle('is-selected', radio?.checked ?? false);
+        });
+    }
 });
 
 // 1. STAGGERED ENTRANCE (Intersection Observer)

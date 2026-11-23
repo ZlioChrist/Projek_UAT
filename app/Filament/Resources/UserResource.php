@@ -5,12 +5,15 @@ namespace App\Filament\Resources;
 use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\UserResource\Pages;
+use App\Models\Cafe;
+use App\Models\Roastery;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
@@ -56,6 +59,12 @@ class UserResource extends Resource
         return UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer;
     }
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with(['cafes:id,owner_id,name,status', 'roasteries:id,owner_id,name,status']);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -88,6 +97,14 @@ class UserResource extends Resource
                             ->required()
                             ->columnSpanFull(),
                     ])
+                    ->columns(2)
+                    ->columnSpanFull(),
+                Forms\Components\Section::make('Status usaha')
+                    ->description('Pilih status untuk setiap kafe atau roastery yang dimiliki akun ini.')
+                    ->visible(fn (?User $record, string $operation): bool => $operation === 'edit'
+                        && $record !== null
+                        && ($record->cafes->isNotEmpty() || $record->roasteries->isNotEmpty()))
+                    ->schema(fn (?User $record): array => static::getBusinessStatusFields($record))
                     ->columns(2)
                     ->columnSpanFull(),
                 Forms\Components\Section::make('Keamanan akun')
@@ -134,6 +151,30 @@ class UserResource extends Resource
                         'info' => 'roastery',
                         'success' => 'user',
                     ]),
+                Tables\Columns\TextColumn::make('business_status')
+                    ->label('Status')
+                    ->state(function (User $record): string {
+                        $statusLabels = [
+                            'published' => 'Publik',
+                            'review' => 'Pending',
+                            'draft' => 'Draf',
+                        ];
+
+                        $statuses = $record->cafes
+                            ->concat($record->roasteries)
+                            ->map(fn ($business): string => $statusLabels[$business->status] ?? ucfirst($business->status))
+                            ->unique()
+                            ->values();
+
+                        return $statuses->isEmpty() ? 'Tidak ada usaha' : $statuses->join(', ');
+                    })
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Publik' => 'success',
+                        'Pending' => 'warning',
+                        'Draf' => 'gray',
+                        default => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Terdaftar')
                     ->dateTime('d M Y')
@@ -176,5 +217,56 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
+    }
+
+    /**
+     * @return array<Forms\Components\Component>
+     */
+    private static function getBusinessStatusFields(?User $record): array
+    {
+        if (! $record) {
+            return [];
+        }
+
+        $fields = [];
+        $statusOptions = [
+            'published' => 'Publik',
+            'review' => 'Pending',
+            'draft' => 'Draf',
+        ];
+
+        foreach ($record->cafes as $cafe) {
+            $fields[] = Forms\Components\TextInput::make('business_name_cafe_'.$cafe->getKey())
+                ->label('Nama kafe')
+                ->prefixIcon('heroicon-o-building-storefront')
+                ->afterStateHydrated(fn (Forms\Components\TextInput $component) => $component->state($cafe->name))
+                ->required()
+                ->maxLength(255);
+
+            $fields[] = Forms\Components\Select::make('business_status_cafe_'.$cafe->getKey())
+                ->label('Status kafe')
+                ->options($statusOptions)
+                ->afterStateHydrated(fn (Forms\Components\Select $component) => $component->state($cafe->status))
+                ->rules(['nullable', 'in:published,review,draft'])
+                ->native();
+        }
+
+        foreach ($record->roasteries as $roastery) {
+            $fields[] = Forms\Components\TextInput::make('business_name_roastery_'.$roastery->getKey())
+                ->label('Nama roastery')
+                ->prefixIcon('heroicon-o-building-storefront')
+                ->afterStateHydrated(fn (Forms\Components\TextInput $component) => $component->state($roastery->name))
+                ->required()
+                ->maxLength(255);
+
+            $fields[] = Forms\Components\Select::make('business_status_roastery_'.$roastery->getKey())
+                ->label('Status roastery')
+                ->options($statusOptions)
+                ->afterStateHydrated(fn (Forms\Components\Select $component) => $component->state($roastery->status))
+                ->rules(['nullable', 'in:published,review,draft'])
+                ->native();
+        }
+
+        return $fields;
     }
 }

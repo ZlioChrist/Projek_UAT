@@ -10,7 +10,7 @@
                   x-transition:enter="transition ease-out duration-300"
                   x-transition:enter-start="opacity-0 scale-50"
                   x-transition:enter-end="opacity-100 scale-100">0</span>
-            <span x-text="$wire.items.length === 1 ? '1 tempat tersimpan' : `${$wire.items.length} tempat tersimpan`">0 tempat tersimpan</span>
+            <span x-text="$wire.items.length === 1 ? '1 favorit' : `${$wire.items.length} favorit`">0 favorit</span>
         </p>
     </div>
 
@@ -56,7 +56,7 @@
     <div x-show="$wire.items.length === 0" x-cloak wire:loading.remove>
         <div class="saved-empty-state">
             <span class="saved-empty__illustration" aria-hidden="true"><i class="ph-fill ph-coffee"></i></span>
-            <h3 class="saved-empty__title">Belum Ada Simpanan</h3>
+            <h3 class="saved-empty__title">Belum ada favorit</h3>
             <p class="saved-empty__subtitle">Jelajahi cafe dan roastery estetik di sekitarmu dan simpan favoritmu di sini.</p>
             <div class="saved-empty__actions">
                 <a href="{{ route('explore') }}" class="saved-empty__cta">

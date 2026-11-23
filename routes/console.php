@@ -10,3 +10,5 @@ Artisan::command('inspire', function () {
 \Illuminate\Support\Facades\Schedule::command('app:flush-view-counters')->everyFiveMinutes();
 \Illuminate\Support\Facades\Schedule::command('app:scrape-coffee-news')->twiceDaily(5, 17);
 \Illuminate\Support\Facades\Schedule::command('app:sync-official-cafe-status')->everyFiveMinutes()->withoutOverlapping();
+\Illuminate\Support\Facades\Schedule::command('orders:expire-unpaid')->everyMinute()->withoutOverlapping();
+\Illuminate\Support\Facades\Schedule::command('orders:complete-unconfirmed')->everyMinute()->withoutOverlapping();

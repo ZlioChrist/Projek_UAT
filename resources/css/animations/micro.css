@@ -89,3 +89,56 @@
 .haptic-fallback {
     animation: haptic-shake 0.15s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
+
+:where(
+    a:not([aria-disabled="true"]),
+    button:not(:disabled):not([aria-disabled="true"]),
+    input[type="button"]:not(:disabled):not([aria-disabled="true"]),
+    input[type="submit"]:not(:disabled):not([aria-disabled="true"]),
+    input[type="reset"]:not(:disabled):not([aria-disabled="true"]),
+    summary,
+    [role="button"]:not([aria-disabled="true"]),
+    [role="link"]:not([aria-disabled="true"]),
+    [role="tab"]:not([aria-disabled="true"]),
+    [role="menuitem"]:not([aria-disabled="true"])
+):active {
+    animation: wn-global-click 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes wn-global-click {
+    0%, 100% {
+        translate: 0 0;
+        scale: 1;
+        filter: brightness(1);
+    }
+
+    38% {
+        translate: 0 2px;
+        scale: 0.97;
+        filter: brightness(0.97);
+    }
+
+    72% {
+        translate: 0 -1px;
+        scale: 1.005;
+        filter: brightness(1.01);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :where(
+        a:not([aria-disabled="true"]),
+        button:not(:disabled):not([aria-disabled="true"]),
+        input[type="button"]:not(:disabled):not([aria-disabled="true"]),
+        input[type="submit"]:not(:disabled):not([aria-disabled="true"]),
+        input[type="reset"]:not(:disabled):not([aria-disabled="true"]),
+        summary,
+        [role="button"]:not([aria-disabled="true"]),
+        [role="link"]:not([aria-disabled="true"]),
+        [role="tab"]:not([aria-disabled="true"]),
+        [role="menuitem"]:not([aria-disabled="true"])
+    ):active {
+        animation: none;
+    }
+}

@@ -54,6 +54,11 @@ class CafeController extends Controller
         $menuItems = $cafe->menuItems()
             ->where('is_active', true)
             ->whereColumn('stock', '>', 'reserved_stock')
+            ->whereDoesntHave('addonFor')
+            ->with(['addons' => fn ($query) => $query
+                ->where('is_active', true)
+                ->whereRaw('stock > reserved_stock')
+                ->orderBy('name')])
             ->orderBy('category')
             ->orderBy('name')
             ->get();

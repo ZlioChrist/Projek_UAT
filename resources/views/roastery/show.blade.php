@@ -185,7 +185,10 @@
                 <div class="flex items-center gap-2.5">
                     @php
                         $cartItemCount = collect(session('order_cart.items', []))
-                            ->sum(fn ($quantity) => max(0, (int) $quantity));
+                            ->sum(fn ($quantity) => max(0, (int) $quantity))
+                            + collect(session('order_cart.addons', []))
+                                ->flatten()
+                                ->sum(fn ($quantity) => max(0, (int) $quantity));
                     @endphp
                     <a href="{{ route('cart.show') }}" data-cart-count-link aria-label="Keranjang, {{ $cartItemCount }} produk" title="Keranjang"
                         class="detail-cart-link relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white shadow-2xl backdrop-blur-xl transition-all hover:bg-black/40 active:scale-90">
@@ -373,9 +376,13 @@
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2">
                         @foreach($menuItems as $item)
-                            <article class="flex gap-4 rounded-2xl border border-slate-100 p-4">
-                                @if($item->image_path)<img src="{{ Storage::disk('public')->url($item->image_path) }}" alt="{{ $item->name }}" class="h-20 w-20 rounded-xl object-cover">@endif
-                                <div class="min-w-0 flex-1"><p class="text-xs font-bold uppercase text-amber-700">{{ $item->category ?: 'Produk' }}</p><h3 class="font-black text-[#2C1810]">{{ $item->name }}</h3>@if($item->description)<p class="mt-1 text-xs text-slate-600">{{ $item->description }}</p>@endif
+                            @php $hasDescription = filled($item->description); @endphp
+                            <article class="roastery-product-card flex gap-4 rounded-2xl border border-slate-100 p-4{{ $hasDescription ? '' : ' roastery-product-card--compact items-center' }}">
+                                @if($hasDescription && $item->image_path)<img src="{{ Storage::disk('public')->url($item->image_path) }}" alt="{{ $item->name }}" class="h-20 w-20 rounded-xl object-cover">@endif
+                                <div class="min-w-0 flex-1">
+                                    @if($hasDescription)<p class="text-xs font-bold uppercase text-amber-700">{{ $item->category ?: 'Produk' }}</p>@endif
+                                    <h3 class="font-black text-[#2C1810]">{{ $item->name }}</h3>
+                                    @if($hasDescription)<p class="mt-1 text-xs text-slate-600">{{ $item->description }}</p>@endif
                                     <div class="mt-3 flex items-center justify-between gap-3"><strong>Rp{{ number_format((float)$item->price,0,',','.') }}</strong><form method="POST" action="{{ route('roastery.cart.items.add', [$roastery->slug, $item->id]) }}" data-cart-add-form data-customer-authenticated="{{ auth()->check() ? 'true' : 'false' }}">@csrf<button type="submit" class="rounded-full bg-[#2C1810] px-4 py-2 text-sm font-bold text-white">Tambah</button></form></div>
                                 </div>
                             </article>

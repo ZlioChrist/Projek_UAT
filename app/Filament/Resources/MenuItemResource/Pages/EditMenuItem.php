@@ -5,8 +5,12 @@ namespace App\Filament\Resources\MenuItemResource\Pages;
 use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\MenuItemResource;
+use App\Models\MenuItem;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class EditMenuItem extends EditRecord
 {
@@ -34,6 +38,24 @@ class EditMenuItem extends EditRecord
         abort_if(! empty($data['cafe_id']) === ! empty($data['roastery_id']), 422, 'Pilih tepat satu kedai untuk produk ini.');
 
         return $data;
+    }
+
+    protected function handleRecordUpdate(Model $record, array $data): Model
+    {
+        return DB::transaction(function () use ($record, $data): Model {
+            $lockedRecord = MenuItem::query()->lockForUpdate()->findOrFail($record->getKey());
+
+            if ((int) ($data['stock'] ?? 0) < (int) $lockedRecord->reserved_stock) {
+                throw ValidationException::withMessages([
+                    'data.stock' => "Stok fisik tidak boleh kurang dari {$lockedRecord->reserved_stock} unit yang sedang dipesan.",
+                ]);
+            }
+
+            unset($data['reserved_stock']);
+            $lockedRecord->update($data);
+
+            return $lockedRecord;
+        }, 3);
     }
 
     protected function getHeaderActions(): array

@@ -136,7 +136,7 @@
     box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
-.detail-tile:hover, .detail-tile:active {
+.detail-tile:hover {
     transform: translateY(-4px) scale(1.03);
     box-shadow: 0 16px 36px rgba(0,0,0,0.12), 0 0 0 1px rgba(234, 179, 8, 0.25);
     background: rgba(255,255,255,0.9);

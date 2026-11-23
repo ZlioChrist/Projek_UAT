@@ -46,11 +46,6 @@
         0 1px 0 rgba(255, 255, 255, 0.14) inset;
 }
 
-.roulette-fab:active {
-    background: linear-gradient(135deg, #F59E0B, #D97706);
-    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.3);
-}
-
 .roulette-fab:focus-visible {
     outline: 3px solid rgba(111, 78, 55, 0.38);
     outline-offset: 3px;
@@ -64,11 +59,6 @@
 
 .roulette-fab:hover i {
     transform: rotate(-12deg);
-}
-
-.roulette-fab:active i {
-    color: #fff;
-    transform: rotate(12deg) scale(1.05);
 }
 
 /* --- Modal Overlay --- */
@@ -261,10 +251,6 @@
 .roulette-spin-btn:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
-}
-
-.roulette-spin-btn:active:not(:disabled) {
-    transform: scale(0.97);
 }
 
 .roulette-spin-btn:disabled {

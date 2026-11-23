@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
-    protected $fillable = ['order_id', 'product_id', 'name_snapshot', 'unit_price', 'quantity', 'line_total'];
+    protected $fillable = ['order_id', 'product_id', 'parent_order_item_id', 'name_snapshot', 'unit_price', 'quantity', 'line_total'];
 
     protected function casts(): array
     {
@@ -31,5 +31,10 @@ class OrderItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(MenuItem::class, 'product_id');
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(self::class, 'parent_order_item_id');
     }
 }

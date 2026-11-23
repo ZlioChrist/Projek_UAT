@@ -138,7 +138,7 @@
                 <tbody class="divide-y divide-gray-200 dark:divide-white/10">
                     @forelse($orders as $order)
                         <tr>
-                            <td class="px-4 py-3"><span class="font-mono font-semibold">{{ $order->public_code }}</span><span class="block text-xs text-gray-500">{{ $order->shop_name }}</span></td>
+                            <td class="px-4 py-3"><span class="font-mono font-semibold">{{ $order->display_code }}</span><span class="block text-xs text-gray-500">{{ $order->shop_name }}</span></td>
                             <td class="px-4 py-3">{{ $order->customer_name }}<span class="block text-xs text-gray-500">{{ $order->customer_whatsapp ?: 'Tanpa nomor WhatsApp' }}</span></td>
                             <td class="px-4 py-3"><x-filament::badge color="warning">{{ $order->status_label }}</x-filament::badge></td>
                             <td class="px-4 py-3">{{ $order->created_at->format('d/m/Y H:i') }}</td>

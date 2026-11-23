@@ -73,6 +73,7 @@ class AdminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->navigationGroups([
+                'Atur Pesanan',
                 'Manajemen Kafe',
                 'Manajemen Roastery',
                 'Fitur Tambahan',
@@ -93,6 +94,12 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-user-circle')
                     ->group('Manajemen User')
                     ->sort(1)
+                    ->visible(fn (): bool => in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin, UserRole::Roastery], true)),
+                NavigationItem::make('Keamanan WhatsApp')
+                    ->url(fn (): string => route('owner.account.whatsapp.edit'))
+                    ->icon('heroicon-o-device-phone-mobile')
+                    ->group('Akun')
+                    ->sort(2)
                     ->visible(fn (): bool => in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin, UserRole::Roastery], true)),
                 NavigationItem::make('Notifikasi Pelanggan')
                     ->url(fn (): string => route('notifications.index'))

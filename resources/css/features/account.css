@@ -949,10 +949,6 @@
     box-shadow: 0 16px 30px rgba(54, 32, 21, 0.24), inset 0 1px rgba(255, 255, 255, 0.15);
 }
 
-.wn-auth-submit:active {
-    transform: translateY(0);
-}
-
 .wn-auth-switch {
     margin: 22px 0 0;
     color: #81766d;
@@ -2408,7 +2404,18 @@
 }
 
 .wn-customer-page .saved-empty__illustration {
-    color: #a87843 !important;
+    display: grid;
+    width: 64px;
+    height: 64px;
+    place-items: center;
+    margin: 0 0 14px;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 20px;
+    background: linear-gradient(145deg, #ffb31a, #e58b00) !important;
+    color: #fff !important;
+    font-size: 1.55rem !important;
+    filter: none;
+    animation: none;
 }
 
 .wn-customer-page .saved-empty__cta {
@@ -3628,9 +3635,12 @@
 }
 
 .wn-customer-page .saved-empty-state {
-    border-color: rgba(255, 255, 255, 0.12) !important;
+    padding: 34px 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
     background: linear-gradient(145deg, #49291a, #321b12) !important;
     color: #fff8ed !important;
+    box-shadow: 0 12px 26px rgba(61, 34, 20, 0.13) !important;
 }
 
 .wn-customer-page .saved-empty__title {
@@ -3792,13 +3802,6 @@
     background: rgba(116, 161, 98, 0.2);
     color: #d7edc9;
     font-size: 0.68rem;
-}
-
-.wn-account-feedback-list-page .wn-account-empty {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    background: linear-gradient(145deg, #49291a, #321b12);
-    color: #d1b99f;
 }
 
 .wn-account-page .wn-account-order {

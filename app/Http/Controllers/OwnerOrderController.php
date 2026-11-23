@@ -21,23 +21,28 @@ class OwnerOrderController extends Controller
         return redirect(Dashboard::getUrl());
     }
 
-    public function index(Request $request): View
+    public function index(Request $request, OrderService $service): View
     {
         $this->ensureCafeOperator($request);
-        $query = Order::with(['cafe', 'roastery', 'items', 'payments' => fn ($q) => $q->latest('id')])->latest();
+        $service->expireDueOrders();
+        $service->completeUnconfirmedOrders();
+        $query = Order::with(['cafe', 'roastery', 'items', 'payments' => fn ($q) => $q->latest('id')])
+            ->whereIn('status', [Order::STATUS_AWAITING_PAYMENT, Order::STATUS_PENDING_VERIFICATION]);
         if ($request->user()->role !== 'developer') {
             $query->where(function ($query) use ($request): void {
                 $query->whereHas('cafe', fn ($q) => $q->where('owner_id', $request->user()->id))
                     ->orWhereHas('roastery', fn ($q) => $q->where('owner_id', $request->user()->id));
             });
         }
-        $orders = $query->paginate(25);
+        $orders = $query->latest()->paginate(25);
 
         return view('owner.orders.index', compact('orders'));
     }
 
-    public function show(Request $request, string $code): View
+    public function show(Request $request, string $code, OrderService $service): View
     {
+        $service->expireDueOrders();
+        $service->completeUnconfirmedOrders();
         $order = $this->scopedOrder($request, $code);
         $order->load(['cafe', 'roastery', 'items', 'payments' => fn ($q) => $q->latest('id'), 'statusHistories', 'printJobs']);
 
@@ -66,33 +71,59 @@ class OwnerOrderController extends Controller
         $validated = $request->validate(['reason' => ['required', 'string', 'min:3', 'max:500']]);
         $service->rejectPayment($order, $request->user(), $validated['reason']);
 
-        return redirect()->route('owner.orders.show', $code)->with('status', 'Bukti ditolak. Pembeli dapat mengirim bukti pembayaran yang benar.');
+        $message = $order->payment_method === 'qris'
+            ? 'Bukti QRIS ditolak. Pesanan dibatalkan dan reservasi stok dilepas.'
+            : 'Bukti ditolak. Pembeli dapat mengirim bukti pembayaran yang benar.';
+
+        return redirect()->route('owner.orders.show', $code)->with('status', $message);
+    }
+
+    public function setDeliveryFee(Request $request, string $code, OrderService $service): RedirectResponse
+    {
+        $order = $this->scopedOrder($request, $code);
+        $validated = $request->validate([
+            'distance_km' => ['required', 'numeric', 'gt:0', 'max:999999.99', 'regex:/^\\d+(?:\\.\\d{1,2})?$/'],
+        ], [
+            'distance_km.required' => 'Jarak rute wajib diisi.',
+            'distance_km.numeric' => 'Jarak rute harus berupa angka dalam kilometer.',
+            'distance_km.gt' => 'Jarak rute harus lebih dari 0 km.',
+            'distance_km.max' => 'Jarak rute terlalu besar.',
+            'distance_km.regex' => 'Jarak rute maksimal menggunakan dua angka desimal.',
+        ]);
+        $service->setDeliveryFee($order, $request->user(), (string) $validated['distance_km']);
+
+        return redirect()->route('owner.orders.show', $code)->with('status', 'Jarak rute disimpan, ongkir dihitung sesuai tarif kafe, dan total pesanan diperbarui. Pelanggan dapat melanjutkan pembayaran.');
     }
 
     public function pickup(Request $request, OrderService $service): RedirectResponse
     {
         $this->ensureCafeOperator($request);
-        $validated = $request->validate(['code' => ['required', 'string', 'alpha_num', 'min:8', 'max:20']]);
+        $validated = $request->validate(['code' => ['required', 'string', 'regex:/^WN-\d{4}$/i']]);
 
         try {
-            $order = $this->scopedOrder($request, $validated['code']);
+            $order = $this->scopedOrderByDisplayCode($request, $validated['code']);
         } catch (ModelNotFoundException $exception) {
             return back()->withErrors(['code' => 'Kode pengambilan tidak dikenal.']);
         }
 
-        if ($order->status !== Order::STATUS_READY) {
-            return back()->withErrors(['code' => 'Pesanan belum Siap Diambil atau kode sudah pernah digunakan.']);
+        if ($order->status !== Order::STATUS_READY || $order->fulfillment_method !== 'pickup') {
+            return back()->withErrors(['code' => 'Pesanan belum Siap Diambil, bukan pesanan ambil sendiri, atau kode sudah pernah digunakan.']);
         }
 
-        $service->transition($order, $request->user(), Order::STATUS_COMPLETED);
+        $service->markPickedUp($order, $request->user());
 
-        return redirect()->route('owner.orders.index')->with('status', 'Pesanan diserahkan dan dicatat selesai.');
+        return redirect()->route('owner.orders.index')->with('status', 'Serah-terima dicatat. Pelanggan diminta mengonfirmasi pesanan sudah diterima.');
     }
 
     public function status(Request $request, string $code, OrderService $service): RedirectResponse
     {
         $order = $this->scopedOrder($request, $code);
-        $validated = $request->validate(['status' => ['required', 'in:preparing,ready,completed']]);
+        $validated = $request->validate([
+            'status' => ['required', 'in:ready,delivering,awaiting_receipt_confirmation'],
+        ]);
+        if (in_array($validated['status'], [Order::STATUS_READY, Order::STATUS_DELIVERING], true)) {
+            $request->validate(['ready_confirmed' => ['required', 'accepted']]);
+        }
         $service->transition($order, $request->user(), $validated['status']);
 
         return redirect()->route('owner.orders.show', $code)->with('status', 'Status pesanan diperbarui.');
@@ -151,6 +182,20 @@ class OwnerOrderController extends Controller
     {
         $this->ensureCafeOperator($request);
         $query = Order::query()->where('public_code', strtoupper($code));
+        if ($request->user()->role !== 'developer') {
+            $query->where(function ($query) use ($request): void {
+                $query->whereHas('cafe', fn ($q) => $q->where('owner_id', $request->user()->id))
+                    ->orWhereHas('roastery', fn ($q) => $q->where('owner_id', $request->user()->id));
+            });
+        }
+
+        return $query->firstOrFail();
+    }
+
+    private function scopedOrderByDisplayCode(Request $request, string $code): Order
+    {
+        $this->ensureCafeOperator($request);
+        $query = Order::query()->where('display_code', strtoupper($code));
         if ($request->user()->role !== 'developer') {
             $query->where(function ($query) use ($request): void {
                 $query->whereHas('cafe', fn ($q) => $q->where('owner_id', $request->user()->id))

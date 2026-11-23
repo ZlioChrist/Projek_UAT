@@ -26,6 +26,8 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bell-alert';
 
+    protected static ?int $navigationSort = 1;
+
     public static function canViewAny(): bool
     {
         return in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin, UserRole::Roastery], true);
@@ -33,14 +35,7 @@ class OrderResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Roastery
-            ? 'Manajemen Roastery'
-            : 'Manajemen Kafe';
-    }
-
-    public static function getNavigationSort(): ?int
-    {
-        return UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Roastery ? 3 : 4;
+        return 'Atur Pesanan';
     }
 
     public static function getEloquentQuery(): Builder
@@ -48,12 +43,17 @@ class OrderResource extends Resource
         $query = parent::getEloquentQuery()->with(['cafe', 'roastery', 'items']);
         $user = AuthenticatedUser::require();
 
-        return match (UserRole::fromUserValue($user?->role)) {
+        $query = match (UserRole::fromUserValue($user?->role)) {
             UserRole::Admin => $query->whereIn('cafe_id', $user->cafes()->select('id')),
             UserRole::Roastery => $query->whereIn('roastery_id', $user->roasteries()->select('id')),
             UserRole::Developer => $query,
             default => $query->whereRaw('1 = 0'),
         };
+
+        return $query->whereIn('status', [
+            Order::STATUS_AWAITING_PAYMENT,
+            Order::STATUS_PENDING_VERIFICATION,
+        ]);
     }
 
     public static function getNavigationBadge(): ?string
@@ -81,7 +81,7 @@ class OrderResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('public_code')
+                Tables\Columns\TextColumn::make('display_code')
                     ->label('Kode pesanan')
                     ->searchable()
                     ->copyable()
@@ -118,7 +118,7 @@ class OrderResource extends Resource
                     ->badge()
                     ->formatStateUsing(fn (Order $record): string => $record->status_label)
                     ->color(fn (Order $record): string => match ($record->status) {
-                        Order::STATUS_READY, Order::STATUS_COMPLETED => 'success',
+                        Order::STATUS_READY, Order::STATUS_AWAITING_RECEIPT_CONFIRMATION, Order::STATUS_COMPLETED => 'success',
                         Order::STATUS_CANCELLED => 'danger',
                         Order::STATUS_AWAITING_PAYMENT, Order::STATUS_PENDING_VERIFICATION => 'warning',
                         default => 'info',
@@ -131,25 +131,16 @@ class OrderResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
-                    ->options(collect(Order::STATUSES)->mapWithKeys(fn (string $status): array => [
-                        $status => match ($status) {
-                            Order::STATUS_AWAITING_PAYMENT => 'Menunggu Pembayaran',
-                            Order::STATUS_PENDING_VERIFICATION => 'Menunggu Konfirmasi',
-                            Order::STATUS_PAID => 'Lunas',
-                            Order::STATUS_PREPARING => 'Sedang Disiapkan',
-                            Order::STATUS_READY => 'Siap Diambil',
-                            Order::STATUS_COMPLETED => 'Selesai',
-                            Order::STATUS_CANCELLED => 'Dibatalkan',
-                        },
-                    ])->all()),
+                    ->options([
+                        Order::STATUS_AWAITING_PAYMENT => 'Menunggu Pembayaran',
+                        Order::STATUS_PENDING_VERIFICATION => 'Menunggu Konfirmasi',
+                    ]),
                 Tables\Filters\SelectFilter::make('payment_status')
                     ->label('Status pembayaran')
                     ->options([
                         'unpaid' => 'Belum dibayar',
                         'submitted' => 'Menunggu verifikasi',
-                        'paid' => 'Lunas',
                         'rejected' => 'Perlu pembayaran ulang',
-                        'cancelled' => 'Dibatalkan',
                     ]),
             ])
             ->actions([
@@ -174,7 +165,7 @@ class OrderResource extends Resource
                         ->icon('heroicon-m-banknotes')
                         ->color('success')
                         ->requiresConfirmation()
-                        ->visible(fn (Order $record): bool => $record->status === Order::STATUS_AWAITING_PAYMENT && $record->payment_method === 'cash')
+                        ->visible(fn (Order $record): bool => $record->status === Order::STATUS_AWAITING_PAYMENT && $record->payment_method === 'cash' && $record->fulfillment_method === 'pickup')
                         ->action(function (Order $record, OrderService $service): void {
                             $service->confirmCashPayment($record, AuthenticatedUser::get());
                             Notification::make()->title('Pembayaran tunai dicatat')->success()->send();
@@ -194,37 +185,6 @@ class OrderResource extends Resource
                         ->action(function (Order $record, array $data, OrderService $service): void {
                             $service->rejectPayment($record, AuthenticatedUser::get(), $data['reason']);
                             Notification::make()->title('Bukti pembayaran ditolak')->success()->send();
-                        }),
-                    Tables\Actions\Action::make('prepare')
-                        ->label('Mulai siapkan')
-                        ->icon('heroicon-m-play')
-                        ->color('info')
-                        ->requiresConfirmation()
-                        ->visible(fn (Order $record): bool => $record->status === Order::STATUS_PAID)
-                        ->action(function (Order $record, OrderService $service): void {
-                            $service->transition($record, AuthenticatedUser::get(), Order::STATUS_PREPARING);
-                            Notification::make()->title('Pesanan mulai disiapkan')->success()->send();
-                        }),
-                    Tables\Actions\Action::make('ready')
-                        ->label('Siap diambil')
-                        ->icon('heroicon-m-bell')
-                        ->color('success')
-                        ->requiresConfirmation()
-                        ->modalDescription('Pelanggan yang memiliki akun akan mendapatkan notifikasi bahwa pesanan siap diambil.')
-                        ->visible(fn (Order $record): bool => $record->status === Order::STATUS_PREPARING)
-                        ->action(function (Order $record, OrderService $service): void {
-                            $service->transition($record, AuthenticatedUser::get(), Order::STATUS_READY);
-                            Notification::make()->title('Pesanan ditandai siap diambil')->success()->send();
-                        }),
-                    Tables\Actions\Action::make('complete')
-                        ->label('Tandai selesai')
-                        ->icon('heroicon-m-check')
-                        ->color('gray')
-                        ->requiresConfirmation()
-                        ->visible(fn (Order $record): bool => $record->status === Order::STATUS_READY)
-                        ->action(function (Order $record, OrderService $service): void {
-                            $service->transition($record, AuthenticatedUser::get(), Order::STATUS_COMPLETED);
-                            Notification::make()->title('Pesanan ditandai selesai')->success()->send();
                         }),
                     Tables\Actions\Action::make('cancel')
                         ->label('Batalkan')

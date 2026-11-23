@@ -2,6 +2,11 @@
 
 @php
     $isRegister = $mode === 'register';
+    $googleEnabled = filled(config('services.google.client_id')) && filled(config('services.google.client_secret'));
+    $whatsappEnabled = filled(config('services.meta_whatsapp.access_token'))
+        && filled(config('services.meta_whatsapp.phone_number_id'))
+        && filled(config('services.meta_whatsapp.otp_template'));
+    $pendingWhatsAppLogin = session('auth.whatsapp.login');
 @endphp
 
 @section('title', ($isRegister ? 'Daftar' : 'Masuk').' sebagai Pelanggan - WadahNgopi')
@@ -40,6 +45,14 @@
                             </div>
                         @endif
 
+                        @if($googleEnabled)
+                            <a class="wn-auth-submit" href="{{ route('auth.google.customer') }}">
+                                <i class="ph ph-google-logo" aria-hidden="true"></i> Masuk dengan Google
+                            </a>
+                        @else
+                            <p class="wn-auth-password-hint">Login Google tersedia setelah OAuth Google dikonfigurasi.</p>
+                        @endif
+
                         <form method="POST" action="{{ route('login.store') }}" class="wn-auth-form">
                             @csrf
                             <label class="wn-auth-field" for="login-email">
@@ -57,6 +70,36 @@
                             <button type="submit" class="wn-auth-submit">Masuk sebagai pelanggan <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
                         </form>
 
+                        <div class="wn-auth-form">
+                            <p class="wn-auth-eyebrow">Atau masuk dengan WhatsApp</p>
+                            @if(session('whatsapp_login_sent'))
+                                <p class="wn-auth-password-hint" role="status">Jika nomor terverifikasi pada akun, kode akan dikirim dan berlaku 5 menit.</p>
+                            @endif
+                            @if($whatsappEnabled)
+                                <form method="POST" action="{{ route('auth.whatsapp.login.request') }}" class="wn-auth-form">
+                                    @csrf
+                                    <label class="wn-auth-field" for="login-whatsapp-number">
+                                        Nomor WhatsApp
+                                        <input id="login-whatsapp-number" type="tel" name="phone_number" value="{{ old('phone_number', $pendingWhatsAppLogin['phone'] ?? '') }}" placeholder="08xxxxxxxxxx" required autocomplete="tel">
+                                    </label>
+                                    <button type="submit" class="wn-auth-submit">Kirim kode OTP</button>
+                                </form>
+                                @if(is_array($pendingWhatsAppLogin))
+                                    <form method="POST" action="{{ route('auth.whatsapp.login.verify') }}" class="wn-auth-form">
+                                        @csrf
+                                        <label class="wn-auth-field" for="login-whatsapp-code">
+                                            Kode OTP
+                                            <input id="login-whatsapp-code" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" placeholder="6 digit kode" required autocomplete="one-time-code">
+                                        </label>
+                                        <input type="hidden" name="phone_number" value="{{ $pendingWhatsAppLogin['phone'] }}">
+                                        <button type="submit" class="wn-auth-submit">Verifikasi dan masuk</button>
+                                    </form>
+                                @endif
+                            @else
+                                <p class="wn-auth-password-hint">Login WhatsApp belum aktif: konfigurasi Meta Cloud API belum lengkap.</p>
+                            @endif
+                        </div>
+
                         <p class="wn-auth-switch">Belum punya akun? <a href="{{ route('register') }}" data-auth-toggle="register">Daftar pelanggan</a></p>
                     </div>
                 </section>
@@ -65,13 +108,19 @@
                     <div class="wn-auth-card">
                         <p class="wn-auth-eyebrow">Ruang pelangganmu</p>
                         <h2 class="wn-auth-heading" id="register-title" tabindex="-1">Buat akun baru</h2>
-                        <p class="wn-auth-description">Daftar untuk menyimpan tempat favorit, checkout, dan melacak pesanan.</p>
+                        <p class="wn-auth-description">Daftar untuk menyimpan tempat favorit, checkout, dan melihat status pesanan di riwayat.</p>
 
                         @if($isRegister && $errors->any())
                             <div class="wn-auth-alert" role="alert">
                                 <i class="ph ph-warning-circle" aria-hidden="true"></i>
                                 <span>{{ $errors->first() }}</span>
                             </div>
+                        @endif
+
+                        @if($googleEnabled)
+                            <a class="wn-auth-submit" href="{{ route('auth.google.customer') }}">
+                                <i class="ph ph-google-logo" aria-hidden="true"></i> Daftar dengan Google
+                            </a>
                         @endif
 
                         <form method="POST" action="{{ route('register.store') }}" class="wn-auth-form">

@@ -82,7 +82,10 @@
                 <div class="flex items-center gap-2.5">
                     @php
                         $cartItemCount = collect(session('order_cart.items', []))
-                            ->sum(fn ($quantity) => max(0, (int) $quantity));
+                            ->sum(fn ($quantity) => max(0, (int) $quantity))
+                            + collect(session('order_cart.addons', []))
+                                ->flatten()
+                                ->sum(fn ($quantity) => max(0, (int) $quantity));
                     @endphp
                     <a href="{{ route('cart.show') }}" data-cart-count-link aria-label="Keranjang, {{ $cartItemCount }} produk" title="Keranjang"
                         class="detail-cart-link relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/20 text-white shadow-2xl backdrop-blur-xl transition-all hover:bg-black/40 active:scale-90">
@@ -200,7 +203,7 @@
 
                 {{-- Social Media Links (Horizontal Scroll) --}}
                 @if($activeSocialLinks->isNotEmpty())
-                    <div class="flex gap-3 overflow-x-auto no-scrollbar px-4 mt-6 pb-2">
+                    <div class="flex gap-3 overflow-x-auto no-scrollbar mt-6 pb-2">
                         @foreach($activeSocialLinks as $link)
                             @php
                                 $platform = strtolower($link['platform'] ?? '');
@@ -215,7 +218,7 @@
                                 };
                             @endphp
                             <a href="{{ e($link['url']) }}" target="_blank"
-                               class="flex-shrink-0 flex items-center gap-2 px-4 py-3 rounded-2xl bg-white border border-slate-100 shadow-soft active:scale-95 transition-all no-underline">
+                               class="cafe-social-link flex-shrink-0 flex items-center gap-2 px-4 py-3 active:scale-95 no-underline">
                                 <i class="{{ $icon }} text-amber-600 text-lg"></i>
                                 <span class="text-[0.7rem] font-black uppercase tracking-widest text-espresso">{{ $platform }}</span>
                             </a>
@@ -224,11 +227,9 @@
                 @endif
             </section>
 
-            </section>
-
             {{-- Tongkrongan CTA --}}
             <section class="mb-8">
-                <a href="{{ route('tongkrongan.create') }}" class="w-full flex items-center justify-between bg-amber-50 border border-amber-200 rounded-2xl p-4 active:scale-[0.98] transition-transform no-underline">
+                <a href="{{ route('tongkrongan.create') }}" class="cafe-tongkrongan-cta w-full flex items-center justify-between rounded-2xl p-4 active:scale-[0.98] no-underline">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center text-white shadow-sm">
                             <i class="ph-fill ph-users-three text-lg"></i>
@@ -272,13 +273,13 @@
             {{-- Catatan Komunitas (WFC Comments) --}}
             @if($cafe->wfcScores->isNotEmpty())
                 <section class="mb-12 animate-up">
-                    <h2 class="text-sm font-bold text-espresso uppercase tracking-widest mb-5 flex items-center gap-2.5">
+                    <h2 class="cafe-detail-section-title mb-5">
                         <i class="ph-fill ph-chat-centered-text text-amber-600 text-lg"></i>
                         Suara Warga
                     </h2>
                     <div class="space-y-4">
                         @foreach($cafe->wfcScores->take(5) as $score)
-                            <div class="bg-white/40 backdrop-blur-md border border-slate-100 p-5 rounded-[24px] shadow-sm">
+                            <div class="cafe-wfc-review-card">
                                 <div class="flex justify-between items-start mb-3">
                                     <div class="flex items-center gap-3">
                                         <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 font-bold text-[0.7rem]">
@@ -332,18 +333,16 @@
 
             {{-- Features Section --}}
             <section class="mb-12">
-                <h2 class="text-sm font-bold text-espresso uppercase tracking-widest mb-5 flex items-center gap-2.5">
+                <h2 class="cafe-detail-section-title mb-5">
                     <i class="ph-fill ph-armchair text-amber-600 text-lg"></i>
                     Fasilitas Penunjang
                 </h2>
                 <div class="flex flex-wrap gap-2.5">
                     @forelse($cafe->facilities as $f)
                         <div
-                            class="bg-slate-50 border border-slate-100 px-4 py-2.5 rounded-2xl flex items-center gap-2.5 transition-all shadow-sm hover:shadow-md hover:bg-amber-50/50 hover:border-amber-200/50 group/fac cursor-default">
-                            <i
-                                class="{{ $f->icon ?? 'ph ph-check-circle' }} text-slate-400 text-lg group-hover/fac:text-amber-500 group-hover/fac:scale-110 transition-all duration-300"></i>
-                            <span
-                                class="font-bold text-slate-700 text-[0.8rem] group-hover/fac:text-amber-800 transition-colors">{{ $f->name }}</span>
+                            class="cafe-facility-chip group/fac cursor-default">
+                            <i class="{{ $f->icon ?? 'ph ph-check-circle' }}"></i>
+                            <span>{{ $f->name }}</span>
                         </div>
                     @empty
                         <span class="text-slate-300 italic text-sm">Informasi fasilitas belum tersedia.</span>
@@ -375,15 +374,15 @@
                     <div class="cafe-menu-panel mb-8">
                         <div class="cafe-menu-panel-heading">
                             <div class="cafe-menu-availability">
-                                <span class="cafe-menu-availability-label">Katalog menu</span>
+                                <span class="cafe-menu-availability-icon" aria-hidden="true">
+                                    <i class="ph-fill ph-coffee"></i>
+                                </span>
+                                <div class="cafe-menu-availability-copy">
+                                    <span class="cafe-menu-availability-label">Katalog menu</span>
+                                    <span class="cafe-menu-availability-caption">Pilih menu favoritmu</span>
+                                </div>
                                 <span class="cafe-menu-product-count">{{ $menuItems->count() }} produk</span>
                             </div>
-                            @if($menuItems->contains(fn ($item) => $item->is_active && $item->available_stock > 0))
-                                <a href="{{ route('cart.show') }}" class="cafe-menu-cart-link">
-                                    <i class="ph-bold ph-shopping-cart" aria-hidden="true"></i>
-                                    <span>Lihat keranjang</span>
-                                </a>
-                            @endif
                         </div>
 
                         @if($errors->has('cart'))
@@ -403,28 +402,42 @@
                                             $itemImage = $item->image_path
                                                 ? (Str::startsWith($item->image_path, ['http://', 'https://']) ? $item->image_path : Storage::disk('public')->url($item->image_path))
                                                 : null;
+                                            $hasDescription = filled($item->description) && $itemImage !== null;
                                         @endphp
-                                        <article class="cafe-menu-item">
-                                            @if($itemImage)
-                                                <img src="{{ $itemImage }}" alt="{{ $item->name }}" class="cafe-menu-item-image" loading="lazy">
-                                            @else
-                                                <div class="cafe-menu-item-placeholder" aria-hidden="true"><i class="ph ph-coffee"></i></div>
+                                        <article class="cafe-menu-item{{ $hasDescription ? '' : ' cafe-menu-item--compact' }}{{ $itemImage ? '' : ' cafe-menu-item--no-image' }}">
+                                            @if($hasDescription)
+                                                @if($itemImage)
+                                                    <img src="{{ $itemImage }}" alt="{{ $item->name }}" class="cafe-menu-item-image" loading="lazy">
+                                                @endif
                                             @endif
                                             <div class="cafe-menu-item-content">
                                                 <div class="cafe-menu-item-copy">
                                                     <h4 class="cafe-menu-item-name">{{ $item->name }}</h4>
-                                                    @if($item->description)<p class="cafe-menu-item-description">{{ $item->description }}</p>@endif
+                                                    @if($hasDescription)<p class="cafe-menu-item-description">{{ $item->description }}</p>@endif
                                                 </div>
                                                 <div class="cafe-menu-item-footer">
                                                     <p class="cafe-menu-item-price">Rp{{ number_format((float) $item->price, 0, ',', '.') }}</p>
                                                     @if($item->is_active && $item->available_stock > 0)
-                                                        <form method="POST" action="{{ route('cart.items.add', [$cafe->slug, $item->id]) }}" data-cart-add-form data-customer-authenticated="{{ auth()->check() ? 'true' : 'false' }}">
-                                                            @csrf
-                                                            <button type="submit" class="cafe-menu-add-button">
+                                                        @if($item->addons->isNotEmpty())
+                                                            <button
+                                                                type="button"
+                                                                class="cafe-menu-add-button"
+                                                                data-menu-addon-open
+                                                                data-add-url="{{ route('cart.items.add', [$cafe->slug, $item->id]) }}"
+                                                                data-menu-name="{{ $item->name }}"
+                                                                data-menu-addons="{{ $item->addons->map(fn ($addon) => ['id' => $addon->id, 'name' => $addon->addon_name, 'price' => (float) $addon->price])->values()->toJson() }}">
                                                                 <i class="ph-bold ph-plus" aria-hidden="true"></i>
-                                                                <span>Tambah</span>
+                                                                <span>Pilih menu</span>
                                                             </button>
-                                                        </form>
+                                                        @else
+                                                            <form method="POST" action="{{ route('cart.items.add', [$cafe->slug, $item->id]) }}" data-cart-add-form data-customer-authenticated="{{ auth()->check() ? 'true' : 'false' }}">
+                                                                @csrf
+                                                                <button type="submit" class="cafe-menu-add-button">
+                                                                    <i class="ph-bold ph-plus" aria-hidden="true"></i>
+                                                                    <span>Tambah</span>
+                                                                </button>
+                                                            </form>
+                                                        @endif
                                                     @endif
                                                 </div>
                                             </div>
@@ -844,4 +857,16 @@
         });
     </script>
     @include('orders.partials.cart-add-modal')
+<dialog data-menu-addon-dialog aria-labelledby="menu-addon-dialog-title" class="m-auto w-[min(94vw,30rem)] max-w-full rounded-2xl p-0 shadow-2xl backdrop:bg-black/50">
+    <form method="POST" data-cart-add-form data-customer-authenticated="{{ auth()->check() ? 'true' : 'false' }}" class="p-5 sm:p-6">
+        @csrf
+        <h2 id="menu-addon-dialog-title" data-menu-addon-title class="text-xl font-extrabold text-[#2C1810]"></h2>
+        <p class="mt-1 text-sm text-slate-500">Pilih topping dan jumlahnya. Jumlah topping dihitung terpisah dari porsi menu.</p>
+        <div data-menu-addon-options class="mt-5 space-y-3"></div>
+        <div class="mt-6 flex justify-end gap-3">
+            <button type="button" data-menu-addon-close class="rounded-xl border border-slate-200 px-4 py-2 font-semibold text-slate-700">Batal</button>
+            <button type="submit" class="cafe-menu-add-button">Tambah ke keranjang</button>
+        </div>
+    </form>
+</dialog>
 @endsection

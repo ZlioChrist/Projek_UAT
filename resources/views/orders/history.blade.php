@@ -14,8 +14,8 @@
                 <span class="wn-history-icon"><i class="ph ph-coffee" aria-hidden="true"></i></span>
                 <span class="wn-history-content">
                     <strong>{{ $order->shop_name }}</strong>
-                    <span class="wn-history-meta">{{ $order->created_at->format('d/m/Y H:i') }} <span aria-hidden="true">·</span> {{ $order->public_code }}</span>
-                    <span class="wn-history-items">{{ $order->items->map(fn ($item) => $item->name_snapshot.' × '.$item->quantity)->implode(' · ') }}</span>
+                    <span class="wn-history-meta">{{ $order->created_at->format('d/m/Y H:i') }} <span aria-hidden="true">·</span> {{ $order->display_code }}</span>
+                    <span class="wn-history-items">{{ $order->items->map(fn ($item) => ($item->parent_order_item_id ? '+ ' : '').$item->name_snapshot.' × '.$item->quantity)->implode(' · ') }}</span>
                 </span>
                 <span class="wn-history-total">
                     <strong>Rp{{ number_format((float)$order->total,0,',','.') }}</strong>

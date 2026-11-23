@@ -95,7 +95,7 @@ const VibeMeter = ({ cafeId, cafeLat, cafeLng }) => {
     return (
         <section className="mb-12">
             <div className="flex items-center justify-between mb-5 px-1">
-                <h2 className="text-sm font-bold text-espresso uppercase tracking-widest flex items-center gap-2.5">
+                <h2 className="cafe-detail-section-title">
                     <i className="ph-fill ph-pulse text-amber-600 text-lg"></i>
                     Live Vibe
                 </h2>

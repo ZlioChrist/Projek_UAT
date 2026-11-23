@@ -3,13 +3,20 @@
 namespace App\Livewire;
 
 use App\Models\Cafe;
+use App\Models\CafeLocationPoint;
 use App\Models\City;
+use App\Services\CafeSearchService;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class ExploreSearch extends Component
 {
     use WithPagination;
+
+    private const CURRENT_PLACE_MAX_ACCURACY_METERS = 25;
+
+    private const CURRENT_PLACE_CERTAINTY_RADIUS_KM = 0.04;
 
     public int $perPage = 12;
 
@@ -28,6 +35,8 @@ class ExploreSearch extends Component
     public ?float $userLat = null;
 
     public ?float $userLng = null;
+
+    public ?float $userAccuracy = null;
 
     public ?int $randomSeed = null;
 
@@ -84,6 +93,7 @@ class ExploreSearch extends Component
         if ($this->filter !== 'terdekat') {
             $this->userLat = null;
             $this->userLng = null;
+            $this->userAccuracy = null;
         }
 
         $this->resetPage();
@@ -150,6 +160,7 @@ class ExploreSearch extends Component
         $this->cityId = null;
         $this->userLat = null;
         $this->userLng = null;
+        $this->userAccuracy = null;
         $this->perPage = 12;
         $this->resetPage();
     }
@@ -162,10 +173,23 @@ class ExploreSearch extends Component
         $this->resetPage();
     }
 
-    public function setUserLocation(float $lat, float $lng): void
+    public function setUserLocation(float $lat, float $lng, ?float $accuracy = null): void
     {
+        if ($lat < -90 || $lat > 90 || $lng < -180 || $lng > 180) {
+            throw ValidationException::withMessages([
+                'location' => 'Koordinat lokasi tidak valid. Coba ambil lokasi kembali.',
+            ]);
+        }
+
+        if ($accuracy !== null && (! is_finite($accuracy) || $accuracy < 0)) {
+            throw ValidationException::withMessages([
+                'location' => 'Akurasi lokasi tidak valid. Coba ambil lokasi kembali.',
+            ]);
+        }
+
         $this->userLat = $lat;
         $this->userLng = $lng;
+        $this->userAccuracy = $accuracy;
         $this->filter = 'terdekat';
         $this->sort = 'distance';
         $this->resetPage();
@@ -232,7 +256,7 @@ class ExploreSearch extends Component
             // HIGH-SPEED ID SAMPLING STRATEGY
             // Instead of ORDER BY RAND() which is O(N) sorting, we use a cached pool of IDs.
             $citySuffix = $this->cityId ? "_city_{$this->cityId}" : '_all';
-            $cacheKeyPool = "cafe_id_pool_v3" . $citySuffix; // Incremented version to force fresh cache
+            $cacheKeyPool = 'cafe_id_pool_v3'.$citySuffix;
 
             $idPool = \Illuminate\Support\Facades\Cache::remember($cacheKeyPool, now()->addHours(1), function () {
                 $q = Cafe::where('status', 'published');
@@ -274,13 +298,13 @@ class ExploreSearch extends Component
                 }
             } else {
                 $query->latest();
-                $totalResults = Cafe::where('status', 'published')->count(); 
+                $totalResults = Cafe::where('status', 'published')->count();
                 $results = $query->limit($this->perPage)->get();
             }
         } else {
             // 3. Robust Total Counting for standard filters
             $locationHash = ($this->userLat !== null && $this->userLng !== null) ? round($this->userLat, 3) . ',' . round($this->userLng, 3) : 'none';
-            $cacheKeyTotal = 'total_v11_' . md5($this->cityId . $this->search . $this->activeLetter . $this->filter . $locationHash);
+            $cacheKeyTotal = 'total_v11_'.md5($this->cityId.$this->search.$this->activeLetter.$this->filter.$locationHash);
             $totalResults = \Illuminate\Support\Facades\Cache::remember($cacheKeyTotal, now()->addMinutes(10), fn() => $query->count());
 
             // Standard Sorts
@@ -307,6 +331,23 @@ class ExploreSearch extends Component
         $results->each(function ($c) {
             unset($c->location);
         });
+
+        $nearestCafe = $this->filter === 'terdekat' ? $results->first() : null;
+        $nearestLocationPoint = null;
+        if ($this->filter === 'terdekat' && $this->userLat !== null && $this->userLng !== null) {
+            $nearestLocationPoint = app(CafeSearchService::class)
+                ->scopeNearest(CafeLocationPoint::query(), $this->userLat, $this->userLng)
+                ->first();
+        }
+
+        $nearestLocationPointIsClosest = $nearestLocationPoint
+            && (! $nearestCafe || (float) $nearestLocationPoint->distance <= (float) $nearestCafe->distance);
+        $nearestPlace = $nearestLocationPointIsClosest ? $nearestLocationPoint : $nearestCafe;
+        $nearestPlaceDistance = $nearestPlace ? (float) $nearestPlace->distance : null;
+        $isAtCafe = $nearestPlaceDistance !== null
+            && $this->userAccuracy !== null
+            && $this->userAccuracy <= self::CURRENT_PLACE_MAX_ACCURACY_METERS
+            && $nearestPlaceDistance + ($this->userAccuracy / 1000) <= self::CURRENT_PLACE_CERTAINTY_RADIUS_KM;
 
         $hasGeolocatedCafes = true;
         if ($this->filter === 'terdekat' && $results->isEmpty()) {
@@ -346,6 +387,15 @@ class ExploreSearch extends Component
             'cafes' => $cafesPaginator,
             'cities' => $this->cities,
             'hasGeolocatedCafes' => $hasGeolocatedCafes,
+            'nearestCafe' => $nearestCafe,
+            'nearestLocationPoint' => $nearestLocationPoint,
+            'nearestLocationPointIsClosest' => (bool) $nearestLocationPointIsClosest,
+            'nearestPlace' => $nearestPlace,
+            'nearestPlaceDistance' => $nearestPlaceDistance,
+            'isAtCafe' => (bool) $isAtCafe,
+            'userLat' => $this->userLat,
+            'userLng' => $this->userLng,
+            'userAccuracy' => $this->userAccuracy,
         ]);
     }
 }

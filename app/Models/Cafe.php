@@ -45,6 +45,8 @@ class Cafe extends Model
         'bank_name',
         'bank_account_number',
         'bank_account_name',
+        'delivery_base_fee',
+        'delivery_fee_per_km',
         'wfc_avg_score',
         'wfc_review_count',
         'current_vibe',
@@ -189,6 +191,8 @@ class Cafe extends Model
             'weekday_close' => 'string',
             'weekend_open' => 'string',
             'weekend_close' => 'string',
+            'delivery_base_fee' => 'integer',
+            'delivery_fee_per_km' => 'integer',
         ];
     }
 
@@ -198,6 +202,10 @@ class Cafe extends Model
     protected static function booted(): void
     {
         static::creating(function ($cafe) {
+            if (blank($cafe->status)) {
+                $cafe->status = 'review';
+            }
+
             if (empty($cafe->slug)) {
                 $cafe->slug = static::generateUniqueSlug($cafe->name);
             }

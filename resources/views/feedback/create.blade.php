@@ -15,7 +15,7 @@
             @if($order)
                 <div class="wn-feedback-order">
                     <span><i class="ph ph-storefront" aria-hidden="true"></i></span>
-                    <div><small>Pesanan selesai</small><strong>{{ $order->shop_name }}</strong><small>Kode: {{ $order->public_code }}</small></div>
+                    <div><small>Pesanan selesai</small><strong>{{ $order->shop_name }}</strong><small>Kode: {{ $order->display_code }}</small></div>
                 </div>
             @else
                 <label>Kafe atau roastery

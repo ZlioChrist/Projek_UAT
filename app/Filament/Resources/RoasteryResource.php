@@ -82,12 +82,12 @@ class RoasteryResource extends Resource
 
                         Forms\Components\Select::make('status')
                             ->options([
-                                'draft' => 'Masih Draft',
-                                'review' => 'Lagi Di-Review',
-                                'published' => 'Udah Tayang',
+                                'draft' => 'Draf',
+                                'review' => 'Pending',
+                                'published' => 'Publik',
                             ])
                             ->label('Status')
-                            ->default('draft')
+                            ->default('review')
                             ->required(),
                     ])
                     ->columns(2)
@@ -343,9 +343,9 @@ class RoasteryResource extends Resource
                         default => 'gray',
                     })
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'draft' => 'Draft',
-                        'review' => 'Pending Review',
-                        'published' => 'Published',
+                        'draft' => 'Draf',
+                        'review' => 'Pending',
+                        'published' => 'Publik',
                         default => $state,
                     })
                     ->sortable(),
@@ -353,9 +353,9 @@ class RoasteryResource extends Resource
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->options([
-                        'draft' => 'Draft',
-                        'review' => 'Pending Review',
-                        'published' => 'Published',
+                        'draft' => 'Draf',
+                        'review' => 'Pending',
+                        'published' => 'Publik',
                     ]),
                 Tables\Filters\SelectFilter::make('city_id')
                     ->relationship('city', 'name'),

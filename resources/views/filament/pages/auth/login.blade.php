@@ -1,3 +1,11 @@
+@php
+    $googleEnabled = filled(config('services.google.client_id')) && filled(config('services.google.client_secret'));
+    $whatsappEnabled = filled(config('services.meta_whatsapp.access_token'))
+        && filled(config('services.meta_whatsapp.phone_number_id'))
+        && filled(config('services.meta_whatsapp.otp_template'));
+    $pendingWhatsAppLogin = session('auth.whatsapp.login');
+@endphp
+
 <div class="fi-wn-login-page">
 
     {{--  NUCLEAR CSS INJECTION (God Tier Priority)  --}}
@@ -129,6 +137,36 @@
             padding: 2.5rem !important;
             box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
         }
+
+        .fi-wn-login-secondary {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.25rem;
+            padding: 1.25rem;
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+            background: rgba(0,0,0,.24);
+            color: rgba(255,255,255,.72);
+        }
+
+        .fi-wn-login-secondary a,
+        .fi-wn-login-secondary button {
+            display: flex;
+            min-height: 46px;
+            align-items: center;
+            justify-content: center;
+            gap: .5rem;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 12px;
+            background: rgba(255,255,255,.08);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .fi-wn-login-secondary form { display: grid; gap: .65rem; }
+        .fi-wn-login-secondary input { width: 100%; padding: .8rem; border: 1px solid rgba(255,255,255,.14); border-radius: 10px; background: rgba(0,0,0,.4); color: #fff; }
+        .fi-wn-login-secondary .fi-wn-login-muted { color: rgba(255,255,255,.55); font-size: .78rem; }
 
         /* Input Overrides (Nuklir) */
         .fi-wn-login-page .fi-fo-field-wrp-label {
@@ -270,6 +308,41 @@
                 </div>
             </x-filament-panels::form>
         </main>
+
+        <section class="fi-wn-login-secondary" aria-label="Metode login tambahan">
+            @if($errors->any())
+                <p role="alert" class="fi-wn-login-muted">{{ $errors->first() }}</p>
+            @endif
+            @if($googleEnabled)
+                <a href="{{ route('owner.auth.google.redirect') }}"><i class="ph ph-google-logo" aria-hidden="true"></i> Masuk dengan Google</a>
+            @else
+                <p class="fi-wn-login-muted">Login Google tersedia setelah OAuth Google dikonfigurasi.</p>
+            @endif
+
+            @if($whatsappEnabled)
+                <form method="POST" action="{{ route('owner.auth.whatsapp.login.request') }}">
+                    @csrf
+                    <label class="fi-wn-login-muted" for="admin-whatsapp-number">Nomor WhatsApp admin</label>
+                    <input id="admin-whatsapp-number" type="tel" name="phone_number" value="{{ old('phone_number', $pendingWhatsAppLogin['phone'] ?? '') }}" placeholder="08xxxxxxxxxx" required autocomplete="tel">
+                    <button type="submit">Kirim kode OTP</button>
+                </form>
+                @if(session('whatsapp_login_sent') && is_array($pendingWhatsAppLogin))
+                    <p class="fi-wn-login-muted" role="status">Kode berlaku 5 menit. Gunakan hanya pada halaman ini.</p>
+                    <form method="POST" action="{{ route('owner.auth.whatsapp.login.verify') }}">
+                        @csrf
+                        <input type="hidden" name="phone_number" value="{{ $pendingWhatsAppLogin['phone'] }}">
+                        <label class="fi-wn-login-muted" for="admin-whatsapp-code">Kode OTP</label>
+                        <input id="admin-whatsapp-code" name="code" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" placeholder="6 digit kode" required autocomplete="one-time-code">
+                        <button type="submit">Verifikasi dan masuk</button>
+                    </form>
+                @endif
+            @else
+                <p class="fi-wn-login-muted">Login WhatsApp belum aktif: konfigurasi Meta Cloud API belum lengkap.</p>
+            @endif
+            @if(session('whatsapp_login_sent') && !is_array($pendingWhatsAppLogin))
+                <p class="fi-wn-login-muted" role="status">Jika nomor terverifikasi pada akun, kode akan dikirim dan berlaku 5 menit.</p>
+            @endif
+        </section>
 
         {{-- Secondary Actions --}}
         <footer class="mt-10 text-center">

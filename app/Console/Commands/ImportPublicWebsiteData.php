@@ -116,8 +116,6 @@ class ImportPublicWebsiteData extends Command
                                 'category' => $product['category'] ?? 'Lainnya',
                                 'description' => $product['description'] ?? null,
                                 'price' => $product['price'],
-                                'stock' => 0,
-                                'reserved_stock' => 0,
                                 'is_active' => true,
                             ],
                         );

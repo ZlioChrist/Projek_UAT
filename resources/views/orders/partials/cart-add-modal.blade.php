@@ -8,6 +8,7 @@
                 const cartLinks = document.querySelectorAll('[data-cart-count-link]');
                 const csrfToken = document.querySelector('input[name="_token"]')?.value;
                 const loginUrl = @json(route('login'));
+                const menuAddonDialog = document.querySelector('[data-menu-addon-dialog]');
                 const currency = new Intl.NumberFormat('id-ID', {
                     style: 'currency',
                     currency: 'IDR',
@@ -100,6 +101,51 @@
                     }));
                 };
 
+                document.addEventListener('click', (event) => {
+                    const trigger = event.target.closest('[data-menu-addon-open]');
+                    if (trigger) {
+                        const form = menuAddonDialog?.querySelector('[data-cart-add-form]');
+                        const options = menuAddonDialog?.querySelector('[data-menu-addon-options]');
+                        if (!form || !options) return;
+
+                        form.action = trigger.dataset.addUrl;
+                        menuAddonDialog.querySelector('[data-menu-addon-title]').textContent = trigger.dataset.menuName;
+                        options.replaceChildren();
+
+                        for (const addon of JSON.parse(trigger.dataset.menuAddons || '[]')) {
+                            const row = document.createElement('label');
+                            row.className = 'flex items-center justify-between gap-4 rounded-xl border border-slate-200 p-3';
+                            const copy = document.createElement('span');
+                            copy.className = 'min-w-0';
+                            const name = document.createElement('strong');
+                            name.className = 'block text-sm font-bold text-[#2C1810]';
+                            name.textContent = addon.name;
+                            const price = document.createElement('small');
+                            price.className = 'block text-xs text-slate-500';
+                            price.textContent = currency.format(addon.price);
+                            copy.append(name, price);
+
+                            const quantity = document.createElement('input');
+                            quantity.type = 'number';
+                            quantity.name = `addon_quantities[${addon.id}]`;
+                            quantity.min = '0';
+                            quantity.max = '99';
+                            quantity.value = '0';
+                            quantity.setAttribute('aria-label', `Jumlah ${addon.name}`);
+                            quantity.className = 'w-20 rounded-lg border border-slate-300 px-2 py-2 text-center';
+                            row.append(copy, quantity);
+                            options.append(row);
+                        }
+
+                        menuAddonDialog.showModal();
+                        return;
+                    }
+
+                    if (event.target.closest('[data-menu-addon-close]')) {
+                        menuAddonDialog?.close();
+                    }
+                });
+
                 document.addEventListener('submit', async (event) => {
                     const form = event.target.closest('[data-cart-add-form]');
                     if (!form) return;
@@ -140,6 +186,7 @@
                         }
 
                         updateCartView(result);
+                        form.closest('[data-menu-addon-dialog]')?.close();
                         const productName = result.items.find((item) => item.id === result.added_item_id)?.name ?? 'Produk';
                         showFeedback(`${productName} ditambahkan ke keranjang.`);
                     } catch {
