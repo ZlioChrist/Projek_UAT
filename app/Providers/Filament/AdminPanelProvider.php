@@ -2,7 +2,6 @@
 
 namespace App\Providers\Filament;
 
-use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Pages\AiOptimization;
 use App\Filament\Pages\Auth\CustomLogin;
@@ -11,6 +10,7 @@ use App\Filament\Pages\ProfileSettings;
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\WelcomeBanner;
 use App\Http\Middleware\SecurityHeaders;
+use App\Support\AuthenticatedUser;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -83,7 +83,7 @@ class AdminPanelProvider extends PanelProvider
                 'Kendali Admin',
             ])
             ->navigationItems([
-                NavigationItem::make('Optimalisasi AI')
+                NavigationItem::make('Automatisasi AI')
                     ->url(fn (): string => AiOptimization::getUrl())
                     ->icon('heroicon-o-sparkles')
                     ->group('Fitur Tambahan')
