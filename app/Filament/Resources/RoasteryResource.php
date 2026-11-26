@@ -192,6 +192,11 @@ class RoasteryResource extends Resource
                                     ->placeholder('Contoh: Cantumkan kode pesanan pada berita transfer.')
                                     ->helperText('Ditampilkan sebagai catatan tambahan pada checkout. Jangan masukkan PIN atau kata sandi bank.')
                                     ->columnSpanFull(),
+                                Forms\Components\Toggle::make('accepts_cash')
+                                    ->label('Terima pembayaran tunai (ambil sendiri)')
+                                    ->default(true)
+                                    ->helperText('Tunai hanya tersedia untuk pesanan yang diambil di roastery.')
+                                    ->columnSpanFull(),
                             ])->columns(2),
 
                         Forms\Components\Section::make('Jam Operasional')

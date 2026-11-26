@@ -5,23 +5,57 @@ namespace App\Models;
 use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\HasAvatar;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
+use RuntimeException;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasAvatar
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    protected static function booted(): void
+    {
+        static::deleting(function (User $user): void {
+            $conversations = $user->geminiChatConversations()->with('messages')->get();
+
+            foreach ($conversations as $conversation) {
+                foreach ($conversation->messages as $message) {
+                    if ($message->image_path !== null
+                        && Storage::disk('local')->exists($message->image_path)
+                        && ! Storage::disk('local')->delete($message->image_path)) {
+                        throw new RuntimeException('A Gemini chat image could not be deleted.');
+                    }
+                }
+            }
+
+            foreach ($user->aiPromptPreviews as $preview) {
+                if (Storage::disk('local')->exists($preview->image_path)
+                    && ! Storage::disk('local')->delete($preview->image_path)) {
+                    throw new RuntimeException('An AI prompt preview could not be deleted.');
+                }
+            }
+        });
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {
         $role = UserRole::fromUserValue($this->role);
 
         return $role?->canAccessPanel() ?? false;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return filled($this->profile_photo_path)
+            ? Storage::disk('public')->url($this->profile_photo_path)
+            : null;
     }
 
     public function cafes()
@@ -57,6 +91,16 @@ class User extends Authenticatable implements FilamentUser
     public function userBadges(): HasMany
     {
         return $this->hasMany(UserBadge::class);
+    }
+
+    public function geminiChatConversations(): HasMany
+    {
+        return $this->hasMany(GeminiChatConversation::class);
+    }
+
+    public function aiPromptPreviews(): HasMany
+    {
+        return $this->hasMany(AiPromptPreview::class);
     }
 
     /**

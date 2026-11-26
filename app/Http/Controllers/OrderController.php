@@ -264,17 +264,17 @@ class OrderController extends Controller
         return redirect()->route('cart.show')->with('status', 'Keranjang dikosongkan.');
     }
 
-    public function checkout(Cafe $cafe, Request $request): View|RedirectResponse
+    public function checkout(Cafe $cafe, Request $request, OrderService $orders): View|RedirectResponse
     {
-        return $this->checkoutForShop($cafe, $request);
+        return $this->checkoutForShop($cafe, $request, $orders);
     }
 
-    public function checkoutRoastery(Roastery $roastery, Request $request): View|RedirectResponse
+    public function checkoutRoastery(Roastery $roastery, Request $request, OrderService $orders): View|RedirectResponse
     {
-        return $this->checkoutForShop($roastery, $request);
+        return $this->checkoutForShop($roastery, $request, $orders);
     }
 
-    private function checkoutForShop(Cafe|Roastery $shop, Request $request): View|RedirectResponse
+    private function checkoutForShop(Cafe|Roastery $shop, Request $request, OrderService $orders): View|RedirectResponse
     {
         $cart = $request->session()->get('order_cart', ['cafe_id' => null, 'items' => []]);
         $cartType = $cart['seller_type'] ?? (! empty($cart['cafe_id']) ? 'cafe' : null);
@@ -300,13 +300,29 @@ class OrderController extends Controller
             $request->session()->put('order_checkout_key', $checkoutKey);
         }
         $cafe = $shop;
-        $paymentQrAvailable = $this->paymentQrIsAvailable($shop);
+        $availablePaymentMethods = $orders->availablePaymentMethods($shop);
+        $paymentQrAvailable = in_array('qris', $availablePaymentMethods, true);
+        $transferAvailable = in_array('transfer', $availablePaymentMethods, true);
+        $cashAvailable = in_array('cash', $availablePaymentMethods, true);
         $deliveryAvailable = $shop instanceof Cafe
             && $shop->delivery_base_fee !== null
-            && $shop->delivery_fee_per_km !== null;
+            && $shop->delivery_fee_per_km !== null
+            && array_intersect(['qris', 'transfer'], $availablePaymentMethods) !== [];
         $whatsappUrl = $this->shopWhatsappUrl($shop, 'Halo, saya membutuhkan bantuan terkait pembayaran pesanan.');
 
-        return view('orders.checkout', compact('cafe', 'cart', 'items', 'addonsByParent', 'checkoutKey', 'paymentQrAvailable', 'deliveryAvailable', 'whatsappUrl'));
+        return view('orders.checkout', compact(
+            'cafe',
+            'cart',
+            'items',
+            'addonsByParent',
+            'checkoutKey',
+            'paymentQrAvailable',
+            'transferAvailable',
+            'cashAvailable',
+            'availablePaymentMethods',
+            'deliveryAvailable',
+            'whatsappUrl',
+        ));
     }
 
     public function placeOrder(Request $request, Cafe $cafe, OrderService $orders): RedirectResponse
@@ -354,8 +370,13 @@ class OrderController extends Controller
             ]);
         }
 
-        if ($paymentMethod === 'qris' && ! $this->paymentQrIsAvailable($shop)) {
-            throw ValidationException::withMessages(['payment_method' => 'QRIS kedai sedang tidak tersedia. Pilih metode lain atau hubungi kedai melalui WhatsApp.']);
+        if (
+            $fulfillmentMethod === 'delivery'
+            && array_intersect(['qris', 'transfer'], $orders->availablePaymentMethods($shop)) === []
+        ) {
+            throw ValidationException::withMessages([
+                'fulfillment_method' => 'Pengantaran belum tersedia karena kedai belum mengatur pembayaran QRIS atau transfer.',
+            ]);
         }
 
         $cart = $request->session()->get('order_cart', ['cafe_id' => null, 'items' => []]);
@@ -408,7 +429,7 @@ class OrderController extends Controller
         $canCustomerConfirmReceipt = $customer && (int) $order->user_id === (int) $customer->id;
         $order->makeHidden(['user_id', 'customer_whatsapp']);
         $shop = $order->shop;
-        $paymentQrAvailable = $shop && $this->paymentQrIsAvailable($shop);
+        $paymentQrAvailable = $shop && $orders->isPaymentMethodAvailable($shop, 'qris');
         $whatsappUrl = $shop
             ? $this->shopWhatsappUrl($shop, "Halo, saya perlu bantuan pembayaran pesanan {$order->public_code}.")
             : null;
@@ -475,7 +496,7 @@ class OrderController extends Controller
                 'payment' => 'QRIS kedai sedang diperbarui atau tidak tersedia. Silakan hubungi kedai melalui WhatsApp sebelum membayar.',
             ]);
         }
-        if ($order->payment_method === 'qris' && ! $this->paymentQrIsAvailable($order->shop)) {
+        if ($order->payment_method === 'qris' && ! $orders->isPaymentMethodAvailable($order->shop, 'qris')) {
             throw ValidationException::withMessages([
                 'payment' => 'QRIS kedai tidak dapat dibuka saat ini. Silakan hubungi kedai melalui WhatsApp sebelum membayar.',
             ]);
@@ -544,18 +565,18 @@ class OrderController extends Controller
     public function history(Request $request): View
     {
         app(OrderService::class)->completeUnconfirmedOrders();
-        $orders = Order::with(['cafe', 'roastery', 'items'])
+        $isActiveFilter = $request->query('filter') === 'active';
+        $query = Order::with(['cafe', 'roastery', 'items'])
             ->where('user_id', $request->user()->id)
-            ->latest()
-            ->paginate(15);
+            ->latest();
 
-        return view('orders.history', compact('orders'));
-    }
+        if ($isActiveFilter) {
+            $query->whereNotIn('status', [Order::STATUS_COMPLETED, Order::STATUS_CANCELLED]);
+        }
 
-    private function paymentQrIsAvailable(Cafe|Roastery $shop): bool
-    {
-        return filled($shop->payment_qr_path)
-            && Storage::disk('public')->exists($shop->payment_qr_path);
+        $orders = $query->paginate(15)->withQueryString();
+
+        return view('orders.history', compact('orders', 'isActiveFilter'));
     }
 
     private function selectedCartAddons(Cafe|Roastery $shop, array $cart): Collection

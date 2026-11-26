@@ -4,6 +4,7 @@ namespace App\Filament\Pages\Auth;
 
 use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
+use App\Models\City;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Pages\Auth\Login as BaseLogin;
 use Illuminate\Contracts\Support\Htmlable;
@@ -26,6 +27,22 @@ class CustomLogin extends BaseLogin
     public function getHeading(): string|Htmlable
     {
         return '';
+    }
+
+    protected function getViewData(): array
+    {
+        return [
+            ...parent::getViewData(),
+            'merchantCities' => City::query()
+                ->where('slug', '!=', 'kota-simulasi-uat')
+                ->where('name', '!=', 'Kota Simulasi UAT')
+                ->where(function ($query): void {
+                    $query->whereRaw('LOWER(name) = ?', ['samarinda'])
+                        ->orWhereHas('merchantApplications');
+                })
+                ->orderBy('name')
+                ->get(['id', 'name']),
+        ];
     }
 
     /**

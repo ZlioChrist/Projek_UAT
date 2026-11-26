@@ -2,7 +2,13 @@
 @section('title', 'Checkout - '.$cafe->name)
 @section('content')
 @php
-    $selectedPaymentMethod = old('payment_method', $paymentQrAvailable ? 'qris' : 'transfer');
+    $defaultPaymentMethod = $paymentQrAvailable
+        ? 'qris'
+        : ($transferAvailable ? 'transfer' : ($cashAvailable ? 'cash' : null));
+    $oldPaymentMethod = old('payment_method');
+    $selectedPaymentMethod = in_array($oldPaymentMethod, $availablePaymentMethods, true)
+        ? $oldPaymentMethod
+        : $defaultPaymentMethod;
     $selectedFulfillmentMethod = old('fulfillment_method', 'pickup');
     if (! $deliveryAvailable) {
         $selectedFulfillmentMethod = 'pickup';
@@ -102,7 +108,7 @@
                                     <i class="ph-fill ph-check-circle checkout-payment-check" aria-hidden="true"></i>
                                 </label>
                             @else
-                                <p class="rounded-xl bg-slate-50 p-3 text-sm text-slate-700">Pengantaran belum tersedia karena kafe belum mengatur tarif ongkirnya.</p>
+                                <p class="rounded-xl bg-slate-50 p-3 text-sm text-slate-700">Pengantaran belum tersedia. Kedai perlu mengatur tarif dan metode pembayaran QRIS atau transfer.</p>
                             @endif
                         </fieldset>
                         <label class="checkout-field" data-delivery-address-field>
@@ -144,28 +150,41 @@
                         </label>
                     @endif
 
-                    <label class="checkout-payment-option{{ $selectedPaymentMethod === 'transfer' ? ' is-selected' : '' }}">
-                        <input type="radio" name="payment_method" value="transfer"
-                            @checked($selectedPaymentMethod === 'transfer') required>
-                        <span class="checkout-payment-icon"><i class="ph ph-bank" aria-hidden="true"></i></span>
-                        <span class="checkout-payment-copy">
-                            <span class="checkout-payment-title">Transfer</span>
-                            <span class="checkout-payment-description">Nomor rekening mitra tampil setelah pesanan dibuat</span>
-                        </span>
-                        <i class="ph-fill ph-check-circle checkout-payment-check" aria-hidden="true"></i>
-                    </label>
+                    @if($transferAvailable)
+                        <label class="checkout-payment-option{{ $selectedPaymentMethod === 'transfer' ? ' is-selected' : '' }}">
+                            <input type="radio" name="payment_method" value="transfer"
+                                @checked($selectedPaymentMethod === 'transfer') required>
+                            <span class="checkout-payment-icon"><i class="ph ph-bank" aria-hidden="true"></i></span>
+                            <span class="checkout-payment-copy">
+                                <span class="checkout-payment-title">Transfer</span>
+                                <span class="checkout-payment-description">Rekening tujuan ditampilkan setelah pesanan dibuat</span>
+                            </span>
+                            <i class="ph-fill ph-check-circle checkout-payment-check" aria-hidden="true"></i>
+                        </label>
+                    @endif
 
-                    <label data-payment-cash-option class="checkout-payment-option{{ $selectedPaymentMethod === 'cash' ? ' is-selected' : '' }}">
-                        <input type="radio" name="payment_method" value="cash"
-                            @checked($selectedPaymentMethod === 'cash') required>
-                        <span class="checkout-payment-icon"><i class="ph ph-money" aria-hidden="true"></i></span>
-                        <span class="checkout-payment-copy">
-                            <span class="checkout-payment-title">Tunai di kedai</span>
-                            <span class="checkout-payment-description">Bayar saat mengambil pesanan</span>
-                        </span>
-                        <i class="ph-fill ph-check-circle checkout-payment-check" aria-hidden="true"></i>
-                    </label>
+                    @if($cashAvailable)
+                        <label data-payment-cash-option class="checkout-payment-option{{ $selectedPaymentMethod === 'cash' ? ' is-selected' : '' }}">
+                            <input type="radio" name="payment_method" value="cash"
+                                @checked($selectedPaymentMethod === 'cash') required>
+                            <span class="checkout-payment-icon"><i class="ph ph-money" aria-hidden="true"></i></span>
+                            <span class="checkout-payment-copy">
+                                <span class="checkout-payment-title">Tunai di kedai</span>
+                                <span class="checkout-payment-description">Bayar saat mengambil pesanan</span>
+                            </span>
+                            <i class="ph-fill ph-check-circle checkout-payment-check" aria-hidden="true"></i>
+                        </label>
+                    @endif
                     </fieldset>
+
+                    @if($availablePaymentMethods === [])
+                        <div role="alert" class="checkout-payment-notice">
+                            Kedai belum mengatur metode pembayaran. Hubungi kedai sebelum membuat pesanan.
+                            @if($whatsappUrl)
+                                <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer">Hubungi kedai via WhatsApp</a>
+                            @endif
+                        </div>
+                    @endif
 
                 @if($paymentQrAvailable)
                     <div data-payment-panel="qris" @if($selectedPaymentMethod !== 'qris') hidden @endif class="checkout-payment-notice" role="status">
@@ -178,9 +197,9 @@
                     <p>Setelah pesanan dibuat, halaman menunggu pembayaran menampilkan nama mitra, bank, dan nomor rekening tujuan. Transfer sesuai total yang tercantum di halaman tersebut, lalu unggah bukti pembayaran.</p>
                 </div>
 
-                @if(!$paymentQrAvailable)
+                @if(!$paymentQrAvailable && $availablePaymentMethods !== [])
                     <div role="status" class="checkout-payment-notice">
-                        QRIS kedai saat ini belum tersedia. Silakan pilih transfer bank atau tunai.
+                        QRIS kedai belum tersedia. Pilih metode pembayaran lain yang aktif.
                         @if($whatsappUrl)
                             <a href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer">Hubungi kedai via WhatsApp</a>
                         @endif
@@ -237,7 +256,7 @@
                 </div>
 
                 <p class="checkout-summary-help"><i class="ph-fill ph-info" aria-hidden="true"></i> @if($selectedFulfillmentMethod === 'delivery')Total akhir dan ongkir akan dikonfirmasi kafe sebelum pembayaran.@else Status pembayaran diperbarui setelah kedai memverifikasinya.@endif</p>
-                <button type="submit" class="checkout-submit"><span>Buat pesanan</span><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></button>
+                <button type="submit" class="checkout-submit" @disabled($availablePaymentMethods === [])><span>Buat pesanan</span><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></button>
                 <p class="checkout-secure-note"><i class="ph-fill ph-lock-key" aria-hidden="true"></i> Informasi pembayaran ditangani langsung oleh kedai.</p>
             </aside>
         </div>

@@ -24,7 +24,8 @@ class PaymentQrChangedNotification extends Notification
             'title' => 'QRIS kedai diperbarui',
             'message' => "QRIS {$this->order->shop_name} diperbarui. Periksa kembali halaman pesanan sebelum membayar.",
             'business_name' => $this->order->shop_name,
-            'url' => route('orders.show', $this->order->public_code),
+            'order_code' => $this->order->public_code,
+            'url' => route('orders.show', $this->order->public_code, false),
         ];
     }
 }

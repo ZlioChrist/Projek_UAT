@@ -265,15 +265,5 @@
             </x-filament-panels::form>
         </main>
 
-        <footer class="mt-8 text-center">
-            <a href="{{ filament()->getLoginUrl() }}" class="group inline-flex items-center gap-2 text-white/30 hover:text-white
-                       transition-all text-[10px] font-bold uppercase tracking-[0.2em] no-underline">
-                <i class="ph ph-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
-                Sudah Punya Akun? Masuk Di Sini
-            </a>
-        </footer>
     </div>
-
-    {{-- Icon Assets --}}
-    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
 </div>

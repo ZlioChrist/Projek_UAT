@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStaggeredEntrance();
     initMagneticElements();
     initToastNotifications();
+    initUnreadNotificationPolling();
 });
 
 function initToastNotifications() {
@@ -34,6 +35,7 @@ function initToastNotifications() {
         message.textContent = typeof detail.message === 'string' ? detail.message : '';
         icon.className = `ph-fill ${type === 'warning' ? 'ph-warning-circle' : type === 'error' ? 'ph-x-circle' : 'ph-check-circle'} app-toast-icon`;
         toast.dataset.type = type;
+        toast.classList.toggle('is-notification-toast', detail.kind === 'notification');
 
         if (detail.action && typeof detail.action.label === 'string' && typeof detail.action.url === 'string') {
             const actionUrl = new URL(detail.action.url, window.location.href);
@@ -60,6 +62,107 @@ function initToastNotifications() {
     });
 
     dismiss.addEventListener('click', hideToast);
+}
+
+function initUnreadNotificationPolling() {
+    const toast = document.getElementById('app-toast');
+    if (!toast) return;
+
+    const { unreadCountUrl, notificationsUrl, notificationUserKey, isNotificationsPage } = toast.dataset;
+    if (!unreadCountUrl || !notificationsUrl || !notificationUserKey) return;
+
+    const storageKey = `wadahngopi.unread-notifications.${notificationUserKey}`;
+    let previousCount = null;
+    let storageAvailable = true;
+
+    try {
+        const storedCount = window.sessionStorage.getItem(storageKey);
+        if (storedCount !== null) {
+            const parsedCount = Number(storedCount);
+            if (Number.isInteger(parsedCount) && parsedCount >= 0) {
+                previousCount = parsedCount;
+            } else {
+                window.sessionStorage.removeItem(storageKey);
+            }
+        }
+    } catch (error) {
+        storageAvailable = false;
+        console.warn('Pengingat notifikasi tidak dapat disimpan di sesi browser.', error);
+    }
+
+    const rememberCount = (count) => {
+        if (!storageAvailable) return;
+
+        try {
+            window.sessionStorage.setItem(storageKey, String(count));
+        } catch (error) {
+            storageAvailable = false;
+            console.warn('Pengingat notifikasi tidak dapat disimpan di sesi browser.', error);
+        }
+    };
+
+    let requestInProgress = false;
+    const checkUnreadNotifications = async () => {
+        if (requestInProgress) return;
+        requestInProgress = true;
+
+        try {
+            const response = await fetch(unreadCountUrl, {
+                headers: { Accept: 'application/json' },
+                cache: 'no-store',
+                credentials: 'same-origin',
+            });
+            if (!response.ok) {
+                throw new Error(`Pemeriksaan notifikasi gagal (${response.status}).`);
+            }
+
+            const result = await response.json();
+            if (!Number.isInteger(result.count) || result.count < 0) {
+                throw new Error('Jumlah notifikasi yang diterima tidak valid.');
+            }
+
+            const newCount = result.count;
+            if (previousCount === null) {
+                if (newCount > 0 && isNotificationsPage !== 'true') {
+                    window.dispatchEvent(new CustomEvent('toast', {
+                        detail: {
+                            kind: 'notification',
+                            type: 'warning',
+                            message: `Kamu punya ${newCount} notifikasi yang belum dibaca.`,
+                            duration: 6500,
+                            action: { label: 'Lihat notifikasi', url: notificationsUrl },
+                        },
+                    }));
+                }
+            } else if (newCount > previousCount) {
+                const unreadDelta = newCount - previousCount;
+                window.dispatchEvent(new CustomEvent('toast', {
+                    detail: {
+                        kind: 'notification',
+                        type: 'warning',
+                        message: unreadDelta === 1 ? 'Ada notifikasi baru.' : `Ada ${unreadDelta} notifikasi baru.`,
+                        duration: 6500,
+                        action: { label: 'Lihat notifikasi', url: notificationsUrl },
+                    },
+                }));
+            }
+
+            previousCount = newCount;
+            rememberCount(newCount);
+        } catch (error) {
+            console.error('Tidak dapat memeriksa notifikasi baru.', error);
+        } finally {
+            requestInProgress = false;
+        }
+    };
+
+    checkUnreadNotifications();
+    window.setInterval(() => {
+        if (!document.hidden) checkUnreadNotifications();
+    }, 30000);
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) checkUnreadNotifications();
+    });
 }
 
 const updateTransferBankInputs = (selector, paymentMethod) => {

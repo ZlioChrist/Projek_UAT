@@ -43,6 +43,26 @@ class MerchantApplicationTest extends TestCase
         $this->assertSame('user', $customer->fresh()->role);
     }
 
+    public function test_customers_can_find_the_merchant_application_from_home_and_account(): void
+    {
+        $customer = User::factory()->create(['role' => 'user']);
+
+        $this->actingAs($customer, 'customer')
+            ->get(route('home'))
+            ->assertOk()
+            ->assertSee('AJUKAN USAHA')
+            ->assertSee(route('merchant-applications.create'));
+
+        $this->get(route('account'))
+            ->assertOk()
+            ->assertSee('Ajukan kafe atau roastery')
+            ->assertSee(route('merchant-applications.create'));
+
+        $this->get(route('merchant-applications.create'))
+            ->assertOk()
+            ->assertSee('Ajukan kafe atau roastery');
+    }
+
     public function test_approved_cafe_and_roastery_applications_start_as_pending_businesses(): void
     {
         $developer = User::factory()->create(['role' => 'developer']);
@@ -97,6 +117,15 @@ class MerchantApplicationTest extends TestCase
 
         $this->assertSame('review', $cafe->status);
         $this->assertSame('review', $roastery->status);
+    }
+
+    public function test_developers_can_still_create_cafes_directly_for_internal_management(): void
+    {
+        $developer = User::factory()->create(['role' => 'developer']);
+
+        $this->actingAs($developer);
+
+        $this->assertTrue(\App\Filament\Resources\CafeResource::canCreate());
     }
 
     public function test_shop_operators_can_browse_the_main_site_separately_from_their_panel(): void

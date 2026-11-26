@@ -31,18 +31,18 @@
                 </a>
             </div>
         </div>
-        <div class="wn-account-stats" aria-label="Ringkasan akun">
-            <a class="wn-account-stat" href="{{ route('orders.history') }}">
+        <div class="wn-account-stats" role="group" aria-label="Ringkasan akun">
+            <div class="wn-account-stat">
                 <span class="wn-account-stat-value">{{ $orderCount }}</span>
                 <span class="wn-account-stat-label">Pesanan</span>
-            </a>
-            <a class="wn-account-stat" href="{{ route('saved') }}">
+            </div>
+            <div class="wn-account-stat">
                 <span class="wn-account-stat-value">{{ $savedCount }}</span>
                 <span class="wn-account-stat-label">Tersimpan</span>
-            </a>
-            <a class="wn-account-stat" href="{{ route('orders.history') }}">
+            </div>
+            <a class="wn-account-stat wn-account-stat-action" href="{{ route('orders.history', ['filter' => 'active']) }}" aria-label="Lihat {{ $activeOrderCount }} pesanan berjalan">
                 <span class="wn-account-stat-value">{{ $activeOrderCount }}</span>
-                <span class="wn-account-stat-label">Berjalan</span>
+                <span class="wn-account-stat-label">Berjalan <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
             </a>
         </div>
     </header>
@@ -93,16 +93,21 @@
                         <span class="wn-account-shortcut-meta">Masukan</span>
                         <span class="wn-account-shortcut-arrow" aria-hidden="true"><i class="ph ph-caret-right"></i></span>
                     </a>
-                    <a href="{{ route('notifications.index') }}" class="wn-account-shortcut">
-                        <span class="wn-account-shortcut-icon"><i class="ph ph-bell" aria-hidden="true"></i></span>
-                        <span class="wn-account-shortcut-copy"><strong>Notifikasi</strong><span class="wn-account-shortcut-description">Info terbaru dari kafe dan roastery.</span></span>
-                        <span class="wn-account-shortcut-meta">{{ $unreadNotificationCount > 0 ? $unreadNotificationCount.' baru' : 'Lihat' }}</span>
-                        <span class="wn-account-shortcut-arrow" aria-hidden="true"><i class="ph ph-caret-right"></i></span>
-                    </a>
                     <a href="{{ route('account.profile.edit') }}" class="wn-account-shortcut">
                         <span class="wn-account-shortcut-icon"><i class="ph ph-user-circle" aria-hidden="true"></i></span>
                         <span class="wn-account-shortcut-copy"><strong>Profil akun</strong><span class="wn-account-shortcut-description">Atur nama, email, dan foto profil.</span></span>
                         <span class="wn-account-shortcut-meta">Atur</span>
+                        <span class="wn-account-shortcut-arrow" aria-hidden="true"><i class="ph ph-caret-right"></i></span>
+                    </a>
+                </nav>
+            </div>
+            <div class="wn-account-menu-panel">
+                <p class="wn-account-menu-label">Untuk pemilik usaha</p>
+                <nav class="wn-account-shortcuts" aria-label="Pengajuan usaha">
+                    <a href="{{ route('merchant-applications.create') }}" class="wn-account-shortcut">
+                        <span class="wn-account-shortcut-icon"><i class="ph ph-storefront" aria-hidden="true"></i></span>
+                        <span class="wn-account-shortcut-copy"><strong>Ajukan kafe atau roastery</strong><span class="wn-account-shortcut-description">Kirim informasi usaha untuk ditinjau tim WadahNgopi.</span></span>
+                        <span class="wn-account-shortcut-meta">Ajukan</span>
                         <span class="wn-account-shortcut-arrow" aria-hidden="true"><i class="ph ph-caret-right"></i></span>
                     </a>
                 </nav>

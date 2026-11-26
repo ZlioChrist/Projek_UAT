@@ -1483,7 +1483,6 @@
 
 .wn-history-pagination {
     margin-top: 18px;
-    overflow-x: auto;
 }
 
 .wn-lookup-page {
@@ -3341,7 +3340,7 @@
     color: var(--account-espresso) !important;
 }
 
-.wn-account-page > section {
+.wn-account-page > section[aria-labelledby="account-menu-title"] {
     margin-top: 14px;
     padding: 18px 15px;
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -3804,6 +3803,451 @@
     font-size: 0.68rem;
 }
 
+.main-container:has(.wn-account-page),
+.main-container:has(.wn-customer-page) {
+    background:
+        radial-gradient(ellipse at 50% 0, rgba(226, 172, 75, 0.1), transparent 28rem),
+        #fbf7ef !important;
+}
+
+.wn-account-page,
+.wn-customer-page {
+    --account-ink: #292620;
+    --account-muted: #746d63;
+    --account-accent: #925a10;
+    --account-tint: #fff3d8;
+    --account-border: #e9e1d5;
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-hero {
+    border-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-topline,
+.wn-account-page .wn-account-title,
+.wn-account-page .wn-account-stat-value,
+.wn-account-page .wn-account-section-heading h2 {
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-eyebrow,
+.wn-account-page .wn-account-stat-label,
+.wn-account-page .wn-account-section-heading p,
+.wn-account-page .wn-account-menu-label {
+    color: var(--account-muted) !important;
+}
+
+.wn-account-page .wn-account-email,
+.wn-account-page .wn-account-shortcut-description,
+.wn-account-page .wn-account-order-meta,
+.wn-account-page .wn-account-empty {
+    color: var(--account-muted) !important;
+}
+
+.wn-account-page .wn-account-avatar {
+    border-color: #fff !important;
+    background: linear-gradient(145deg, #f8d98c, #eab64f) !important;
+    color: #3a3020 !important;
+    box-shadow: 0 8px 22px rgba(111, 78, 35, 0.13) !important;
+}
+
+.wn-account-page .wn-account-member-badge {
+    border-color: #f0dfb8 !important;
+    background: #fff8e8 !important;
+    color: #765522 !important;
+}
+
+.wn-account-page .wn-account-member-badge i,
+.wn-account-page .wn-account-shortcut-meta,
+.wn-account-page .wn-account-order-total {
+    color: var(--account-accent) !important;
+}
+
+.wn-account-page .wn-account-stats {
+    border-color: var(--account-border) !important;
+    background: #fff !important;
+    box-shadow: 0 8px 22px rgba(48, 37, 22, 0.05) !important;
+}
+
+.wn-account-page .wn-account-stat {
+    border-color: var(--account-border) !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page > section[aria-labelledby="account-menu-title"],
+.wn-account-page .wn-account-profile-form,
+.wn-account-page .wn-account-orders,
+.wn-customer-page .wn-customer-page-header,
+.wn-customer-page .wn-lookup-card,
+.wn-customer-page .wn-feedback-card,
+.wn-customer-page .wn-saved-list,
+.wn-customer-page .wn-history-card,
+.wn-customer-page .wn-customer-empty,
+.wn-customer-page .wn-account-feedback-order {
+    border: 1px solid var(--account-border) !important;
+    border-radius: 22px !important;
+    background: #fff !important;
+    box-shadow: 0 8px 24px rgba(48, 37, 22, 0.045) !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page > section[aria-labelledby="account-menu-title"] {
+    padding: 18px 15px !important;
+}
+
+.wn-account-page .wn-account-menu-panel {
+    padding: 12px !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.wn-account-page .wn-account-menu-label {
+    color: var(--account-accent) !important;
+}
+
+.wn-account-page .wn-account-shortcut,
+.wn-account-page .wn-account-shortcut:hover {
+    border: 1px solid var(--account-border) !important;
+    border-radius: 16px !important;
+    background: #fff !important;
+    box-shadow: 0 3px 12px rgba(48, 37, 22, 0.035) !important;
+}
+
+.wn-account-page .wn-account-shortcut:hover,
+.wn-account-page .wn-account-order:hover {
+    background: #fffaf0 !important;
+}
+
+.wn-account-page .wn-account-shortcut-icon,
+.wn-account-page .wn-account-shortcut:nth-child(2) .wn-account-shortcut-icon,
+.wn-account-page .wn-account-shortcut:nth-child(3) .wn-account-shortcut-icon,
+.wn-account-page .wn-account-shortcut:nth-child(4) .wn-account-shortcut-icon,
+.wn-account-page .wn-account-order-mark,
+.wn-customer-page .wn-history-icon,
+.wn-customer-page .wn-lookup-illustration,
+.wn-customer-page .wn-feedback-illustration,
+.wn-customer-page .wn-customer-empty > span,
+.wn-customer-page .wn-feedback-order > span {
+    background: var(--account-tint) !important;
+    color: var(--account-accent) !important;
+}
+
+.wn-account-page .wn-account-shortcut strong,
+.wn-account-page .wn-account-order-name,
+.wn-customer-page .wn-customer-page-header h1,
+.wn-customer-page .wn-lookup-card h1,
+.wn-customer-page .wn-feedback-card h1,
+.wn-customer-page .wn-history-content > strong,
+.wn-customer-page .wn-customer-empty > strong,
+.wn-customer-page .wn-history-total strong,
+.wn-customer-page .wn-feedback-order strong,
+.wn-account-feedback-order-copy strong {
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-shortcut-arrow {
+    background: #f8f4ec !important;
+    color: var(--account-muted) !important;
+}
+
+.wn-account-page .wn-account-order {
+    border-color: #f0ebe2 !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-order-status,
+.wn-customer-page .wn-history-status {
+    background: var(--account-tint) !important;
+    color: #795821 !important;
+}
+
+.wn-account-page .wn-account-order-status.is-completed,
+.wn-account-feedback-order .wn-account-order-status.is-completed {
+    background: #edf5e9 !important;
+    color: #47734c !important;
+}
+
+.wn-account-page .wn-account-order-status.is-cancelled {
+    background: #fff0ed !important;
+    color: #a34f43 !important;
+}
+
+.wn-account-page .wn-account-profile-upload,
+.wn-account-page .wn-account-profile-fields label,
+.wn-account-page .wn-account-remove-photo {
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-profile-upload input,
+.wn-account-page .wn-account-profile-fields input,
+.wn-customer-page .wn-lookup-input,
+.wn-customer-page .wn-feedback-form input,
+.wn-customer-page .wn-feedback-form select,
+.wn-customer-page .wn-feedback-form textarea {
+    border-color: var(--account-border) !important;
+    background: #fff !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-profile-upload input:focus-visible,
+.wn-account-page .wn-account-profile-fields input:focus-visible,
+.wn-customer-page .wn-lookup-input:focus,
+.wn-customer-page .wn-feedback-form input:focus,
+.wn-customer-page .wn-feedback-form select:focus,
+.wn-customer-page .wn-feedback-form textarea:focus {
+    border-color: #d7a23c !important;
+    box-shadow: 0 0 0 3px rgba(215, 162, 60, 0.17) !important;
+}
+
+.wn-account-page .wn-account-profile-save,
+.wn-account-page .wn-account-feedback-link,
+.wn-customer-page .wn-customer-empty a,
+.wn-customer-page .wn-lookup-form button,
+.wn-customer-page .wn-feedback-form button,
+.wn-customer-page .saved-empty__cta {
+    border-color: #292620 !important;
+    background: #292620 !important;
+    color: #fff !important;
+}
+
+.wn-account-page .wn-account-profile-save:hover,
+.wn-account-page .wn-account-feedback-link:hover,
+.wn-customer-page .wn-customer-empty a:hover,
+.wn-customer-page .wn-lookup-form button:hover,
+.wn-customer-page .wn-feedback-form button:hover,
+.wn-customer-page .saved-empty__cta:hover {
+    border-color: #514a3f !important;
+    background: #514a3f !important;
+}
+
+.wn-account-page .wn-account-logout,
+.wn-account-page .wn-account-profile-edit-link {
+    border-color: var(--account-border) !important;
+    background: #fff !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-account-page .wn-account-logout:hover,
+.wn-account-page .wn-account-profile-edit-link:hover {
+    border-color: #dfc990 !important;
+    background: #fffaf0 !important;
+}
+
+.wn-customer-page .wn-customer-page-header {
+    padding: 15px 10px 18px;
+    border-color: transparent !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.wn-customer-page .wn-customer-page-header p,
+.wn-customer-page .wn-lookup-card > p,
+.wn-customer-page .wn-feedback-intro,
+.wn-customer-page .wn-history-meta,
+.wn-customer-page .wn-history-items,
+.wn-customer-page .wn-lookup-hint,
+.wn-customer-page .wn-customer-empty p,
+.wn-account-feedback-order-copy small {
+    color: var(--account-muted) !important;
+}
+
+.wn-customer-page .wn-customer-eyebrow,
+.wn-customer-page .wn-customer-back,
+.wn-customer-page .wn-customer-back:hover {
+    color: var(--account-accent) !important;
+}
+
+.wn-customer-page .wn-history-card {
+    grid-template-columns: 42px minmax(0, 1fr) auto 16px;
+}
+
+.wn-customer-page .wn-history-arrow {
+    color: #9c9488 !important;
+}
+
+.wn-customer-page .wn-saved-list {
+    padding: 10px 12px 0 !important;
+}
+
+.wn-saved-list .saved-page-title {
+    color: var(--account-muted) !important;
+}
+
+.wn-customer-page .saved-card {
+    border: 1px solid var(--account-border) !important;
+    background: #fff !important;
+    box-shadow: 0 3px 12px rgba(48, 37, 22, 0.035) !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-customer-page .saved-card__tag,
+.wn-customer-page .saved-count-badge {
+    border-color: #f0dfb8 !important;
+    background: var(--account-tint) !important;
+    color: #795821 !important;
+}
+
+.wn-customer-page .saved-empty-state {
+    border: 1px solid var(--account-border) !important;
+    border-radius: 18px !important;
+    background: #fff !important;
+    color: var(--account-ink) !important;
+    box-shadow: none !important;
+}
+
+.wn-customer-page .saved-empty__illustration {
+    border-color: #f0dfb8 !important;
+    background: var(--account-tint) !important;
+    color: var(--account-accent) !important;
+}
+
+.wn-customer-page .saved-empty__title {
+    color: var(--account-ink) !important;
+}
+
+.wn-customer-page .saved-empty__subtitle {
+    color: var(--account-muted) !important;
+}
+
+.wn-customer-page .saved-empty__cta--secondary {
+    border-color: var(--account-border) !important;
+    background: #fff !important;
+    color: var(--account-ink) !important;
+}
+
+.wn-saved-modal .modal-card {
+    border-color: #e9e1d5 !important;
+    background: #fff !important;
+}
+
+.wn-saved-modal .btn-cancel {
+    background: #f7f4ed !important;
+    color: #746d63 !important;
+}
+
+.wn-saved-modal .btn-cancel:hover {
+    background: #eee8dc !important;
+}
+
+.wn-account-profile-edit-page .wn-account-form-message {
+    border-color: #eadfcf !important;
+    background: #fff !important;
+    color: #8c4c39 !important;
+}
+
+.wn-account-profile-edit-page .wn-account-form-message.is-success {
+    border-color: #d7eadb !important;
+    background: #f1faf3 !important;
+    color: #477354 !important;
+}
+
+.wn-customer-page .wn-account-feedback-order {
+    grid-template-columns: 38px minmax(0, 1fr);
+}
+
+.wn-account-feedback-order .wn-account-order-mark {
+    background: var(--account-tint) !important;
+    color: var(--account-accent) !important;
+}
+
+@media (max-width: 600px) {
+    .wn-customer-page .wn-history-card {
+        grid-template-columns: 36px minmax(0, 1fr) auto 12px;
+    }
+
+    .wn-account-page > section {
+        padding: 16px 12px !important;
+    }
+
+    .wn-account-page .wn-account-menu-panel {
+        padding: 10px !important;
+    }
+}
+
+.wn-history-pagination .wn-pagination,
+.wn-notifications-pagination .wn-pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.wn-pagination-controls {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.wn-pagination-link {
+    display: inline-flex;
+    min-width: 40px;
+    min-height: 40px;
+    align-items: center;
+    justify-content: center;
+    padding: 0 11px;
+    border: 1px solid #e9e1d5;
+    border-radius: 12px;
+    background: #fff;
+    color: #292620;
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+a.wn-pagination-link:hover {
+    transform: translateY(-1px);
+    border-color: #dfc990;
+    background: #fffaf0;
+}
+
+.wn-pagination-link.is-current {
+    border-color: #f0c45f;
+    background: #f7d47d;
+    color: #292620;
+    cursor: default;
+}
+
+.wn-pagination-link.is-disabled {
+    background: #f6f3ed;
+    color: #aaa398;
+    cursor: not-allowed;
+}
+
+.wn-pagination-ellipsis {
+    padding: 0 2px;
+    color: #746d63;
+}
+
+.wn-pagination-summary {
+    margin: 0;
+    color: #746d63;
+    font-size: 0.74rem;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.wn-pagination-link:focus-visible {
+    outline: 3px solid rgba(215, 162, 60, 0.35);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wn-pagination-link {
+        transition: none;
+    }
+}
+
 .wn-account-page .wn-account-order {
     display: grid;
     grid-template-columns: 36px minmax(0, 1fr);
@@ -3827,6 +4271,69 @@
     flex-basis: 36px;
     width: 36px;
     height: 36px;
+}
+
+.wn-account-page > section[aria-labelledby="account-menu-title"] {
+    border-color: #5d4331 !important;
+    background: linear-gradient(145deg, #4a2d1f, #352217) !important;
+    box-shadow: 0 16px 34px rgba(48, 29, 19, 0.14) !important;
+}
+
+.wn-account-page > section[aria-labelledby="account-menu-title"] .wn-account-section-heading h2 {
+    color: #fffaf1 !important;
+}
+
+.wn-account-page > section[aria-labelledby="account-menu-title"] .wn-account-section-heading p {
+    color: #e1d2bc !important;
+}
+
+.wn-account-page > section[aria-labelledby="account-menu-title"] .wn-account-menu-label {
+    color: #f0c46b !important;
+}
+
+.wn-account-stat-action {
+    cursor: pointer;
+}
+
+.wn-account-stat-action .wn-account-stat-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.wn-account-stat-action .wn-account-stat-label i {
+    color: #925a10;
+    font-size: 0.72rem;
+}
+
+.wn-account-stat-action:hover .wn-account-stat-value {
+    color: #925a10;
+}
+
+.wn-account-stat-action:focus-visible {
+    border-radius: 8px;
+    outline: 3px solid rgba(215, 162, 60, 0.4);
+    outline-offset: 3px;
+}
+
+.wn-history-filter-link {
+    display: inline-flex;
+    min-height: 38px;
+    align-items: center;
+    margin-top: 12px;
+    padding: 8px 13px;
+    border: 1px solid #e9e1d5;
+    border-radius: 999px;
+    background: #fff;
+    color: #292620;
+    font-size: 0.75rem;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.wn-history-filter-link:hover {
+    border-color: #dfc990;
+    background: #fffaf0;
 }
 
 .wn-account-page .wn-account-order-name,

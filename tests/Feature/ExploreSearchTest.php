@@ -103,6 +103,20 @@ it('filters cafes by city', function () {
         ->assertDontSee('Cafe Balikpapan');
 });
 
+it('only lists cities that have published cafes', function () {
+    \Illuminate\Support\Facades\Cache::forget('explore_cities_published_v1');
+
+    $publishedCity = City::factory()->create(['name' => 'Samarinda']);
+    $draftCity = City::factory()->create(['name' => 'Kota Simulasi UAT']);
+
+    Cafe::factory()->create(['city_id' => $publishedCity->id, 'status' => 'published']);
+    Cafe::factory()->create(['city_id' => $draftCity->id, 'status' => 'draft']);
+
+    Livewire::test(ExploreSearch::class)
+        ->assertSee('Samarinda')
+        ->assertDontSee('Kota Simulasi UAT');
+});
+
 // --- Letter Filter ---
 
 it('filters cafes by first letter', function () {

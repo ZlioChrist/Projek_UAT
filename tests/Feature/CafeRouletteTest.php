@@ -15,6 +15,13 @@ it('opens the roulette modal', function () {
         ->assertSet('winner', null);
 });
 
+it('offers voice search alongside the random cafe picker', function () {
+    Livewire::test(CafeRoulette::class)
+        ->assertSee('Pilih acak')
+        ->assertSee('Cari dengan suara')
+        ->assertSee('PUTAR SEKARANG!');
+});
+
 it('closes the roulette modal and resets state', function () {
     Livewire::test(CafeRoulette::class)
         ->call('openModal')

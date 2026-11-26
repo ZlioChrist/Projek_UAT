@@ -4,9 +4,12 @@
 <main class="wn-customer-page wn-history-page">
     <a href="{{ route('account') }}" class="wn-customer-back"><i class="ph ph-arrow-left" aria-hidden="true"></i> Kembali ke profil</a>
     <header class="wn-customer-page-header">
-        <span class="wn-customer-eyebrow"><i class="ph ph-receipt" aria-hidden="true"></i> Aktivitas akun</span>
-        <h1>Riwayat pesanan</h1>
-        <p>Semua pesanan yang pernah kamu buat, lengkap dengan status dan detailnya.</p>
+        <span class="wn-customer-eyebrow"><i class="ph ph-receipt" aria-hidden="true"></i> {{ $isActiveFilter ? 'Pesanan aktif' : 'Aktivitas akun' }}</span>
+        <h1>{{ $isActiveFilter ? 'Pesanan berjalan' : 'Riwayat pesanan' }}</h1>
+        <p>{{ $isActiveFilter ? 'Daftar pesanan yang masih menunggu, diproses, atau diantar.' : 'Semua pesanan yang pernah kamu buat, lengkap dengan status dan detailnya.' }}</p>
+        @if($isActiveFilter && $orders->count() > 0)
+            <a class="wn-history-filter-link" href="{{ route('orders.history') }}">Lihat semua pesanan</a>
+        @endif
     </header>
     <div class="wn-history-list">
         @forelse($orders as $order)
@@ -26,12 +29,18 @@
         @empty
             <div class="wn-customer-empty">
                 <span><i class="ph ph-receipt" aria-hidden="true"></i></span>
-                <strong>Belum ada pesanan</strong>
-                <p>Pesanan yang kamu buat akan muncul di sini.</p>
-                <a href="{{ route('explore') }}">Jelajahi kafe</a>
+                @if($isActiveFilter)
+                    <strong>Tidak ada pesanan berjalan</strong>
+                    <p>Pesanan yang belum selesai akan muncul di sini.</p>
+                    <a href="{{ route('orders.history') }}">Lihat semua pesanan</a>
+                @else
+                    <strong>Belum ada pesanan</strong>
+                    <p>Pesanan yang kamu buat akan muncul di sini.</p>
+                    <a href="{{ route('explore') }}">Jelajahi kafe</a>
+                @endif
             </div>
         @endforelse
     </div>
-    @if($orders->hasPages())<div class="wn-history-pagination">{{ $orders->links() }}</div>@endif
+    @if($orders->hasPages())<div class="wn-history-pagination">{{ $orders->links('pagination.customer') }}</div>@endif
 </main>
 @endsection

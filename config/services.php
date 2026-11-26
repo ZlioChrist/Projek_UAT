@@ -39,6 +39,14 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI', env('APP_URL').'/auth/google/callback'),
+        'maps_geocoding_key' => env('GOOGLE_MAPS_GEOCODING_API_KEY'),
+    ],
+
+    'cloudflare' => [
+        'account_id' => env('CLOUDFLARE_ACCOUNT_ID'),
+        'api_token' => env('CLOUDFLARE_API_TOKEN'),
+        'chat_model' => env('CLOUDFLARE_AI_CHAT_MODEL', '@cf/qwen/qwen3.8-27b'),
+        'image_model' => env('CLOUDFLARE_AI_IMAGE_MODEL', '@cf/black-forest-labs/flux-1-schnell'),
     ],
 
     'meta_whatsapp' => [

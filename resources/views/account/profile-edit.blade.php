@@ -58,9 +58,9 @@
     .wn-account-profile-upload input {
         padding: 10px 12px;
         border-radius: 12px;
-        border: 1px solid rgba(73, 41, 26, 0.2);
-        background: #f1e4d3;
-        color: #321b12;
+        border: 1px solid #e9e1d5;
+        background: #fff;
+        color: #292620;
         font: inherit;
     }
 
@@ -71,10 +71,10 @@
         width: fit-content;
         min-height: 36px;
         padding: 8px 14px;
-        border: 1px solid rgba(255, 226, 179, 0.2);
+        border: 1px solid #e9e1d5;
         border-radius: 999px;
-        background: #60402f;
-        color: #fff3df;
+        background: #fff;
+        color: #292620;
         font-size: 0.72rem;
         font-weight: 700;
         cursor: pointer;
@@ -82,8 +82,8 @@
     }
 
     .wn-account-edit-photo-btn:hover {
-        border-color: rgba(255, 226, 179, 0.38);
-        background: #6b4935;
+        border-color: #dfc990;
+        background: #fffaf0;
     }
 
     .wn-profile-photo-editor {
@@ -94,7 +94,7 @@
         align-items: center;
         justify-content: center;
         padding: 24px;
-        background: rgba(36, 29, 25, 0.62);
+        background: rgba(41, 38, 32, 0.55);
         backdrop-filter: blur(5px);
     }
 
@@ -119,10 +119,10 @@
         overflow-y: auto;
         overscroll-behavior: contain;
         padding: 10px 10px 8px;
-        border: 1px solid rgba(224, 177, 108, 0.28);
+        border: 1px solid #e9e1d5;
         border-radius: 18px;
-        background: linear-gradient(155deg, #49291a 0%, #321b12 100%);
-        box-shadow: 0 18px 40px rgba(44, 29, 23, 0.14);
+        background: #fff;
+        box-shadow: 0 18px 40px rgba(41, 38, 32, 0.16);
     }
 
     .wn-profile-photo-editor__header {
@@ -135,7 +135,7 @@
 
     .wn-profile-photo-editor__header h2 {
         margin: 0;
-        color: #fff3df;
+        color: #292620;
         font-size: 1.1rem;
         font-weight: 900;
         letter-spacing: -0.03em;
@@ -146,10 +146,10 @@
         place-items: center;
         width: 28px;
         height: 28px;
-        border: 1px solid rgba(255, 226, 179, 0.24);
+        border: 1px solid #e9e1d5;
         border-radius: 999px;
-        background: #60402f;
-        color: #fff3df;
+        background: #fff;
+        color: #292620;
         font-size: 1.3rem;
         line-height: 1;
         cursor: pointer;
@@ -161,9 +161,9 @@
         max-width: 100%;
         aspect-ratio: 1.05;
         overflow: hidden;
-        border: 1px solid rgba(224, 177, 108, 0.18);
+        border: 1px solid #e9e1d5;
         border-radius: 18px;
-        background: linear-gradient(135deg, #321b12, #49291a);
+        background: #fbf7ef;
         cursor: grab;
         touch-action: none;
         user-select: none;
@@ -192,7 +192,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        color: #f4dec0;
+        color: #746d63;
         font-size: 0.7rem;
         font-weight: 900;
         letter-spacing: 0.18em;
@@ -220,7 +220,7 @@
         justify-content: center;
         min-height: 42px;
         padding: 10px 16px;
-        border: 1px solid #e0a846;
+        border: 1px solid #292620;
         border-radius: 999px;
         font: inherit;
         font-size: 0.78rem;
@@ -234,14 +234,14 @@
     }
 
     .wn-profile-photo-editor__button--secondary {
-        border-color: rgba(255, 226, 179, 0.24);
-        background: #60402f;
-        color: #fff3df;
+        border-color: #e9e1d5;
+        background: #fff;
+        color: #292620;
     }
 
     .wn-profile-photo-editor__button--primary {
-        background: #e0a846;
-        color: #321b12;
+        background: #292620;
+        color: #fff;
     }
 </style>
 

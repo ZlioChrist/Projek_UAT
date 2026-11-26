@@ -11,6 +11,7 @@ use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\WelcomeBanner;
 use App\Http\Middleware\SecurityHeaders;
 use App\Support\AuthenticatedUser;
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -41,9 +42,9 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('WadahNgopi')
             ->brandLogo(asset('wadahngopi.png'))
             ->brandLogoHeight('3.5rem')
-            ->favicon(asset('wadahngopi.png'))
+            ->favicon(asset('favicon-32x32.png'))
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#805B3D'),
                 'gray' => Color::Stone,
                 'danger' => Color::Rose,
                 'success' => Color::Emerald,
@@ -55,7 +56,7 @@ class AdminPanelProvider extends PanelProvider
                 'panels::styles.after',
                 fn () => new HtmlString('
                     <link rel="stylesheet" href="'.asset('css/filament-custom.css').'?v='.filemtime(public_path('css/filament-custom.css')).'">
-                    <meta name="theme-color" content="#060606">
+                    <meta name="theme-color" content="#17110E">
                     <meta name="referrer" content="strict-origin-when-cross-origin">
                     <style>
                         :root {
@@ -64,7 +65,8 @@ class AdminPanelProvider extends PanelProvider
                     </style>
                 '),
             )
-            ->darkMode(true)
+            ->darkMode(true, true)
+            ->defaultThemeMode(ThemeMode::Dark)
             ->sidebarCollapsibleOnDesktop()
             ->spa()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')

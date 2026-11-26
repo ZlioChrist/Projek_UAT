@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\MenuItemResource\Pages;
 use App\Models\MenuItem;
+use App\Support\AuthenticatedUser;
+use App\Support\CurrencyFormatter;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -211,7 +212,9 @@ class MenuItemResource extends Resource
                             ->orWhereHas('roastery', fn (Builder $q) => $q->where('name', 'like', "%{$search}%")))),
                 Tables\Columns\ImageColumn::make('image_path')->label('Foto')->disk('public')->square(),
                 Tables\Columns\TextColumn::make('category')->label('Kategori')->searchable()->sortable()->placeholder('Belum dikategorikan'),
-                Tables\Columns\TextColumn::make('price')->label('Harga')->money('IDR'),
+                Tables\Columns\TextColumn::make('price')
+                    ->label('Harga')
+                    ->formatStateUsing(fn (int|float|string $state): string => CurrencyFormatter::rupiah($state)),
                 Tables\Columns\TextColumn::make('stock')->label('Stok fisik')->numeric(),
                 Tables\Columns\TextColumn::make('reserved_stock')->label('Sedang dipesan')->numeric(),
                 Tables\Columns\TextColumn::make('available_stock')->label('Bisa dipesan')->numeric()->state(fn (MenuItem $record) => $record->available_stock),

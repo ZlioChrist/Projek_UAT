@@ -67,7 +67,9 @@ Sistem favorit yang *seamless* antara pengguna awam dan pengguna terdaftar.
 - Fitur "Terdekat" menggunakan perhitungan rumus **Haversine** untuk menghitung jarak antara koordinat GPS user dan latitude/longitude cafe di database.
 
 ### 7. 🎯 Cafe Roulette (Roda Keberuntungan)
-Kalau bingung mau kemana, klik tombol *Roulette*! Sistem bakal ngacak cafe-cafe yang **sedang buka saat itu juga** dan memberikan rekomendasi spot nongkrong secara acak dengan animasi putaran roda dan *haptic feedback* (getar) di HP lo.
+Kalau bingung mau kemana, klik tombol *Roulette*! Sistem bakal ngacak cafe-cafe yang **sedang buka saat itu juga** dan memberikan rekomendasi spot nongkrong secara acak dengan animasi putaran roda dan *haptic feedback* (getar) di HP lo. Pilihan **Cari dengan suara** juga bisa menemukan kafe berdasarkan fasilitas dan harga menu, lalu mengelompokkan hasil yang fasilitasnya lengkap, sebagian, atau belum tercatat. Lokasi dapat diambil dari GPS atau alamat jalan; alamat menggunakan Google Maps Geocoding dan hasil diurutkan berdasarkan jarak dalam radius 20 km.
+- Untuk mengaktifkan pencarian berdasarkan alamat, tambahkan `GOOGLE_MAPS_GEOCODING_API_KEY` di file `.env` server dan batasi key tersebut hanya untuk Google Maps Geocoding API. Jangan masukkan key ke kode atau kirim melalui chat. GPS memerlukan izin browser dan HTTPS (localhost dapat digunakan untuk pengembangan).
+- Batas awal pencarian harga adalah Rp5.000 per menu dan dapat diubah pengguna. Data harga berasal dari menu aktif; fasilitas yang belum tercatat ditampilkan sebagai belum tercatat, bukan dianggap pasti tidak tersedia.
 
 ### 8. 📱 PWA (Progressive Web App)
 WadahNgopi gak perlu di-download dari Play Store.
@@ -80,8 +82,10 @@ Panel *backend* eksklusif buat admin atau *owner* cafe.
 - **CRUD Super Cepat:** Manajemen tambah/edit/hapus foto cafe, jam operasional, dan info detail secara mudah dan intuitif.
 
 ### 10. 🛒 Pemesanan dan pengambilan sesuai UAT
-- Katalog menu jual memiliki harga dan stok terpisah dari foto galeri menu; guest dapat menambah ke keranjang dan checkout tanpa akun.
+- Katalog menu jual memiliki harga dan stok terpisah dari foto galeri menu; pelanggan harus masuk sebelum menambah produk dan checkout.
 - Stok direservasi selama pembayaran menunggu verifikasi, lalu dikurangi tepat sekali setelah owner kedai mengonfirmasi bukti QR. Bukti transfer tidak otomatis dianggap lunas.
+- QRIS hanya tersedia bila gambar QRIS dapat dibuka, transfer hanya tersedia bila nama bank dan pemilik rekening serta nomor rekening sudah diisi, dan tunai dapat dinyalakan atau dimatikan per kedai. Tunai hanya untuk ambil sendiri.
+- Untuk menguji alur pada kafe yang sudah ada tanpa membuat kafe contoh, jalankan `php artisan db:seed --class=OrderingUatDefaultsSeeder`. Seeder ini hanya mengisi pengaturan yang masih kosong: ongkir Rp10.000 + Rp3.000 per km, rekening dummy `000000000000`, dan gambar QRIS bertuliskan **BUKAN QRIS**. QRIS yang sudah ada, termasuk milik Ak Kreatif, serta tarif atau rekening yang sudah terisi tidak akan ditimpa. Seeder hanya berjalan pada lingkungan `local` atau `testing`; jangan kirim uang atau gunakan data dummy untuk transaksi nyata.
 - Tabel inti katalog mengikuti ERD capstone (`products` dan `order_items.product_id`); migration upgrade mempertahankan data dari versi awal (`menu_items`).
 - Setelah pembayaran lunas, pesanan hanya boleh masuk status **Sedang Disiapkan** jika satu print job nota tercatat berhasil; hasil cetak dan pelapornya diaudit.
 - Pembeli menerima kode unik untuk nota dan pelacakan; status bergerak berurutan sampai **Siap Diambil** dan staf mencocokkan kode saat serah-terima.

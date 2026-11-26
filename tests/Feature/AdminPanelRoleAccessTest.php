@@ -24,6 +24,7 @@ it('limits cafe owners to cafe management', function () {
 
     expect(Dashboard::canAccess())->toBeTrue()
         ->and(CafeResource::canAccess())->toBeTrue()
+        ->and(CafeResource::canCreate())->toBeFalse()
         ->and(RoasteryResource::canAccess())->toBeFalse()
         ->and(MenuItemResource::canAccess())->toBeTrue()
         ->and(OrderResource::canAccess())->toBeTrue()
@@ -35,7 +36,7 @@ it('limits cafe owners to cafe management', function () {
 
     $this->get('/admin')->assertSuccessful();
     $this->get(CafeResource::getUrl('index'))->assertSuccessful();
-    $this->get(CafeResource::getUrl('create'))->assertSuccessful();
+    $this->get(CafeResource::getUrl('create'))->assertForbidden();
     $this->get(RoasteryResource::getUrl('index'))->assertForbidden();
     $this->get(MenuItemResource::getUrl('index'))->assertSuccessful();
     $this->get(FacilityResource::getUrl('index'))->assertSuccessful();
@@ -110,6 +111,25 @@ it('denies customers access to the admin panel', function () {
     $this->get('/admin/cafes')->assertForbidden();
 });
 
-it('does not expose public admin registration', function () {
-    $this->get('/admin/register')->assertNotFound();
+it('keeps admin login focused and links to merchant registration', function () {
+    $this->get('/admin/login')
+        ->assertOk()
+        ->assertSee('Alamat email')
+        ->assertSee('Belum punya akun?')
+        ->assertSee('Daftar')
+        ->assertSee('data-auth-toggle="register"', false)
+        ->assertDontSee('Login Google tersedia setelah OAuth Google dikonfigurasi.')
+        ->assertDontSee('Login WhatsApp belum aktif')
+        ->assertDontSee('Kembali ke WadahNgopi')
+        ->assertDontSee('Akun pengelola dibuat oleh developer.');
+
+    $this->get('/admin/register')
+        ->assertRedirect('/admin/login?mode=register');
+
+    $this->get('/admin/login?mode=register')
+        ->assertOk()
+        ->assertSee('Admin Kafe')
+        ->assertSee('Admin Roastery')
+        ->assertSee('data-auth-toggle="login"', false)
+        ->assertDontSee('Developer');
 });

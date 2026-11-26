@@ -198,9 +198,13 @@ class ExploreSearch extends Component
     public function getCitiesProperty()
     {
         return \Illuminate\Support\Facades\Cache::remember(
-            'cities_list',
+            'explore_cities_published_v1',
             now()->addHour(),
-            fn() => City::select(['id', 'name'])->orderBy('name')->get()
+            fn() => City::query()
+                ->whereHas('cafes', fn ($query) => $query->where('status', 'published'))
+                ->select(['id', 'name'])
+                ->orderBy('name')
+                ->get()
         );
     }
 

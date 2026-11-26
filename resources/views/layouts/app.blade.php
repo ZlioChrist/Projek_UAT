@@ -83,7 +83,11 @@
         })();
     </script>
 
-    <div id="app-toast" class="app-toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+    <div id="app-toast" class="app-toast" role="status" aria-live="polite" aria-atomic="true"
+        data-unread-count-url="{{ auth()->check() ? route('notifications.unread-count') : '' }}"
+        data-notifications-url="{{ route('notifications.index') }}"
+        data-notification-user-key="{{ auth()->id() ?? '' }}"
+        data-is-notifications-page="{{ request()->routeIs('notifications.index') ? 'true' : 'false' }}" hidden>
         <i id="app-toast-icon" class="ph-fill ph-check-circle app-toast-icon" aria-hidden="true"></i>
         <span id="app-toast-message" class="app-toast-message"></span>
         <a id="app-toast-action" class="app-toast-action" hidden></a>

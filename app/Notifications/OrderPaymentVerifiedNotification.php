@@ -24,7 +24,8 @@ class OrderPaymentVerifiedNotification extends Notification
             'title' => 'Pembayaran terverifikasi',
             'message' => "Pembayaran pesanan {$this->order->display_code} dari {$this->order->shop_name} telah diverifikasi dan pesanan masuk daftar kedai.",
             'business_name' => $this->order->shop_name,
-            'url' => route('orders.show', $this->order->public_code),
+            'order_code' => $this->order->public_code,
+            'url' => route('orders.show', $this->order->public_code, false),
         ];
     }
 }

@@ -137,9 +137,15 @@ class RoasterySearch extends Component
     public function getCitiesProperty()
     {
         return \Illuminate\Support\Facades\Cache::remember(
-            'cities_list',
+            'roastery_cities_published_v1',
             now()->addHour(),
-            fn() => City::select(['id', 'name'])->orderBy('name')->get()
+            fn() => City::query()
+                ->whereIn('id', Roastery::query()
+                    ->where('status', 'published')
+                    ->select('city_id'))
+                ->select(['id', 'name'])
+                ->orderBy('name')
+                ->get()
         );
     }
 

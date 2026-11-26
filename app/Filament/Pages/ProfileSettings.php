@@ -4,7 +4,6 @@ namespace App\Filament\Pages;
 
 use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -43,7 +42,6 @@ class ProfileSettings extends Page
             'name' => $user->name,
             'username' => $user->username,
             'email' => $user->email,
-            'profile_photo_path' => $user->profile_photo_path,
         ]);
     }
 
@@ -53,13 +51,6 @@ class ProfileSettings extends Page
             ->schema([
                 Section::make('Informasi akun')
                     ->schema([
-                        FileUpload::make('profile_photo_path')
-                            ->label('Foto profil')
-                            ->image()
-                            ->avatar()
-                            ->directory('profile-photos')
-                            ->visibility('public')
-                            ->maxSize(2048),
                         TextInput::make('name')
                             ->label('Nama')
                             ->required()
@@ -108,7 +99,6 @@ class ProfileSettings extends Page
         $user->name = $data['name'];
         $user->username = filled($data['username'] ?? null) ? $data['username'] : null;
         $user->email = $data['email'];
-        $user->profile_photo_path = $data['profile_photo_path'] ?? null;
 
         if (filled($data['password'] ?? null)) {
             $user->password = $data['password'];
@@ -119,7 +109,6 @@ class ProfileSettings extends Page
             'name' => $user->name,
             'username' => $user->username,
             'email' => $user->email,
-            'profile_photo_path' => $user->profile_photo_path,
         ]);
 
         Notification::make()

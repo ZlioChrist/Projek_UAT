@@ -3,42 +3,55 @@
 @section('content')
 <style>
     .wn-notifications-page {
-        --notification-espresso: #321b12;
-        --notification-cream: #fff8ed;
-        --notification-muted: #d1b99f;
-        --notification-gold: #f59e0b;
+        --notification-ink: #292620;
+        --notification-muted: #746d63;
+        --notification-gold: #925a10;
+        --notification-border: #e9e1d5;
     }
 
     .wn-notifications-list {
         display: grid;
-        gap: 10px;
-        margin-top: 8px;
+        gap: 14px;
+        margin-top: 20px;
     }
 
     .wn-notification-card {
-        padding: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        background: linear-gradient(145deg, #49291a, #321b12);
-        color: var(--notification-cream);
-        box-shadow: 0 12px 26px rgba(61, 34, 20, 0.13);
-        transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+        min-width: 0;
+        padding: 18px;
+        border: 1px solid var(--notification-border);
+        border-radius: 22px;
+        background: #fff;
+        color: var(--notification-ink);
+        box-shadow: 0 8px 24px rgba(48, 37, 22, 0.045);
+        transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
     }
 
     .wn-notification-card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(245, 158, 11, 0.34);
-        box-shadow: 0 16px 30px rgba(61, 34, 20, 0.18);
+        transform: translateY(-1px);
+        border-color: #e7c982;
+        box-shadow: 0 12px 26px rgba(48, 37, 22, 0.08);
     }
 
     .wn-notification-card.is-unread {
-        border-color: rgba(245, 158, 11, 0.48);
-        box-shadow: inset 3px 0 0 var(--notification-gold), 0 12px 26px rgba(61, 34, 20, 0.13);
+        border-color: #e7c982;
+        background: #fffdf8;
+        box-shadow: inset 3px 0 0 #d9a333, 0 8px 24px rgba(48, 37, 22, 0.045);
+    }
+
+    .wn-notification-card__layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .wn-notification-card__content {
+        min-width: 0;
     }
 
     .wn-notification-card__title {
         margin: 0;
-        color: var(--notification-cream);
+        color: var(--notification-ink);
         font-size: 0.98rem;
         font-weight: 850;
         line-height: 1.35;
@@ -46,10 +59,10 @@
 
     .wn-notification-card__badge {
         padding: 4px 9px;
-        border: 1px solid rgba(245, 158, 11, 0.3);
+        border: 1px solid #f0dfb8;
         border-radius: 999px;
-        background: rgba(245, 158, 11, 0.16);
-        color: #ffdc9d;
+        background: #fff3d8;
+        color: #795821;
         font-size: 0.65rem;
         font-weight: 800;
         letter-spacing: 0.04em;
@@ -64,7 +77,7 @@
 
     .wn-notification-card__business {
         margin: 10px 0 0;
-        color: #f5d399;
+        color: #8c5c1e;
         font-size: 0.75rem;
         font-weight: 750;
     }
@@ -72,7 +85,7 @@
     .wn-notification-card__time {
         display: block;
         margin-top: 12px;
-        color: #bca58d;
+        color: #898176;
         font-size: 0.7rem;
         font-weight: 600;
     }
@@ -84,21 +97,23 @@
         justify-content: center;
         gap: 8px;
         padding: 9px 14px;
-        border: 1px solid var(--notification-gold);
+        border: 1px solid var(--notification-ink);
         border-radius: 999px;
-        background: var(--notification-gold);
-        color: var(--notification-espresso);
+        background: var(--notification-ink);
+        color: #fff;
         font: inherit;
         font-size: 0.72rem;
         font-weight: 800;
         cursor: pointer;
         transition: transform 160ms ease, box-shadow 160ms ease;
+        max-width: 100%;
+        white-space: nowrap;
     }
 
     .wn-notification-card__open:hover {
         transform: translateY(-1px);
-        background: #ffbd3b;
-        box-shadow: 0 7px 16px rgba(50, 27, 18, 0.18);
+        background: #514a3f;
+        box-shadow: 0 7px 16px rgba(48, 37, 22, 0.14);
     }
 
     .wn-notification-card__open:focus-visible {
@@ -108,6 +123,18 @@
 
     .wn-notifications-pagination {
         margin-top: 20px;
+    }
+
+    @media (max-width: 640px) {
+        .wn-notification-card__layout {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 14px;
+        }
+
+        .wn-notification-card__open {
+            width: 100%;
+            white-space: normal;
+        }
     }
 
     @media (max-width: 480px) {
@@ -127,9 +154,10 @@
 
     <section aria-label="Daftar notifikasi" class="wn-notifications-list">
         @forelse($notifications as $notification)
+            @php($isOrderNotification = in_array($notification->data['kind'] ?? '', ['order_ready', 'order_payment_verified', 'payment_qr_changed'], true))
             <article class="wn-notification-card {{ $notification->read_at ? 'is-read' : 'is-unread' }}">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    <div class="min-w-0">
+                <div class="wn-notification-card__layout">
+                    <div class="wn-notification-card__content">
                         <div class="flex flex-wrap items-center gap-2">
                             <h2 class="wn-notification-card__title">{{ $notification->data['title'] ?? 'Pembaruan WadahNgopi' }}</h2>
                             @unless($notification->read_at)
@@ -148,7 +176,7 @@
                         <form method="POST" action="{{ route('notifications.open', $notification->id) }}">
                             @csrf
                             <button type="submit" class="wn-notification-card__open">
-                                {{ $notification->read_at ? 'Buka' : 'Tandai dibaca & buka' }}
+                                {{ $notification->read_at ? ($isOrderNotification ? 'Buka pesanan' : 'Buka') : ($isOrderNotification ? 'Tandai dibaca & buka pesanan' : 'Tandai dibaca & buka') }}
                                 <i class="ph ph-arrow-up-right" aria-hidden="true"></i>
                             </button>
                         </form>
@@ -169,7 +197,7 @@
 
     @if($notifications->hasPages())
         <div class="wn-notifications-pagination">
-            {{ $notifications->links() }}
+            {{ $notifications->links('pagination.customer') }}
         </div>
     @endif
 </main>

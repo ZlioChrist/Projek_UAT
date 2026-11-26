@@ -4,6 +4,11 @@ namespace App\Livewire;
 
 use App\Models\Cafe;
 use App\Services\CafeSearchService;
+use App\Services\CafeVoiceSearchService;
+use App\Services\GoogleMapsGeocodingService;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
+use RuntimeException;
 use Livewire\Component;
 
 class CafeRoulette extends Component
@@ -17,6 +22,24 @@ class CafeRoulette extends Component
     public bool $isSpinning = false;
 
     public int $lastSpinAt = 0;
+
+    public string $voiceCommand = '';
+
+    public string $voiceLocationAddress = '';
+
+    public int $maxMenuPrice = 5000;
+
+    public ?float $voiceLatitude = null;
+
+    public ?float $voiceLongitude = null;
+
+    public string $voiceSearchLocationLabel = '';
+
+    public ?string $voiceSearchError = null;
+
+    public ?string $voiceSearchSummary = null;
+
+    public array $voiceSearchGroups = [];
 
     /**
      * Spin the roulette — fetch random open cafes.
@@ -108,6 +131,7 @@ class CafeRoulette extends Component
         $this->isOpen = true;
         $this->candidates = [];
         $this->winner = null;
+        $this->resetVoiceSearch();
     }
 
     public function closeModal(): void
@@ -116,6 +140,205 @@ class CafeRoulette extends Component
         $this->candidates = [];
         $this->winner = null;
         $this->isSpinning = false;
+        $this->resetVoiceSearch();
+    }
+
+    public function setVoiceLocation(float $latitude, float $longitude): void
+    {
+        if (
+            ! is_finite($latitude)
+            || ! is_finite($longitude)
+            || $latitude < -90
+            || $latitude > 90
+            || $longitude < -180
+            || $longitude > 180
+        ) {
+            throw ValidationException::withMessages([
+                'voiceLocation' => 'Koordinat lokasi tidak valid. Coba ambil lokasi kembali.',
+            ]);
+        }
+
+        $this->voiceLatitude = $latitude;
+        $this->voiceLongitude = $longitude;
+        $this->voiceLocationAddress = '';
+        $this->voiceSearchLocationLabel = 'Lokasi perangkat Anda';
+        $this->voiceSearchError = null;
+    }
+
+    public function updatedVoiceLocationAddress(string $address): void
+    {
+        if (filled($address)) {
+            $this->voiceLatitude = null;
+            $this->voiceLongitude = null;
+            $this->voiceSearchLocationLabel = '';
+        }
+    }
+
+    public function searchNearbyByVoice(): void
+    {
+        $this->voiceSearchError = null;
+        $this->voiceSearchSummary = null;
+        $this->voiceSearchGroups = [];
+
+        $validated = $this->validate([
+            'voiceCommand' => ['required', 'string', 'min:3', 'max:500'],
+            'voiceLocationAddress' => ['nullable', 'string', 'max:200'],
+            'maxMenuPrice' => ['required', 'integer', 'min:0', 'max:1000000'],
+            'voiceLatitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'voiceLongitude' => ['nullable', 'numeric', 'between:-180,180'],
+        ]);
+
+        $latitude = $validated['voiceLatitude'];
+        $longitude = $validated['voiceLongitude'];
+        if (filled($validated['voiceLocationAddress'] ?? null)) {
+            $rateLimitKey = 'voice-cafe-geocoding:'.hash('sha256', (string) request()->ip());
+            if (RateLimiter::tooManyAttempts($rateLimitKey, 10)) {
+                $this->voiceSearchError = 'Terlalu banyak pencarian alamat. Tunggu sebentar lalu coba lagi.';
+
+                return;
+            }
+            RateLimiter::hit($rateLimitKey, 60);
+
+            try {
+                $location = app(GoogleMapsGeocodingService::class)
+                    ->geocode(trim($validated['voiceLocationAddress']));
+            } catch (RuntimeException $exception) {
+                $this->voiceSearchError = $exception->getMessage();
+
+                return;
+            }
+
+            $latitude = $location['latitude'];
+            $longitude = $location['longitude'];
+            $this->voiceSearchLocationLabel = $location['formatted_address'];
+        } elseif ($latitude === null || $longitude === null) {
+            $this->voiceSearchError = 'Sebutkan alamat awal, misalnya Jalan Juanda, atau gunakan lokasi GPS perangkat.';
+
+            return;
+        }
+
+        $searchService = app(CafeVoiceSearchService::class);
+        $requestedFeatures = $searchService->requestedFeatures($validated['voiceCommand']);
+        if ($requestedFeatures === []) {
+            $this->voiceSearchError = 'Saya belum menangkap fasilitas yang dicari. Coba sebutkan Wi-Fi, mushola, parkir, atau fasilitas lain.';
+
+            return;
+        }
+
+        $maxPrice = $searchService->budgetFromCommand(
+            $validated['voiceCommand'],
+            (int) $validated['maxMenuPrice']
+        );
+        $this->maxMenuPrice = $maxPrice;
+
+        $query = Cafe::query()
+            ->where('status', 'published')
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'city_id',
+                'address',
+                'latitude',
+                'longitude',
+                'has_wifi',
+                'image_path',
+                'images',
+            ])
+            ->with(['facilities:id,cafe_id,name', 'city:id,name'])
+            ->withMin([
+                'menuItems as minimum_menu_price' => fn ($menuQuery) => $menuQuery->where('is_active', true),
+            ], 'price');
+
+        if ($maxPrice > 0) {
+            $query->whereHas('menuItems', fn ($menuQuery) => $menuQuery
+                ->where('is_active', true)
+                ->where('price', '<=', $maxPrice));
+        }
+
+        $cafes = app(CafeSearchService::class)
+            ->scopeNearest($query, (float) $latitude, (float) $longitude, 20)
+            ->limit(60)
+            ->get();
+
+        $grouped = [
+            'complete' => [],
+            'partial' => [],
+            'unrecorded' => [],
+        ];
+
+        foreach ($cafes as $cafe) {
+            $matches = $searchService->matchFeatures($cafe, $requestedFeatures);
+            $bucket = match (count($matches['matched'])) {
+                count($requestedFeatures) => 'complete',
+                0 => 'unrecorded',
+                default => 'partial',
+            };
+            $image = $cafe->processed_images[0] ?? asset('wadahngopi.png');
+            $grouped[$bucket][] = [
+                'id' => $cafe->id,
+                'name' => $cafe->name,
+                'slug' => $cafe->slug,
+                'city' => $cafe->city?->name ?? '',
+                'address' => $cafe->address,
+                'image' => $image,
+                'url' => route('cafes.show', $cafe->slug),
+                'distance_km' => round((float) $cafe->distance, 1),
+                'minimum_menu_price' => $cafe->minimum_menu_price !== null
+                    ? (int) round((float) $cafe->minimum_menu_price)
+                    : null,
+                'matched_facilities' => $matches['matched'],
+                'missing_facilities' => $matches['missing'],
+            ];
+        }
+
+        $groupDefinitions = [
+            'complete' => [
+                'title' => 'Semua fasilitas tersedia',
+                'description' => 'Kafe ini memiliki semua fasilitas yang disebut. Diurutkan dari yang terdekat.',
+            ],
+            'partial' => [
+                'title' => 'Fasilitas sebagian',
+                'description' => 'Kafe terdekat yang cocok sebagian. Fasilitas yang belum tercatat ditampilkan.',
+            ],
+            'unrecorded' => [
+                'title' => 'Fasilitas belum tercatat',
+                'description' => 'Data fasilitas kafe ini belum mencatat fasilitas yang Anda minta.',
+            ],
+        ];
+
+        foreach ($groupDefinitions as $key => $definition) {
+            $cafesInGroup = $grouped[$key];
+            $this->voiceSearchGroups[] = [
+                'key' => $key,
+                ...$definition,
+                'count' => count($cafesInGroup),
+                'cafes' => array_slice($cafesInGroup, 0, 8),
+            ];
+        }
+
+        $total = $cafes->count();
+        $budgetSummary = $maxPrice > 0
+            ? 'menu aktif maksimal Rp'.number_format($maxPrice, 0, ',', '.')
+            : 'tanpa batas harga';
+        $this->voiceSearchSummary = $total > 0
+            ? "{$total} kafe dalam radius 20 km, {$budgetSummary}. Hasil dikelompokkan berdasarkan fasilitas dan diurutkan berdasarkan jarak."
+            : "Belum ada kafe dengan menu {$budgetSummary} dan koordinat lokasi dalam radius 20 km.";
+    }
+
+    private function resetVoiceSearch(): void
+    {
+        $this->voiceCommand = '';
+        $this->voiceLocationAddress = '';
+        $this->maxMenuPrice = 5000;
+        $this->voiceLatitude = null;
+        $this->voiceLongitude = null;
+        $this->voiceSearchLocationLabel = '';
+        $this->voiceSearchError = null;
+        $this->voiceSearchSummary = null;
+        $this->voiceSearchGroups = [];
     }
 
     public function render()

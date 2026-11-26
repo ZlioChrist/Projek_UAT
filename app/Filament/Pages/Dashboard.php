@@ -4,6 +4,10 @@ namespace App\Filament\Pages;
 
 use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
+use App\Filament\Widgets\BestSellingProductsChart;
+use App\Filament\Widgets\OrderStatusChart;
+use App\Filament\Widgets\OrderVolumeChart;
+use App\Filament\Widgets\RevenueTrendChart;
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\WelcomeBanner;
 use Filament\Pages\Dashboard as BaseDashboard;
@@ -34,6 +38,10 @@ class Dashboard extends BaseDashboard
         return [
             WelcomeBanner::class,
             StatsOverview::class,
+            OrderVolumeChart::class,
+            RevenueTrendChart::class,
+            OrderStatusChart::class,
+            BestSellingProductsChart::class,
         ];
     }
 }

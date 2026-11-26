@@ -2,8 +2,8 @@
 <div x-data="cafeRoulette(@this)">
 
     {{-- Floating Action Button --}}
-    <button class="roulette-fab" id="roulette-fab-btn" type="button" aria-label="Bingung memilih kafe? Buka pemilih kafe acak"
-        title="Bantu pilihkan kafe" x-show="!$wire.isOpen" wire:click="openModal"
+    <button class="roulette-fab" id="roulette-fab-btn" type="button" aria-label="Bingung memilih kafe? Buka pencarian suara atau pemilih kafe acak"
+        title="Bantu pilihkan kafe" x-show="!$wire.isOpen" wire:click="openModal" @click="activeMode = 'random'"
         :class="{ 'is-dragging': fabDragging }" :style="fabStyle"
         @pointerdown="startFabDrag($event)" @pointermove="moveFab($event)"
         @pointerup="endFabDrag($event)" @pointercancel="endFabDrag($event)"
@@ -23,7 +23,7 @@
             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click.self="closeModal()">
 
             {{-- Modal Card --}}
-            <div class="roulette-modal" x-show="$wire.isOpen" x-transition:enter="transition ease-out duration-400"
+            <div class="roulette-modal" :class="{ 'roulette-modal--voice': activeMode === 'voice' }" x-show="$wire.isOpen" x-transition:enter="transition ease-out duration-400"
                 x-transition:enter-start="opacity-0 scale-90 translate-y-8"
                 x-transition:enter-end="opacity-100 scale-100 translate-y-0"
                 x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
@@ -41,9 +41,19 @@
                         <i class="ph-fill ph-coffee text-2xl text-white"></i>
                     </div>
                     <h2 class="roulette-title">Bingung Mau Ngopi Dimana?</h2>
-                    <p class="roulette-subtitle">Putar dan temukan cafe yang pas buat kamu!</p>
+                <p class="roulette-subtitle">Cari dengan suara sesuai fasilitas atau biarkan kami memilih secara acak.</p>
                 </div>
 
+            <div class="roulette-mode-tabs" role="tablist" aria-label="Cara memilih kafe">
+                <button type="button" role="tab" :aria-selected="activeMode === 'random'" :class="{ 'is-active': activeMode === 'random' }" @click="activeMode = 'random'">
+                    <i class="ph-bold ph-shuffle"></i> Pilih acak
+                </button>
+                <button type="button" role="tab" :aria-selected="activeMode === 'voice'" :class="{ 'is-active': activeMode === 'voice' }" @click="activeMode = 'voice'">
+                    <i class="ph-bold ph-microphone"></i> Cari dengan suara
+                </button>
+            </div>
+
+            <div x-show="activeMode === 'random'">
                 {{-- Stage --}}
                 <div class="roulette-stage" id="roulette-stage">
                     {{-- Cards will be injected by Alpine --}}
@@ -65,8 +75,8 @@
                                     <i class="ph-fill ph-map-pin" style="color:#F59E0B"></i>
                                     <span x-text="cafe.city"></span>
                                 </div>
+                                </div>
                             </div>
-                        </div>
                     </template>
 
                     {{-- Confetti --}}
@@ -102,6 +112,99 @@
                         </button>
                     </div>
                 </template>
+                </div>
+
+            <div x-show="activeMode === 'voice'" x-cloak class="roulette-voice-search">
+                <form class="roulette-voice-form" @submit.prevent="searchByVoice()">
+                    <label class="roulette-voice-field">
+                        <span>Ucapkan kebutuhanmu</span>
+                        <textarea
+                            wire:model="voiceCommand"
+                            rows="3"
+                            maxlength="500"
+                            placeholder="Contoh: Saya di Jalan Juanda, cari kafe dengan mushola dan Wi-Fi, harga terjangkau."
+                            aria-label="Perintah pencarian kafe"
+                        ></textarea>
+                    </label>
+                    <div class="roulette-voice-actions">
+                        <button type="button" class="roulette-voice-button" @click="startVoiceRecognition()" :disabled="isListening">
+                            <i class="ph-bold ph-microphone"></i>
+                            <span x-text="isListening ? 'Mendengarkan...' : 'Mulai bicara'"></span>
+                        </button>
+                        <span class="roulette-voice-status" role="status" x-text="voiceStatus"></span>
+                    </div>
+
+                    <label class="roulette-voice-field">
+                        <span>Lokasi awal</span>
+                        <input
+                            type="text"
+                            wire:model="voiceLocationAddress"
+                            maxlength="200"
+                            autocomplete="street-address"
+                            placeholder="Contoh: Jalan Juanda, Samarinda"
+                        >
+                    </label>
+                    <button type="button" class="roulette-voice-location" @click="useCurrentLocation()" :disabled="isGettingLocation">
+                        <i class="ph-bold ph-crosshair"></i>
+                        <span x-text="isGettingLocation ? 'Mengambil lokasi...' : 'Gunakan lokasi GPS saya'"></span>
+                    </button>
+                    <p class="roulette-voice-privacy">Alamat yang diketik akan dikirim ke Google Maps untuk mencari koordinat. Pengenalan suara memerlukan izin mikrofon dan bergantung pada dukungan browser. Jika menggunakan GPS, browser akan meminta izin lokasi.</p>
+
+                    <label class="roulette-voice-field">
+                        <span>Batas harga per menu (Rp)</span>
+                        <input type="number" wire:model="maxMenuPrice" min="0" max="1000000" step="1000" inputmode="numeric">
+                        <small>Awalnya Rp5.000. Ubah bila batas terjangkau kamu berbeda. Isi 0 untuk tanpa batas.</small>
+                    </label>
+
+                    <button type="submit" class="roulette-voice-submit" wire:loading.attr="disabled" wire:target="searchNearbyByVoice">
+                        <i class="ph-bold ph-magnifying-glass"></i>
+                        <span wire:loading.remove wire:target="searchNearbyByVoice">Cari kafe terdekat</span>
+                        <span wire:loading wire:target="searchNearbyByVoice">Mencari...</span>
+                    </button>
+                </form>
+
+                @if ($voiceSearchError)
+                    <p class="roulette-voice-error" role="alert">{{ $voiceSearchError }}</p>
+                @endif
+                @if ($voiceSearchSummary)
+                    <p class="roulette-voice-summary" role="status">{{ $voiceSearchSummary }}</p>
+                @endif
+                @if ($voiceSearchLocationLabel)
+                    <p class="roulette-voice-origin">Titik pencarian: {{ $voiceSearchLocationLabel }}</p>
+                @endif
+
+                @foreach ($voiceSearchGroups as $group)
+                    <section class="roulette-voice-group" aria-labelledby="voice-group-{{ $group['key'] }}">
+                        <header>
+                            <h3 id="voice-group-{{ $group['key'] }}">{{ $group['title'] }}</h3>
+                            <span>{{ $group['count'] }}</span>
+                        </header>
+                        <p>{{ $group['description'] }}</p>
+                        @forelse ($group['cafes'] as $cafe)
+                            <article class="roulette-voice-result">
+                                <img src="{{ $cafe['image'] }}" alt="" loading="lazy">
+                                <div class="roulette-voice-result-copy">
+                                    <h4>{{ $cafe['name'] }}</h4>
+                                    <span>{{ $cafe['city'] }} · {{ number_format($cafe['distance_km'], 1, ',', '.') }} km</span>
+                                    <span>
+                                        @if ($cafe['minimum_menu_price'] !== null)
+                                            Menu mulai Rp{{ number_format($cafe['minimum_menu_price'], 0, ',', '.') }}
+                                        @else
+                                            Harga menu belum tercatat
+                                        @endif
+                                    </span>
+                                    <small>Memiliki: {{ implode(', ', $cafe['matched_facilities']) ?: 'Belum ada yang tercatat' }}</small>
+                                    @if ($cafe['missing_facilities'] !== [])
+                                        <small class="is-missing">Belum tercatat: {{ implode(', ', $cafe['missing_facilities']) }}</small>
+                                    @endif
+                                    <a href="{{ $cafe['url'] }}">Lihat kafe</a>
+                                </div>
+                            </article>
+                        @empty
+                            <p class="roulette-voice-no-results">Belum ada kafe dalam kelompok ini.</p>
+                        @endforelse
+                    </section>
+                @endforeach
             </div>
         </div>
     </template>
@@ -110,6 +213,7 @@
 @script
 <script>
     Alpine.data('cafeRoulette', (wire) => ({
+        activeMode: 'random',
         spinning: false,
         candidates: [],
         displayCards: [],
@@ -130,6 +234,115 @@
         fabStartLeft: 0,
         fabStartTop: 0,
         fabStyle: '',
+        isListening: false,
+        isGettingLocation: false,
+        voiceStatus: '',
+
+        startVoiceRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                this.voiceStatus = 'Pengenalan suara belum didukung browser ini. Ketik kebutuhanmu atau coba Chrome/Edge.';
+                return;
+            }
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'id-ID';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            this.isListening = true;
+            this.voiceStatus = 'Silakan ucapkan kebutuhan dan lokasi kafe.';
+
+            recognition.onresult = async (event) => {
+                const transcript = event.results?.[0]?.[0]?.transcript?.trim() || '';
+                if (!transcript) return;
+
+                await wire.set('voiceCommand', transcript);
+                const address = this.extractStreetAddress(transcript);
+                if (address) {
+                    await wire.set('voiceLocationAddress', address);
+                    await wire.set('voiceLatitude', null);
+                    await wire.set('voiceLongitude', null);
+                    this.voiceStatus = `Lokasi terdeteksi: ${address}. Periksa sebelum mencari.`;
+                } else {
+                    this.voiceStatus = 'Teks suara siap. Isi lokasi awal atau gunakan GPS.';
+                }
+            };
+            recognition.onerror = (event) => {
+                const messages = {
+                    'not-allowed': 'Izin mikrofon ditolak. Izinkan mikrofon di browser atau ketik kebutuhanmu.',
+                    'service-not-allowed': 'Layanan pengenalan suara tidak tersedia. Ketik kebutuhanmu sebagai gantinya.',
+                    'no-speech': 'Suara belum terdengar. Coba bicara lagi atau ketik kebutuhanmu.',
+                    network: 'Layanan suara mengalami gangguan jaringan. Kamu bisa mengetik kebutuhanmu.',
+                };
+                this.voiceStatus = messages[event.error] || 'Suara tidak dapat dikenali. Coba lagi atau ketik kebutuhanmu.';
+            };
+            recognition.onend = () => {
+                this.isListening = false;
+                if (this.voiceStatus === 'Silakan ucapkan kebutuhan dan lokasi kafe.') {
+                    this.voiceStatus = 'Belum ada suara yang dikenali. Coba lagi atau ketik kebutuhanmu.';
+                }
+            };
+
+            try {
+                recognition.start();
+            } catch {
+                this.isListening = false;
+                this.voiceStatus = 'Mikrofon belum siap. Coba lagi atau ketik kebutuhanmu.';
+            }
+        },
+
+        extractStreetAddress(transcript) {
+            const match = transcript.match(/\b(?:di|dari|sekitar|dekat)\s+(?:jalan|jl\.?|jln\.?)\s+([^,.;!?]+)/i);
+            if (!match) return '';
+
+            const street = match[1]
+                .split(/\s+(?=(?:mau|ingin|cari|tolong|dengan|yang|ada|harga|fasilitas)\b)/i)[0]
+                .trim();
+
+            return street ? `Jalan ${street}` : '';
+        },
+
+        useCurrentLocation() {
+            if (!navigator.geolocation) {
+                this.voiceStatus = 'Browser ini tidak mendukung lokasi GPS. Isi alamat awal secara manual.';
+                return;
+            }
+            if (!window.isSecureContext && location.hostname !== 'localhost') {
+                this.voiceStatus = 'Lokasi GPS memerlukan HTTPS. Gunakan alamat awal sebagai gantinya.';
+                return;
+            }
+
+            this.isGettingLocation = true;
+            this.voiceStatus = 'Meminta izin lokasi perangkat...';
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                try {
+                    await wire.setVoiceLocation(position.coords.latitude, position.coords.longitude);
+                    this.voiceStatus = 'Lokasi GPS siap digunakan.';
+                } catch {
+                    this.voiceStatus = 'Lokasi GPS gagal disimpan. Coba lagi.';
+                } finally {
+                    this.isGettingLocation = false;
+                }
+            }, (error) => {
+                this.isGettingLocation = false;
+                const messages = {
+                    1: 'Izin lokasi ditolak. Izinkan lokasi di browser atau isi alamat awal.',
+                    2: 'Lokasi perangkat tidak ditemukan. Coba lagi atau isi alamat awal.',
+                    3: 'Permintaan lokasi terlalu lama. Coba lagi atau isi alamat awal.',
+                };
+                this.voiceStatus = messages[error.code] || 'Lokasi GPS gagal didapatkan. Isi alamat awal.';
+            }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+        },
+
+        async searchByVoice() {
+            this.voiceStatus = 'Mencari kafe dalam radius 20 km...';
+            try {
+                await wire.searchNearbyByVoice();
+                this.voiceStatus = '';
+            } catch {
+                this.voiceStatus = 'Pencarian gagal. Periksa perintah, lokasi, dan batas harga.';
+            }
+        },
 
         getFabBounds() {
             const container = document.querySelector('.main-container');

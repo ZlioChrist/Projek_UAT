@@ -116,7 +116,7 @@ class MerchantApplicationResource extends Resource
                     ->icon('heroicon-m-check-circle')
                     ->color('success')
                     ->requiresConfirmation()
-                    ->modalDescription('Akun customer akan diubah menjadi akun pengelola. Usaha baru akan berstatus Pending dan belum tampil untuk pelanggan. Admin dapat mengubah statusnya setelah ditinjau.')
+                    ->modalDescription('Setelah disetujui, akun customer menjadi akun pengelola dan usaha masuk daftar dengan status tinjauan. Usaha belum tampil untuk pelanggan sampai tim menyelesaikan pemeriksaan.')
                     ->visible(fn (MerchantApplication $record): bool => $record->status === MerchantApplication::STATUS_PENDING)
                     ->action(function (MerchantApplication $record): void {
                         DB::transaction(function () use ($record): void {
@@ -159,7 +159,7 @@ class MerchantApplicationResource extends Resource
 
                         Notification::make()
                             ->title('Pengajuan disetujui')
-                            ->body('Usaha dibuat dengan status Pending dan akses pengelola telah diaktifkan.')
+                            ->body('Usaha masuk daftar dengan status tinjauan dan belum tampil untuk pelanggan.')
                             ->success()
                             ->send();
                     }),

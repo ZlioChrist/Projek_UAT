@@ -18,6 +18,34 @@ use Illuminate\Validation\ValidationException;
 
 class OrderService
 {
+    public function availablePaymentMethods(Cafe|Roastery $shop): array
+    {
+        $methods = [];
+
+        if (filled($shop->payment_qr_path) && Storage::disk('public')->exists($shop->payment_qr_path)) {
+            $methods[] = 'qris';
+        }
+
+        if (
+            filled($shop->bank_name)
+            && filled($shop->bank_account_number)
+            && filled($shop->bank_account_name)
+        ) {
+            $methods[] = 'transfer';
+        }
+
+        if ($shop->accepts_cash) {
+            $methods[] = 'cash';
+        }
+
+        return $methods;
+    }
+
+    public function isPaymentMethodAvailable(Cafe|Roastery $shop, string $method): bool
+    {
+        return in_array($method, $this->availablePaymentMethods($shop), true);
+    }
+
     /**
      * Create an unpaid pickup order and reserve its stock atomically.
      * Stock is not consumed until a cafe confirms payment.
@@ -129,6 +157,21 @@ class OrderService
         }
 
         $this->expireDueOrders();
+
+        if ($idempotencyKey && ($existing = Order::where('idempotency_key', $idempotencyKey)->first())) {
+            return $existing->load(['cafe', 'roastery', 'items']);
+        }
+
+        if (! $this->isPaymentMethodAvailable($shop, $paymentMethod)) {
+            $message = match ($paymentMethod) {
+                'qris' => 'QRIS belum diatur atau gambar QRIS tidak tersedia. Pilih metode pembayaran lain.',
+                'transfer' => 'Transfer belum tersedia karena informasi bank kedai belum lengkap.',
+                'cash' => 'Kedai tidak menerima pembayaran tunai untuk saat ini.',
+                default => 'Metode pembayaran ini belum tersedia.',
+            };
+
+            throw ValidationException::withMessages(['payment_method' => $message]);
+        }
 
         return DB::transaction(function () use ($shop, $quantities, $addons, $customerName, $customerWhatsapp, $userId, $customerNote, $idempotencyKey, $paymentMethod, $senderBank, $fulfillmentMethod, $deliveryAddress) {
             if ($idempotencyKey && ($existing = Order::where('idempotency_key', $idempotencyKey)->first())) {

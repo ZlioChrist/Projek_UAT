@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\ReceiptPrintJob;
 use App\Services\OrderService;
 use App\Support\AuthenticatedUser;
+use App\Support\CurrencyFormatter;
 use Filament\Forms;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -108,7 +109,7 @@ class OrderReportResource extends Resource
                     ->formatStateUsing(fn (?string $state): string => $state === 'delivery' ? 'Diantar kurir' : 'Ambil sendiri'),
                 Tables\Columns\TextColumn::make('total')
                     ->label('Total')
-                    ->money('IDR')
+                    ->formatStateUsing(fn (int|float|string $state): string => CurrencyFormatter::rupiah($state))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Status pesanan')

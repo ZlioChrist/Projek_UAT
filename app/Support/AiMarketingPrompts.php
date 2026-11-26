@@ -5,6 +5,35 @@ namespace App\Support;
 class AiMarketingPrompts
 {
     /**
+     * @return array<int, array{title: string, prompt: string}>
+     */
+    public function quickTools(): array
+    {
+        return [
+            [
+                'title' => 'Strategi pemasaran',
+                'prompt' => 'Bantu saya menyusun strategi pemasaran untuk usaha saya. Tanyakan maksimal dua hal penting tentang pelanggan sasaran, lokasi, menu unggulan, tujuan, atau anggaran jika belum tersedia. Buat rencana 7 hari yang realistis, langkah yang bisa dilakukan, ide konten, dan ukuran hasil. Jangan mengarang data usaha atau promo.',
+            ],
+            [
+                'title' => 'Buat caption',
+                'prompt' => 'Bantu saya menulis tiga pilihan caption media sosial untuk usaha kopi saya. Tanyakan nama menu atau promo, platform, dan gaya bahasa jika belum ada. Buat caption yang menarik, singkat, memiliki ajakan yang jelas, dan jangan mengarang harga, promo, lokasi, atau fakta.',
+            ],
+            [
+                'title' => 'Susun strategi harga',
+                'prompt' => 'Bantu saya menentukan strategi harga menu. Tanyakan biaya bahan, kemasan, biaya lain per porsi, dan target laba jika belum saya berikan. Jelaskan rumus harga dengan bahasa sederhana, lalu beri rekomendasi berdasarkan data. Jangan memberi harga pasti tanpa data biaya; tandai angka contoh sebagai simulasi.',
+            ],
+            [
+                'title' => 'Susun menu',
+                'prompt' => 'Bantu saya menyusun menu kafe atau roastery. Pertimbangkan pelanggan sasaran, alat, bahan, waktu penyajian, biaya, dan rentang harga. Tanyakan maksimal dua hal penting jika data belum tersedia, lalu berikan susunan menu awal dan alasan singkat. Jangan menjanjikan menu pasti laku.',
+            ],
+            [
+                'title' => 'Buat naskah video edukasi',
+                'prompt' => 'Bantu saya membuat naskah video edukasi kopi berdurasi 30 sampai 45 detik. Tanyakan topik dan penonton sasaran jika belum jelas. Susun pembuka, urutan adegan, narasi, teks layar, dan ajakan di akhir. Gunakan bahasa sederhana dan jangan menyebut klaim teknis yang belum terverifikasi sebagai fakta.',
+            ],
+        ];
+    }
+
+    /**
      * @return array<int, array{category: string, title: string, image_url: ?string, prompt_text: string}>
      */
     public function all(): array
@@ -122,25 +151,67 @@ class AiMarketingPrompts
                 'category' => 'COPYWRITING & CAPTION',
                 'title' => 'Caption peluncuran menu baru',
                 'image_url' => null,
-                'prompt_text' => 'Write a warm, engaging Instagram caption in Indonesian for a new signature coffee at a cozy local cafe. Describe its aroma and flavor, include a friendly local greeting, a clear invitation to visit, and relevant hashtags.',
+                'prompt_text' => 'Tulis caption Instagram yang hangat untuk peluncuran menu kopi baru. Buat tiga pilihan dengan gaya berbeda, ajakan berkunjung, dan tagar yang sesuai. Jangan mengarang nama menu, rasa, harga, atau lokasi yang belum saya berikan.',
             ],
             [
                 'category' => 'COPYWRITING & CAPTION',
                 'title' => 'Caption promo jam sepi',
                 'image_url' => null,
-                'prompt_text' => 'Write a persuasive but friendly Indonesian caption for an afternoon coffee promotion. Make the offer, time, terms, and call to action easy to understand; avoid inventing details that were not provided.',
+                'prompt_text' => 'Tulis caption promosi untuk menarik pelanggan pada jam yang sepi. Buat penawaran, waktu, syarat, dan ajakan mudah dipahami. Tanyakan detail promo jika belum diberikan dan jangan mengarang harga atau ketentuannya.',
             ],
             [
                 'category' => 'STRATEGI BISNIS',
                 'title' => 'Ide meningkatkan pelanggan kembali',
                 'image_url' => null,
-                'prompt_text' => 'Act as a coffee-shop business consultant. Suggest three practical ways to encourage first-time visitors to return, using community events, a simple loyalty program, and personal customer experiences. Include steps and ways to measure results.',
+                'prompt_text' => 'Berikan tiga cara praktis agar pelanggan yang baru pertama datang mau kembali ke kedai. Sertakan langkah awal dan cara sederhana untuk mengukur hasilnya. Sesuaikan dengan informasi usaha yang saya berikan.',
             ],
             [
                 'category' => 'STRATEGI BISNIS',
                 'title' => 'Ide kolaborasi usaha lokal',
                 'image_url' => null,
-                'prompt_text' => 'Suggest three realistic collaboration ideas between a local independent coffee shop and nearby businesses such as bakeries, bookstores, or clothing shops. Explain the mutual value, a first step, and a simple success measure.',
+                'prompt_text' => 'Berikan tiga ide kolaborasi yang realistis antara kedai kopi lokal dan usaha sekitar. Jelaskan manfaat bagi kedua pihak, langkah untuk memulai, dan cara sederhana mengukur hasilnya. Jangan mengarang nama usaha atau data lokasi.',
+            ],
+            [
+                'category' => 'STRATEGI PEMASARAN',
+                'title' => 'Rencana pemasaran 7 hari',
+                'image_url' => null,
+                'prompt_text' => 'Bantu saya menyusun rencana pemasaran kedai kopi selama 7 hari. Tanyakan maksimal dua hal penting jika data usaha, pelanggan sasaran, menu unggulan, tujuan, atau anggaran belum tersedia. Buat langkah harian yang sederhana, ide konten, ajakan pelanggan, dan ukuran hasil. Jangan mengarang harga, promo, atau data usaha.',
+            ],
+            [
+                'category' => 'STRATEGI HARGA',
+                'title' => 'Menentukan harga jual dari biaya',
+                'image_url' => null,
+                'prompt_text' => 'Bantu saya menghitung saran harga jual minuman. Minta biaya bahan, kemasan, biaya lain per porsi, dan target laba jika belum saya berikan. Tunjukkan rumus dan perhitungannya dengan bahasa sederhana. Jangan memberi harga pasti tanpa data biaya; tandai contoh angka sebagai simulasi.',
+            ],
+            [
+                'category' => 'STRATEGI HARGA',
+                'title' => 'Mengevaluasi harga dan paket menu',
+                'image_url' => null,
+                'prompt_text' => 'Bantu saya mengevaluasi harga menu dan ide paket bundling. Gunakan harga, biaya, jumlah terjual, dan informasi pesaing hanya jika saya berikan. Jelaskan manfaat, risiko, dan cara mencoba paket dalam waktu terbatas. Jangan mengarang data atau menjanjikan keuntungan.',
+            ],
+            [
+                'category' => 'PENYUSUNAN MENU',
+                'title' => 'Menyusun menu yang seimbang',
+                'image_url' => null,
+                'prompt_text' => 'Bantu saya menyusun menu kedai kopi yang ringkas dan seimbang. Pertimbangkan pelanggan sasaran, alat yang tersedia, bahan, waktu penyajian, biaya, dan harga. Jika data belum ada, tanyakan maksimal dua hal lalu berikan kerangka menu awal dengan asumsi yang disebutkan.',
+            ],
+            [
+                'category' => 'PENYUSUNAN MENU',
+                'title' => 'Ide menu baru sesuai pelanggan',
+                'image_url' => null,
+                'prompt_text' => 'Buat beberapa ide menu baru untuk kedai kopi saya berdasarkan pelanggan sasaran dan bahan yang tersedia. Untuk tiap ide, jelaskan rasa utama, bahan, tingkat kerumitan, dan cara menguji minat pelanggan. Jangan menganggap ide tersebut pasti laku.',
+            ],
+            [
+                'category' => 'VIDEO EDUKASI',
+                'title' => 'Naskah video edukasi proses seduh',
+                'image_url' => 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=900&q=80',
+                'prompt_text' => 'Buat konsep video edukasi kopi berdurasi 30 sampai 45 detik tentang langkah dasar menyeduh kopi manual. Sertakan pembuka yang menarik, urutan adegan, narasi singkat, teks layar, dan ajakan di akhir. Gunakan bahasa Indonesia sederhana dan hindari klaim teknis yang belum dipastikan.',
+            ],
+            [
+                'category' => 'VIDEO EDUKASI',
+                'title' => 'Naskah video tips menyimpan kopi',
+                'image_url' => 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=900&q=80',
+                'prompt_text' => 'Buat konsep video edukasi 30 sampai 45 detik tentang cara menyimpan biji kopi agar kualitasnya terjaga. Sertakan pembuka, tiga adegan, narasi, teks layar, dan ajakan di akhir. Sampaikan tips yang umum dan aman, serta jangan membuat klaim ilmiah yang tidak diketahui.',
             ],
         ];
     }

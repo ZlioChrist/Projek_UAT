@@ -33,8 +33,8 @@
                     </div>
                 </div>
                 <div class="flex-1 min-w-0 flex flex-col justify-center">
-                    <h3 class="text-[0.95rem] font-black text-[#2C1810] leading-snug truncate group-hover:text-amber-600 transition-colors" x-text="item.name"></h3>
-                    <p class="text-[0.65rem] font-bold text-[#8B7355] flex items-center gap-1 mt-0.5">
+                    <h3 class="text-[0.95rem] font-black text-[#292620] leading-snug truncate group-hover:text-amber-600 transition-colors" x-text="item.name"></h3>
+                    <p class="text-[0.65rem] font-bold text-[#746D63] flex items-center gap-1 mt-0.5">
                         <i class="ph-fill ph-map-pin text-amber-500"></i>
                         <span class="truncate" x-text="(item.address || '').split(',')[0]"></span>
                     </p>
@@ -42,7 +42,7 @@
                         <span class="saved-card__tag" x-text="item.type"></span>
                     </div>
                 </div>
-                <div class="pl-2 border-l border-[#1a0f0a]/5 flex flex-col justify-center">
+                <div class="pl-2 border-l border-[#292620]/10 flex flex-col justify-center">
                     <button @click.prevent.stop="confirmDelete(item)"
                         class="flex items-center justify-center w-9 h-9 bg-rose-50 text-rose-500 rounded-xl hover:bg-rose-500 hover:text-white active:scale-90 transition-all">
                         <i class="ph-bold ph-trash text-base"></i>
@@ -73,17 +73,17 @@
 
     {{-- Delete Modal --}}
     <template x-teleport="body">
-        <div x-show="showDeleteModal" x-cloak class="modal-overlay" :class="{ 'active': showDeleteModal }">
+        <div x-show="showDeleteModal" x-cloak class="modal-overlay wn-saved-modal" :class="{ 'active': showDeleteModal }">
             <div x-show="showDeleteModal" class="modal-card"
                 x-transition:enter="transition ease-out duration-400"
                 x-transition:enter-start="opacity-0 scale-90 translate-y-8"
                 x-transition:enter-end="opacity-100 scale-100 translate-y-0">
                 <div class="modal-icon-circle"><i class="ph-bold ph-warning text-2xl text-rose-500"></i></div>
-                <h3 class="text-xl font-black text-center text-[#2C1810] mb-2">Hapus?</h3>
-                <p class="text-center text-[0.9rem] text-[#8B7355] mb-8" x-text="'Hapus ' + itemToDelete?.name + '?'"></p>
+                <h3 class="text-xl font-black text-center text-[#292620] mb-2">Hapus?</h3>
+                <p class="text-center text-[0.9rem] text-[#746D63] mb-8" x-text="'Hapus ' + itemToDelete?.name + '?'"></p>
                 <div class="flex flex-col gap-3">
                     <button @click="executeDelete()" class="btn-delete-confirm py-4 w-full text-white font-bold">Ya, Hapus</button>
-                    <button @click="showDeleteModal = false" class="btn-cancel py-4 w-full font-bold text-[#8B7355]">Batal</button>
+                    <button @click="showDeleteModal = false" class="btn-cancel py-4 w-full font-bold text-[#746D63]">Batal</button>
                 </div>
             </div>
         </div>

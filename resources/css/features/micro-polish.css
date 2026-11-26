@@ -20,6 +20,11 @@
     -webkit-backdrop-filter: blur(16px);
 }
 
+.app-toast.is-notification-toast {
+    top: calc(16px + env(safe-area-inset-top, 0px));
+    bottom: auto;
+}
+
 .app-toast[hidden] {
     display: none;
 }
@@ -126,6 +131,11 @@
         bottom: calc(86px + env(safe-area-inset-bottom, 0px));
         width: calc(100vw - 24px);
         padding: 11px 12px;
+    }
+
+    .app-toast.is-notification-toast {
+        top: calc(12px + env(safe-area-inset-top, 0px));
+        bottom: auto;
     }
 }
 

@@ -38,7 +38,8 @@ class OrderReadyNotification extends Notification
             'title' => $title,
             'message' => $message,
             'business_name' => $this->order->shop_name,
-            'url' => route('orders.show', $this->order->public_code),
+            'order_code' => $this->order->public_code,
+            'url' => route('orders.show', $this->order->public_code, false),
         ];
     }
 }

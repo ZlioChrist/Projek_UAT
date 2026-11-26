@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminProfilePhotoController;
 use App\Http\Controllers\Api\BookmarkController;
 use App\Http\Controllers\Api\CheckInController;
 use App\Http\Controllers\Api\VibeController;
@@ -10,8 +11,11 @@ use App\Http\Controllers\CustomerAuthController;
 use App\Http\Controllers\CustomerFeedbackController;
 use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\ExploreController;
+use App\Http\Controllers\AiPromptPreviewController;
+use App\Http\Controllers\GeminiChatImageController;
 use App\Http\Controllers\InformationController;
 use App\Http\Controllers\MerchantApplicationController;
+use App\Http\Controllers\MerchantRegistrationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OwnerOrderController;
@@ -62,12 +66,19 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
         ->middleware('guest:web')
         ->middleware('throttle:10,1')
         ->name('owner.auth.whatsapp.login.verify');
+    Route::get('/admin/register', [MerchantRegistrationController::class, 'create'])
+        ->middleware(['guest:web', 'guest:customer'])
+        ->name('merchant-registration.create');
+    Route::post('/admin/register', [MerchantRegistrationController::class, 'store'])
+        ->middleware(['guest:web', 'guest:customer', 'throttle:5,1'])
+        ->name('merchant-registration.store');
     Route::middleware('guest')->group(function () {
         Route::get('/login', [CustomerAuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [CustomerAuthController::class, 'login'])->middleware('throttle:10,1')->name('login.store');
         Route::get('/register', [CustomerAuthController::class, 'showRegister'])->name('register');
         Route::post('/register', [CustomerAuthController::class, 'register'])->middleware('throttle:5,1')->name('register.store');
     });
+
     Route::get('/roastery', [RoasteryController::class, 'index'])->name('roastery');
     Route::get('/roastery/{roastery}', [RoasteryController::class, 'show'])->name('roastery.show');
     Route::get('/cafes/{cafe}', [CafeController::class, 'show'])->name('cafes.show');
@@ -98,6 +109,7 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
         Route::get('/account/feedback', [CustomerFeedbackController::class, 'indexForCustomer'])->name('account.feedback.index');
         Route::get('/account/merchant-application', [MerchantApplicationController::class, 'create'])->name('merchant-applications.create');
         Route::post('/account/merchant-application', [MerchantApplicationController::class, 'store'])->middleware('throttle:5,1')->name('merchant-applications.store');
+        Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount'])->name('notifications.unread-count');
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
         Route::post('/notifications/{notificationId}/open', [NotificationController::class, 'open'])
             ->name('notifications.open');
@@ -114,6 +126,7 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
             ->middleware('throttle:5,1')
             ->name('orders.feedback.store');
     });
+
     Route::get('/orders/{code}/status', [OrderController::class, 'status'])->middleware('throttle:60,1')->name('orders.status');
     Route::post('/orders/{code}/payment', [OrderController::class, 'submitPayment'])->middleware('throttle:10,1')->name('orders.payment.submit');
     Route::post('/orders/{code}/confirm-received', [OrderController::class, 'confirmReceived'])
@@ -207,3 +220,15 @@ Route::middleware(['throttle:web', 'customer.site'])->group(function () {
         return redirect('/');
     })->middleware('auth')->name('logout');
 });
+
+Route::middleware(['auth', 'throttle:web'])
+    ->get('/admin/ai-conversations/{conversation}/messages/{message}/image', GeminiChatImageController::class)
+    ->name('admin.ai-chat-images.show');
+
+Route::middleware(['auth', 'throttle:web'])
+    ->get('/admin/ai-prompt-previews/{promptKey}', AiPromptPreviewController::class)
+    ->name('admin.ai-prompt-previews.show');
+
+Route::middleware(['auth', 'throttle:web'])
+    ->patch('/admin/profile-photo', [AdminProfilePhotoController::class, 'update'])
+    ->name('admin.profile-photo.update');

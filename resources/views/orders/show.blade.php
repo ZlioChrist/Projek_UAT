@@ -1,6 +1,41 @@
 @extends('layouts.app')
 @section('title', 'Pesanan '.$order->display_code.' - WadahNgopi')
 @section('content')
+<style>
+    #receipt-confirmation-dialog {
+        max-height: min(90vh, 42rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+    }
+
+    #receipt-confirmation-dialog[open] {
+        animation: receipt-dialog-enter 220ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+    }
+
+    #receipt-confirmation-dialog::backdrop {
+        background: rgb(15 23 42 / 54%);
+        backdrop-filter: blur(3px);
+        animation: receipt-backdrop-enter 180ms ease-out both;
+    }
+
+    @keyframes receipt-dialog-enter {
+        from { opacity: 0; transform: translateY(12px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes receipt-backdrop-enter {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        #receipt-confirmation-dialog[open],
+        #receipt-confirmation-dialog::backdrop {
+            animation: none;
+        }
+    }
+</style>
 <div class="mx-auto max-w-3xl px-4 py-10">
     @if(session('status'))<div class="mb-4 rounded-xl bg-emerald-50 p-3 font-semibold text-emerald-800">{{ session('status') }}</div>@endif
     @if($errors->any())<div role="alert" class="mb-4 rounded-xl bg-rose-50 p-3 text-sm font-semibold text-rose-800">{{ $errors->first() }} @if($whatsappUrl)<a href="{{ $whatsappUrl }}" target="_blank" rel="noopener noreferrer" class="underline">Hubungi kedai via WhatsApp</a>@endif</div>@endif
@@ -111,17 +146,32 @@
                 <p class="mt-2 text-sm text-emerald-900">Konfirmasikan penerimaan jika pesanan sudah sampai. Jika belum diterima atau ada kendala, gunakan menu komplain untuk menghubungi admin kedai.</p>
                 <p class="mt-2 text-xs text-emerald-900">Batas konfirmasi: {{ $order->receipt_confirmation_deadline_started_at?->copy()->addHours(24)->format('d/m/Y H:i') }}.</p>
                 @if($canCustomerConfirmReceipt)
-                    <dialog id="receipt-confirmation-dialog" class="m-auto w-[calc(100%-2rem)] max-w-lg rounded-3xl border-0 p-0 shadow-2xl backdrop:bg-black/50" aria-labelledby="receipt-confirmation-title" aria-describedby="receipt-confirmation-description">
-                        <div class="p-6 sm:p-8">
-                            <p class="text-xs font-black uppercase tracking-widest text-emerald-700">{{ $order->fulfillment_method === 'delivery' ? 'Konfirmasi pengantaran' : 'Konfirmasi pengambilan' }}</p>
-                            <h2 id="receipt-confirmation-title" class="mt-2 text-2xl font-black text-[#2C1810]">Pesanan sudah diterima?</h2>
+                    <button type="button" data-open-receipt-dialog class="mt-4 inline-flex min-h-11 items-center justify-center rounded-full bg-emerald-700 px-5 py-3 text-sm font-black text-white transition hover:bg-emerald-800 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
+                        Buka konfirmasi penerimaan
+                    </button>
+                    <dialog id="receipt-confirmation-dialog" class="m-auto w-[calc(100%-2rem)] max-w-lg rounded-3xl border-0 bg-white p-0 shadow-2xl" aria-labelledby="receipt-confirmation-title" aria-describedby="receipt-confirmation-description">
+                        <div class="p-5 sm:p-8">
+                            <div class="flex items-start justify-between gap-4">
+                                <div class="min-w-0">
+                                    <p class="text-xs font-black uppercase tracking-widest text-emerald-700">{{ $order->fulfillment_method === 'delivery' ? 'Konfirmasi pengantaran' : 'Konfirmasi pengambilan' }}</p>
+                                    <h2 id="receipt-confirmation-title" class="mt-2 text-2xl font-black leading-tight text-[#2C1810]">Pesanan sudah diterima?</h2>
+                                </div>
+                                <form method="dialog" class="shrink-0">
+                                    <button type="submit" class="inline-flex min-h-10 items-center justify-center rounded-full border border-slate-200 px-4 text-sm font-bold text-slate-700 transition hover:bg-slate-100 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-slate-500">
+                                        Nanti
+                                    </button>
+                                </form>
+                            </div>
                             <p id="receipt-confirmation-description" class="mt-2 text-sm text-slate-600">Pilih “Ya” jika pesanan sudah kamu terima. Jika belum atau ada masalah, pilih menu komplain untuk menghubungi admin kedai.</p>
                             <form method="POST" action="{{ route('orders.confirm-received', $order->public_code) }}" class="mt-6">
                                 @csrf
-                                <button class="w-full rounded-full bg-emerald-700 px-5 py-3 font-black text-white">Ya, pesanan sudah diterima</button>
+                                <button type="submit" class="flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-emerald-700 px-5 py-3 text-center font-black text-white transition hover:bg-emerald-800 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-emerald-700">
+                                    <i class="ph ph-check-circle" aria-hidden="true"></i>
+                                    Ya, pesanan sudah diterima
+                                </button>
                             </form>
-                            <a href="{{ $orderIssueContactUrl }}" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex w-full justify-center rounded-full border border-rose-300 bg-rose-50 px-5 py-3 text-center font-bold text-rose-800 no-underline">
-                                Tidak, ada kendala — komplain / hubungi kedai
+                            <a href="{{ $orderIssueContactUrl }}" target="_blank" rel="noopener noreferrer" class="mt-3 flex min-h-12 w-full items-center justify-center rounded-full border border-rose-200 bg-rose-50 px-5 py-3 text-center font-bold leading-snug text-rose-800 no-underline transition hover:bg-rose-100 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-rose-700">
+                                Belum diterima atau ada kendala? Hubungi kedai
                             </a>
                         </div>
                     </dialog>
@@ -172,6 +222,13 @@
     if (!node) return;
     const receiptDialog = document.getElementById('receipt-confirmation-dialog');
     if (receiptDialog && typeof receiptDialog.showModal === 'function') receiptDialog.showModal();
+    document.querySelectorAll('[data-open-receipt-dialog]').forEach((button) => {
+        button.addEventListener('click', () => {
+            if (receiptDialog && !receiptDialog.open && typeof receiptDialog.showModal === 'function') {
+                receiptDialog.showModal();
+            }
+        });
+    });
     const endpoint = @json(route('orders.status', $order->public_code));
     const countdown = document.getElementById('payment-countdown');
     let countdownTimer;

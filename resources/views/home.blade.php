@@ -75,6 +75,26 @@
                         </span>
                         <span class="wn-action-arrow"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
                     </a>
+
+                    @if(auth('customer')->check())
+                        <a class="wn-action-link wn-action-muted" href="{{ route('merchant-applications.create') }}">
+                            <span class="wn-action-icon"><i class="ph-bold ph-storefront" aria-hidden="true"></i></span>
+                            <span class="wn-action-copy">
+                                <strong>AJUKAN USAHA</strong>
+                                <small>Daftarkan kafe atau roastery</small>
+                            </span>
+                            <span class="wn-action-arrow"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
+                        </a>
+                    @else
+                        <a class="wn-action-link wn-action-muted" href="{{ route('merchant-registration.create') }}">
+                            <span class="wn-action-icon"><i class="ph-bold ph-storefront" aria-hidden="true"></i></span>
+                            <span class="wn-action-copy">
+                                <strong>AJUKAN USAHA</strong>
+                                <small>Daftar sebagai Admin Kafe atau Admin Roastery</small>
+                            </span>
+                            <span class="wn-action-arrow"><i class="ph-bold ph-caret-right" aria-hidden="true"></i></span>
+                        </a>
+                    @endif
                 </nav>
 
                 @guest

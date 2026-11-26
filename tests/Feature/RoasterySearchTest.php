@@ -79,6 +79,20 @@ it('filters roasteries by city', function () {
         ->assertDontSee('Other Roastery');
 });
 
+it('only lists cities that have published roasteries', function () {
+    \Illuminate\Support\Facades\Cache::forget('roastery_cities_published_v1');
+
+    $publishedCity = City::factory()->create(['name' => 'Samarinda']);
+    $draftCity = City::factory()->create(['name' => 'Kota Simulasi UAT']);
+
+    Roastery::factory()->create(['city_id' => $publishedCity->id, 'status' => 'published']);
+    Roastery::factory()->create(['city_id' => $draftCity->id, 'status' => 'draft']);
+
+    Livewire::test(RoasterySearch::class)
+        ->assertSee('Samarinda')
+        ->assertDontSee('Kota Simulasi UAT');
+});
+
 // --- Letter Filter ---
 
 it('filters roasteries by first letter', function () {

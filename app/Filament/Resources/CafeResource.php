@@ -41,7 +41,7 @@ class CafeResource extends Resource
 
     public static function canCreate(): bool
     {
-        return in_array(UserRole::fromUserValue(AuthenticatedUser::get()?->role), [UserRole::Developer, UserRole::Admin], true);
+        return UserRole::fromUserValue(AuthenticatedUser::get()?->role) === UserRole::Developer;
     }
 
     public static function canDelete(Model $record): bool
@@ -283,6 +283,11 @@ class CafeResource extends Resource
                                     ->rows(3)
                                     ->placeholder('Contoh: Cantumkan kode pesanan pada berita transfer.')
                                     ->helperText('Ditampilkan sebagai catatan tambahan pada checkout. Jangan masukkan PIN atau kata sandi bank.')
+                                    ->columnSpanFull(),
+                                Forms\Components\Toggle::make('accepts_cash')
+                                    ->label('Terima pembayaran tunai (ambil sendiri)')
+                                    ->default(true)
+                                    ->helperText('Tunai hanya tersedia untuk pesanan yang diambil di kafe.')
                                     ->columnSpanFull(),
                             ])->columns(['default' => 1, 'md' => 2]),
 

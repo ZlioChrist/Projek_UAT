@@ -2,11 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Support\AuthenticatedUser;
 use App\Enums\UserRole;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
 use App\Services\OrderService;
+use App\Support\AuthenticatedUser;
+use App\Support\CurrencyFormatter;
 use Filament\Forms;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
@@ -96,7 +97,7 @@ class OrderResource extends Resource
                     ->description(fn (Order $record): string => $record->customer_whatsapp ?: 'Tanpa WhatsApp'),
                 Tables\Columns\TextColumn::make('total')
                     ->label('Total')
-                    ->money('IDR')
+                    ->formatStateUsing(fn (int|float|string $state): string => CurrencyFormatter::rupiah($state))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('payment_status')
                     ->label('Pembayaran')
